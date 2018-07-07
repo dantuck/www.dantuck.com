@@ -1,6 +1,6 @@
 [params]
 Description = "Internet weblog of Software Engineer, Daniel Tucker."
 RSSEnabled = true
-RSSMicropostTitles = true
+RSSMicropostTitles = false
 RSSSections = ["Posts", "Microposts", "Photos"]
 ShowCopyright = true
