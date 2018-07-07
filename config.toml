@@ -1,4 +1,4 @@
-baseUrl = "https://www.dantuck.com/"
+baseUrl = "//www.dantuck.com/"
 languageCode = "en-us"
 title = "internet weblog"
 theme = "internet-weblog"
