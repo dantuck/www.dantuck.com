@@ -1,45 +1,6 @@
-baseURL = "http://www.dantuck.com/"
-languageCode = "en-us"
-title = "internet weblog"
-theme = "internet-weblog"
-pygmentsstyle = "emacs"
-Paginate = 10
-SectionPagesMenu = "main"
-
-[author]
-	Handle = "dantuck"
-	FirstName = "Daniel"
-	LastName = "Tucker"
-	AboutPage = "/about"
-	Location = "Denver, CO"
-	#FlickrID = "87151163@N00"
-
 [params]
-	Description = "Internet weblog of Software Engineer, Daniel Tucker."
-	ShowCopyright = true
-	RSSEnabled = true
-	RSSSections = [ "Posts", "Microposts", "Photos" ]
-	RSSMicropostTitles = false
-
-[taxonomies]
-	tag = "tags"
-	category = "categories"
-	series = "series"
-
-[[menu.main]]
-	name = "Posts"
-	weight = 1
-	identifier = "posts"
-	url = "/posts/"
-
-[[menu.main]]
-	name = "Microposts"
-	weight = 2
-	identifier = "microposts"
-	url = "/microposts/"
-
-[[menu.main]]
-	name = "Photos"
-	weight = 3
-	identifier = "photos"
-url = "/photos/"
+Description = "Internet weblog of Software Engineer, Daniel Tucker."
+RSSEnabled = true
+RSSMicropostTitles = true
+RSSSections = ["Posts", "Microposts", "Photos"]
+ShowCopyright = true
