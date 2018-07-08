@@ -12,3 +12,8 @@ fields:
   name: date
   config:
     required: true
+- type: textarea
+  name: content
+  label: Content
+  config:
+    required: true
