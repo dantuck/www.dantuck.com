@@ -7,5 +7,10 @@ fields:
   name: title
   config:
     required: true
+- type: datetime
+  name: date
+  label: Date
+  config:
+    required: true
 pages:
 - content/microposts/some-post.md
