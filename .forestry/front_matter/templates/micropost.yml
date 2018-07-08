@@ -1,6 +1,11 @@
 ---
 hide_body: false
 is_partial: false
-fields: []
+fields:
+- type: datetime
+  label: Title
+  name: title
+  config:
+    required: true
 pages:
 - content/microposts/some-post.md
