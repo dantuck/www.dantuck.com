@@ -12,5 +12,3 @@ fields:
   label: Date
   config:
     required: true
-pages:
-- content/microposts/some-post.md
