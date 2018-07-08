@@ -18,7 +18,7 @@ SectionPagesMenu = "main"
     Description = "Internet weblog of Software Engineer, Daniel Tucker."
     RSSEnabled = true
     RSSMicropostTitles = false
-    RSSSections = ["Posts", "Microposts", "Photos"]
+    RSSSections = ["Posts", "Microposts"]
     ShowCopyright = true
 
 
@@ -39,8 +39,8 @@ SectionPagesMenu = "main"
 	identifier = "microposts"
 	url = "/microposts/"
 
-[[menu.main]]
-	name = "Photos"
-	weight = 3
-	identifier = "photos"
-	url = "/photos/"
+# [[menu.main]]
+# 	name = "Photos"
+# 	weight = 3
+# 	identifier = "photos"
+# 	url = "/photos/"
