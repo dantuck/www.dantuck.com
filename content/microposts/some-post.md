@@ -1,6 +1,6 @@
 +++
 date = "2018-07-08T09:05:31-06:00"
-draft = true
-title = "Some post"
+title = "2018-07-08T00:00:00-06:00"
 
 +++
+Some test
