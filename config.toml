@@ -1,6 +1,6 @@
 baseUrl = "//www.dantuck.com/"
 languageCode = "en-us"
-title = "internet weblog"
+title = "The thoughts and code of a random developer"
 theme = "internet-weblog"
 pygmentsstyle = "emacs"
 Paginate = 10
@@ -15,7 +15,7 @@ SectionPagesMenu = "main"
 	FlickrID = ""
 
 [params]
-    Description = "Internet weblog of Software Engineer, Daniel Tucker."
+    Description = "Thoughts of Software Engineer, Daniel Tucker."
     RSSEnabled = true
     RSSMicropostTitles = false
     RSSSections = ["Posts", "Microposts"]
