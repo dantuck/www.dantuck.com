@@ -1,6 +1,9 @@
 baseUrl = "//www.dantuck.com/"
 languageCode = "en-us"
-title = "The thoughts and code of a random developer"
+#title = "Beards, Bits and Booze"
+#title = "Beards, Bytes and Booze"
+#title = "Bytes of Knowledge"
+title = "Beards, Bytes and Brews"
 theme = "internet-weblog"
 pygmentsstyle = "emacs"
 Paginate = 10
@@ -20,7 +23,6 @@ SectionPagesMenu = "main"
     RSSMicropostTitles = false
     RSSSections = ["Posts", "Microposts"]
     ShowCopyright = true
-
 
 [taxonomies]
 	tag = "tags"
