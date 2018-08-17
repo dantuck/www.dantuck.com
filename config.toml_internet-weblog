@@ -1,0 +1,48 @@
+baseUrl = "//www.dantuck.com/"
+languageCode = "en-us"
+#title = "Beards, Bits and Booze"
+#title = "Beards, Bytes and Booze"
+#title = "Bytes of Knowledge"
+title = "Beards, Bytes and Brews"
+theme = "internet-weblog"
+pygmentsstyle = "emacs"
+Paginate = 10
+SectionPagesMenu = "main"
+
+[author]
+	Handle = "dantuck"
+	FirstName = "Daniel"
+	LastName = "Tucker"
+	AboutPage = "/about"
+	Location = "Conifer, CO"
+	FlickrID = ""
+
+[params]
+    Description = "Thoughts of Software Engineer, Daniel Tucker."
+    RSSEnabled = true
+    RSSMicropostTitles = false
+    RSSSections = ["Posts", "Microposts"]
+    ShowCopyright = true
+
+[taxonomies]
+	tag = "tags"
+	category = "categories"
+	series = "series"
+
+[[menu.main]]
+	name = "Posts"
+	weight = 1
+	identifier = "posts"
+	url = "/posts/"
+
+[[menu.main]]
+	name = "Microposts"
+	weight = 2
+	identifier = "microposts"
+	url = "/microposts/"
+
+# [[menu.main]]
+# 	name = "Photos"
+# 	weight = 3
+# 	identifier = "photos"
+# 	url = "/photos/"

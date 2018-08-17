@@ -1,48 +1,117 @@
-baseUrl = "//www.dantuck.com/"
-languageCode = "en-us"
-#title = "Beards, Bits and Booze"
-#title = "Beards, Bytes and Booze"
-#title = "Bytes of Knowledge"
 title = "Beards, Bytes and Brews"
-theme = "internet-weblog"
-pygmentsstyle = "emacs"
-Paginate = 10
-SectionPagesMenu = "main"
+baseURL = "https://www.dantuck.com"
+theme = "bilberry-hugo-theme"
 
-[author]
-	Handle = "dantuck"
-	FirstName = "Daniel"
-	LastName = "Tucker"
-	AboutPage = "/about"
-	Location = "Conifer, CO"
-	FlickrID = ""
+enableRobotsTXT = true
+
+# Change to one of your content languages definded at the end.
+DefaultContentLanguage = "en"
+
+# Enable / Disable Google Analytics statistics for your site
+googleAnalytics = ""
+
+# Enable / Disable comments on the articles via Disqus.
+disqusShortname = "bilberry-hugo-theme"
 
 [params]
-    Description = "Thoughts of Software Engineer, Daniel Tucker."
-    RSSEnabled = true
-    RSSMicropostTitles = false
-    RSSSections = ["Posts", "Microposts"]
-    ShowCopyright = true
+  # Favicon for the browser's favorites and tabs
+  favicon = "" # set a favicon icon
 
+  # Custom CSS / JS modules that will be imported by the template.
+  # Files are relative to the static/ directory or a URL.
+  # Files are imported in the order they appear here, after
+  # theme.css and theme.js, respectively.
+  css_modules = []
+  js_modules = []
+
+  # Description and meta data for the search engines
+  author = "dantuck"
+  description = "Beards, Bytes and Brews"
+  keywords = "blog,personal"
+
+  # How many articles should be displayed at once?
+  paginate = 7
+
+  # Enable / Disable MathJax
+  enable_mathjax    = false
+
+  # Enable / Disable algolia search
+  algolia_search    = true
+  algolia_appId     = "Y2C4RWMPXW"
+  algolia_apiKey    = "50ea7f8c41c0ad233926e0be2b769ed1"
+  algolia_indexName = "default-content"
+    # Set this option to false if you want to search within all articles in all languages at once
+    algolia_currentLanguageOnly = true
+
+  # Header configuration
+    # your subtitle if you want to use any
+    subtitle = "bytes of thought by Daniel Tucker"
+
+    # if you want to use gravatar for the header image
+    #gravatarEMail = "code@lednerb.de"
+
+    # set an path to the image file you want to use | overwrites gravatar
+    customImage = ""
+
+    # always display the top navigation (with pages and search) on non-mobile screens
+    permanentTopNav = false
+
+    # show a language chooser in the header
+    showHeaderLanguageChooser = false
+
+
+  # Footer configuration
+    showFooter = true
+
+    # How many articles should be displayed at latest posts in the footer?
+    # Set to -1 to hide the 'Latest Posts' column
+    amountLatestPostsInFooter = 7
+
+    # How many categories should be displayed in the footer section?
+    # Set to -1 to hide the 'Categories' column
+    amountCategoriesInFooter = 7
+
+    # show a language chooser in the header
+    showFooterLanguageChooser = false
+
+    # social media profile urls for the footer links
+    showSocialMedia = true
+
+    facebook   = ""
+    twitter    = "https://twitter.com/me_dantuck"
+    googleplus = ""
+    pinterest  = ""
+    instagram  = ""
+    tumblr     = ""
+    youtube    = ""
+    vimeo      = ""
+    github     = ""
+    gitlab     = "https://gitlab.com/dantuck"
+    xing       = ""
+    linkedin   = ""
+
+    # credits line configuration
+    copyrightBy = "by Daniel Tucker"
+    copyrightUseCurrentYear = true  # set to true to always display the current year in the copyright
+    #copyrightYearOverride = "2017"
+    copyrightUrl = "https://gitlab.com/dantuck"
+    creditsText = "powered by Hugo and Bilberry Hugo Theme"
+    creditsUrl = "https://github.com/Lednerb/bilberry-hugo-theme"
+
+
+# customize your available languages for your multi-langual site
+# or delete the [Languages] blog to use the theme with only one supported language
+[Languages]
+  [Languages.en]
+    weight = 1
+
+# don't change anything below
 [taxonomies]
-	tag = "tags"
-	category = "categories"
-	series = "series"
+  author   = "author"
+  tag      = "tags"
+  category = "categories"
 
-[[menu.main]]
-	name = "Posts"
-	weight = 1
-	identifier = "posts"
-	url = "/posts/"
+[outputs]
+  home = [ "HTML", "JSON", "RSS" ]
+  page = [ "HTML" ]
 
-[[menu.main]]
-	name = "Microposts"
-	weight = 2
-	identifier = "microposts"
-	url = "/microposts/"
-
-# [[menu.main]]
-# 	name = "Photos"
-# 	weight = 3
-# 	identifier = "photos"
-# 	url = "/photos/"

@@ -1,7 +1,11 @@
-+++
-date = "2018-07-04T12:27:20-06:00"
-title = "2018-07-04T12:27:20-06:00"
+---
+title: ""
+date: 2018-08-16T12:27:20-06:00
 
-+++
+#tags: ['Discord', 'Support', 'Say Thanks!']
+author: "dantuck"
+noSummary: true
+---
+
 I am finally getting around to relaunching dantuck.com. It has been a long time coming but finally here.
-Keep checking back to get updates or follow the [MicroPosts RSS](/microposts/index.xml) or [Posts RSS](/posts/index.xml) feeds.
+Keep checking back to get updates.
