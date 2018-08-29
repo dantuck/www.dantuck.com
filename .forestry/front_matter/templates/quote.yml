@@ -3,9 +3,9 @@ label: quote
 hide_body: false
 is_partial: false
 fields:
-- type: datetime
-  label: Title
+- type: text
   name: title
+  label: Title
   config:
     required: false
 - type: datetime
@@ -13,4 +13,3 @@ fields:
   label: Date
   config:
     required: true
-pages:
