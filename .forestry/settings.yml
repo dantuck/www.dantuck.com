@@ -4,12 +4,23 @@ auto_deploy: false
 admin_path: 
 webhook_url: 
 sections:
-- path: content
+- type: directory
+  path: ''
+  label: Quotes
+  create: all
+  match: "**/*"
+  templates:
+  - quote
+- type: directory
+  path: content
   label: Pages
   create: all
-- path: content/microposts
+  match: "*"
+- type: directory
+  path: content/microposts
   label: Microposts
   create: all
+  match: "**/*"
 upload_dir: static/uploads
 public_path: "/uploads"
 front_matter_path: ''
