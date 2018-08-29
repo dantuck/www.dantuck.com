@@ -6,11 +6,10 @@ fields:
   label: Title
   name: title
   config:
-    required: true
+    required: false
 - type: datetime
   name: date
   label: Date
   config:
     required: true
 pages:
-- content/microposts/dantuck-relaunch.md
