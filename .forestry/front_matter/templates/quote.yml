@@ -15,5 +15,6 @@ fields:
   label: Author
   name: author
 pages:
+- content/quote/fortunecookie-20180828.md
 - content/quote/cslewis-20180817.md
 - content/microposts/dantuck-relaunch.md
