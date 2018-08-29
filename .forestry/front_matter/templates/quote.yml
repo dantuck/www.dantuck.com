@@ -3,13 +3,15 @@ label: quote
 hide_body: false
 is_partial: false
 fields:
-- type: text
-  name: title
-  label: Title
-  config:
-    required: false
 - type: datetime
   name: date
   label: Date
   config:
     required: true
+- type: text
+  name: title
+  label: Title
+  config:
+    required: false
+pages:
+- content/microposts/dantuck-relaunch.md
