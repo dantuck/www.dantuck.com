@@ -8,6 +8,9 @@ fields:
   label: Date
   config:
     required: true
+- type: text
+  label: Author
+  name: author
 pages:
 - content/quote/test.md
 - content/quote/cslewis-20180817.md
