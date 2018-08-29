@@ -9,4 +9,6 @@ fields:
   config:
     required: true
 pages:
+- content/quote/test.md
 - content/quote/cslewis-20180817.md
+- content/microposts/dantuck-relaunch.md
