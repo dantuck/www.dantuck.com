@@ -1,4 +1,5 @@
 ---
+label: micropost
 hide_body: false
 is_partial: false
 fields:
@@ -12,5 +13,3 @@ fields:
   label: Date
   config:
     required: true
-pages:
-- content/microposts/dantuck-relaunch.md
