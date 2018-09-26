@@ -4,3 +4,8 @@ draft = true
 title = "Raspberry Pi NAS"
 
 +++
+## Setup a NAS Server on Raspberry Pi
+
+    sudo apt-get update
+
+    sudo apt-get install samba samba-common-bin
