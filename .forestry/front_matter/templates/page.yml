@@ -9,5 +9,6 @@ fields:
   config:
     required: true
 pages:
+- content/article/raspberry-pi-simple-nas.md
 - content/now.md
 - content/about.md
