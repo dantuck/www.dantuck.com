@@ -1,5 +1,6 @@
-title = "Beards, Bytes and Brews"
-baseURL = "https://www.dantuck.com"
+title = "My cool new Blog"
+# Add an trailing slash to ensure that all fonts render correctly.
+baseURL = "https://example.com/"
 theme = "dantuck-theme"
 
 enableRobotsTXT = true
@@ -11,7 +12,11 @@ DefaultContentLanguage = "en"
 googleAnalytics = ""
 
 # Enable / Disable comments on the articles via Disqus.
-disqusShortname = "dantuck"
+disqusShortname = "bilberry-hugo-theme"
+
+# Enable / Disable open link with a new tab.
+[blackfriday]
+  hrefTargetBlank = false
 
 [params]
   # Favicon for the browser's favorites and tabs
@@ -25,9 +30,9 @@ disqusShortname = "dantuck"
   js_modules = []
 
   # Description and meta data for the search engines
-  author = "dantuck"
-  description = "Beards, Bytes and Brews"
-  keywords = "blog,personal"
+  author = "Lednerb"
+  description = "Bilberry Premium Theme for Hugo."
+  keywords = "blog,personal,responsive,search,font awesome,pages,posts,multilingual,highlight.js,syntax highlighting,premium,shortcuts"
 
   # How many articles should be displayed at once?
   paginate = 7
@@ -43,22 +48,48 @@ disqusShortname = "dantuck"
     # Set this option to false if you want to search within all articles in all languages at once
     algolia_currentLanguageOnly = true
 
+  # Style configuration
+    # set the width of your site's content
+    siteWidth = "800px"
+
+    # let hugo automatically resize and crop your images to the correct sizes
+    resizeImages = true
+
   # Header configuration
     # your subtitle if you want to use any
-    subtitle = "bytes of thought by Daniel Tucker"
+    subtitle = "Hello World! This is the most epic subtitle ever."
 
     # if you want to use gravatar for the header image
-    #gravatarEMail = "code@lednerb.de"
+    gravatarEMail = "code@lednerb.de"
 
     # set an path to the image file you want to use | overwrites gravatar
     customImage = ""
+
+    # define the icon you want to use for the overlay for the customImage or gravatar.
+    overlayIcon = "fa-home"
 
     # always display the top navigation (with pages and search) on non-mobile screens
     permanentTopNav = false
 
     # show a language chooser in the header
-    showHeaderLanguageChooser = false
+    showHeaderLanguageChooser = true
 
+  # Content configuration
+    # Enable an optional pinned page to display at the top of the index
+    # pinnedPost = "/content/github/"
+    # Set to true to pin only to the first page, false to all pages
+    # pinOnlyToFirstPage = true
+
+    # enable automatical localization of the article's PublishedDate with momentjs
+    enableMomentJs = true
+
+    # customize the date format | only works if momentjs is disabled | only works with English month names
+    # you can customize it with the options you find here:
+    # https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
+    dateFormat = "2006-01-02"
+
+    # display the estimated reading time for an article
+    showReadingTime = false
 
   # Footer configuration
     showFooter = true
@@ -72,30 +103,29 @@ disqusShortname = "dantuck"
     amountCategoriesInFooter = 7
 
     # show a language chooser in the header
-    showFooterLanguageChooser = false
+    showFooterLanguageChooser = true
 
     # social media profile urls for the footer links
     showSocialMedia = true
 
     facebook   = ""
-    twitter    = "https://twitter.com/me_dantuck"
+    twitter    = "https://twitter.com/TheRealLednerb"
     googleplus = ""
     pinterest  = ""
     instagram  = ""
     tumblr     = ""
     youtube    = ""
     vimeo      = ""
-    github     = ""
-    gitlab     = "https://gitlab.com/dantuck"
+    github     = "https://github.com/Lednerb"
     xing       = ""
     linkedin   = ""
 
     # credits line configuration
-    copyrightBy = "by Daniel Tucker"
-    copyrightUseCurrentYear = true  # set to true to always display the current year in the copyright
-    #copyrightYearOverride = "2017"
-    copyrightUrl = "https://gitlab.com/dantuck"
-    creditsText = "powered by Hugo and Bilberry Hugo Theme"
+    copyrightBy = "by Lednerb"
+    copyrightUseCurrentYear = false  # set to true to always display the current year in the copyright
+    copyrightYearOverride = "2017"
+    copyrightUrl = "https://github.com/Lednerb"
+    creditsText = "Bilberry Hugo Theme"
     creditsUrl = "https://github.com/Lednerb/bilberry-hugo-theme"
 
 
@@ -104,6 +134,10 @@ disqusShortname = "dantuck"
 [Languages]
   [Languages.en]
     weight = 1
+  [Languages.de]
+    weight = 2
+    title = "Mein cooler neuer Blog"
+    subtitle = "Hallo Welt! Dies ist der epischste Untertitel aller Zeiten."
 
 # don't change anything below
 [taxonomies]

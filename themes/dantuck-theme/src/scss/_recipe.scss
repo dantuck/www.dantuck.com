@@ -1,0 +1,74 @@
+.recipe {
+    background-color: green;
+    // .recipe {
+        .recipe__body {    
+            padding: 20px;
+        }
+        
+        &__heading {
+        padding: 0;
+        margin: 0 0 0;
+        color: #444;
+        }
+        &__subhead {
+        font-size: 13px;
+        color: #555;
+        margin-bottom: 30px;
+        }
+        &__ingredients {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        margin-left: 10px;
+        column-count: 1;
+        li {
+            margin-bottom: 5px;
+        }
+        li:before {
+            content: '\2022';
+            color: #eb9376;
+            margin-right: 5px;
+        }
+        }
+        
+        &__nav {
+        margin: 0 0 20px;
+        padding: 0;
+        border-bottom: 1px solid #eb9376;
+        li {
+            display: inline-block;
+            margin-right: 30px
+        }
+        h3 {
+            margin: 0;
+            padding: 0;
+        }
+        h3:after {
+            content: '';
+            display: block;
+            width: 0%;
+            padding-top: 10px;
+            margin: 0 auto;
+            border-bottom: 5px solid #eb9376;
+            transition: width 250ms ease-in-out 0s;
+        }
+        h3:hover {
+            cursor: pointer;
+        }
+        h3:hover:after, h3.active:after {
+        width: 100%; 
+        }
+        }
+        
+        @media (min-width:599px) {
+        //   .recipe-card {
+        //     width: 600px
+        //   }
+        &__ingredients {
+            column-count: 2
+        }
+        }
+    // }
+}
+
+  
