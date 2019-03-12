@@ -1,7 +1,6 @@
 ---
 label: quote
 hide_body: false
-is_partial: false
 fields:
 - type: text
   label: Title
@@ -15,6 +14,7 @@ fields:
   label: Author
   name: author
 pages:
+- content/quote/Ellen-Ullman.md
 - content/quote/clear-your-mind.md
 - content/quote/thomasfuchs-20180906.md
 - content/quote/fortunecookie-20180828.md
