@@ -191,7 +191,7 @@ Note that on mobile devices the navigation will still be collapsed because other
 If you want to add [MathJAX](https://www.mathjax.org) markup support, set parameter `enable_mathjax` option to `true` in your site's config file.
 
 ## Custom 404 site
-If you want to customize your 404 site, copy the `themes/dantuck-theme/layouts/404.html` to your local `layouts/404.html` and edit the file.
+If you want to customize your 404 site, copy the `themes/bilberry-hugo-theme/layouts/404.html` to your local `layouts/404.html` and edit the file.
 
 You can quickly change the message and / or the icon class for example.
 Otherwise, you can replace the whole content with your 404 site markup.
@@ -201,7 +201,7 @@ If you want to add a custom post type to change the icon in the bubble on the le
 
 If you want to create a `book` post type, for example, you can do the following:
 
-1. Copy the default `themes/dantuck-theme/layouts/partials/content-type/article.html` to your site's `layouts/partials/content-type/` folder.
+1. Copy the default `themes/bilberry-hugo-theme/layouts/partials/content-type/article.html` to your site's `layouts/partials/content-type/` folder.
 2. Rename the file to your custom post type. A proper name in the _book scenario_ would be `book.html`
 3. Customize the file. <br> You can change the icon in the bubble with another [Font Awesome Icon](http://fontawesome.io/icons/). <br> In the _book scenario_ we would change the `fa-pencil` class to `fa-book`:
 `<i class="fa fa-fw fa-book"></i>`

@@ -1,6 +1,6 @@
 title = "Beards, Bytes and Brews"
 baseURL = "https://www.dantuck.com"
-theme = "dantuck-theme"
+theme = "bilberry-hugo-theme"
 
 enableRobotsTXT = true
 
