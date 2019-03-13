@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Beards, Bytes and Brews</title>
+    <link>https://www.dantuck.com/</link>
+    <description>Recent content on Beards, Bytes and Brews</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 11 Mar 2019 20:37:59 -0600</lastBuildDate>
+    
+        <atom:link href="https://www.dantuck.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>8700ft Red</title>
+      <link>https://www.dantuck.com/recipe/8700ft-salsa/</link>
+      <pubDate>Mon, 11 Mar 2019 20:37:59 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/recipe/8700ft-salsa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.dantuck.com/quote/ellen-ullman/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/quote/ellen-ullman/</guid>
+      <description>We build our computer (systems) the way we build our cities: over time, without a plan, on top of ruins.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Code - Selected Text to Uppercase</title>
+      <link>https://www.dantuck.com/article/visual-studio-code-selected-text-to-uppercase/</link>
+      <pubDate>Tue, 02 Oct 2018 12:58:50 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/article/visual-studio-code-selected-text-to-uppercase/</guid>
+      <description>In Visual Studio we are all used to being able to use CTRL+SHIFT+U to transform the selected text to uppercase but for Visual Studio Code this key binding was left out. As long as you are using Version 1.8.1 or above you will be able to take advantage of the built in keyboard shortcuts. Do the following to enable the keybindings.
+Note: Ubuntu users will need to use a modified binding; change to ctrl+alt+u and ctrl+alt+l.</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi: Fixing your Locale</title>
+      <link>https://www.dantuck.com/article/raspberry-pi-simple-nas/</link>
+      <pubDate>Wed, 26 Sep 2018 12:02:14 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/article/raspberry-pi-simple-nas/</guid>
+      <description> Fixing your Locale on Raspberry Pi After a fresh install of Raspbian you will likely see the following error:
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)  You can fix your locale with a few simple updates.
+ Edit /etc/locale.gen and uncomment the line with en_US.UTF-8 Run locale-gen en_US.UTF-8 Run update-locale en_US.UTF-8  </description>
+    </item>
+    
+    <item>
+      <title>thomasfuchs-20180906</title>
+      <link>https://www.dantuck.com/quote/thomasfuchs-20180906/</link>
+      <pubDate>Thu, 06 Sep 2018 07:09:21 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/quote/thomasfuchs-20180906/</guid>
+      <description>As a programmer, never underestimate your ability to come up with ridiculously complex solutions for simple problems.</description>
+    </item>
+    
+    <item>
+      <title>fortunecookie-20180828</title>
+      <link>https://www.dantuck.com/quote/fortunecookie-20180828/</link>
+      <pubDate>Tue, 28 Aug 2018 21:12:53 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/quote/fortunecookie-20180828/</guid>
+      <description>The difference between the impossible and the possible lies in a person&amp;rsquo;s determination.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.dantuck.com/quote/cslewis-20180817/</link>
+      <pubDate>Fri, 17 Aug 2018 14:40:32 +0600</pubDate>
+      
+      <guid>https://www.dantuck.com/quote/cslewis-20180817/</guid>
+      <description>No man knows how bad he is till he has tried very hard to be good.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://www.dantuck.com/microposts/dantuck-relaunch/</link>
+      <pubDate>Thu, 16 Aug 2018 12:27:20 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/microposts/dantuck-relaunch/</guid>
+      <description>I am finally getting around to relaunching dantuck.com. It has been a long time coming but finally here. Keep checking back to get updates.</description>
+    </item>
+    
+    <item>
+      <title>Duckduckgo.com</title>
+      <link>https://www.dantuck.com/link/duckduckgo/</link>
+      <pubDate>Thu, 16 Aug 2018 13:05:27 +0100</pubDate>
+      
+      <guid>https://www.dantuck.com/link/duckduckgo/</guid>
+      <description>A search engnine that respects your privacy.</description>
+    </item>
+    
+  </channel>
+</rss>
