@@ -6,7 +6,7 @@ webhook_url:
 sections:
 - type: directory
   path: content/recipe
-  label: Recipies
+  label: Recipes
   create: all
   match: "**/*"
 - type: directory
