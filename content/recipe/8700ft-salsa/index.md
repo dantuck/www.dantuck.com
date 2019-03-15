@@ -5,7 +5,7 @@ tags:
 - Salsa
 author: ''
 prepTime: 10 min
-cookTime: 10 min
+cookTime: ''
 ingredients:
 - 28 ounces whole peeled tomatoes
 - 4 ounces green chilies (fire roasted)
