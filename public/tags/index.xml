@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Beards, Bytes and Brews</title>
+    <link>https://www.dantuck.com/tags/</link>
+    <description>Recent content in Tags on Beards, Bytes and Brews</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 12 Mar 2019 02:37:59 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.dantuck.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Salsa</title>
+      <link>https://www.dantuck.com/tags/salsa/</link>
+      <pubDate>Tue, 12 Mar 2019 02:37:59 +0000</pubDate>
+      
+      <guid>https://www.dantuck.com/tags/salsa/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Search Engine</title>
+      <link>https://www.dantuck.com/tags/search-engine/</link>
+      <pubDate>Thu, 16 Aug 2018 13:05:27 +0100</pubDate>
+      
+      <guid>https://www.dantuck.com/tags/search-engine/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

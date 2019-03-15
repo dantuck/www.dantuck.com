@@ -33,9 +33,11 @@
             <span class="author"><a href="{{ (print "/author/" (. | urlize)) | relLangURL }}">{{ . }}</a></span>
         {{ end }}
     </div>
-
+    
     {{ if or (.Scratch.Get "singlePage") (.Params.noSummary) }}
-        {{ .Content }}
+        {{ with .Params.description }}
+            <p>{{ htmlUnescape . }}</p>
+        {{ end }}
         <div class="recipe__body">
             <h3 class="recipe__section">Ingredients</h3>
             <div>
@@ -47,10 +49,12 @@
                     </ul>
                 {{ end }}
             </div>
-            <h3 class="recipe__section">Methods</h3>
-            <p>
-                Blend it!
-            </p>
+            {{ with .Content }}
+                <h3 class="recipe__section">Methods</h3>
+                <p>
+                    {{ . }}
+                </p>
+            {{ end }}
         </div>
     {{ else }}
         {{ .Summary }}
