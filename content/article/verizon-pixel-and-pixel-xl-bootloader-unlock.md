@@ -17,6 +17,7 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
  6. Open a terminal in the `adb` directory and type:
 
         adb shell pm uninstall --user 0 com.android.phone
+
  7. Restart your device.
  8. Connect to WiFi, open a web browser, and go to any website.
  9. Go to "Developer Options" and enable OEM unlocking.
@@ -27,4 +28,5 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
     or
 
         fastboot flashing unlock
+
 11. Congrats, you are unlocked and can continue installing another OS.
