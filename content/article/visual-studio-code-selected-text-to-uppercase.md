@@ -4,13 +4,11 @@ draft = true
 title = "Verizon Pixel and Pixel XL Bootloader Unlock"
 
 +++
-In Visual Studio we are all used to being able to use CTRL+SHIFT+U to transform the selected text to uppercase but for Visual Studio Code this key binding was left out. As long as you are using _Version 1.8.1 or above_ you will be able to take advantage of the built in keyboard shortcuts. Do the following to enable the keybindings.
+As all Pixel owners should know by now there is a end of support scheduled for each phone they ship. I like many others have a perfectly functional Pixel device which will soon be vulnerable to security issues and without Google support I am left with little options. I am not one to need the latest and greatest so I have chosen to install [LineageOS](https://wiki.lineageos.org/devices/sailfish/install "LineageOS").
 
-_Note: Ubuntu users will need to use a modified binding; change to ctrl+alt+u and ctrl+alt+l._
+The greatest problem with Verizon is that they prevent you from toggling the "OEM unlocking" which would allow you to wipe the device then sideload a new OS. To get around this follow these steps and you will be golden.
 
-_File-> Preferences -> Keyboard Shortcuts_.
-
-An editor will appear with keybindings.json file. Place the following JSON in there and save.
+Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](https://www.droid-life.com/2018/05/28/verizon-pixel-xl-bootloader-unlock/).
 
  1. Remove Google account and any kind of screen lock from your device.
  2. Eject the Verizon sim card from your device. (You can use a slim paper clip)
@@ -28,4 +26,4 @@ An editor will appear with keybindings.json file. Place the following JSON in th
     `fastboot oem unlock`  
     or  
     `fastboot flashing unlock`
-11. Congrats you are unlocked and can continue installing another OS.
+11. Congrats, you are unlocked and can continue installing another OS.
