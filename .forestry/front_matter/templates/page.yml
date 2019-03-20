@@ -13,6 +13,7 @@ fields:
   config:
     required: true
 pages:
+- content/article/verizon-pixel-bootloader-unlock/verizon-pixel-and-pixel-xl-bootloader-unlock.md
 - content/article/visual-studio-code-selected-text-to-uppercase.md
 - content/article/visual-studio-code---selected-text-to-uppercase.md
 - content/article/backup.md
