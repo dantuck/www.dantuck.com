@@ -14,14 +14,15 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
  3. Reset your device. During setup skip everything. Don't connect to WiFi or setup any sort of security locking.
  4. Go to "Developer Options" and enable USB debugging.
  5. Connect your phone to your Computer which has `adb` installed.
- 6. Open a terminal in the `adb` directory and type:  
-    
+ 6. Open a terminal in the `adb` directory and type:
     `adb shell pm uninstall --user 0 com.android.phone`
  7. Restart your device.
  8. Connect to WiFi, open a web browser, and go to any website.
+	```
+    Test
+    ```
  9. Go to "Developer Options" and enable OEM unlocking.
-10. Reboot into bootloader via:  
-    
+10. Reboot into bootloader via:
     `fastboot oem unlock`  
     or  
     `fastboot flashing unlock`
