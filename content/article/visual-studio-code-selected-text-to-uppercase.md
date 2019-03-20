@@ -1,6 +1,5 @@
 +++
 date = "2018-10-02T12:58:50-06:00"
-draft = true
 title = "Verizon Pixel and Pixel XL Bootloader Unlock"
 
 +++
