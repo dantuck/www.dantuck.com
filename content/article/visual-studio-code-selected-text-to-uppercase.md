@@ -1,5 +1,5 @@
 +++
-date = "2019-03-20T12:58:50-06:00"
+date = "2019-03-20T10:58:50-06:00"
 title = "Verizon Pixel and Pixel XL Bootloader Unlock"
 
 +++
