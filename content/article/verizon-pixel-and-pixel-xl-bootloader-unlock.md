@@ -15,16 +15,16 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
  4. Go to "Developer Options" and enable USB debugging.
  5. Connect your phone to your Computer which has `adb` installed.
  6. Open a terminal in the `adb` directory and type:
-
-        adb shell pm uninstall --user 0 com.android.phone
+ 
+ `adb shell pm uninstall --user 0 com.android.phone`
+ 
  7. Restart your device.
  8. Connect to WiFi, open a web browser, and go to any website.
  9. Go to "Developer Options" and enable OEM unlocking.
 10. Reboot into bootloader via:
 
-        fastboot oem unlock
+`fastboot oem unlock`
+or
+`fastboot flashing unlock`
 
-    or
-
-        fastboot flashing unlock
 11. Congrats, you are unlocked and can continue installing another OS.
