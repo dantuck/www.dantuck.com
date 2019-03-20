@@ -13,9 +13,9 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
  2. Eject the Verizon sim card from your device. (You can use a slim paper clip)
  3. Reset your device. During setup skip everything. Don't connect to WiFi or setup any sort of security locking.
  4. Go to "Developer Options" and enable USB debugging.  
-    \`\`\`  
+    ```
     test  
-    \`\`\`
+    ```
  5. Connect your phone to your Computer which has `adb` installed.
  6. Open a terminal in the `adb` directory and type:
     `adb shell pm uninstall --user 0 com.android.phone`
