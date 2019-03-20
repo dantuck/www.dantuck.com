@@ -8,6 +8,7 @@ fields:
   config:
     required: true
 pages:
+- content/article/visual-studio-code-selected-text-to-uppercase.md
 - content/article/visual-studio-code---selected-text-to-uppercase.md
 - content/article/backup.md
 - content/article/raspberry-pi-nas.md
