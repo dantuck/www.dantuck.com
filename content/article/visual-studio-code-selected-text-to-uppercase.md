@@ -18,8 +18,6 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
     `adb shell pm uninstall --user 0 com.android.phone`
  7. Restart your device.
  8. Connect to WiFi, open a web browser, and go to any website.
-
-        Test
  9. Go to "Developer Options" and enable OEM unlocking.
 10. Reboot into bootloader via:
     `fastboot oem unlock`  
