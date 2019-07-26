@@ -1,8 +1,7 @@
 +++
-author = "Epictetus"
+author = "Swami Sivananda"
 date = "2019-03-20T00:00:00-06:00"
-draft = true
-title = "Epictetus 20190320"
+title = "Swami_Sivananda"
 
 +++
-It’s not what happens to you, but how you react to it that matters.
+Put your heart, mind, and soul into even your smallest acts. This is the secret of success.
