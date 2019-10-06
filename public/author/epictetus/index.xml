@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Epictetus on Beards, Bytes and Brews</title>
+    <link>https://www.dantuck.com/author/epictetus/</link>
+    <description>Recent content in Epictetus on Beards, Bytes and Brews</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 -0600</lastBuildDate>
+    
+	<atom:link href="https://www.dantuck.com/author/epictetus/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Epictetus 20190320</title>
+      <link>https://www.dantuck.com/quote/epictetus/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/quote/epictetus/</guid>
+      <description>It’s not what happens to you, but how you react to it that matters.</description>
+    </item>
+    
+  </channel>
+</rss>

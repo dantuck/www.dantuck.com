@@ -4,6 +4,7 @@ header {
     height: 20rem;
     display: flex;
     align-items: center;
+    border-top: 4px solid $orange;
 
     .container {
         display: flex;

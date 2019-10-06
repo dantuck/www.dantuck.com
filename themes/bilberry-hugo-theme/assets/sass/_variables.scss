@@ -13,14 +13,15 @@ $article-footer-font: 'Roboto Mono', monospace;
 
 // main colors
 $page-background-color: #f1f1f1;
-$base-color: #1d1f38;
-$special-color: #2D3642;
+$base-color: rgb(45,54,66);
+$special-color: rgba(45, 54, 66, 1);
 $highlight-color: #5c8b59;
 $text-color: #222;
+$orange: rgb(255,140,0);
 
 // easy styling
-$nav-background-color: $special-color;
-$nav-text-color: $page-background-color;
+$nav-background-color: $page-background-color;
+$nav-text-color: $base-color;
 $algolia-search-box-color: #444;
 $algolia-search-box-icon-color: #888;
 $algolia-search-box-background-color: #fafafa;

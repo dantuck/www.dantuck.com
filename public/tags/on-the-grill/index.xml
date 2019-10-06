@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>On the Grill on Beards, Bytes and Brews</title>
+    <link>https://www.dantuck.com/tags/on-the-grill/</link>
+    <description>Recent content in On the Grill on Beards, Bytes and Brews</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 05 Oct 2019 11:55:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.dantuck.com/tags/on-the-grill/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Carne Asada</title>
+      <link>https://www.dantuck.com/recipe/carne-asada/</link>
+      <pubDate>Sat, 05 Oct 2019 11:55:00 +0000</pubDate>
+      
+      <guid>https://www.dantuck.com/recipe/carne-asada/</guid>
+      <description>Marinate the steak: Whisk to combine the olive oil, soy sauce, lime juice, vinegar, black pepper, and cumin in a large, non-reactive bowl or baking dish. Stir in the minced garlic, jalapeño, and cilantro.
+Place the steak in a gallon size bag and then pour marinade over the steak. Give the bag a few shakes and message in the marinade for a moment. Refrigerate for 1-4 hours (if using flank steak marinate at least 3 hours).</description>
+    </item>
+    
+  </channel>
+</rss>
