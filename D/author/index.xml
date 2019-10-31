@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Author on Beards, Bytes and Brews</title>
+    <link>https://www.dantuck.com/author/</link>
+    <description>Recent content in Author on Beards, Bytes and Brews</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sat, 05 Oct 2019 11:55:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.dantuck.com/author/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Swami Sivananda</title>
+      <link>https://www.dantuck.com/author/swami-sivananda/</link>
+      <pubDate>Fri, 26 Jul 2019 00:00:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/author/swami-sivananda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Epictetus</title>
+      <link>https://www.dantuck.com/author/epictetus/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/author/epictetus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ellen Ullman</title>
+      <link>https://www.dantuck.com/author/ellen-ullman/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/author/ellen-ullman/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Thomas Fuchs</title>
+      <link>https://www.dantuck.com/author/thomas-fuchs/</link>
+      <pubDate>Thu, 06 Sep 2018 07:09:21 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/author/thomas-fuchs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fortune Cookie</title>
+      <link>https://www.dantuck.com/author/fortune-cookie/</link>
+      <pubDate>Tue, 28 Aug 2018 21:12:53 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/author/fortune-cookie/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>C. S. Lewis</title>
+      <link>https://www.dantuck.com/author/c.-s.-lewis/</link>
+      <pubDate>Fri, 17 Aug 2018 14:40:32 +0600</pubDate>
+      
+      <guid>https://www.dantuck.com/author/c.-s.-lewis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dantuck</title>
+      <link>https://www.dantuck.com/author/dantuck/</link>
+      <pubDate>Thu, 16 Aug 2018 12:27:20 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/author/dantuck/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

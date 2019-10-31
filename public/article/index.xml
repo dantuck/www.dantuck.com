@@ -5,10 +5,22 @@
     <link>https://www.dantuck.com/article/</link>
     <description>Recent content in Articles on Beards, Bytes and Brews</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 -0600</lastBuildDate>
+    <lastBuildDate>Thu, 31 Oct 2019 06:10:00 -0600</lastBuildDate>
     
 	<atom:link href="https://www.dantuck.com/article/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GnuPG and Pass</title>
+      <link>https://www.dantuck.com/article/gnupg-and-pass/</link>
+      <pubDate>Thu, 31 Oct 2019 06:10:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/article/gnupg-and-pass/</guid>
+      <description>I find myself constantly referring to different sources to setup my password manager; Pass. This reference is going to provide a source for reference that includes both.
+Installation References (Archlinux)
+ https://wiki.archlinux.org/index.php/Pass https://wiki.archlinux.org/index.php/GnuPG  GnuGP According to the official website:
+GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP). GnuPG allows you to encrypt and sign your data and communications; it features a versatile key management system, along with access modules for all kinds of public key directories.</description>
+    </item>
     
     <item>
       <title>Verizon Pixel and Pixel XL Bootloader Unlock</title>

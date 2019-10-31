@@ -1,0 +1,432 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="author" content="dantuck">
+        <meta name="description" content="Beards, Bytes and Brews">
+        <meta name="keywords" content="blog,personal">
+        <meta name="generator" content="Hugo 0.59.0" />
+        <title> GnuPG and Pass | Beards, Bytes and Brews</title>
+        <meta name="description" content="GnuPG and Pass - Beards, Bytes and Brews">
+        <meta itemprop="name" content="GnuPG and Pass">
+        <meta itemprop="description" content="GnuPG and Pass - Beards, Bytes and Brews">
+        <meta property="og:title" content="GnuPG and Pass">
+        <meta property="og:description" content="GnuPG and Pass - Beards, Bytes and Brews">
+        <meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200">
+        <meta property="og:url" content="https://www.dantuck.com/article/gnupg-and-pass/">
+        <meta property="og:site_name" content="Beards, Bytes and Brews">
+        <meta property="og:type" content="article">
+        <link rel="apple-touch-icon" sizes="180x180" href="https://www.dantuck.com/apple-touch-icon.png">
+        <link rel="manifest" href="https://www.dantuck.com/manifest.json">
+        <link rel="icon" type="image/png" href="https://www.dantuck.com/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="https://www.dantuck.com/favicon-16x16.png" sizes="16x16">
+
+	
+
+        
+        
+        
+        
+        <link rel="stylesheet" href="/sass/combined.min.2223307cea9b1ae41bdbe5e52ec836b300acec028c62a7c7d80851021f0ec07a.css">
+
+        
+
+        
+            
+        
+    </head>
+    <body class="bilberry-hugo-theme">
+        
+<nav>
+
+    <div class="container">
+        <ul class="topnav">
+            
+                
+                    <li><a href="/about/">About</a></li>
+                
+            
+                
+                    <li><a href="/now/">Now</a></li>
+                
+            
+        </ul>
+
+        
+            <div id="search-box" class="search">
+                <i class="fa fa-search"></i>
+                <input id="search" type="text" placeholder="Search ...">
+            </div>
+        
+    </div>
+</nav>
+
+
+        <header>
+    <div class="container">
+        <div class="logo">
+            <a href="/" class="logo">
+                
+                    <img src="/daniel-headshot.jpg" alt="">
+                
+
+                <span class="overlay"><i class="fa fa-home"></i></span>
+            </a>
+        </div>
+        <div class="titles">
+            <h3 class="title"><a href="/">Beards, Bytes and Brews</a></h3>
+            
+                <span class="subtitle">bytes of thought by Daniel Tucker</span>
+            
+        </div>
+
+    
+
+        
+        <div class="toggler">
+        
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </div>
+    </div>
+</header>
+
+
+        <div class="main container">
+            
+     
+    <div class="article-wrapper u-cf single">
+        
+            <a class="bubble" href="/article/gnupg-and-pass/">
+    <i class="fa fa-fw fa-pencil"></i>
+</a>
+
+<article class="default article">
+    
+
+    <div class="content">
+    <h3><a href="/article/gnupg-and-pass/">GnuPG and Pass</a></h3>
+    <div class="meta">
+        
+            
+                <span class="date moment">2019-10-31</span>
+            
+        
+
+        
+
+        
+
+        
+    </div>
+
+    
+        
+
+<p>I find myself constantly referring to different sources to setup my password manager; <a href="https://www.passwordstore.org/" title="www.passwordstore.org">Pass</a>. This reference is going to provide a source for reference that includes both.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>References (Archlinux)</p>
+
+<ul>
+<li><a href="https://wiki.archlinux.org/index.php/Pass">https://wiki.archlinux.org/index.php/Pass</a></li>
+<li><a href="https://wiki.archlinux.org/index.php/GnuPG">https://wiki.archlinux.org/index.php/GnuPG</a></li>
+</ul>
+
+<h4 id="gnugp">GnuGP</h4>
+
+<p>According to the <a href="https://www.gnupg.org/" title="GnuGP">official website</a>:</p>
+
+<p>GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP). GnuPG allows you to encrypt and sign your data and communications; it features a versatile key management system, along with access modules for all kinds of public key directories. GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications. A wealth of frontend applications and libraries are available. GnuPG also provides support for S/MIME and Secure Shell (ssh).</p>
+
+<p><a href="https://wiki.archlinux.org/index.php/Install" title="Install">Install</a> the <a href="https://www.archlinux.org/packages/?name=gnupg" title="gnupg">gnugp</a> package.</p>
+
+<pre><code>$ sudo pacman -S gnugp
+</code></pre>
+
+<p>Configurations and the gnugp store will be saved at <code>~/.gnupg</code>.</p>
+
+<p>The configurations are stored in the following files: <code>~/.gnupg/gpg.conf</code> and <code>~/.gnupg/dirmngr.conf</code>.</p>
+
+<p><strong>Create a key pair</strong></p>
+
+<pre><code>$ gpg --full-gen-key
+</code></pre>
+
+<p><strong>Restore a key pair</strong></p>
+
+<p>In my case I have three devices and instead of each device having it&rsquo;s own key pair I share the key pair between all the devices. When a new devices is used or a device is reset I sync the keys to the device and restore the key pair.</p>
+
+<p><em>Export private key</em></p>
+
+<pre><code>$ gpg --export-secret-keys --armor &lt;user-id&gt; &gt; privkey.asc
+</code></pre>
+
+<p><em>Import private key</em></p>
+
+<pre><code>$ gpg --import privkey.asc
+</code></pre>
+
+<p><strong><strong><em>Important!: This method is entirely done in full trust and there are better ways</em></strong></strong></p>
+
+<h4 id="pass">Pass</h4>
+
+<p><a href="https://wiki.archlinux.org/index.php/Install" title="Install">Install</a> the <a href="https://www.archlinux.org/packages/?name=pass" title="pass">pass</a> package.</p>
+
+<pre><code>$ sudo pacman -S pass
+</code></pre>
+
+<p>To initialize the password store:</p>
+
+<pre><code>$ pass init &lt;gpg-id or email&gt;
+</code></pre>
+
+<p>After local initialization the password store needs to be initialized as a git repository and synced with it&rsquo;s origin.</p>
+
+<pre><code>$ pass git init
+$ pass git remote add origin { insert git origin }
+</code></pre>
+
+<p>There is not a particular scheme for organization of the structure or content of data but I follow what the author uses and suggests:</p>
+
+<pre><code>THE_COMPLICATED_PASSWORD
+URL: *.url.com/*
+Username: username_or_email
+Secret Question 1: Some really good question
+Secret Answer 1: The answer to the question
+Phone Support PIN #: Pin
+</code></pre>
+
+<p>One last change I add to my <code>~/.profile</code> is the <code>EDITOR</code> I prefer to use:</p>
+
+<pre><code>echo &quot;export EDITOR=vim&quot; &gt;&gt;~/.profile
+</code></pre>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<p>This is a living document so it will change over time with added details. I will include a changelog at the bottom of this post so you know what has been going on. Thank you for reading!</p>
+
+<h4 id="changelog">Changelog</h4>
+
+<p>No changes yet.</p>
+
+    
+</div>
+
+    
+<div class="footer no-tags">
+
+
+    
+
+    
+</div>
+
+</article>
+
+        
+    </div>
+
+    
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "dantuck" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+     
+
+        </div>
+
+        
+<footer>
+    <div class="container">
+
+        
+        <div class="recent-posts">
+            <strong>Latest posts</strong>
+                <ul>
+                
+                    <li>
+                        <a href="/article/gnupg-and-pass/">GnuPG and Pass</a>
+                    </li>
+                
+                    <li>
+                        <a href="/recipe/carne-asada/">Carne Asada</a>
+                    </li>
+                
+                    <li>
+                        <a href="/quote/epictetus-20190320/">Swami_Sivananda</a>
+                    </li>
+                
+                    <li>
+                        <a href="/article/verizon-pixel-and-pixel-xl-bootloader-unlock/">Verizon Pixel and Pixel XL Bootloader Unlock</a>
+                    </li>
+                
+                    <li>
+                        <a href="/quote/epictetus/">Epictetus 20190320</a>
+                    </li>
+                
+                    <li>
+                        <a href="/recipe/above-8700ft-salsa/">Above 8700ft Red</a>
+                    </li>
+                
+                    <li>
+                        <a href="/quote/ellen-ullman/"></a>
+                    </li>
+                
+                </ul>
+        </div>
+        
+
+        
+        <div class="categories">
+            <a href="/categories/"><strong>Categories</strong></a>
+                <ul>
+                
+                    <li>
+                        <a href="/categories/privacy">Privacy (1)</a>
+                    </li>
+                
+            </ul>
+        </div>
+        
+
+        <div class="right">
+            
+            <div class="external-profiles">
+                <strong>Social media</strong>
+
+                
+                
+                    <a href="https://twitter.com/me_dantuck" target="_blank"><i class="fa fa-twitter-adblock-proof"></i></a>
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            </div>
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+
+<div class="credits">
+    <div class="container">
+        <div class="copyright">
+            <a href="https://gitlab.com/dantuck" target="_blank">
+                &copy;
+                
+                    2019
+                
+                by Daniel Tucker
+            </a>
+	    
+        </div>
+        <div class="author">
+            <a href="https://github.com/Lednerb/bilberry-hugo-theme" target="_blank">powered by Hugo and Bilberry Hugo Theme</a>
+        </div>
+    </div>
+</div>
+
+
+        
+
+        
+
+        
+        
+        <script type="text/javascript" src="/js/externalDependencies.39c47e10e241eae2947b3fe21809c572.js" integrity="md5-OcR&#43;EOJB6uKUez/iGAnFcg=="></script>
+
+        
+        
+        <script type="text/javascript" src="/js/theme.ff50ae6dc1bfc220b23bf69dbb41b54e.js" integrity="md5-/1CubcG/wiCyO/adu0G1Tg=="></script>
+
+        <script>
+            $(".moment").each(function() {
+                $(this).text(
+                    moment( $(this).text() )
+                        .locale( "en" )
+                        .format('LL')
+                );
+            });
+
+            $(".footnote-return sup").html("");
+        </script>
+
+        
+            
+        
+
+        
+            <script>
+    var client = algoliasearch("Y2C4RWMPXW", "50ea7f8c41c0ad233926e0be2b769ed1");
+    var index = client.initIndex("default-content");
+
+    $('#search').autocomplete({ hint: false, autoselect: true, debug: false },
+      [
+        {
+          
+            source: $.fn.autocomplete.sources.hits(index, { hitsPerPage: 5, filters: 'language: en' }),
+          
+          displayKey: function(suggestion) {
+            return suggestion.title || suggestion.author
+          },
+          templates: {
+            suggestion: function(suggestion) {
+                return "<span class='entry " + suggestion.type + "'>"
+                      + "<span class='title'>" + suggestion.title + "</span>"
+                      + "<span class='fa fa-fw " + suggestion.iconClass + "'></span>"
+                  + "</span>"
+                ;
+            },
+            empty: function() {
+              return "<span class='empty'>Nothing found.</span>"
+            },
+            footer: function() {
+              return '<div class="branding">Powered by <img src="https:\/\/www.dantuck.com\/dist\/algolia-logo-light.svg" /></div>'
+            }
+
+          },
+        }
+      ])
+      .on('autocomplete:selected', function(event, suggestion, dataset) {
+        window.location = (suggestion.url);
+      })
+      .keypress(function (event, suggestion) {
+        if (event.which == 13) {
+          window.location = (suggestion.url);
+        }
+      });
+</script>
+
+        
+
+
+    </body>
+</html>

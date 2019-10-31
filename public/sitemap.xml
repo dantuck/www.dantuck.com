@@ -3,12 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.dantuck.com/author/</loc>
-    <lastmod>2019-10-05T11:55:00+00:00</lastmod>
+    <loc>https://www.dantuck.com/article/</loc>
+    <lastmod>2019-10-31T06:10:00-06:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.dantuck.com/</loc>
+    <lastmod>2019-10-31T06:10:00-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dantuck.com/article/gnupg-and-pass/</loc>
+    <lastmod>2019-10-31T06:10:00-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.dantuck.com/author/</loc>
     <lastmod>2019-10-05T11:55:00+00:00</lastmod>
   </url>
   
@@ -50,11 +60,6 @@
   <url>
     <loc>https://www.dantuck.com/quote/epictetus-20190320/</loc>
     <lastmod>2019-07-26T00:00:00-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.dantuck.com/article/</loc>
-    <lastmod>2019-03-20T00:00:00-06:00</lastmod>
   </url>
   
   <url>

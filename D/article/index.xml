@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Articles on Beards, Bytes and Brews</title>
+    <link>https://www.dantuck.com/article/</link>
+    <description>Recent content in Articles on Beards, Bytes and Brews</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 -0600</lastBuildDate>
+    
+	<atom:link href="https://www.dantuck.com/article/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Verizon Pixel and Pixel XL Bootloader Unlock</title>
+      <link>https://www.dantuck.com/article/verizon-pixel-and-pixel-xl-bootloader-unlock/</link>
+      <pubDate>Wed, 20 Mar 2019 00:00:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/article/verizon-pixel-and-pixel-xl-bootloader-unlock/</guid>
+      <description>As all Pixel owners should know by now there is a end of support scheduled for each phone they ship. I like many others have a perfectly functional Pixel device which will soon be vulnerable to security issues and without Google support I am left with little options. I am not one to need the latest and greatest so I have chosen to install LineageOS.
+The greatest problem with Verizon is that they prevent you from toggling the &amp;ldquo;OEM unlocking&amp;rdquo; which would allow you to wipe the device then sideload a new OS.</description>
+    </item>
+    
+    <item>
+      <title>Visual Studio Code - Selected Text to Uppercase</title>
+      <link>https://www.dantuck.com/article/visual-studio-code-selected-text-to-uppercase/</link>
+      <pubDate>Tue, 02 Oct 2018 12:58:50 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/article/visual-studio-code-selected-text-to-uppercase/</guid>
+      <description>In Visual Studio we are all used to being able to use CTRL+SHIFT+U to transform the selected text to uppercase but for Visual Studio Code this key binding was left out. As long as you are using Version 1.8.1 or above you will be able to take advantage of the built in keyboard shortcuts. Do the following to enable the keybindings.
+Note: Ubuntu users will need to use a modified binding; change to ctrl+alt+u and ctrl+alt+l.</description>
+    </item>
+    
+    <item>
+      <title>Raspberry Pi: Fixing your Locale</title>
+      <link>https://www.dantuck.com/article/raspberry-pi-simple-nas/</link>
+      <pubDate>Wed, 26 Sep 2018 12:02:14 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/article/raspberry-pi-simple-nas/</guid>
+      <description> Fixing your Locale on Raspberry Pi After a fresh install of Raspbian you will likely see the following error:
+bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)  You can fix your locale with a few simple updates.
+ Edit /etc/locale.gen and uncomment the line with en_US.UTF-8 Run locale-gen en_US.UTF-8 Run update-locale en_US.UTF-8  </description>
+    </item>
+    
+  </channel>
+</rss>
