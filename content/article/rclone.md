@@ -1,8 +1,8 @@
 +++
-date = "2019-11-01T06:55:00-06:00"
+date = 2019-11-01T13:00:00Z
 title = "Rclone - rsync for cloud storage"
-+++
 
++++
 Rclone is a really cool command line tool that can sync files and directories too and from many sources. A full list of sources can be found on their [official website](https://rclone.org/ "Rclone").
 
 I personally use it for syncing local backups to [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html "Backblaze B2").
