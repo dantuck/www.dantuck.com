@@ -5,10 +5,23 @@
     <link>https://www.dantuck.com/article/</link>
     <description>Recent content in Articles on Beards, Bytes and Brews</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Thu, 31 Oct 2019 06:10:00 -0600</lastBuildDate>
+    <lastBuildDate>Fri, 01 Nov 2019 06:55:00 -0600</lastBuildDate>
     
 	<atom:link href="https://www.dantuck.com/article/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Rclone - rsync for cloud storage</title>
+      <link>https://www.dantuck.com/article/rclone/</link>
+      <pubDate>Fri, 01 Nov 2019 06:55:00 -0600</pubDate>
+      
+      <guid>https://www.dantuck.com/article/rclone/</guid>
+      <description>Rclone is a really cool command line tool that can sync files and directories too and from many sources. A full list of sources can be found on their official website.
+I personally use it for syncing local backups to Backblaze B2.
+Installation There are a few ways to install but I prefer the script install:
+To install rclone on Linux/macOS/BSD systems, run:
+$ curl https://rclone.org/install.sh | sudo bash  Configuration The easiest way to configure and get up and running is by:</description>
+    </item>
     
     <item>
       <title>GnuPG and Pass</title>

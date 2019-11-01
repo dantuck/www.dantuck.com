@@ -7,14 +7,14 @@
         <meta name="description" content="Beards, Bytes and Brews">
         <meta name="keywords" content="blog,personal">
         <meta name="generator" content="Hugo 0.59.0" />
-        <title> Raspberry Pi: Fixing your Locale | Beards, Bytes and Brews</title>
-        <meta name="description" content="Raspberry Pi: Fixing your Locale - Beards, Bytes and Brews">
-        <meta itemprop="name" content="Raspberry Pi: Fixing your Locale">
-        <meta itemprop="description" content="Raspberry Pi: Fixing your Locale - Beards, Bytes and Brews">
-        <meta property="og:title" content="Raspberry Pi: Fixing your Locale">
-        <meta property="og:description" content="Raspberry Pi: Fixing your Locale - Beards, Bytes and Brews">
+        <title> Rclone - rsync for cloud storage | Beards, Bytes and Brews</title>
+        <meta name="description" content="Rclone - rsync for cloud storage - Beards, Bytes and Brews">
+        <meta itemprop="name" content="Rclone - rsync for cloud storage">
+        <meta itemprop="description" content="Rclone - rsync for cloud storage - Beards, Bytes and Brews">
+        <meta property="og:title" content="Rclone - rsync for cloud storage">
+        <meta property="og:description" content="Rclone - rsync for cloud storage - Beards, Bytes and Brews">
         <meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200">
-        <meta property="og:url" content="https://www.dantuck.com/article/raspberry-pi-simple-nas/">
+        <meta property="og:url" content="https://www.dantuck.com/article/rclone/">
         <meta property="og:site_name" content="Beards, Bytes and Brews">
         <meta property="og:type" content="article">
         <link rel="apple-touch-icon" sizes="180x180" href="https://www.dantuck.com/apple-touch-icon.png">
@@ -97,7 +97,7 @@
      
     <div class="article-wrapper u-cf single">
         
-            <a class="bubble" href="/article/raspberry-pi-simple-nas/">
+            <a class="bubble" href="/article/rclone/">
     <i class="fa fa-fw fa-pencil"></i>
 </a>
 
@@ -105,11 +105,11 @@
     
 
     <div class="content">
-    <h3><a href="/article/raspberry-pi-simple-nas/">Raspberry Pi: Fixing your Locale</a></h3>
+    <h3><a href="/article/rclone/">Rclone - rsync for cloud storage</a></h3>
     <div class="meta">
         
             
-                <span class="date moment">2018-09-26</span>
+                <span class="date moment">2019-11-01</span>
             
         
 
@@ -123,20 +123,88 @@
     
         
 
-<h1 id="fixing-your-locale-on-raspberry-pi">Fixing your Locale on Raspberry Pi</h1>
+<p>Rclone is a really cool command line tool that can sync files and directories too and from many sources. A full list of sources can be found on their <a href="https://rclone.org/" title="Rclone">official website</a>.</p>
 
-<p>After a fresh install of Raspbian you will likely see the following error:</p>
+<p>I personally use it for syncing local backups to <a href="https://www.backblaze.com/b2/cloud-storage.html" title="Backblaze B2">Backblaze B2</a>.</p>
 
-<pre><code>bash: warning: setlocale: LC_ALL: cannot change locale (en_US.UTF-8)
+<h3 id="installation">Installation</h3>
+
+<p>There are a few ways to <a href="https://rclone.org/install/" title="install">install</a> but I prefer the script install:</p>
+
+<p>To install rclone on Linux/macOS/BSD systems, run:</p>
+
+<pre><code>$ curl https://rclone.org/install.sh | sudo bash
 </code></pre>
 
-<p>You can fix your locale with a few simple updates.</p>
+<h3 id="configuration">Configuration</h3>
 
-<ol>
-<li>Edit <code>/etc/locale.gen</code> and uncomment the line with <code>en_US.UTF-8</code></li>
-<li>Run <code>locale-gen en_US.UTF-8</code></li>
-<li>Run <code>update-locale en_US.UTF-8</code></li>
-</ol>
+<p>The easiest way to configure and get up and running is by:</p>
+
+<pre><code>$ rclone config
+</code></pre>
+
+<p>And for my case I follow the <a href="https://rclone.org/b2/" title="Backblaze B2 steps">Backblaze B2</a> steps:</p>
+
+<p><em>(Steps extracted from Restic&rsquo;s site)</em></p>
+
+<pre><code>No remotes found - make a new one
+n) New remote
+q) Quit config
+n/q&gt; n
+name&gt; remote
+Type of storage to configure.
+Choose a number from below, or type in your own value
+[snip]
+XX / Backblaze B2
+\ &quot;b2&quot;
+[snip]
+Storage&gt; b2
+Account ID or Application Key ID
+account&gt; 123456789abc
+Application Key
+key&gt; 0123456789abcdef0123456789abcdef0123456789
+Endpoint for the service - leave blank normally.
+endpoint&gt;
+Remote config
+--------------------
+[remote]
+account = 123456789abc
+key = 0123456789abcdef0123456789abcdef0123456789
+endpoint =
+--------------------
+y) Yes this is OK
+e) Edit this remote
+d) Delete this remote
+y/e/d&gt; y
+</code></pre>
+
+<p>This remote is called <code>remote</code> and can now be used like this</p>
+
+<p>See all buckets</p>
+
+<pre><code>$ rclone lsd remote:
+</code></pre>
+
+<p>Create a new bucket</p>
+
+<pre><code>$ rclone mkdir remote:bucket
+</code></pre>
+
+<p>List the contents of a bucket</p>
+
+<pre><code>$ rclone ls remote:bucket
+</code></pre>
+
+<p>Sync /home/local/directory to the remote bucket, deleting any excess files in the bucket.</p>
+
+<pre><code>$ rclone sync /home/local/directory remote:bucket
+</code></pre>
+
+<h3 id="disclosures">Disclosures</h3>
+
+<p>Anything you sync without encryption has the potential of being publicly available and read in clear text. I recommend using encryption on any data that is synced to a publicly accessible storage.</p>
+
+<p>Additionally, when using B2 storage please understand their access rules so that you can keep the repository private.</p>
 
     
 </div>
