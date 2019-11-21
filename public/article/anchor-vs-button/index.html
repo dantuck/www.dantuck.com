@@ -7,23 +7,21 @@
         <meta name="description" content="Beards, Bytes and Brews">
         <meta name="keywords" content="blog,personal">
         <meta name="generator" content="Hugo 0.59.1" />
-        <title> Links | Beards, Bytes and Brews</title>
-        <meta name="description" content="Links - Beards, Bytes and Brews">
-        <meta itemprop="name" content="Links">
-        <meta itemprop="description" content="Links - Beards, Bytes and Brews">
-        <meta property="og:title" content="Links">
-        <meta property="og:description" content="Links - Beards, Bytes and Brews">
+        <title> Anchors vs. Buttons | Beards, Bytes and Brews</title>
+        <meta name="description" content="Anchors vs. Buttons - Beards, Bytes and Brews">
+        <meta itemprop="name" content="Anchors vs. Buttons">
+        <meta itemprop="description" content="Anchors vs. Buttons - Beards, Bytes and Brews">
+        <meta property="og:title" content="Anchors vs. Buttons">
+        <meta property="og:description" content="Anchors vs. Buttons - Beards, Bytes and Brews">
         <meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200">
-        <meta property="og:url" content="https://www.dantuck.com/link/">
-        <meta property="og:site_name" content="Beards, Bytes and Brews"><meta property="og:type" content="website">
+        <meta property="og:url" content="https://www.dantuck.com/article/anchor-vs-button/">
+        <meta property="og:site_name" content="Beards, Bytes and Brews">
+        <meta property="og:type" content="article">
         <link rel="apple-touch-icon" sizes="180x180" href="https://www.dantuck.com/apple-touch-icon.png">
         <link rel="manifest" href="https://www.dantuck.com/manifest.json">
         <link rel="icon" type="image/png" href="https://www.dantuck.com/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="https://www.dantuck.com/favicon-16x16.png" sizes="16x16">
 
-	
-	  <link href="https://www.dantuck.com/link/index.xml" rel="alternate" type="application/rss+xml" title="Beards, Bytes and Brews" />
-	  <link href="https://www.dantuck.com/link/index.xml" rel="feed" type="application/rss+xml" title="Beards, Bytes and Brews" />
 	
 
         
@@ -96,35 +94,130 @@
 
         <div class="main container">
             
-    
-    
-        <div class="article-wrapper u-cf">
-            
-                <a class="bubble" href="https://duckduckgo.com" target="_blank">
-    <i class="fa fa-fw fa-link"></i>
+     
+    <div class="article-wrapper u-cf single">
+        
+            <a class="bubble" href="/article/anchor-vs-button/">
+    <i class="fa fa-fw fa-pencil"></i>
 </a>
 
-<article class="link">
+<article class="default article">
     
-    <a href="https://duckduckgo.com" target="_blank">
-        <h4>Duckduckgo.com</h4>
-        <p>A search engnine that respects your privacy.</p>
 
-    </a>
-</article>
-
+    <div class="content">
+    <h3><a href="/article/anchor-vs-button/">Anchors vs. Buttons</a></h3>
+    <div class="meta">
+        
             
-        </div>
-    
+                <span class="date moment">2019-11-20</span>
+            
+        
 
-    
-    <div class="paginator">
+        
+
         
 
         
     </div>
 
+    
+        <!-- https://bitsofco.de/anchors-vs-buttons/ -->
 
+<p>I have recently been drawn to understand the difference between <button> and <a>. When and why to use each
+can spur up discussions and opinion that are sometimes borderline unfounded and don&rsquo;t have a backing
+of fact.</p>
+
+<p>How are they different?</p>
+
+<p>The <a> and <button> elements can look exactly the same
+through styling. But, if you look at them semantically
+they have different purposes.</p>
+
+<p>An Anchor element, <a>, is by definition a hyperlink.
+Because it is a link it has the css pseudo-classes :link and
+:visited available to it; along with others such as :hover,
+:active and :focus.</p>
+
+<p>In addition to styling action, the action performed when clicking
+or pressing the enter key has an expected outcome of navigating
+away to another page or section on that page.</p>
+
+<p>A Button element, <button>, does nothing. What I mean here is
+it has no default behavior. Clicking, pressing enter or space
+will render no action unless embedded in a form that has an action
+or assigning JavaScript to the button such as onclick.</p>
+
+<p>So what is the problem?</p>
+
+<p>First lets start with a button. As you remember the button
+has no default behavior so it relys on JavaScript to
+perform some action. Because of this reliance a user requires
+JavaScript to be enabled.</p>
+
+<p>So that takes us to the Anchor tag. In order to accomplish a
+button like experience but with a more symantic solution, the
+anchor element must be modified.</p>
+
+<ol>
+<li>If at all possible use href for linking and onclick for
+JavaScript actions.</li>
+<li>If using JavaScript actions then try to add a meaninful
+fallback link in the href attribute.</li>
+<li>Alter the symantics of the anchor element by adding
+role=&ldquo;button&rdquo; to help your screen readers.</li>
+<li>Help the screen readers still use the spacebar to click
+on the link by adding JavaScript to bind to the keyup of
+event.keyCode == 32 (spacebar) and have it click the link.</li>
+</ol>
+
+<p>I also like to point out some security awareness. If you have
+an anchor or button element that is using an onclick event
+that takes you to a url, you are hiding the location from the
+user until they click the button. If you change it to an href
+you will be able to provide the user peace of mind knowing
+they are going to a trusted location.</p>
+
+    
+</div>
+
+    
+<div class="footer no-tags">
+
+
+    
+
+    
+</div>
+
+</article>
+
+        
+    </div>
+
+    
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "dantuck" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+     
 
         </div>
 
@@ -136,6 +229,10 @@
         <div class="recent-posts">
             <strong>Latest posts</strong>
                 <ul>
+                
+                    <li>
+                        <a href="/article/anchor-vs-button/">Anchors vs. Buttons</a>
+                    </li>
                 
                     <li>
                         <a href="/article/rclone/">Rclone - rsync for cloud storage</a>
@@ -159,10 +256,6 @@
                 
                     <li>
                         <a href="/quote/epictetus/">Epictetus 20190320</a>
-                    </li>
-                
-                    <li>
-                        <a href="/recipe/above-8700ft-salsa/">Above 8700ft Red</a>
                     </li>
                 
                 </ul>
@@ -219,8 +312,7 @@
                 
                 by Daniel Tucker
             </a>
-	    -
-		<a href="https://www.dantuck.com/link/index.xml">RSS</a>
+	    
         </div>
         <div class="author">
             <a href="https://github.com/Lednerb/bilberry-hugo-theme" target="_blank">powered by Hugo and Bilberry Hugo Theme</a>

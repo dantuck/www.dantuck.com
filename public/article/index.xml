@@ -5,7 +5,7 @@
     <link>https://www.dantuck.com/article/</link>
     <description>Recent content in Articles on Beards, Bytes and Brews</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Fri, 01 Nov 2019 06:55:00 -0600</lastBuildDate>
+    <lastBuildDate>Fri, 01 Nov 2019 13:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://www.dantuck.com/article/index.xml" rel="self" type="application/rss+xml" />
     
@@ -13,7 +13,7 @@
     <item>
       <title>Rclone - rsync for cloud storage</title>
       <link>https://www.dantuck.com/article/rclone/</link>
-      <pubDate>Fri, 01 Nov 2019 06:55:00 -0600</pubDate>
+      <pubDate>Fri, 01 Nov 2019 13:00:00 +0000</pubDate>
       
       <guid>https://www.dantuck.com/article/rclone/</guid>
       <description>Rclone is a really cool command line tool that can sync files and directories too and from many sources. A full list of sources can be found on their official website.
