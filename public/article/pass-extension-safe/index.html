@@ -7,23 +7,21 @@
         <meta name="description" content="Beards, Bytes and Brews">
         <meta name="keywords" content="blog,personal">
         <meta name="generator" content="Hugo 0.63.2" />
-        <title> Recipes | Beards, Bytes and Brews</title>
-        <meta name="description" content="Recipes - Beards, Bytes and Brews">
-        <meta itemprop="name" content="Recipes">
-        <meta itemprop="description" content="Recipes - Beards, Bytes and Brews">
-        <meta property="og:title" content="Recipes">
-        <meta property="og:description" content="Recipes - Beards, Bytes and Brews">
+        <title> Pass extension: Safe | Beards, Bytes and Brews</title>
+        <meta name="description" content="Pass extension: Safe - Beards, Bytes and Brews">
+        <meta itemprop="name" content="Pass extension: Safe">
+        <meta itemprop="description" content="Pass extension: Safe - Beards, Bytes and Brews">
+        <meta property="og:title" content="Pass extension: Safe">
+        <meta property="og:description" content="Pass extension: Safe - Beards, Bytes and Brews">
         <meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200">
-        <meta property="og:url" content="https://www.dantuck.com/recipe/">
-        <meta property="og:site_name" content="Beards, Bytes and Brews"><meta property="og:type" content="website">
+        <meta property="og:url" content="https://www.dantuck.com/article/pass-extension-safe/">
+        <meta property="og:site_name" content="Beards, Bytes and Brews">
+        <meta property="og:type" content="article">
         <link rel="apple-touch-icon" sizes="180x180" href="https://www.dantuck.com/apple-touch-icon.png">
         <link rel="manifest" href="https://www.dantuck.com/manifest.json">
         <link rel="icon" type="image/png" href="https://www.dantuck.com/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="https://www.dantuck.com/favicon-16x16.png" sizes="16x16">
 
-	
-	  <link href="https://www.dantuck.com/recipe/index.xml" rel="alternate" type="application/rss+xml" title="Beards, Bytes and Brews" />
-	  <link href="https://www.dantuck.com/recipe/index.xml" rel="feed" type="application/rss+xml" title="Beards, Bytes and Brews" />
 	
 
         
@@ -96,203 +94,93 @@
 
         <div class="main container">
             
-    
-    
-        <div class="article-wrapper u-cf">
-            
-                <a class="bubble" href="/recipe/carne-asada/">
+     
+    <div class="article-wrapper u-cf single">
+        
+            <a class="bubble" href="/article/pass-extension-safe/">
     <i class="fa fa-fw fa-pencil"></i>
 </a>
 
-<article class="default recipe">
+<article class="default article">
     
 
     <div class="content">
-    <h3><a href="/recipe/carne-asada/">Carne Asada</a></h3>
+    <h3><a href="/article/pass-extension-safe/">Pass extension: Safe</a></h3>
     <div class="meta">
         
             
-                <span class="date moment">2019-10-05</span>
+                <span class="date moment">2020-02-01</span>
             
         
 
-        
-
-        
-            <span class="prepTime">Prep: 15 min</span>
-        
-
-        
-            <span class="cookTime">Cook: 16 min</span>
         
 
         
 
         
     </div>
-    
-    
-        Marinate the steak: Whisk to combine the olive oil, soy sauce, lime juice, vinegar, black pepper, and cumin in a large, non-reactive bowl or baking dish. Stir in the minced garlic, jalapeño, and cilantro.
-Place the steak in a gallon size bag and then pour marinade over the steak. Give the bag a few shakes and message in the marinade for a moment. Refrigerate for 1-4 hours (if using flank steak marinate at least 3 hours).
 
-        <div class="recipe__body">
-            <h3 class="recipe__section">Ingredients</h3>
-            <div>
-                
-                    <ul class="recipe__ingredients">
-                        
-                        <li>⅓ cup olive oil</li>
-                        
-                        <li>¼ cup soy sauce</li>
-                        
-                        <li>2 limes, juiced (about 2 Tbsp)</li>
-                        
-                        <li>2 Tbsp cider vinegar</li>
-                        
-                        <li>1 teaspoon freshly ground black pepper</li>
-                        
-                        <li>4 garlic cloves, minced (4 teaspoons)</li>
-                        
-                        <li>1 teaspoon ground cumin seed (if have whole, toast and then grind)</li>
-                        
-                        <li>1 jalapeño chile pepper, seeded and minced</li>
-                        
-                        <li>½ bunch fresh cilantro, leaves and stems, finely chopped (great flavor in the stems!), about ½ cup</li>
-                        
-                    </ul>
-                
-            </div>
-        </div>
+    
+        <p><a href="https://www.passwordstore.org/" title="www.passwordstore.org">Pass</a> is becoming my goto for password management. It is a very easy to use manager and has a great list of extensions as well as the ability to create your own extensions. I have found that I need to solve a very specific problem where I need a printed backup of all data that is stored in the password store.</p>
+<h3 id="the-problem">The Problem</h3>
+<p>Pass is pretty cool and offers a lot of options to store passwords and more. This all works only if you have access to the store with a generated key. So what happens if you don&rsquo;t have this key or someone else needs access in the event the owner of the key is not available or the access is no longer possible for a number of reasons.</p>
+<h3 id="the-solution">The Solution</h3>
+<p>I am a pretty strong believer these days that we need a secondary storage for backing up key data. I have decided that keeping a printed copy of some data is the best solution and then keeping that data in a safe or safety deposit box where a third party could have access in the event of an emergency.</p>
+<p>Pass does not have this as a native option and I totally get the reason. I decided to create a new extension that will allow the export of all passwords and data stored in each individual <code>.gpg</code> into a single file. This file can then be printed and stored.</p>
+<p>The extension <code>pass-extension-safe</code> can be found here: <a href="https://gitlab.com/dantuck/pass-extension-safe">pass-extension-safe</a>.</p>
+<p>Pass Safe is an extension for the <a href="https://www.passwordstore.org/">password store</a> that allows the owner of the data to export a clear text copy of their password store for the purpose of secure backup or printing. The purpose behind this is to have a way to export and save a printed copy in a safe for offline recovery in the event the owner of the password store is not longer available or access to the password store is not possible.</p>
+<p><code>pass safe</code> exports all content from the password store in <code>~/.password-store</code> to a file <code>exported_passes</code> in the directory the command was run.</p>
+<h3 id="installation">Installation</h3>
+<ul>
+<li>Enable password-store extensions by setting <code>PASSWORD_STORE_ENABLE_EXTENSIONS=true</code></li>
+<li><code>make install</code></li>
+<li>alternatively add <code>safe.bash</code> to your extension folder (by default at <code>~/.password-store/.extensions</code>)</li>
+</ul>
+<h3 id="inspiration-and-credits">Inspiration and Credits</h3>
+<p>Bash example and most of the code comes from: <a href="https://unix.stackexchange.com/questions/170519/export-passwords-from-the-pass-password-manager#170546">StackExchange jasonwryan</a>.</p>
+<p>The extension format was drawn from the <a href="https://github.com/palortoff/pass-extension-tail">palortoff: pass-extension-tail</a>.</p>
 
-        <a href="/recipe/carne-asada/" class="more">Continue reading</a>
     
 </div>
 
     
-<div class="footer">
+<div class="footer no-tags">
 
 
-    
-        <div class="tags">
-            <i class="fa fa-tags"></i>
-            <div class="links">
-                
-                    <a href="/tags/dinner">Dinner</a>
-                
-                    <a href="/tags/on-the-grill">On the Grill</a>
-                
-            </div>
-        </div>
     
 
     
 </div>
 
 </article>
-            
-        </div>
-    
-        <div class="article-wrapper u-cf">
-            
-                <a class="bubble" href="/recipe/above-8700ft-salsa/">
-    <i class="fa fa-fw fa-pencil"></i>
-</a>
-
-<article class="default recipe">
-    
-
-    <div class="content">
-    <h3><a href="/recipe/above-8700ft-salsa/">Above 8700ft Red</a></h3>
-    <div class="meta">
-        
-            
-                <span class="date moment">2019-03-12</span>
-            
-        
-
-        
-
-        
-            <span class="prepTime">Prep: 10 min</span>
-        
-
-        
-
-        
-
-        
-    </div>
-    
-    
-        The prefered method of preparing the salsa is using a blender.
-Start by chopping up all the ingredients and placing them in the blender. Be cautious with how much salt you use. It is always safer to add a little then taste then add more.
-Blend the salsa in pulses and occationally use a spatula to mix up any ingredients that have not been blended.
-Pour and enjoy!
-
-        <div class="recipe__body">
-            <h3 class="recipe__section">Ingredients</h3>
-            <div>
-                
-                    <ul class="recipe__ingredients">
-                        
-                        <li>28 ounces whole peeled tomatoes</li>
-                        
-                        <li>4 ounces green chilies (fire roasted)</li>
-                        
-                        <li>1 white onion</li>
-                        
-                        <li>½ bunch cilantro (stalk and leaves)</li>
-                        
-                        <li>2 cloves garlic (to taste)</li>
-                        
-                        <li>1 - 2 jalapeno (depends on heat)</li>
-                        
-                        <li>½ habenaro</li>
-                        
-                        <li>1 lime</li>
-                        
-                        <li>~2 teaspoons salt (to taste)</li>
-                        
-                    </ul>
-                
-            </div>
-        </div>
-
-        <a href="/recipe/above-8700ft-salsa/" class="more">Continue reading</a>
-    
-</div>
-
-    
-<div class="footer">
-
-
-    
-        <div class="tags">
-            <i class="fa fa-tags"></i>
-            <div class="links">
-                
-                    <a href="/tags/salsa">Salsa</a>
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-</article>
-            
-        </div>
-    
-
-    
-    <div class="paginator">
-        
 
         
     </div>
 
+    
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "dantuck" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
 
+     
 
         </div>
 
@@ -387,8 +275,7 @@ Pour and enjoy!
                 
                 by Daniel Tucker
             </a>
-	    -
-		<a href="https://www.dantuck.com/recipe/index.xml">RSS</a>
+	    
         </div>
         <div class="author">
             <a href="https://github.com/Lednerb/bilberry-hugo-theme" target="_blank">powered by Hugo and Bilberry Hugo Theme</a>

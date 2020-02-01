@@ -6,7 +6,7 @@
         <meta name="author" content="dantuck">
         <meta name="description" content="Beards, Bytes and Brews">
         <meta name="keywords" content="blog,personal">
-        <meta name="generator" content="Hugo 0.59.1" />
+        <meta name="generator" content="Hugo 0.63.2" />
         <title> Verizon Pixel and Pixel XL Bootloader Unlock | Beards, Bytes and Brews</title>
         <meta name="description" content="Verizon Pixel and Pixel XL Bootloader Unlock - Beards, Bytes and Brews">
         <meta itemprop="name" content="Verizon Pixel and Pixel XL Bootloader Unlock">
@@ -28,7 +28,7 @@
         
         
         
-        <link rel="stylesheet" href="/sass/combined.min.2223307cea9b1ae41bdbe5e52ec836b300acec028c62a7c7d80851021f0ec07a.css">
+        <link rel="stylesheet" href="/sass/combined.min.ed4814c419b70454944aaf3d50e13d732532f6bcd6e3b22d94c682937c6a36bb.css">
 
         
 
@@ -122,22 +122,19 @@
 
     
         <p>As all Pixel owners should know by now there is a end of support scheduled for each phone they ship. I like many others have a perfectly functional Pixel device which will soon be vulnerable to security issues and without Google support I am left with little options. I am not one to need the latest and greatest so I have chosen to install <a href="https://wiki.lineageos.org/devices/sailfish/install" title="LineageOS">LineageOS</a>.</p>
-
 <p>The greatest problem with Verizon is that they prevent you from toggling the &ldquo;OEM unlocking&rdquo; which would allow you to wipe the device then sideload a new OS. To get around this follow these steps and you will be golden.</p>
-
 <p>Thank you to <a href="https://twitter.com/iamkellex" title="Kellen">@iamhellex</a>, <a href="https://www.droid-life.com/2018/05/28/verizon-pixel-xl-bootloader-unlock/">source</a>.</p>
-
 <ol>
 <li>Remove Google account and any kind of screen lock from your device.</li>
 <li>Eject the Verizon sim card from your device. (You can use a slim paper clip)</li>
 <li>Reset your device. During setup skip everything. Don&rsquo;t connect to WiFi or setup any sort of security locking.</li>
 <li>Go to &ldquo;Developer Options&rdquo; and enable USB debugging.</li>
 <li>Connect your phone to your Computer which has <code>adb</code> installed.</li>
-<li>Open a terminal in the <code>adb</code> directory and type: <br /><br /><code>adb shell pm uninstall --user 0 com.android.phone</code><br /><br /></li>
+<li>Open a terminal in the <code>adb</code> directory and type: <!-- raw HTML omitted --><!-- raw HTML omitted --><code>adb shell pm uninstall --user 0 com.android.phone</code><!-- raw HTML omitted --><!-- raw HTML omitted --></li>
 <li>Restart your device.</li>
 <li>Connect to WiFi, open a web browser, and go to any website.</li>
 <li>Go to &ldquo;Developer Options&rdquo; and enable OEM unlocking.</li>
-<li>Reboot into bootloader via: <br /><br /><code>fastboot oem unlock</code><br />or<br /><code>fastboot flashing unlock</code><br /><br /></li>
+<li>Reboot into bootloader via: <!-- raw HTML omitted --><!-- raw HTML omitted --><code>fastboot oem unlock</code><!-- raw HTML omitted -->or<!-- raw HTML omitted --><code>fastboot flashing unlock</code><!-- raw HTML omitted --><!-- raw HTML omitted --></li>
 <li>Congrats, you are unlocked and can continue installing another OS.</li>
 </ol>
 
@@ -195,6 +192,10 @@
                 <ul>
                 
                     <li>
+                        <a href="/article/pass-extension-safe/">Pass extension: Safe</a>
+                    </li>
+                
+                    <li>
                         <a href="/article/rclone/">Rclone - rsync for cloud storage</a>
                     </li>
                 
@@ -216,10 +217,6 @@
                 
                     <li>
                         <a href="/quote/epictetus/">Epictetus 20190320</a>
-                    </li>
-                
-                    <li>
-                        <a href="/recipe/above-8700ft-salsa/">Above 8700ft Red</a>
                     </li>
                 
                 </ul>
@@ -272,7 +269,7 @@
             <a href="https://gitlab.com/dantuck" target="_blank">
                 &copy;
                 
-                    2019
+                    2020
                 
                 by Daniel Tucker
             </a>

@@ -6,7 +6,7 @@
         <meta name="author" content="dantuck">
         <meta name="description" content="Beards, Bytes and Brews">
         <meta name="keywords" content="blog,personal">
-        <meta name="generator" content="Hugo 0.59.1" />
+        <meta name="generator" content="Hugo 0.63.2" />
         <title> GnuPG and Pass | Beards, Bytes and Brews</title>
         <meta name="description" content="GnuPG and Pass - Beards, Bytes and Brews">
         <meta itemprop="name" content="GnuPG and Pass">
@@ -28,7 +28,7 @@
         
         
         
-        <link rel="stylesheet" href="/sass/combined.min.2223307cea9b1ae41bdbe5e52ec836b300acec028c62a7c7d80851021f0ec07a.css">
+        <link rel="stylesheet" href="/sass/combined.min.ed4814c419b70454944aaf3d50e13d732532f6bcd6e3b22d94c682937c6a36bb.css">
 
         
 
@@ -121,75 +121,45 @@
     </div>
 
     
-        
-
-<p>I find myself constantly referring to different sources to setup my password manager; <a href="https://www.passwordstore.org/" title="www.passwordstore.org">Pass</a>. This reference is going to provide a source for reference that includes both.</p>
-
+        <p>I find myself constantly referring to different sources to setup my password manager; <a href="https://www.passwordstore.org/" title="www.passwordstore.org">Pass</a>. This reference is going to provide a source for reference that includes both.</p>
 <h3 id="installation">Installation</h3>
-
 <p>References (Archlinux)</p>
-
 <ul>
 <li><a href="https://wiki.archlinux.org/index.php/Pass">https://wiki.archlinux.org/index.php/Pass</a></li>
 <li><a href="https://wiki.archlinux.org/index.php/GnuPG">https://wiki.archlinux.org/index.php/GnuPG</a></li>
 </ul>
-
 <h4 id="gnugp">GnuGP</h4>
-
 <p>According to the <a href="https://www.gnupg.org/" title="GnuGP">official website</a>:</p>
-
 <p>GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP). GnuPG allows you to encrypt and sign your data and communications; it features a versatile key management system, along with access modules for all kinds of public key directories. GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications. A wealth of frontend applications and libraries are available. GnuPG also provides support for S/MIME and Secure Shell (ssh).</p>
-
 <p><a href="https://wiki.archlinux.org/index.php/Install" title="Install">Install</a> the <a href="https://www.archlinux.org/packages/?name=gnupg" title="gnupg">gnugp</a> package.</p>
-
 <pre><code>$ sudo pacman -S gnugp
 </code></pre>
-
 <p>Configurations and the gnugp store will be saved at <code>~/.gnupg</code>.</p>
-
 <p>The configurations are stored in the following files: <code>~/.gnupg/gpg.conf</code> and <code>~/.gnupg/dirmngr.conf</code>.</p>
-
 <p><strong>Create a key pair</strong></p>
-
 <pre><code>$ gpg --full-gen-key
 </code></pre>
-
 <p><strong>Restore a key pair</strong></p>
-
 <p>In my case I have three devices and instead of each device having it&rsquo;s own key pair I share the key pair between all the devices. When a new devices is used or a device is reset I sync the keys to the device and restore the key pair.</p>
-
 <p><em>Export private key</em></p>
-
 <pre><code>$ gpg --export-secret-keys --armor &lt;user-id&gt; &gt; privkey.asc
 </code></pre>
-
 <p><em>Import private key</em></p>
-
 <pre><code>$ gpg --import privkey.asc
 </code></pre>
-
-<p><strong><strong><em>Important!: This method is entirely done in full trust and there are better ways</em></strong></strong></p>
-
+<p><strong><em><strong>Important!: This method is entirely done in full trust and there are better ways</strong></em></strong></p>
 <h4 id="pass">Pass</h4>
-
 <p><a href="https://wiki.archlinux.org/index.php/Install" title="Install">Install</a> the <a href="https://www.archlinux.org/packages/?name=pass" title="pass">pass</a> package.</p>
-
 <pre><code>$ sudo pacman -S pass
 </code></pre>
-
 <p>To initialize the password store:</p>
-
 <pre><code>$ pass init &lt;gpg-id or email&gt;
 </code></pre>
-
 <p>After local initialization the password store needs to be initialized as a git repository and synced with it&rsquo;s origin.</p>
-
 <pre><code>$ pass git init
 $ pass git remote add origin { insert git origin }
 </code></pre>
-
 <p>There is not a particular scheme for organization of the structure or content of data but I follow what the author uses and suggests:</p>
-
 <pre><code>THE_COMPLICATED_PASSWORD
 URL: *.url.com/*
 Username: username_or_email
@@ -197,18 +167,12 @@ Secret Question 1: Some really good question
 Secret Answer 1: The answer to the question
 Phone Support PIN #: Pin
 </code></pre>
-
 <p>One last change I add to my <code>~/.profile</code> is the <code>EDITOR</code> I prefer to use:</p>
-
 <pre><code>echo &quot;export EDITOR=vim&quot; &gt;&gt;~/.profile
 </code></pre>
-
 <h4 id="conclusion">Conclusion</h4>
-
 <p>This is a living document so it will change over time with added details. I will include a changelog at the bottom of this post so you know what has been going on. Thank you for reading!</p>
-
 <h4 id="changelog">Changelog</h4>
-
 <p>No changes yet.</p>
 
     
@@ -265,6 +229,10 @@ Phone Support PIN #: Pin
                 <ul>
                 
                     <li>
+                        <a href="/article/pass-extension-safe/">Pass extension: Safe</a>
+                    </li>
+                
+                    <li>
                         <a href="/article/rclone/">Rclone - rsync for cloud storage</a>
                     </li>
                 
@@ -286,10 +254,6 @@ Phone Support PIN #: Pin
                 
                     <li>
                         <a href="/quote/epictetus/">Epictetus 20190320</a>
-                    </li>
-                
-                    <li>
-                        <a href="/recipe/above-8700ft-salsa/">Above 8700ft Red</a>
                     </li>
                 
                 </ul>
@@ -342,7 +306,7 @@ Phone Support PIN #: Pin
             <a href="https://gitlab.com/dantuck" target="_blank">
                 &copy;
                 
-                    2019
+                    2020
                 
                 by Daniel Tucker
             </a>
