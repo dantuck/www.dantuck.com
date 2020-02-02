@@ -129,12 +129,25 @@
     </div>
 
     
-        Pass is becoming my goto for password management. It is a very easy to use manager and has a great list of extensions as well as the ability to create your own extensions. I have found that I need to solve a very specific problem where I need a printed backup of all data that is stored in the password store.
-The Problem Pass is pretty cool and offers a lot of options to store passwords and more.
+        <p><a href="https://www.passwordstore.org/" title="www.passwordstore.org">Pass</a> is becoming my goto for password management. It is a very easy to use manager and has a great list of extensions as well as the ability to create your own extensions. I have found that I need to solve a very specific problem where I need a printed backup of all data that is stored in the password store.</p>
+<h3 id="the-problem">The Problem</h3>
+<p>Pass is pretty cool and offers a lot of options to store passwords and more. This all works only if you have access to the store with a generated key. So what happens if you don&rsquo;t have this key or someone else needs access in the event the owner of the key is not available or the access is no longer possible for a number of reasons.</p>
+<h3 id="the-solution">The Solution</h3>
+<p>I am a pretty strong believer these days that we need a secondary storage for backing up key data. I have decided that keeping a printed copy of some data is the best solution and then keeping that data in a safe or safety deposit box where a third party could have access in the event of an emergency.</p>
+<p>Pass does not have this as a native option and I totally get the reason. I decided to create a new extension that will allow the export of all passwords and data stored in each individual <code>.gpg</code> into a single file. This file can then be printed and stored.</p>
+<p>The extension <code>pass-extension-safe</code> can be found here: <a href="https://gitlab.com/dantuck/pass-extension-safe">pass-extension-safe</a>.</p>
+<p>Pass Safe is an extension for the <a href="https://www.passwordstore.org/">password store</a> that allows the owner of the data to export a clear text copy of their password store for the purpose of secure backup or printing. The purpose behind this is to have a way to export and save a printed copy in a safe for offline recovery in the event the owner of the password store is not longer available or access to the password store is not possible.</p>
+<p><code>pass safe</code> exports all content from the password store in <code>~/.password-store</code> to a file <code>exported_passes</code> in the directory the command was run.</p>
+<h3 id="installation">Installation</h3>
+<ul>
+<li>Enable password-store extensions by setting <code>PASSWORD_STORE_ENABLE_EXTENSIONS=true</code></li>
+<li><code>make install</code></li>
+<li>alternatively add <code>safe.bash</code> to your extension folder (by default at <code>~/.password-store/.extensions</code>)</li>
+</ul>
+<h3 id="inspiration-and-credits">Inspiration and Credits</h3>
+<p>Bash example and most of the code comes from: <a href="https://unix.stackexchange.com/questions/170519/export-passwords-from-the-pass-password-manager#170546">StackExchange jasonwryan</a>.</p>
+<p>The extension format was drawn from the <a href="https://github.com/palortoff/pass-extension-tail">palortoff: pass-extension-tail</a>.</p>
 
-        
-            <a href="/article/pass-extension-safe/" class="more">Continue reading</a>
-        
     
 </div>
 

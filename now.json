@@ -1,0 +1,9 @@
+{
+  "name": "dantuck.com",
+  "build": {
+    "env": {
+      "HUGO_VERSION": "0.63.2"
+    }
+  }
+}
+
