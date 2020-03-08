@@ -37,9 +37,9 @@ disqusShortname = "dantuck"
 
   # Enable / Disable algolia search
   algolia_search    = true
-  algolia_appId     = "Y2C4RWMPXW"
-  algolia_apiKey    = "50ea7f8c41c0ad233926e0be2b769ed1"
-  algolia_indexName = "default-content"
+  algolia_appId     = "0J90UE8UCG"
+  algolia_apiKey    = "ff96cb9084a7266ed5410f06ebce248c"
+  algolia_indexName = "prod_www.dantuck.com"
     # Set this option to false if you want to search within all articles in all languages at once
     algolia_currentLanguageOnly = true
 
