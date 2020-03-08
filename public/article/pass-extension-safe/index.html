@@ -1,0 +1,319 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="dantuck">
+    <meta name="description" content="Beards, Bytes and Brews">
+    <meta name="keywords" content="blog,personal">
+    <meta name="generator" content="Hugo 0.66.0" />
+    <title> Pass extension: Safe | Beards, Bytes and Brews</title>
+    <meta name="description" content="Pass extension: Safe - Beards, Bytes and Brews">
+    <meta itemprop="name" content="Pass extension: Safe">
+    <meta itemprop="description" content="Pass extension: Safe - Beards, Bytes and Brews">
+    <meta property="og:title" content="Pass extension: Safe">
+    <meta property="og:description" content="Pass extension: Safe - Beards, Bytes and Brews">
+    <meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200">
+    <meta property="og:url" content="https://www.dantuck.com/article/pass-extension-safe/">
+    <meta property="og:site_name" content="Beards, Bytes and Brews">
+    <meta property="og:type" content="article">
+
+    
+
+
+    
+    <link href="/article/pass-extension-safe/" rel="alternate" type="application/rss+xml" title="Beards, Bytes and Brews" />
+    <link href="/article/pass-extension-safe/" rel="feed" type="application/rss+xml" title="Beards, Bytes and Brews" />
+    
+
+    
+
+    <link rel="stylesheet" href="https://www.dantuck.com/theme.css">
+
+    
+
+    
+    
+    
+</head>
+
+<body class="bilberry-hugo-theme">
+
+    
+    <nav>
+
+    <div class="container">
+        <ul class="topnav">
+            
+            
+            <li><a href="https://www.dantuck.com/about/">About</a></li>
+            
+            
+            
+            <li><a href="https://www.dantuck.com/now/">Now</a></li>
+            
+            
+        </ul>
+
+        
+        <div id="search-box" class="search">
+            <i class="fas fa-search"></i>
+            <input id="search" type="text" placeholder="Search ...">
+        </div>
+        
+    </div>
+</nav>
+
+
+    
+<header>
+
+    <div class="container">
+        <div class="logo">
+            <a id="siteBaseUrl" href="/" class="logo">
+                
+                <img src="/daniel-headshot.jpg" alt="">
+                
+
+                <span class="overlay"><i class="fa fa-home"></i></span>
+            </a>
+        </div>
+        <div class="titles">
+            <h3 class="title"><a
+                    href="/">Beards, Bytes and Brews</a></h3>
+            
+            <span class="subtitle">bytes of thought by Daniel Tucker</span>
+            
+        </div>
+
+        
+
+        
+            <div class="toggler">
+                
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+        </div>
+</header>
+
+
+    <div class="main container">
+        
+     
+    <div class="article-wrapper u-cf single">
+        
+            <a class="bubble" href="https://www.dantuck.com/article/pass-extension-safe/">
+    <i class="fas fa-fw fa-pencil-alt"></i>
+</a>
+
+<article class="default article">
+    
+
+    <div class="content">
+    <h1 class="article-title"><a href="https://www.dantuck.com/article/pass-extension-safe/">Pass extension: Safe</a></h1>
+    <div class="meta">
+        
+        
+        <span class="date moment">February 1, 2020</span>
+        
+        
+
+        
+
+        
+
+        
+    </div>
+
+    
+    <p><a href="https://www.passwordstore.org/" title="www.passwordstore.org">Pass</a> is becoming my goto for password management. It is a very easy to use manager and has a great list of extensions as well as the ability to create your own extensions. I have found that I need to solve a very specific problem where I need a printed backup of all data that is stored in the password store.</p>
+<h3 id="the-problem">The Problem</h3>
+<p>Pass is pretty cool and offers a lot of options to store passwords and more. This all works only if you have access to the store with a generated key. So what happens if you don&rsquo;t have this key or someone else needs access in the event the owner of the key is not available or the access is no longer possible for a number of reasons.</p>
+<h3 id="the-solution">The Solution</h3>
+<p>I am a pretty strong believer these days that we need a secondary storage for backing up key data. I have decided that keeping a printed copy of some data is the best solution and then keeping that data in a safe or safety deposit box where a third party could have access in the event of an emergency.</p>
+<p>Pass does not have this as a native option and I totally get the reason. I decided to create a new extension that will allow the export of all passwords and data stored in each individual <code>.gpg</code> into a single file. This file can then be printed and stored.</p>
+<p>The extension <code>pass-extension-safe</code> can be found here: <a href="https://gitlab.com/dantuck/pass-extension-safe">pass-extension-safe</a>.</p>
+<p>Pass Safe is an extension for the <a href="https://www.passwordstore.org/">password store</a> that allows the owner of the data to export a clear text copy of their password store for the purpose of secure backup or printing. The purpose behind this is to have a way to export and save a printed copy in a safe for offline recovery in the event the owner of the password store is not longer available or access to the password store is not possible.</p>
+<p><code>pass safe</code> exports all content from the password store in <code>~/.password-store</code> to a file <code>exported_passes</code> in the directory the command was run.</p>
+<h3 id="installation">Installation</h3>
+<ul>
+<li>Enable password-store extensions by setting <code>PASSWORD_STORE_ENABLE_EXTENSIONS=true</code></li>
+<li><code>make install</code></li>
+<li>alternatively add <code>safe.bash</code> to your extension folder (by default at <code>~/.password-store/.extensions</code>)</li>
+</ul>
+<h3 id="inspiration-and-credits">Inspiration and Credits</h3>
+<p>Bash example and most of the code comes from: <a href="https://unix.stackexchange.com/questions/170519/export-passwords-from-the-pass-password-manager#170546">StackExchange jasonwryan</a>.</p>
+<p>The extension format was drawn from the <a href="https://github.com/palortoff/pass-extension-tail">palortoff: pass-extension-tail</a>.</p>
+
+    
+</div>
+
+    
+<div class="footer no-tags">
+
+
+    
+
+    
+</div>
+
+</article>
+
+        
+    </div>
+
+    
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "dantuck" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+
+     
+
+    </div>
+
+    
+<footer>
+    <div class="container">
+
+        
+        <div class="recent-posts">
+            <strong>Latest posts</strong>
+            <ul>
+                
+                <li>
+                    <a href="https://www.dantuck.com/article/pass-extension-safe/">Pass extension: Safe</a>
+                </li>
+                
+                <li>
+                    <a href="https://www.dantuck.com/article/rclone/">Rclone - rsync for cloud storage</a>
+                </li>
+                
+                <li>
+                    <a href="https://www.dantuck.com/article/gnupg-and-pass/">GnuPG and Pass</a>
+                </li>
+                
+                <li>
+                    <a href="https://www.dantuck.com/recipe/carne-asada/">Carne Asada</a>
+                </li>
+                
+                <li>
+                    <a href="https://www.dantuck.com/quote/epictetus-20190320/">Swami_Sivananda</a>
+                </li>
+                
+                <li>
+                    <a href="https://www.dantuck.com/article/verizon-pixel-and-pixel-xl-bootloader-unlock/">Verizon Pixel and Pixel XL Bootloader Unlock</a>
+                </li>
+                
+                <li>
+                    <a href="https://www.dantuck.com/quote/epictetus/">Epictetus 20190320</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="categories">
+            <a href="/categories/"><strong>Categories</strong></a>
+            <ul>
+                
+                <li>
+                    <a href="/categories/privacy">Privacy
+                        (1)</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+
+        <div class="right">
+            
+            <div class="external-profiles">
+                <strong>Social media</strong>
+
+                
+                <a href="https://twitter.com/me_dantuck" target="_blank"><i class="fab fa-twitter"></i></a>
+                
+                <a href="https://gitlab.com/dantuck" target="_blank"><i class="fab fa-gitlab"></i></a>
+                
+                <a href="https://github.com/dantuck" target="_blank"><i class="fab fa-github"></i></a>
+                
+                <a href="https://www.linkedin.com/in/dantuck" target="_blank"><i class="fab fa-linkedin"></i></a>
+                
+            </div>
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+
+<div class="credits">
+    <div class="container">
+        <div class="copyright">
+            <a href="https://gitlab.com/dantuck" target="_blank">
+                &copy;
+                
+                2020
+                
+                by Daniel Tucker
+            </a>
+            
+        </div>
+        <div class="author">
+            <a href="https://github.com/Lednerb/bilberry-hugo-theme"
+                target="_blank">powered by Hugo and Bilberry Hugo Theme</a>
+        </div>
+    </div>
+</div>
+
+
+    
+
+    
+
+
+    <script type="text/javascript" src="https://www.dantuck.com/theme.js"></script>
+
+    
+    
+    
+
+    
+    <div id="activate-algolia-search" class="hidden">
+  <input type="hidden" id="algolia-search-appId" value="Y2C4RWMPXW">
+  <input type="hidden" id="algolia-search-apiKey" value="50ea7f8c41c0ad233926e0be2b769ed1">
+  <input type="hidden" id="algolia-search-indexName" value="default-content">
+  <input type="hidden" id="algolia-search-noSearchResults" value="Nothing found.">
+
+  
+  <input type="hidden" id="algolia-search-currentLanguageOnly">
+  
+</div>
+
+    
+
+
+</body>
+
+</html>
