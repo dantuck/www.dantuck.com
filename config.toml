@@ -77,18 +77,15 @@ disqusShortname = "dantuck"
     # social media profile urls for the footer links
     showSocialMedia = true
 
-    facebook   = ""
-    twitter    = "https://twitter.com/me_dantuck"
-    googleplus = ""
-    pinterest  = ""
-    instagram  = ""
-    tumblr     = ""
-    youtube    = ""
-    vimeo      = ""
-    github     = ""
-    gitlab     = "https://gitlab.com/dantuck"
-    xing       = ""
-    linkedin   = ""
+    # define your links with FontAwesome 5 (only free icons are supported)
+    # all icons https://fontawesome.com/icons?d=gallery&m=free
+    # brand icons https://fontawesome.com/icons?d=gallery&s=brands&m=free
+    socialMediaLinks = [
+      { link = "https://twitter.com/me_dantuck", icon = "fab fa-twitter" },
+      { link = "https://gitlab.com/dantuck", icon = "fab fa-gitlab" },
+      { link = "https://github.com/dantuck", icon = "fab fa-github" },
+      { link = "https://www.linkedin.com/in/dantuck", icon = "fab fa-linkedin" },
+    ]
 
     # credits line configuration
     copyrightBy = "by Daniel Tucker"
