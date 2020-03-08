@@ -1,7 +1,10 @@
 ---
 title: Above 8700ft Red
 date: 2019-03-12 02:37:59 +0000
+categories:
+- Recipe
 tags:
+- Recipe
 - Salsa
 author: ''
 prepTime: 10 min
