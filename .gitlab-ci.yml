@@ -20,34 +20,34 @@ before_script:
   ##
   - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
 
-    ##
-    ## Create the SSH directory and give it the right permissions
-    ##
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-  
-    ##
-    ## Use ssh-keyscan to scan the keys of your private server. Replace gitlab.com
-    ## with your own domain name. You can copy and repeat that command if you have
-    ## more than one server to connect to.
-    ##
-    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-  
-    ##
-    ## Alternatively, assuming you created the SSH_SERVER_HOSTKEYS variable
-    ## previously, uncomment the following two lines instead.
-    ##
-    #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts'
-    #- chmod 644 ~/.ssh/known_hosts
-  
-    ##
-    ## You can optionally disable host key checking. Be aware that by adding that
-    ## you are suspectible to man-in-the-middle attacks.
-    ## WARNING: Use this only with the Docker executor, if you use it with shell
-    ## you will overwrite your user's SSH config.
-    ##
-    #- '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  ##
+  ## Create the SSH directory and give it the right permissions
+  ##
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+
+  ##
+  ## Use ssh-keyscan to scan the keys of your private server. Replace gitlab.com
+  ## with your own domain name. You can copy and repeat that command if you have
+  ## more than one server to connect to.
+  ##
+  - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+
+  ##
+  ## Alternatively, assuming you created the SSH_SERVER_HOSTKEYS variable
+  ## previously, uncomment the following two lines instead.
+  ##
+  #- echo "$SSH_SERVER_HOSTKEYS" > ~/.ssh/known_hosts'
+  #- chmod 644 ~/.ssh/known_hosts
+
+  ##
+  ## You can optionally disable host key checking. Be aware that by adding that
+  ## you are suspectible to man-in-the-middle attacks.
+  ## WARNING: Use this only with the Docker executor, if you use it with shell
+  ## you will overwrite your user's SSH config.
+  ##
+  #- '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   
 
 variables:
