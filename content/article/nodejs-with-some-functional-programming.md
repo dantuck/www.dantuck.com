@@ -16,3 +16,41 @@ For the purpose of this article I am focusing on some of the basics of functiona
 
 * Treats computations as the evaluation of mathematical functions.
 * Avoids changing state and mutable data.
+
+## Functional Programming Concepts
+
+There are five main concepts:
+
+* Side Effects
+* Pure Functions
+* Functions as first class citizens
+* Higher order function
+* Currying
+
+### Side Effects
+
+A function would have a side effect if it modifies state outside its local scope. For functional programming a function should not impact code that is running on multiple processors.
+
+### Pure Functions
+
+When a function always returns the same output for a given input without any side effects then it would be called a **pure function**.
+
+{INSERT EXAMPLE}
+
+### Functions as first class citizens
+
+A function is a considered a first class citizen when a function accepts functions as arguments.
+
+{INSERT EXAMPLE}
+
+### Higher order function
+
+Like a first class citizen a higher order function takes one or more functions as arguments or returns a function as a result.
+
+{INSERT EXAMPLE}
+
+### Currying
+
+Currying is a composed function. It can be imagined as a function with nested functions that each nested function has access to the outer functions arguments. The final nested function would return the result of the function.
+
+{INSERT EXAMPLE}
