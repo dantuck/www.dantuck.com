@@ -13,10 +13,11 @@ fields:
   config:
     required: true
 pages:
+- content/about.md
 - content/article/backup.md
-- content/article/verizon-pixel-and-pixel-xl-bootloader-unlock.md
-- content/article/visual-studio-code---selected-text-to-uppercase.md
+- content/article/nodejs-with-some-functional-programming.md
 - content/article/raspberry-pi-nas.md
 - content/article/raspberry-pi-simple-nas.md
-- content/about.md
+- content/article/verizon-pixel-and-pixel-xl-bootloader-unlock.md
+- content/article/visual-studio-code---selected-text-to-uppercase.md
 - content/now.md
