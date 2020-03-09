@@ -54,3 +54,9 @@ Like a first class citizen a higher order function takes one or more functions a
 Currying is a composed function. It can be imagined as a function with nested functions that each nested function has access to the outer functions arguments. The final nested function would return the result of the function.
 
 {INSERT EXAMPLE}
+
+### Inspiration and Credits
+
+[About NodeJS](https://nodejs.org/en/about/ "About NodeJS")
+
+[Wikipedia Functional programming](https://en.wikipedia.org/wiki/Functional_programming "Wikipedia Functional programming")
