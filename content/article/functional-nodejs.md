@@ -1,9 +1,13 @@
-+++
-date = 2020-03-08T07:00:00Z
-draft = true
-title = "NodeJS with some Functional Programming"
+---
+date: 2020-03-10 20:00:00 -0600
+title: "Functional Programming with JavaScript"
+categories:
+- Code
+tags:
+- Code
+- NodeJS
 
-+++
+---
 ## Hello!
 
 This is the first post in a series focused on [NodeJS](https://nodejs.org/en/about/ "NodeJS"). Node is a asynchronous event-driven JavaScript runtime for building scalable network applications. Just like JavaScript, NodeJS is not actually a functional programming language but is a good place to use functional programming if you so please.
@@ -35,25 +39,48 @@ A function would have a side effect if it modifies state outside its local scope
 
 When a function always returns the same output for a given input without any side effects then it would be called a **pure function**.
 
-{INSERT EXAMPLE}
+    // time 
+    const time = () => new Date().toLocaleTimeString();
+
+    time();
 
 ### Functions as first class citizens
 
-A function is a considered a first class citizen when a function accepts functions as arguments.
+A function is a considered a first class citizen when a function accepts functions as arguments
+or even be assigned as a variable.
 
-{INSERT EXAMPLE}
+    // variable f is assigned the value of the function
+    const f = a => console.log(a)
 
 ### Higher order function
 
 Like a first class citizen a higher order function takes one or more functions as arguments or returns a function as a result.
 
-{INSERT EXAMPLE}
+    // function f 
+    // takes an input of a
+    // and logs the value of a
+    const f = a => console.log(a);
+
+    // function f2
+    // takes an input of a
+    // a could be a value or function
+    // and returns a
+    const f2 = a => a;
+
+    f('output 1') // console logs 'output 1'
+    f2('output 2') // doesn't print anything just returns the value 'output 2'
+    f2(f('output 3')) // console logs 'output 3'
 
 ### Currying
 
 Currying is a composed function. It can be imagined as a function with nested functions that each nested function has access to the outer functions arguments. The final nested function would return the result of the function.
 
-{INSERT EXAMPLE}
+    const curry = f => a => b => f(a, b);
+
+    const talk = (a, b) => 'Say: '.concat(a, ' ', b);
+
+    let say = curry(talk);
+    say('Hello')('World');
 
 ### Inspiration and Credits
 
