@@ -1,4 +1,4 @@
 [submodule "themes/bilberry-hugo-theme"]
 	path = themes/bilberry-hugo-theme
-	url = git@gitlab.com:dantuck/www.dantuck-theme.git
-	# url = https://gitlab.com/dantuck/www.dantuck-theme.git
+	# url = git@gitlab.com:dantuck/www.dantuck-theme.git
+	url = https://gitlab.com/dantuck/www.dantuck-theme.git
