@@ -12,7 +12,7 @@ twitter:
     card: "summary_large_image"
     site: "@me_dantuck"
     title: "NestJS: Getting started"
-    description: "Install NodeJS with this simple guide."
+    description: "Getting started with NestJS."
     image: "https://www.dantuck.com/article/node-getting-started/card.png"
 ---
 
