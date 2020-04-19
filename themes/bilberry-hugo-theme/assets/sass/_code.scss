@@ -1,0 +1,17 @@
+.code {
+    &--attr {
+        padding: .25em .75em .50em;
+        color: #222;
+        background-color: #f1f1f1;
+
+        + pre {
+            border-top: 4px solid #ff8c00;
+            margin-top: 0;
+
+            code {
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        }
+    }
+}

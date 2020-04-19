@@ -1,0 +1,33 @@
+.picture {
+    margin-bottom: 2.5rem;
+
+    figure {
+        margin: 0;
+
+        picture {
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+
+            img {
+                border-radius: 4px;
+            }
+        }
+    }
+
+    picture {
+        width: 100%;
+        display: block;
+        border-radius: 4px;
+
+        img {
+            border-radius: 4px;
+        }
+    }
+
+    &.code {
+        picture, figure picture {
+            background-color: #3f3f3f;
+        }
+    }
+}
