@@ -13,13 +13,6 @@ googleAnalytics = ""
 # Enable / Disable comments on the articles via Disqus.
 disqusShortname = ""
 
-[module]
-
-  [[module.imports]]
-    disable = false
-    ignoreConfig = false
-    path = "gitlab.com/dantuck/www.dantuck-theme"
-
 [params]
   # Favicon for the browser's favorites and tabs
   favicon = "" # set a favicon icon
