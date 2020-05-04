@@ -86,6 +86,10 @@ After local initialization the password store needs to be initialized as a git r
     $ pass git init
     $ pass git remote add origin { insert git origin }
 
+To restore from an existing repo you will clone the git repo into `.password-store`.
+
+    $ git clone <repo> ~/.password-store
+
 There is not a particular scheme for organization of the structure or content of data but I follow what the author uses and suggests:
 
     THE_COMPLICATED_PASSWORD
@@ -95,7 +99,13 @@ There is not a particular scheme for organization of the structure or content of
     Secret Answer 1: The answer to the question
     Phone Support PIN #: Pin
 
-One last change I add to my `~/.profile` is the `EDITOR` I prefer to use:
+Set default `EDITOR`
+
+For `zsh`:
+
+    echo "export EDITOR=vim" >>~/.zshrc
+
+For `bash`:
 
     echo "export EDITOR=vim" >>~/.profile
 
@@ -107,4 +117,6 @@ This is a living document so it will change over time with added details. I will
 
 > **2020-05-03**
 >
-> Updated restore a key section to include trusting the imported key.
+> * Updated restore a key section to include trusting the imported key.
+> * Set default `EDITOR` directions for `zsh` and `bash`.
+> * Added how to clone an existing git repo for pass usage.
