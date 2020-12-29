@@ -1,0 +1,27 @@
+{% for post in postslist | reverse %}
+<article>
+  <header>
+    <h2>
+      <a href="{{ post.url | url }}">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
+    </h2>
+    <time datetime="{{ post.date | htmlDateString }}">
+      {{ post.date | readableDate }}
+    </time>
+
+    <ul>
+      {% for tag in post.data.tags %}
+        {%- if collections.tagList.indexOf(tag) != -1 -%}
+          {% set tagUrl %}/tags/{{ tag }}/{% endset %}
+          <li><a href="{{ tagUrl | url }}">#{{ tag }}</a></li>
+        {%- endif -%}
+      {% endfor %}
+    </ul>
+  </header>
+  <section>
+    {{ post.templateContent | excerpt | safe  }}
+  </section>
+  {# <footer>
+    <a href="{{ post.url | url }}">{% if post.data.title %}continue reading{% else %}<code>{{ post.url }}</code>{% endif %}</a>
+  </footer> #}
+</article>
+{% endfor %}

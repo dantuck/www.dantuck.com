@@ -1,0 +1,13 @@
+---
+layout: layouts/home.njk
+permalink: /articles/
+---
+
+<h1>Archive</h1>
+
+{% set postslist = collections.posts %}
+{% include "postslist.njk" %}
+
+{# <div class="tags">
+  {% include "tags-list.njk" %}
+</div> #}

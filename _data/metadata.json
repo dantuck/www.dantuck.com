@@ -1,0 +1,24 @@
+{
+  "title": "bytes of thought by Daniel Tucker",
+  "url": "https://wwww.dantuck.com",
+  "domain": "dantuck.com",
+  "description": "bytes of thought by Daniel Tucker.",
+  "genre": "Insert a schema.org genre",
+  "feed": {
+    "subtitle": "Subtitle. Update me.",
+    "filename": "feed.xml",
+    "path": "/feed/feed.xml",
+    "id": "https://www.dantuck.com"
+  },
+  "jsonfeed": {
+    "path": "/feed/feed.json",
+    "url": "https://www.dantuck.com/feed/feed.json"
+  },
+  "author": {
+    "name": "dantuck",
+    "twitterHandle": "me_dantuck"
+  },
+  "publisher": {
+    "name": "dantuck"
+  }
+}
