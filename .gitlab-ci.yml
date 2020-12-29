@@ -13,6 +13,6 @@ pages:
   - npm install
   artifacts:
     paths:
-    - _site
+    - public
   only:
   - master
