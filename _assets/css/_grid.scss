@@ -235,21 +235,33 @@ header {
   }
 
   aside {
+    align-self: flex-start;
+    text-align: left;
+    
+    @include for-tablet-up {
+      align-self: auto;
+      text-align: center;
+    }
+
     span {
       position: relative;
-      display: inline-block;
+      display: block;
       padding: 0 bs(.5);
 
-      &:first-of-type {
-        &::before {
-          content: none;
-        }
-      }
+      @include for-tablet-up {
+        display: inline-block;
 
-      &::before {
-        content: "|";
-        position: absolute;
-        left: -.2rem;
+        &:first-of-type {
+          &::before {
+            content: none;
+          }
+        }
+
+        &::before {
+          content: "|";
+          position: absolute;
+          left: -.2rem;
+        }
       }
     }
   }
