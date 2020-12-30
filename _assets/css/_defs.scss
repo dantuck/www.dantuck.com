@@ -25,15 +25,10 @@
 // sizes
 $em: 18px;
 
-@import url('https://rsms.me/inter/inter-ui.css');
-html { font-family: 'Inter UI', sans-serif; }
-@supports (font-variation-settings: normal) {
-  html { font-family: 'Inter UI var alt', sans-serif; }
-}
+
  
 
 // fonts
-// $serif: 'Inter UI', sans-serif;//'Century Schoolbook', serif;
 $serif: Comfortaa, sans-serif;
 $sans-serif: Comfortaa, sans-serif; //'Lucida Sans', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
 $monospace: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -55,6 +50,12 @@ $black: rgb(51,51,51);
 $white: #fff;
 $gray: #595959;
 $orange: rgb(255,140,0);
+
+// @import url('https://rsms.me/inter/inter-ui.css');
+html { font-family: $sans-serif; }
+@supports (font-variation-settings: normal) {
+  html { font-family: $sans-serif }
+}
 
 :root {
   --main-width: 70rem;

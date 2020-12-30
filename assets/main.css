@@ -4,13 +4,6 @@
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
-@import url("https://rsms.me/inter/inter-ui.css");
-@import url("https://rsms.me/inter/inter-ui.css");
-@import url("https://rsms.me/inter/inter-ui.css");
-@import url("https://rsms.me/inter/inter-ui.css");
-@import url("https://rsms.me/inter/inter-ui.css");
-@import url("https://rsms.me/inter/inter-ui.css");
-@import url("https://rsms.me/inter/inter-ui.css");
 html {
   line-height: 1.15;
   /* 1 */
@@ -337,12 +330,12 @@ template {
 }
 
 html {
-  font-family: "Inter UI", sans-serif;
+  font-family: Comfortaa, sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter UI var alt", sans-serif;
+    font-family: Comfortaa, sans-serif;
   }
 }
 :root {
@@ -350,12 +343,12 @@ html {
 }
 
 html {
-  font-family: "Inter UI", sans-serif;
+  font-family: Comfortaa, sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter UI var alt", sans-serif;
+    font-family: Comfortaa, sans-serif;
   }
 }
 :root {
@@ -565,12 +558,12 @@ pre {
   }
 }
 html {
-  font-family: "Inter UI", sans-serif;
+  font-family: Comfortaa, sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter UI var alt", sans-serif;
+    font-family: Comfortaa, sans-serif;
   }
 }
 :root {
@@ -600,12 +593,12 @@ table {
 }
 
 html {
-  font-family: "Inter UI", sans-serif;
+  font-family: Comfortaa, sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter UI var alt", sans-serif;
+    font-family: Comfortaa, sans-serif;
   }
 }
 :root {
@@ -759,12 +752,12 @@ pre > code.highlight {
 }
 
 html {
-  font-family: "Inter UI", sans-serif;
+  font-family: Comfortaa, sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter UI var alt", sans-serif;
+    font-family: Comfortaa, sans-serif;
   }
 }
 :root {
@@ -793,12 +786,12 @@ h6 {
 }
 
 html {
-  font-family: "Inter UI", sans-serif;
+  font-family: Comfortaa, sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter UI var alt", sans-serif;
+    font-family: Comfortaa, sans-serif;
   }
 }
 :root {
@@ -860,12 +853,12 @@ dt {
   }
 }
 html {
-  font-family: "Inter UI", sans-serif;
+  font-family: Comfortaa, sans-serif;
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "Inter UI var alt", sans-serif;
+    font-family: Comfortaa, sans-serif;
   }
 }
 :root {
