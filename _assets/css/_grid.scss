@@ -255,15 +255,14 @@ header {
   }
 }
 
-main {
-  max-width: var(--main-width);
-  margin: 0 auto;
-  // border-top: 0.5px solid $site-text-grey;
-}
+// main {
+//   max-width: var(--main-width);
+//   margin: 0 auto;
+//   // border-top: 0.5px solid $site-text-grey;
+// }
 
 footer {
   background: $site-bg;
-  // border-bottom: 4px solid rgb(255,140,0);
   color: white;
   padding: bs(2);
 
@@ -314,7 +313,6 @@ article {
 
 ol,
 ul {
-  // margin-left: 1.75 * $em;
   margin-top: 0;
 }
 
