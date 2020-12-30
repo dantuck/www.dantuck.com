@@ -45,6 +45,10 @@ article {
         }
     }
 
+    ul[ingredients] {
+        padding-left: bs(1)
+    }
+
     section {
         width: auto;
     }

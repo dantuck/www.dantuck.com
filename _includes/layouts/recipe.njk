@@ -24,7 +24,7 @@ templateClass: tmpl-post
 {% block article %}
 <article>
   <h2>Ingredients</h2>
-  <ul>
+  <ul ingredients>
     {% for ingredient in ingredients %}
       <li>{{ ingredient | safe }}</li>
     {% endfor %}
