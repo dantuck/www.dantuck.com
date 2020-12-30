@@ -5,9 +5,10 @@
   "description": "A starter repository for a blog web site using the Eleventy static site generator.",
   "scripts": {
     "start": "concurrently \"eleventy --serve\" \"npm run dev:parcel\" \"npm run js-build-watch\" \"npm run test-watch\"",
-    "build": "npm run dev:parcel && npm run js-build && eleventy && npm run test",
+    "build": "npm run build:parcel && npm run js-build && eleventy && npm run test",
     "watch": "concurrently \"eleventy --serve\" \"npm run js-build-watch\" \"npm run test-watch\"",
     "serve": "eleventy --serve",
+    "build:parcel": "parcel build _assets/css/main.scss --out-dir assets --public-url /assets",
     "dev:parcel": "parcel watch _assets/css/main.scss --out-dir assets --public-url /assets",
     "js-build": "rollup -c rollup.config.js",
     "js-build-watch": "rollup -c rollup.config.js -w",
