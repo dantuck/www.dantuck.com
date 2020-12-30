@@ -169,7 +169,6 @@ module.exports = function (eleventyConfig) {
 
   const now = new Date();
   const livePosts = p => {
-    console.log(p.data.title, (p.data.draft === undefined || !p.data.draft))
     return (p.data.draft === undefined || !p.data.draft) && p.date <= now;
   }
 
