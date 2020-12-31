@@ -20,7 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-
+@mixin for-tablet-up {
+  @media (min-width: 600px) {
+    @content;
+  }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
 
 // sizes
 $em: 18px;
@@ -35,7 +44,7 @@ $monospace: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 $primary: rgb(241,241,241);
 // $site-bg: rgb(24, 24, 24);
 $site-bg: rgb(45,54,66);
-$site-text: #eee;
+$site-text: rgb(170, 170, 170);
 $site-text-grey: #ccc;
 
 $code-bg: #2d2d2d;
@@ -53,20 +62,19 @@ html { font-family: $sans-serif; }
   html { font-family: $sans-serif }
 }
 
+/*! purgecss start ignore */
 :root {
-  --main-width: 70rem;
+  --main-width: calc(100vw - 4em);
 }
+
+
+// @media (min-width: 37.5em) {
+//     :root {
+//         --main-width: calc(37.5em - 3em);
+//     }
+// }
+/*! purgecss end ignore */
 
 // responsive
 $mobile-width: 767px;
 
-@mixin for-tablet-up {
-  @media (min-width: 600px) {
-    @content;
-  }
-}
-@mixin for-desktop-up {
-  @media (min-width: 1200px) {
-    @content;
-  }
-}

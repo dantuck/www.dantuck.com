@@ -65,15 +65,15 @@
     </header>
 
     <main>
-      {# <article> #}
+      <article>
         {% block article %}
           {{ content | safe }}
         {% endblock %}
 
-        {% if page.url.indexOf("/articles/") > -1 %}
+        {% if page.url.indexOf("/article/") > -1 %}
           <p>Published <time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></p>
         {% endif %}
-      {# </article> #}
+      </article>
     </main>
 
     <footer>

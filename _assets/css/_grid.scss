@@ -77,12 +77,12 @@ header label {
 }
 
 header {
-  padding: bs(4) bs(1) 0;
+  padding: bs(4) 0 0;
   width: bs(25);
   margin: 0 auto;
   text-align: center;
   
-  max-width: 100%;
+  max-width: var(--main-width);
 
   display: flex;
   align-items: center;
@@ -267,11 +267,11 @@ header {
   }
 }
 
-// main {
-//   max-width: var(--main-width);
-//   margin: 0 auto;
-//   // border-top: 0.5px solid $site-text-grey;
-// }
+main {
+  max-width: var(--main-width);
+  margin: 0 auto;
+  // border-top: 0.5px solid $site-text-grey;
+}
 
 footer {
   background: $site-bg;
@@ -314,7 +314,6 @@ footer nav {
 
 article{
   max-width: 100%;
-  padding: bs(1);
 }
 
 article {

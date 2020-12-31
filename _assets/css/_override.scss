@@ -16,7 +16,7 @@ Context
 - https://web.dev/content-visibility/#skipping-rendering-work-with-content-visibility
 */
 main img {
-content-visibility: auto;
+    content-visibility: auto;
 }
 
 /* "Content-visibility: auto" move the images over the other elements
@@ -24,18 +24,6 @@ content-visibility: auto;
 header nav {
 z-index: 1;
 }
-
-/*! purgecss start ignore */
-:root {
---main-width: calc(100vw - 3em);
-}
-
-@media (min-width: 37.5em) {
-:root {
-    --main-width: calc(37.5em - 3em);
-}
-}
-/*! purgecss end ignore */
 
 share-widget {
 position: fixed;
@@ -83,7 +71,7 @@ display: block !important;
 }
 
 header aside {
-font-style: italic;
+// font-style: italic;
 }
 
 #nav {
