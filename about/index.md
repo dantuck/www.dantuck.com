@@ -9,8 +9,16 @@ eleventyNavigation:
 
 Hi, I’m Daniel Tucker. I’m a software engineer living in Conifer, CO (Denver).
 
+### Now
+
+#### Lead Backend Developer at [Singularity Interactive](https://singularity-interactive.com/)
+<!-- 
 Now I'm transitioning from [Exclusive Resorts](https://www.exclusiveresorts.com) 
-to a new role as a Software Developer II at [Singularity Interactive](https://singularity-interactive.com/).
+to a new role as a Software Developer II at . -->
+
+#### 2020
+
+- 2020.12 - Redesigned [dantuck.com](/) using [Eleventy static site generator](https://www.11ty.dev/)
 
 ### Previously
 
