@@ -1,13 +1,15 @@
-#carbonads {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
-  Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+/*! purgecss start ignore */
+// #carbonads {
+//   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu,
+//   Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// }
 
 #carbonads {
   display: flex;
-  max-width: 330px;
-  background-color: hsl(0, 0%, 10%);
-  box-shadow: 0 0 1px hsla(0, 0%, 0%, .5);
+  background-color: #2d2d2d;
+  font-size: 1rem;
+  margin: 1em 0 0;
+  // box-shadow: 0 0 1px hsla(0, 0%, 0%, .5);
 }
 
 #carbonads a {
@@ -42,8 +44,6 @@
 .carbon-text {
   padding: 10px;
   text-align: left;
-  font-size: 13px;
-  line-height: 1.5;
 }
 
 .carbon-poweredby {
@@ -58,3 +58,4 @@
   font-size: 9px;
   line-height: 1;
 }
+/*! purgecss end ignore */
