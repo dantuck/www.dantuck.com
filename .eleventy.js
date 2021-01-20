@@ -74,6 +74,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(require("./_11ty/apply-csp.js"));
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
+  eleventyConfig.addNunjucksFilter("carbon", function (content) {
+    return content.replace('%carbon%', `<script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEBIEK7Y&placement=wwwdantuckcom" id="_carbonads_js"></script>`)
+  });
   eleventyConfig.addNunjucksAsyncFilter("addHash", function (
     absolutePath,
     callback

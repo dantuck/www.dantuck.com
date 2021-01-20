@@ -17,9 +17,9 @@ templateClass: tmpl-post
 
 {% block article %}
 <article>
-  {{ content | safe }}
+  {{ content | carbon | safe }}
 
-
+  
   <p>
     Since you've made it this far, <a href="{{ shareUrl | safe }}" on-click="share">sharing</a> this article on your favorite social media network 
     would be highly appreciated 💖! For feedback, please 
