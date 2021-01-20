@@ -30,7 +30,7 @@ templateClass: tmpl-post
     {% endfor %}
   </ul>
   <h2>Methods</h2>
-  {{ content | safe }}
+  {{ content | carbon | safe }}
 
   <p>
     Since you've made it this far, <a href="{{ shareUrl | safe }}" on-click="share">sharing</a> this article on your favorite social media network 
