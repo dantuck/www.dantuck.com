@@ -30,6 +30,8 @@ it has no default behavior. Clicking, pressing enter or space
 will render no action unless embedded in a form that has an action
 or assigning JavaScript to the button such as onclick.
 
+%carbon%
+
 So what is the problem?
 
 First lets start with a button. As you remember the button

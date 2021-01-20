@@ -19,6 +19,9 @@ Out of the box Git does not have an obvious backup mechanism but there is. I hav
 ``` bash
     git clone --mirror remote.git local-backup.git
 ```
+
+%carbon%
+
 ## How to update a bare mirror
 
 Since our local bare mirror is not being consistently updated by our normal workflows it is a good idea to either add a workflow into your backup process or manually update a bare git repo with the following command:

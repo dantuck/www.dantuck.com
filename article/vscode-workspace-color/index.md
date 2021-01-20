@@ -62,6 +62,8 @@ and the window title bar background color and the text color.
 ```
 The last change we made was enabling the `titleBar` setting change which is saying we are using the `"window.titleBarStyle": "custom"` setting. Now this will not make the change to the title bar just yet.
 
+%carbon%
+
 For the title bar setting change to take for your current workspace you must change your user window setting to use the `custom` option rather than the `native`. To do this go back to the settings page `ctrl + ,` or other way depending on your operation system. Then in the search type `titleBarStyle` and ensure you have selected `User` instead of `Workspace`. The setting change is a dropdown which should be selected `native`. Change it to `custom` and let VSCode reload.
 
 You now have your custom setting enabled for your workspace. Congrats!

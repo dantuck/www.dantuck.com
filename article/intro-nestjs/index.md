@@ -23,6 +23,8 @@ This is the next post in a series of articles as I explore NodeJS. If you need t
 
 First, what is Nest? It is essentially a Node.js framework for building efficient server side applications. The really cool part about it is it uses [TypeScript](https://www.typescriptlang.org/). Nest also incorporates elements of Object Oriented Programming, Functional Programming, and Functional Reactive Programming.
 
+%carbon%
+
 ## Installation
 
 You have two pretty good options to install; [Nest CLI](https://docs.nestjs.com/cli/overview) or cloning the [starter project](https://github.com/nestjs/typescript-starter).

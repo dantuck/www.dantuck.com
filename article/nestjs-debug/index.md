@@ -53,3 +53,5 @@ Create a `launch.json` file:
     }
 ```
 Now you can set breakpoints and `Debug -> Start Debugging` or press `F5`.
+
+%carbon%
