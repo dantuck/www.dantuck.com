@@ -10,6 +10,8 @@ You can't tell it by the site source but I do use [Eleventy](https://www.11ty.de
 
 This is going to be the start of a series of articles that will show the progression of setting up a base template that will include Eleventy as the static site generator and TailwindCSS as the css framework. There will be additional tooling along the way that we will discover together. Please enjoy the journey!
 
+%carbon%
+
 ## Let's get started
 
 ### Put up the scaffolding
