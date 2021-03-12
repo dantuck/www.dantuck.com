@@ -4,6 +4,9 @@ title: "11ty and tailwindcss template, Part I"
 layout: layouts/post.njk
 ---
 
+> Part I : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding
+> [Part II](/article/11ty-tailwindcss-series/part-2/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-2) - Enabling TailwindCSS
+
 Until now I have been trying to write my own CSS and keep it simple. I like simplicity in my designs but also I do like the fun that comes with what you can do these days with CSS. With that thought in mind I want to get a little more creative with my site design and that is what brings us to this point.
 
 You can't tell it by the site source but I do use [Eleventy](https://www.11ty.dev/) to statically generate my site. The goal is to use [TailwindCSS](https://tailwindcss.com/) to style the look and feel of the site with the expectation of ease and speed.
