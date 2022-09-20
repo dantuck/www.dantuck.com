@@ -1,2 +1,0 @@
-# Redirect default Netlify subdomain to primary domain
-http://dantuck.netlify.com/* http://www.dantuck.com/:splat 301!

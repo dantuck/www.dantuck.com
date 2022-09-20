@@ -1,0 +1,14 @@
+---
+import Ingredient from './Ingredient.astro';
+
+export interface Props {
+	ingredients: any;
+}
+
+const { ingredients } = Astro.props;
+---
+
+<h2>Ingredients</h2>
+<ul data-ingredients>
+	{ingredients.map((i) => <Ingredient ingredient={i} />)}
+</ul>

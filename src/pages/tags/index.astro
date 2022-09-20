@@ -1,0 +1,40 @@
+---
+import Header from '../../components/Header.astro';
+import Tags from '../../components/Tags.astro';
+
+// page
+const title = 'Tags';
+const description = 'bytes of thought by Daniel Tucker.';
+const author = 'dantuck';
+
+const allPosts = await Astro.glob('../{article,recipe}/**/*.{md,mdx}')
+const filteredPosts = allPosts
+	.filter((post) => post.frontmatter?.tags !== null && post.frontmatter?.tags !== undefined && !post.frontmatter.draft);
+
+const allTagsUnique = [...new Set(filteredPosts.flatMap((p) => p.frontmatter.tags))];	
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+---
+
+<html lang="en">
+	<head>
+		<title>{title}</title>
+		<Header {title} {description} {canonicalURL.toString()} />
+	</head>
+
+	<body>
+		<main>
+			<article>
+				<header>
+					<Tags tags={allTagsUnique} />
+				</header>
+			</article>
+		</main>
+
+		<footer>
+			<a href="/about/">about {author}</a>
+			<div id="reading-progress" aria-hidden="true"></div>
+		</footer>
+	</body>
+</html>
