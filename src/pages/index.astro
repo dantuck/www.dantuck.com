@@ -1,0 +1,40 @@
+---
+import Header from '../components/Header.astro';
+import BlogPostPreview from '../components/BlogPostPreview.astro';
+
+// Component Script:
+// You can write any JavaScript/TypeScript that you'd like here.
+// It will run during the build, but never in the browser.
+// All variables are available to use in the HTML template below.
+let title = 'bytes of thought by Daniel Tucker';
+let description = 'bytes of thought by Daniel Tucker.';
+let permalink = 'https://www.dantuck.com.com/';
+let author = 'dantuck';
+
+// Data Fetching: List all Markdown posts in the repo.
+
+let allArticles = await Astro.glob('./article/**/*.{md,mdx}');
+let allRecipes = await Astro.glob('./recipe/**/*.{md,mdx}');
+let all = allArticles.concat(allRecipes).filter((post) => !post.frontmatter.draft);
+all = all.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en">
+	<head>
+		<Header {description} {permalink} />
+	</head>
+
+	<body>
+		<main>
+			{all.map((p) => <BlogPostPreview post={p} />)}
+		</main>
+
+		<footer>
+			<a href="/about/">about {author}</a>
+			<div id="reading-progress" aria-hidden="true"></div>
+		</footer>
+	</body>
+</html>

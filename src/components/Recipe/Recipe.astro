@@ -1,0 +1,27 @@
+---
+import Ingredients from './Ingredients.astro';
+
+export interface Props {
+	title: string;
+	author: string;
+	publishDate: string;
+	heroImage: string;
+	alt: string;
+	ingredients: any;
+}
+
+const { ingredients, title, author, publishDate, heroImage, alt } = Astro.props;
+---
+
+<article>
+	<main>
+		<Ingredients ingredients={ingredients} />
+		<h2>Methods</h2>
+		<slot />
+	</main>
+	<p>
+		Since you've made it this far, <a href="" on-click="share">sharing</a> this article on your favorite social media network 
+		would be highly appreciated 💖! For feedback, please 
+		<a href="https://twitter.com/me_dantuck" target="_blank" rel="noopener">ping me on Twitter.</a>
+	</p>
+</article>

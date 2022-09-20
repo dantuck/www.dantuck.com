@@ -1,0 +1,36 @@
+---
+import Header from '../../components/Header.astro';
+import BlogPostPreview from '../../components/BlogPostPreview.astro';
+
+// page
+const title = 'Recipes';
+const description = 'bytes of thought by Daniel Tucker.';
+const author = 'dantuck';
+
+let allRecipes = await Astro.glob('./**/*.{md,mdx}');
+allRecipes = allRecipes
+	.filter((post) => !post.frontmatter.draft)
+	.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+	
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const { page } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<title>{title}</title>
+		<Header {title} {description} {canonicalURL.toString()} />
+	</head>
+
+	<body>
+		<main>
+			{allRecipes.map((p) => <BlogPostPreview post={p} />)}
+		</main>
+
+		<footer>
+			<a href="/about/">about {author}</a>
+			<div id="reading-progress" aria-hidden="true"></div>
+		</footer>
+	</body>
+</html>
