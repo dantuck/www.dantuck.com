@@ -1,0 +1,98 @@
+/* Color customization */
+:root {
+--primary: #f9c412;
+--primary-dark: #e7bf60;
+}
+
+.test-dead-code-elimination-sentinel {
+color: red;
+}
+
+/*
+Make image rasterization lazy. This means that e.g. the cost of the
+blurry placeholder is never paid if images load before entering
+the viewport.
+Context
+- https://web.dev/content-visibility/#skipping-rendering-work-with-content-visibility
+*/
+main img {
+    content-visibility: auto;
+}
+
+/* "Content-visibility: auto" move the images over the other elements
+    Set z-index to keep the nav over the rasterized images */
+header nav {
+z-index: 1;
+}
+
+share-widget {
+position: fixed;
+right: 20px;
+bottom: 20px;
+opacity: 0.9;
+}
+
+share-widget div {
+width: 30px;
+height: 30px;
+background-image: url("../img/share.svg");
+background-repeat: no-repeat;
+background-position: center;
+}
+
+.apple share-widget div {
+background-image: url("../img/share-apple.svg");
+}
+
+share-widget button {
+margin: 0;
+}
+
+share-widget button:active {
+transform: scale(1.2);
+}
+
+dialog {
+background-color: #8dff80;
+position: fixed;
+opacity: 0.9;
+}
+
+img[align="left"] {
+width: auto;
+height: 16rem;
+margin-right: 1rem;
+margin-bottom: 1rem;
+}
+
+dl {
+clear: both;
+display: block !important;
+}
+
+header aside {
+// font-style: italic;
+}
+
+#nav {
+z-index: 2;
+position: relative;
+}
+
+#posts li {
+    margin-bottom: 0.5em;
+}
+
+.tmpl-home {
+    ul {
+        list-style: none;
+        padding-left: 0;
+
+        li {
+            margin-bottom: bs(1);
+            time {
+                display: block;
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.svelte';
+import Recipe from '../components/Recipe/Recipe.astro';
+
+const { content } = Astro.props;
+const { ingredients, title, description, publishDate, author, heroImage, permalink, alt, prepTime, cookTime } = content;
+---
+
+<html lang={content.lang || 'en'}>
+	<head>
+		<BaseHead {title} {description} {permalink} />
+	</head>
+
+	<body>
+		<Header {title} {prepTime} {cookTime} />
+		<Recipe {ingredients} {title} {author} {heroImage} {publishDate} {alt}>
+			<slot />
+		</Recipe>
+
+		<Footer />
+	</body>
+</html>

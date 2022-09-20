@@ -1,0 +1,14 @@
+---
+export interface Props {
+	tags: any;
+}
+
+const { tags } = Astro.props;
+---
+
+<ul>
+	{tags?.map((i) => {
+		const href = "/tags/" + i;
+		return (<li><a {href}>#{i}</a></li>)
+	})}
+</ul>

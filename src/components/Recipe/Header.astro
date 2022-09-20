@@ -1,0 +1,17 @@
+---
+export interface Props {
+	prepTime?: string;
+    cookTime?: string;
+}
+
+const { prepTime, cookTime } = Astro.props;
+---
+
+<aside>
+    {prepTime && (
+		<span>Prep: {prepTime}</span>
+	)}
+    {cookTime && (
+		<span>Cook: {cookTime}</span>
+	)}
+</aside>

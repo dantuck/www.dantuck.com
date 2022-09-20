@@ -1,0 +1,28 @@
+---
+import RecipeHeader from './Recipe/Header.astro';
+
+const { title, prepTime, cookTime } = Astro.props;
+
+let tagline = 'bytes of thought by Daniel Tucker';
+let description = 'bytes of thought by Daniel Tucker.';
+let permalink = 'https://www.dantuck.com.com/';
+---
+
+<header>
+	<nav>
+		<div id="nav">
+			<h1><a href="/">{tagline}</a></h1>
+			<a href="/recipe">Recipes</a>
+			<a href="/article">Articles</a>
+			<a href="/about">About</a>
+		</div>
+	</nav>
+	{title && (
+		<h1>{title}</h1>
+	)}
+
+	{(prepTime || cookTime) && (
+		<RecipeHeader prepTime={prepTime} cookTime={cookTime} />
+	)}
+	<dialog id="message"></dialog>
+</header>

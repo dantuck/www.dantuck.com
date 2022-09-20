@@ -1,0 +1,9 @@
+---
+export interface Props {
+	ingredient: string;
+}
+
+const { ingredient } = Astro.props;
+---
+
+<li><Fragment set:html={ingredient}></li>

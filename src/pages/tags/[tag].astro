@@ -1,0 +1,51 @@
+---
+import Header from '../../components/Header.astro';
+import BlogPostPreview from '../../components/BlogPostPreview.astro';
+// import authorData from '../../data/authors.json';
+const author = 'dantuck';
+
+export async function getStaticPaths() {
+	const allArticles = await Astro.glob('../article/*/*.md');
+    const allRecipes = await Astro.glob('../recipe/*/*.md');
+	const allPosts = allArticles.concat(allRecipes).filter((post) => !post.frontmatter.draft)
+	const allTagsUnique = [...new Set(allPosts.flatMap((p) => p.frontmatter.tags))];
+    return allTagsUnique.map((tag) => ({ params: { tag }, props: { allPosts } }));
+}
+
+const { allPosts } = Astro.props;
+const title =  `Tagged "${Astro.params.tag}"`;
+const description = "Description";
+
+const articles = allPosts
+	.filter((post) => !post.frontmatter.draft && post.frontmatter.tags.includes(Astro.params.tag))
+	.sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf());
+---
+
+<html lang="en">
+	<head>
+		<title>{title}</title>
+		<Header {title} {description} />
+	</head>
+
+	<body>
+		<main>
+			{articles.map((p) => <BlogPostPreview post={p} />)}
+		</main>
+
+		<footer>
+			<p class="all-tags">See <a href="/tags/">all tags</a>.</p>
+			<a href="/about/">about {author}</a>
+			<div id="reading-progress" aria-hidden="true"></div>
+		</footer>
+	</body>
+</html>
+
+<style lang="scss">
+	footer .all-tags {
+		// max-width: 100%;
+		width: 37.5em;
+		margin: 0 auto;
+		text-align: left;
+		font-size: 100%;
+	}
+</style>

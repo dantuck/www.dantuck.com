@@ -1,0 +1,21 @@
+{
+  "name": "@example/basics",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "devDependencies": {
+    "@astrojs/image": "^0.3.6",
+    "@astrojs/mdx": "^0.10.2",
+    "@astrojs/sitemap": "^1.0.0",
+    "@astrojs/svelte": "^1.0.0",
+    "astro": "^1.1.1",
+    "sass": "^1.54.8",
+    "svelte": "^3.46.4"
+  }
+}

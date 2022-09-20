@@ -1,0 +1,28 @@
+---
+import Tags from './Tags.astro';
+
+export interface Props {
+	post: any;
+}
+
+const { post } = Astro.props;
+
+const { publishDate, title, description, tags } = post.frontmatter
+// console.log(tags)
+---
+
+<article class="post-preview">
+	<header>
+		<h2>
+			<a href={post.url}>{title}</a>
+		</h2>
+		<time datetime={publishDate}>
+			{publishDate}
+		</time>
+		<Tags {tags} />
+	</header>
+	<section>
+		{description}
+	</section>
+	<!-- <a href={post.url}>Read more</a> -->
+</article>
