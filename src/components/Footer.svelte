@@ -54,6 +54,7 @@
 <svelte:window on:resize={handleObserver}/>
 
 <footer>
-    <a href="/about/">about</a>
+    <a href="/about/">about test</a>
+    <a rel="me" href="https://fosstodon.org/@tuck">@tuck@fosstodon.org | Mastodon</a>
     <div id="reading-progress" aria-hidden="true"></div>
 </footer>

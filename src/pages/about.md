@@ -4,7 +4,7 @@ setup: |
 title: About
 ---
 
-Hi, I’m Daniel Tucker. I’m a software engineer living in Conifer, CO (Denver).
+Hi, I’m Daniel Tucker. I’m a software engineer living in Colorado.
 
 ### Now
 
