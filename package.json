@@ -1,5 +1,5 @@
 {
-  "name": "@example/basics",
+  "name": "@tuck/www-dantuck",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,7 +7,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "publish-preview": "astro build && wrangler pages publish dist --project-name=www-dantuck --branch=preview",
+    "publish-release": "astro build && wrangler pages publish dist --project-name=www-dantuck"
   },
   "devDependencies": {
     "@astrojs/image": "^0.3.6",
