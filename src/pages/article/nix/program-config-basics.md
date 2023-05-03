@@ -8,7 +8,7 @@ tags:
 - nix
 publishDate: 03 May 2023
 description: |
-  By adopting Nix and Home Manager, I hope to simplify the management of my dotfiles and bid farewell to multiple package managers like Homebrew. Through a single application repository, Nix offers the promise of a unified experience across various operating systems. While this article focuses on the initial setup, subsequent updates will delve into the exciting realm of experimental features and customization options that Nix and Home Manager provide. So join me on this journey as we venture into the world of streamlined dotfile management with Nix and Home Manager.
+  In this article, we dive into the process of adding the bat program with custom configurations to your Nix and Home Manager setup. bat is a feature-rich alternative to the traditional cat command, offering syntax highlighting and advanced functionalities for file concatenation and display. By following our step-by-step guide, you'll learn how to integrate bat into your Nix environment and configure it to suit your specific needs.
 ---
 
 > [Nix and Home Manager - Getting setup](/article/nix/setup)<br />
