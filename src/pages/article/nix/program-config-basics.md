@@ -1,7 +1,7 @@
 ---
 setup: |
   import Layout from '../../../layouts/BlogPost.astro'
-title: Configuring program specific configurations - The basics
+title: 'Nix: Configuring program specific configurations - The basics'
 author: dantuck
 tags:
 - dotfiles
@@ -12,7 +12,7 @@ description: |
 ---
 
 > [Nix and Home Manager - Getting setup](/article/nix/setup)<br />
-> ➜ Configuring program specific configurations - The basics
+> ➜ Nix: Configuring program specific configurations - The basics
 
 In this article, we dive into the process of adding the [bat](https://github.com/sharkdp/bat) program with custom configurations to your Nix and Home Manager setup. `bat` is a feature-rich alternative to the traditional `cat` command, offering syntax highlighting and advanced functionalities for file concatenation and display. By following our step-by-step guide, you'll learn how to integrate `bat` into your Nix environment and configure it to suit your specific needs.
 

@@ -12,7 +12,7 @@ description: |
 ---
 
 > ➜ Nix and Home Manager - Getting setup<br />
-> [Configuring program specific configurations - The basics](/article/nix/program-config-basics)
+> [Nix: Configuring program specific configurations - The basics](/article/nix/program-config-basics)
 
 For a while now, I've been using a shell script-based [dotfile](https://codeberg.org/tuck/dotfiles) management system that has served me well. It's been a manual and hands-on approach, giving me complete control over my configuration files. Overall, I've had no major complaints about this process. However, curiosity has piqued my interest in exploring an alternative solution: Nix and Home Manager. In this article, we delve into the reasons behind my consideration of this switch, focusing on the initial setup and the potential benefits of adopting Nix and Home Manager. While this article covers the basic setup without diving into complex or experimental features, future updates and articles will explore advanced customization options.
 
