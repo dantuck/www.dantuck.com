@@ -11,8 +11,8 @@ tags:
 draft: true
 ---
 
-> [Part I](/article/11ty-tailwindcss-series/part-1/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding
-> [Part II](/article/11ty-tailwindcss-series/part-2/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-2) - Enabling TailwindCSS
+> [Part I](/article/11ty-tailwindcss-series/part-1/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding<br />
+> [Part II](/article/11ty-tailwindcss-series/part-2/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-2) - Enabling TailwindCSS<br />
 > Part III : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-3) - 
 
 https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss

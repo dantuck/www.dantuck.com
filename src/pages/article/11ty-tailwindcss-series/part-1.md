@@ -14,7 +14,7 @@ description: |
 ---
 
 
-> Part I : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding
+> Part I : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding<br />
 > [Part II](/article/11ty-tailwindcss-series/part-2/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-2) - Enabling TailwindCSS
 
 Until now I have been trying to write my own CSS and keep it simple. I like simplicity in my designs but also I do like the fun that comes with what you can do these days with CSS. With that thought in mind I want to get a little more creative with my site design and that is what brings us to this point.

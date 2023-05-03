@@ -15,7 +15,7 @@ description: |
   Install the tailwindcss and enabling packages...
 ---
 
-> [Part I](/article/11ty-tailwindcss-series/part-1/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding
+> [Part I](/article/11ty-tailwindcss-series/part-1/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding<br />
 > Part II : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-2) - Enabling TailwindCSS
 
 ## Enable tailwindcss
