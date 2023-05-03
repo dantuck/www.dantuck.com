@@ -11,6 +11,9 @@ description: |
   By adopting Nix and Home Manager, I hope to simplify the management of my dotfiles and bid farewell to multiple package managers like Homebrew. Through a single application repository, Nix offers the promise of a unified experience across various operating systems. While this article focuses on the initial setup, subsequent updates will delve into the exciting realm of experimental features and customization options that Nix and Home Manager provide. So join me on this journey as we venture into the world of streamlined dotfile management with Nix and Home Manager.
 ---
 
+> ➜ Nix and Home Manager - Getting setup<br />
+> [Configuring program specific configurations - The basics](/article/nix/program-config-basics)
+
 For a while now, I've been using a shell script-based [dotfile](https://codeberg.org/tuck/dotfiles) management system that has served me well. It's been a manual and hands-on approach, giving me complete control over my configuration files. Overall, I've had no major complaints about this process. However, curiosity has piqued my interest in exploring an alternative solution: Nix and Home Manager. In this article, we delve into the reasons behind my consideration of this switch, focusing on the initial setup and the potential benefits of adopting Nix and Home Manager. While this article covers the basic setup without diving into complex or experimental features, future updates and articles will explore advanced customization options.
 
 So why am I considering a move to Nix and Home Manager? Really curiosity and the ability to abandon the use of [Homebrew](https://brew.sh) and other package managers. I can depend on and use a single application repository rather than manage multiple sources depending on which operation system I am using.
