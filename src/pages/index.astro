@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
+import BaseHead from '../components/BaseHead.astro';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -24,10 +25,11 @@ all = all.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Dat
 
 <html lang="en">
 	<head>
-		<Header {description} {permalink} />
+		<BaseHead title={title} description={description} permalink={permalink} />
 	</head>
 
 	<body>
+		<Header />
 		<main>
 			{all.map((p) => <BlogPostPreview post={p} />)}
 		</main>
