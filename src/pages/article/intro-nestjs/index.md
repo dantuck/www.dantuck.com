@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../../layouts/BlogPost.astro'
-  import Carbon from '../../../components/Carbon.astro'
 publishDate: 19 Mar 2020
 title: "NestJS: Getting started"
 author: dantuck
@@ -27,8 +26,6 @@ twitter:
 This is the next post in a series of articles as I explore NodeJS. If you need to go back one and get Node setup and running check this one out: [NodeJS: Getting started](/article/node-getting-started/).
 
 First, what is Nest? It is essentially a Node.js framework for building efficient server side applications. The really cool part about it is it uses [TypeScript](https://www.typescriptlang.org/). Nest also incorporates elements of Object Oriented Programming, Functional Programming, and Functional Reactive Programming.
-
-<Carbon />
 
 ## Installation
 

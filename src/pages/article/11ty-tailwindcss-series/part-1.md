@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../../layouts/BlogPost.astro'
-  import Carbon from '../../../components/Carbon.astro'
 title: 11ty and tailwindcss template, Part I
 author: dantuck
 tags:
@@ -22,8 +21,6 @@ Until now I have been trying to write my own CSS and keep it simple. I like simp
 You can't tell it by the site source but I do use [Eleventy](https://www.11ty.dev/) to statically generate my site. The goal is to use [TailwindCSS](https://tailwindcss.com/) to style the look and feel of the site with the expectation of ease and speed.
 
 This is going to be the start of a series of articles that will show the progression of setting up a base template that will include Eleventy as the static site generator and TailwindCSS as the css framework. There will be additional tooling along the way that we will discover together. Please enjoy the journey!
-
-<Carbon />
 
 ## Let's get started
 

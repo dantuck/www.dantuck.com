@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../../layouts/BlogPost.astro'
-  import Carbon from '../../../components/Carbon.astro'
 publishDate: 17 Mar 2020
 title: "NodeJS: Getting started"
 author: dantuck
@@ -29,8 +28,6 @@ First things first; [download Node](https://nodejs.org/en/download/). You have a
 Multiple version of Node may be needed for different projects you are working on. This is not always the easiest to maintain until [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm) entered the market. NVM is a really cool package that allows you to manage multiple version of Node on a single machine.
 
 You can install NVM on most developer system with exception of Windows unless you are running WSL.
-
-<Carbon />
 
 ### Install and Using
 

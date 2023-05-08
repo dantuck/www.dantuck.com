@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../layouts/Recipe.astro'
-  import Carbon from '../../components/Carbon.astro'
 title: Gluten-Free Fried Chicken Strips
 publishDate: 20 Jan 2021
 tags:
@@ -39,5 +38,3 @@ Add remaining buttermilk and rub together until flower mixture is damp. If flour
 3. Dredge chicken in flour mixture, coating all sides with flour. Shake excess flour off each piece of chicken. Place coated chicken on a platter or wire rack. Heat &frac34; to 1 inch of oil in a 12 inch cast iron skillet to 375&#176;F. Working in batches, fry chicken. Don't crowd the pan. Cook chicken until golden brown and crip and internal temperature registers 165&#176;F on an instant read thermometer, about two minutes per side.
 
 4. Transfer chicken to plate lined with paper towels. Season with salt. Serve immediately.
-
-<Carbon />

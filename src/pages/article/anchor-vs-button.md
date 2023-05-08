@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../layouts/BlogPost.astro'
-  import Carbon from '../../components/Carbon.astro'
 publishDate: 20 Nov 2019
 draft: true
 title: "Anchors vs. Buttons"
@@ -33,8 +32,6 @@ A Button element, `<button>`, does nothing. What I mean here is
 it has no default behavior. Clicking, pressing enter or space
 will render no action unless embedded in a form that has an action
 or assigning JavaScript to the button such as onclick.
-
-<Carbon />
 
 So what is the problem?
 

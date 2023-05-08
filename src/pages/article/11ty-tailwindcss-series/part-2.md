@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../../layouts/BlogPost.astro'
-  import Carbon from '../../../components/Carbon.astro'
 publishDate: 12 Mar 2021
 title: "11ty and tailwindcss template, Part II"
 author: dantuck
@@ -97,8 +96,6 @@ Next, update `package.json` with the `build:css` needed to build the css:
 ```
 
 Running `npm run build:css` will output to `./.build/css/style.css`.
-
-<Carbon />
 
 ## Add the css build into the site output
 

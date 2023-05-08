@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../../layouts/BlogPost.astro'
-  import Carbon from '../../../components/Carbon.astro'
 publishDate: 04 Apr 2020
 title: "How to backup a Git repository"
 categories:
@@ -22,8 +21,6 @@ Out of the box Git does not have an obvious backup mechanism but there is. I hav
 ``` bash
     git clone --mirror remote.git local-backup.git
 ```
-
-<Carbon />
 
 ## How to update a bare mirror
 

@@ -1,7 +1,6 @@
 ---
 setup: |
   import Layout from '../../../layouts/BlogPost.astro'
-  import Carbon from '../../../components/Carbon.astro'
 publishDate: 24 Mar 2020
 title: "NestJS: VSCode debugger setup"
 author: dantuck
@@ -57,5 +56,3 @@ Create a `launch.json` file:
     }
 ```
 Now you can set breakpoints and `Debug -> Start Debugging` or press `F5`.
-
-<Carbon />
