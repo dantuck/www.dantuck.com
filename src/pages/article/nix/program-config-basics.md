@@ -6,13 +6,15 @@ author: dantuck
 tags:
 - dotfiles
 - nix
+- home-manager
 publishDate: 03 May 2023
 description: |
   In this article, we dive into the process of adding the bat program with custom configurations to your Nix and Home Manager setup. bat is a feature-rich alternative to the traditional cat command, offering syntax highlighting and advanced functionalities for file concatenation and display. By following our step-by-step guide, you'll learn how to integrate bat into your Nix environment and configure it to suit your specific needs.
 ---
 
 > [Nix and Home Manager - Getting setup](/article/nix/setup)<br />
-> ➜ Nix: Configuring program specific configurations - The basics
+> ➜ Nix: Configuring program specific configurations - The basics<br />
+> [Nix: Configuring git](/article/nix/git)
 
 In this article, we dive into the process of adding the [bat](https://github.com/sharkdp/bat) program with custom configurations to your Nix and Home Manager setup. `bat` is a feature-rich alternative to the traditional `cat` command, offering syntax highlighting and advanced functionalities for file concatenation and display. By following our step-by-step guide, you'll learn how to integrate `bat` into your Nix environment and configure it to suit your specific needs.
 
