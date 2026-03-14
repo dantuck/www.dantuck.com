@@ -1,3 +1,6 @@
+@use 'shevy/functions' as *;
+@use 'defs' as *;
+
 /* Color customization */
 :root {
 --primary: #f9c412;
@@ -19,11 +22,6 @@ main img {
     content-visibility: auto;
 }
 
-/* "Content-visibility: auto" move the images over the other elements
-    Set z-index to keep the nav over the rasterized images */
-header nav {
-z-index: 1;
-}
 
 share-widget {
 position: fixed;
@@ -74,10 +72,6 @@ header aside {
 // font-style: italic;
 }
 
-#nav {
-z-index: 2;
-position: relative;
-}
 
 #posts li {
     margin-bottom: 0.5em;
@@ -95,4 +89,28 @@ position: relative;
             }
         }
     }
+}
+
+.post-preview {
+  padding: bs(1) 0;
+  border-bottom: 1px solid rgba($site-text, 0.15);
+
+  h2 {
+    margin: 0 0 bs(0.15);
+    font-size: 1rem;
+  }
+
+  time {
+    display: block;
+    color: $site-text;
+    font-size: 0.8em;
+    margin-bottom: bs(0.35);
+  }
+
+  p {
+    color: $site-text;
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin: 0;
+  }
 }
