@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/BlogPost.astro'
+layout: '../../layouts/BlogPost.astro'
 publishDate: 02 Oct 2018
 title: Visual Studio Code - Selected Text to Uppercase
 author: dantuck

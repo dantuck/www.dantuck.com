@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 ///
 /// Default $shevy settings
 /// @prop $shevy-defaults
@@ -19,4 +21,4 @@ $shevy-defaults: (
 $shevy: () !default;
 
 // Merge defaults with $shevy to create base level map
-$shevy: map-merge($shevy-defaults, $shevy);
+$shevy: map.merge($shevy-defaults, $shevy);

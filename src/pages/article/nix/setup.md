@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/BlogPost.astro'
+layout: '../../../layouts/BlogPost.astro'
 title: Nix and Home Manager - Getting setup
 author: dantuck
 tags:

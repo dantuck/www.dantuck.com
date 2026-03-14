@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/BlogPost.astro'
+layout: '../../../layouts/BlogPost.astro'
 publishDate: 24 Mar 2020
 title: "NestJS: VSCode debugger setup"
 author: dantuck

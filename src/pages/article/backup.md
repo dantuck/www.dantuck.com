@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/BlogPost.astro'
+layout: '../../layouts/BlogPost.astro'
 publishDate: 08 Mar 2020
 draft: true
 title: "Restic backup + Backblaze B2 + Rclone"

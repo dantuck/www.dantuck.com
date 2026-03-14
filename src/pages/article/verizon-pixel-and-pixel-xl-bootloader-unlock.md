@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/BlogPost.astro'
+layout: '../../layouts/BlogPost.astro'
 publishDate: 20 Mar 2019
 title: "Verizon Pixel and Pixel XL Bootloader Unlock"
 author: dantuck

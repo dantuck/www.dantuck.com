@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/BlogPost.astro'
+layout: '../../layouts/BlogPost.astro'
 publishDate: 10 Mar 2020
 title: "Functional Programming with JavaScript"
 author: dantuck

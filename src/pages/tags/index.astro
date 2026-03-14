@@ -7,7 +7,7 @@ const title = 'Tags';
 const description = 'bytes of thought by Daniel Tucker.';
 const author = 'dantuck';
 
-const allPosts = await Astro.glob('../{article,recipe}/**/*.{md,mdx}')
+const allPosts = Object.values(import.meta.glob('../{article,recipe}/**/*.{md,mdx}', { eager: true }))
 const filteredPosts = allPosts
 	.filter((post) => post.frontmatter?.tags !== null && post.frontmatter?.tags !== undefined && !post.frontmatter.draft);
 

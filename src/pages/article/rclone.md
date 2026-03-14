@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/BlogPost.astro'
+layout: '../../layouts/BlogPost.astro'
 publishDate: 01 Nov 2019
 title: "Rclone - rsync for cloud storage"
 author: dantuck

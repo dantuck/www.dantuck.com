@@ -51,7 +51,7 @@
 
 </script>
 
-<svelte:window on:resize={handleObserver}/>
+<svelte:window onresize={handleObserver}/>
 
 <footer>
     <a href="/about/">about test</a>

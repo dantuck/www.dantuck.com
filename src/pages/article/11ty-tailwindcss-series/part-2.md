@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/BlogPost.astro'
+layout: '../../../layouts/BlogPost.astro'
 publishDate: 12 Mar 2021
 title: "11ty and tailwindcss template, Part II"
 author: dantuck

@@ -1,3 +1,6 @@
+@use 'defs' as *;
+@use 'shevy/functions' as *;
+
 article {
     header {
         position: relative;

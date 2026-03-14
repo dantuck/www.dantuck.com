@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/BlogPost.astro'
+layout: '../../../layouts/BlogPost.astro'
 publishDate: 19 Mar 2020
 title: "NestJS: Getting started"
 author: dantuck

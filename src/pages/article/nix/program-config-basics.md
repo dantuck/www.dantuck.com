@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/BlogPost.astro'
+layout: '../../../layouts/BlogPost.astro'
 title: 'Nix: Configuring program specific configurations - The basics'
 author: dantuck
 tags:

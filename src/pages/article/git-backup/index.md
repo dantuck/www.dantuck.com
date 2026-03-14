@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/BlogPost.astro'
+layout: '../../../layouts/BlogPost.astro'
 publishDate: 04 Apr 2020
 title: "How to backup a Git repository"
 categories:

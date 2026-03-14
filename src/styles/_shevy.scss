@@ -1,16 +1,11 @@
 
-@import 'defs';
+@use 'defs' as *;
+@use 'shevy/mixins' as *;
 
 ////
 /// Shevy
 /// @author Kyle Shevlin
 ////
-
-@import
-  'shevy/variables',
-  'shevy/functions',
-  'shevy/mixins'
-;
 
 
 @include headings;

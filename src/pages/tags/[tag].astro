@@ -5,8 +5,8 @@ import BlogPostPreview from '../../components/BlogPostPreview.astro';
 const author = 'dantuck';
 
 export async function getStaticPaths() {
-	const allArticles = await Astro.glob('../article/*/*.md');
-    const allRecipes = await Astro.glob('../recipe/*/*.md');
+	const allArticles = Object.values(import.meta.glob('../article/*/*.md', { eager: true }));
+    const allRecipes = Object.values(import.meta.glob('../recipe/*/*.md', { eager: true }));
 	const allPosts = allArticles.concat(allRecipes).filter((post) => !post.frontmatter.draft)
 	const allTagsUnique = [...new Set(allPosts.flatMap((p) => p.frontmatter.tags))];
     return allTagsUnique.map((tag) => ({ params: { tag }, props: { allPosts } }));

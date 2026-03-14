@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/BlogPost.astro'
+layout: '../../layouts/BlogPost.astro'
 publishDate: 26 Sept 2018
 title: "Raspberry Pi: Fixing your Locale"
 author: dantuck

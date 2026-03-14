@@ -2,7 +2,7 @@
 import Header from '../../components/Header.astro';
 import BlogPostPreview from '../../components/BlogPostPreview.astro';
 
-let allArticles = await Astro.glob('./**/*.{md,mdx}');
+let allArticles = Object.values(import.meta.glob('./**/*.{md,mdx}', { eager: true }));
 allArticles = allArticles
 	.filter((post) => !post.frontmatter.draft)
 	.sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());

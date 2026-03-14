@@ -21,7 +21,8 @@
 // SOFTWARE.
 
 
-@import 'defs';
+@use 'defs' as *;
+@use 'shevy/functions' as *;
 
 a {
   // color: $primary;

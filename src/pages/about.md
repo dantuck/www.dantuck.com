@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../layouts/About.astro'
+layout: '../layouts/About.astro'
 title: About
 ---
 

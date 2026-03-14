@@ -20,7 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@import 'defs';
+@use 'sass:color';
+@use 'defs' as *;
+@use 'shevy/functions' as *;
 
 form { 
   padding: bs(1) bs(1) 0;
@@ -102,8 +104,8 @@ fieldset > * {
 input[type="submit"],
 input[type="reset"],
 button {
-  background: darken($white, 5);
-  color: darken($gray, 25);
+  background: color.adjust($white, $lightness: -5%);
+  color: color.adjust($gray, $lightness: -25%);
   cursor: pointer;
   display: inline-block;
   padding: bs(0.5) bs(1);
@@ -112,13 +114,13 @@ button {
   margin: 0 bs(0.5) bs(1) 0;
 
   &:hover {
-    background: darken($white, 15);
+    background: color.adjust($white, $lightness: -15%);
     color: $black;
   }
 
   &[disabled] {
-    background: darken($white, 10);
-    color: darken($gray, 10);
+    background: color.adjust($white, $lightness: -10%);
+    color: color.adjust($gray, $lightness: -10%);
     cursor: not-allowed;
   }
 
@@ -131,8 +133,8 @@ button:not([disabled]) {
   color: $site-bg;
 
   &:hover {
-    background: darken($primary, 15);
-    color: darken($site-bg, 25);
+    background: color.adjust($primary, $lightness: -15%);
+    color: color.adjust($site-bg, $lightness: -25%);
   }
 }
 

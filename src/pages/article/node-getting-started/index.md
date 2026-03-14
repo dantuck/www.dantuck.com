@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/BlogPost.astro'
+layout: '../../../layouts/BlogPost.astro'
 publishDate: 17 Mar 2020
 title: "NodeJS: Getting started"
 author: dantuck
