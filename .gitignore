@@ -21,3 +21,15 @@ pnpm-debug.log*
 
 # brainstorming sessions
 .superpowers/
+
+# Astro build cache
+.astro/
+
+# Claude Code
+.claude/
+
+# Local PDF files
+*.pdf
+
+# Renamed/archived article assets (underscore-prefixed originals)
+src/pages/**/_*
