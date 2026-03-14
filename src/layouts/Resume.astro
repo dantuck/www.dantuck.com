@@ -1,0 +1,26 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  permalink?: string;
+}
+
+const {
+  title,
+  description = 'Professional resume of Daniel Tucker, Staff Software Engineer.',
+  permalink = 'https://www.dantuck.com/resume',
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+  <body>
+    <Header />
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,142 @@
+{
+  "contact": {
+    "name": "Daniel Tucker",
+    "email": "info@dantuck.com"
+  },
+  "military": [
+    {
+      "organization": "Oklahoma Air National Guard",
+      "role": "Aircraft Generation Specialist",
+      "startDate": "April 2000",
+      "endDate": "April 2010",
+      "description": ""
+    }
+  ],
+  "experience": [
+    {
+      "company": "Bill",
+      "location": "San Jose, CA",
+      "roles": [
+        {
+          "title": "Staff Software Engineer",
+          "startDate": "January 2022",
+          "endDate": "Present",
+          "description": "Worked as a technical lead on an Elixir product team building backend services and libraries which interface with internal and external services over GraphQL and Restful APIs. Then, transitioned to an architecture team that supports all engineers in developing solutions and focuses on developer experience enhancements. Designed and implemented internal developer tooling, written in Rustlang, that serves as a tool for internal developer productivity and enhanced onboarding into different services. This tool was built collaboratively with other engineers with a plugin architecture at its core. Lead a developer experience group which is designed to sponsor work, educate and enhance existing and new tooling."
+        }
+      ],
+      "techStack": ["Elixir", "Rustlang", "Kubernetes", "AWS", "Datadog", "Kafka", "SQS", "PostgreSQL", "GraphQL"]
+    },
+    {
+      "company": "Singularity Interactive LLC",
+      "location": "Boulder, CO",
+      "roles": [
+        {
+          "title": "Staff Software Engineer",
+          "startDate": "April 2021",
+          "endDate": "December 2021",
+          "description": "Lead application support and special features needed to propel marketing and sales efforts. Participated in architectural design and direction for features to ensure alignment with product needs. Tasked to mentor and help strengthen other developers in both backend and frontend disciplines through code reviews and code pairing. Additionally, assigned to solve the harder problems and establish new patterns to speed up development and help other developers in new feature development."
+        },
+        {
+          "title": "Software Developer II / Senior Engineer",
+          "startDate": "April 2020",
+          "endDate": "April 2021",
+          "description": "Developer, design, implement, and maintain software projects and their individual features. Contributed as a full stack engineer utilizing NodeJS and ReactJS. Engineered reliable, tested applications deployed and orchestrated in AWS. Additionally, assisted in leading architectural design and identifying security concerns during the application lifecycle."
+        }
+      ],
+      "techStack": ["NodeJS", "React", "TailwindCSS", "Jest", "TypeORM", "PostgreSQL", "Redis", "Redis Bull", "Nats", "Stripe", "AWS", "Kubernetes", "Datadog"]
+    },
+    {
+      "company": "Exclusive Resorts",
+      "location": "Denver, CO",
+      "roles": [
+        {
+          "title": "Manager, UI Development",
+          "startDate": "2018",
+          "endDate": "April 2020",
+          "description": "Manage a development team mix of onsite and offsite members whose focus is on public facing website and content API R&D. Coordinate the planning and grooming of tasks and issue resolutions through a structured agile sprint cadence. Additionally, lead design implementations and UI framework direction for member facing applications. Manage and develop the content API and CMS that provides content to all member and prospect websites and applications using C#."
+        },
+        {
+          "title": "Lead Developer / Senior UI Developer / Offsite Team Manager",
+          "startDate": "November 2014",
+          "endDate": "2018",
+          "description": "Lead UI architectural and development direction and implementation. Engineered a content API using C# Web API to deliver content to both public and member facing clients. Implemented application development processes and procedures which include using grunt to build and optimize CSS, JS, SVG, and PNGs into a deployed set to AWS using CloudFront as a CDN."
+        }
+      ],
+      "techStack": ["C#", "VueJS", "TSQL", "APEX", "SQL Server 2008-2016", "Grunt", "Bitbucket Pipelines", "NPM", "Jenkins", "SCSS", "PWA", "AngularJS 1.x", "jQuery"]
+    },
+    {
+      "company": "Schoolrunner",
+      "location": "Denver, CO",
+      "roles": [
+        {
+          "title": "Application Engineer",
+          "startDate": "June 2014",
+          "endDate": "November 2014",
+          "description": "Implemented an Ionic Framework application to facilitate teacher needed actions such as student behavior recordings and attendance. The application was implemented using AngularJS and SCSS and deployed to the Android Play store and Apple Store."
+        }
+      ],
+      "techStack": ["AngularJS", "Ionic Framework", "SCSS"]
+    },
+    {
+      "company": "Sitrion (NewsGator)",
+      "location": "Denver, CO",
+      "roles": [
+        {
+          "title": "Software Engineer",
+          "startDate": "May 2012",
+          "endDate": "June 2014",
+          "description": "Worked with a team to develop Sitrion Social Sites, a social networking plug-in for SharePoint, using jQuery, CSS, JSON, SQL Server, and the SharePoint Object Model. Designed and implemented Lookout360 as a portable ribbon that can be added to any page as a connector to Sitrion Lookout."
+        }
+      ],
+      "techStack": ["jQuery", "CSS", "JSON", "SQL Server", "SharePoint"]
+    },
+    {
+      "company": "Denver Regional Council of Governments",
+      "location": "Denver, CO",
+      "roles": [
+        {
+          "title": "Software Developer",
+          "startDate": "February 2010",
+          "endDate": "May 2012",
+          "description": "Transformed mission critical business application previously designed into a more robust and scalable solution to support internal and external users. Integrated 3 applications to work together in a single system."
+        }
+      ],
+      "techStack": []
+    },
+    {
+      "company": "Wood Group ESP",
+      "location": "Oklahoma City, OK",
+      "roles": [
+        {
+          "title": "Programmer / Analyst",
+          "startDate": "January 2008",
+          "endDate": "February 2010",
+          "description": "Design, test, and implement a broad range of software applications using C#, ASP.Net, and jQuery. Coordinate with business subject matter experts to incorporate business rules, mathematical models, petroleum engineering aspects, and accounting rules into software."
+        }
+      ],
+      "techStack": ["C#", "ASP.Net", "jQuery"]
+    }
+  ],
+  "skills": [
+    {
+      "title": "Linux System Administration",
+      "description": "Linux system administrator privately for approx. 15 years."
+    },
+    {
+      "title": "Hobbyist Hacker",
+      "description": "I utilize much of my commute developing APIs using Go and Progressive Web Applications tooling to build out interfaces."
+    },
+    {
+      "title": "Pilot",
+      "description": "Recreational Private pilot. Part 141 training."
+    }
+  ],
+  "education": [
+    {
+      "institution": "Oklahoma State University",
+      "year": "2007",
+      "location": "Oklahoma",
+      "degree": "Bachelor in Information Technology Assurance & Forensics"
+    }
+  ]
+}

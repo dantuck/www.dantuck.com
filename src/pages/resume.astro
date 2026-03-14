@@ -1,0 +1,99 @@
+---
+import ResumeLayout from '../layouts/Resume.astro';
+import resumeData from '../data/resume.json';
+
+const { contact, military, experience, skills, education } = resumeData;
+---
+
+<ResumeLayout title="Resume — Daniel Tucker">
+  <main class="resume">
+
+    <div class="resume-header">
+      <h1>{contact.name}</h1>
+      <div class="resume-contact">
+        <span class="obfuscated-email" data-user="info" data-domain="dantuck.com"></span>
+      </div>
+    </div>
+
+    <div class="resume-actions">
+      <button class="btn-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="resume-layout">
+
+      <!-- Left column: Experience + Military -->
+      <div class="resume-main">
+
+        <h2 class="resume-section-title">Experience</h2>
+
+        {experience.map((job) => (
+          <div class="resume-company">
+            <p class="resume-company-name">
+              {job.company}
+              <span class="resume-company-location">{job.location}</span>
+            </p>
+            {job.roles.map((role) => (
+              <div class="resume-role">
+                <p class="resume-role-title">{role.title}</p>
+                <span class="resume-role-dates">{role.startDate} – {role.endDate}</span>
+                <p class="resume-role-description">{role.description}</p>
+              </div>
+            ))}
+          </div>
+        ))}
+
+        <h2 class="resume-section-title">Military</h2>
+
+        {military.map((entry) => (
+          <div class="resume-company">
+            <p class="resume-company-name">{entry.organization}</p>
+            <div class="resume-role">
+              <p class="resume-role-title">{entry.role}</p>
+              <span class="resume-role-dates">{entry.startDate} – {entry.endDate}</span>
+            </div>
+          </div>
+        ))}
+
+      </div>
+
+      <!-- Right column: Languages/Tech, Skills, Education -->
+      <div class="resume-sidebar">
+
+        <h2 class="resume-section-title">Languages / Tech</h2>
+
+        {experience.filter((job) => job.techStack.length > 0).map((job) => (
+          <div class="resume-lang-group">
+            <p class="resume-lang-company">{job.company}</p>
+            <ul class="resume-tech">
+              {job.techStack.map((tech) => (
+                <li>{tech}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+
+        <h2 class="resume-section-title">Skills</h2>
+
+        {skills.map((skill) => (
+          <div class="resume-skill">
+            <p class="resume-skill-title">{skill.title}</p>
+            <p class="resume-skill-desc">{skill.description}</p>
+          </div>
+        ))}
+
+        <h2 class="resume-section-title">Education</h2>
+
+        {education.map((edu) => (
+          <div>
+            <p class="resume-edu-institution">
+              {edu.institution} <span class="resume-edu-year">{edu.year}</span>
+            </p>
+            <p class="resume-edu-degree">{edu.location} — {edu.degree}</p>
+          </div>
+        ))}
+
+      </div>
+
+    </div>
+  </main>
+</ResumeLayout>

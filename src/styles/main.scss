@@ -20,25 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@import "normalize";
+@use "normalize";
+@use 'defs';
+@use 'shevy';
+@use 'tables';
+@use 'pre';
+@use 'headings';
+@use 'typography';
+@use 'responsive';
+@use 'forms';
+@use 'grid';
+@use 'article';
+@use 'fontface';
+@use 'resume';
 
-@import 'defs';
+// @use "prism";
 
-@import 'shevy';
-
-@import 'tables';
-
-@import 'pre';
-@import 'headings';
-@import 'typography';
-
-@import 'responsive';
-@import 'forms';
-
-@import 'grid';
-@import 'article';
-@import 'fontface';
-
-// @import "prism";
-
-@import 'override';
+@use 'override';
