@@ -64,7 +64,7 @@ html { font-family: $sans-serif; }
 
 /*! purgecss start ignore */
 :root {
-  --main-width: calc(100vw - 4em);
+  --main-width: min(800px, calc(100vw - 2rem));
 }
 
 
