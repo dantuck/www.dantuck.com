@@ -4,18 +4,18 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.svelte';
 import Recipe from '../components/Recipe/Recipe.astro';
 
-const { content } = Astro.props;
-const { ingredients, title, description, publishDate, author, heroImage, permalink, alt, prepTime, cookTime } = content;
+const { frontmatter } = Astro.props;
+const { ingredients, title, description, publishDate, author, heroImage, permalink, alt, prepTime, cookTime, tags } = frontmatter;
 ---
 
-<html lang={content.lang || 'en'}>
+<html lang={frontmatter.lang || 'en'}>
 	<head>
 		<BaseHead {title} {description} {permalink} />
 	</head>
 
 	<body>
 		<Header {title} {prepTime} {cookTime} />
-		<Recipe {ingredients} {title} {author} {heroImage} {publishDate} {alt}>
+		<Recipe {ingredients} {title} {author} {heroImage} {publishDate} {alt} {tags}>
 			<slot />
 		</Recipe>
 

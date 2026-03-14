@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/Recipe.astro'
+layout: '../../layouts/Recipe.astro'
 title: Tiger Juice - A Whiskey Cocktail
 publishDate: 31 Dec 2020
 tags:
@@ -12,7 +11,7 @@ ingredients:
 - "&frac12; oz Lemon Juice"
 - "1 oz Orange Juice"
 - "1 &frac12; oz of Whiskey"
-description: ''
+description: "Three ingredients, shaken. Whiskey, lemon, and orange juice — easy drinking with none of the spicy bite. Warning: rather addicting."
 
 ---
 

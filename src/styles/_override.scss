@@ -91,6 +91,59 @@ header aside {
     }
 }
 
+.recipe-preview {
+  padding: bs(1) 0;
+  border-bottom: 1px solid rgba($site-text, 0.15);
+
+  h2 {
+    margin: 0 0 bs(0.15);
+    font-size: 1rem;
+  }
+
+  .recipe-preview-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: bs(0.75);
+    align-items: baseline;
+    margin-bottom: bs(0.25);
+
+    time {
+      font-size: 0.8em;
+      color: rgba($site-text, 0.6);
+      margin-left: auto;
+    }
+  }
+
+  .recipe-time {
+    font-size: 0.8em;
+    color: $orange;
+  }
+
+  .recipe-preview-description {
+    font-size: 0.9em;
+    color: $site-text;
+    line-height: 1.6;
+    margin: 0 0 bs(0.25);
+  }
+
+  .recipe-preview-tags {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: bs(0.5);
+
+    li a {
+      font-size: 0.75em;
+      color: rgba($site-text, 0.6);
+      text-decoration: none;
+
+      &:hover { color: $orange; }
+    }
+  }
+}
+
 .post-preview {
   padding: bs(1) 0;
   border-bottom: 1px solid rgba($site-text, 0.15);

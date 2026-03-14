@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/Recipe.astro'
+layout: '../../../layouts/Recipe.astro'
 title: Carne Asada
 publishDate: 05 Oct 2019
 tags:
@@ -20,7 +19,7 @@ ingredients:
 - 1 teaspoon ground cumin seed (if have whole, toast and then grind)
 - 1 jalapeño chile pepper, seeded and minced
 - "&frac12; bunch fresh cilantro, leaves and stems, finely chopped (great flavor in the stems!), about &frac12; cup"
-description: ''
+description: "A citrus-soy marinade with garlic, cumin, jalapeño, and cilantro. Grill it hot, and don't skip reducing the leftover marinade into a sauce — it takes it to another level."
 
 ---
 

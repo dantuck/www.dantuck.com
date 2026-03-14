@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../../layouts/Recipe.astro'
+layout: '../../../layouts/Recipe.astro'
 title: Above 8700ft Red
 publishDate: 12 Mar 2019
 categories:
@@ -21,7 +20,7 @@ ingredients:
 - "&frac12; habenaro"
 - 1 lime
 - "~2 teaspoons salt (to taste)"
-description: ''
+description: 'A blended red salsa with whole peeled tomatoes, fire roasted green chilies, jalapeño, and a kick of habanero. Quick to make, adjustable heat, and better the next day.'
 
 ---
 

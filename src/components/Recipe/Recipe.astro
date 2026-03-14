@@ -1,5 +1,6 @@
 ---
 import Ingredients from './Ingredients.astro';
+import Tags from '../Tags.astro';
 
 export interface Props {
 	title: string;
@@ -8,9 +9,10 @@ export interface Props {
 	heroImage: string;
 	alt: string;
 	ingredients: any;
+	tags?: string[];
 }
 
-const { ingredients, title, author, publishDate, heroImage, alt } = Astro.props;
+const { ingredients, title, author, publishDate, heroImage, alt, tags } = Astro.props;
 ---
 
 <article>
@@ -18,6 +20,7 @@ const { ingredients, title, author, publishDate, heroImage, alt } = Astro.props;
 		<Ingredients ingredients={ingredients} />
 		<h2>Methods</h2>
 		<slot />
+		{tags?.length > 0 && <Tags {tags} />}
 	</main>
 	<p>
 		Since you've made it this far, <a href="" on-click="share">sharing</a> this article on your favorite social media network 

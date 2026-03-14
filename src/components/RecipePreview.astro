@@ -1,0 +1,24 @@
+---
+export interface Props {
+  post: any;
+}
+const { post } = Astro.props;
+const { publishDate, title, prepTime, cookTime, tags, description } = post.frontmatter;
+---
+
+<article class="recipe-preview">
+  <h2><a href={post.url}>{title}</a></h2>
+  <div class="recipe-preview-meta">
+    {prepTime && <span class="recipe-time">Prep: {prepTime}</span>}
+    {cookTime && <span class="recipe-time">Cook: {cookTime}</span>}
+    <time datetime={publishDate}>{publishDate}</time>
+  </div>
+  {description && <p class="recipe-preview-description">{description}</p>}
+  {tags?.length > 0 && (
+    <ul class="recipe-preview-tags">
+      {tags.map((tag: string) => (
+        <li><a href={`/tags/${tag}`}>#{tag}</a></li>
+      ))}
+    </ul>
+  )}
+</article>

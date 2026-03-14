@@ -1,6 +1,5 @@
 ---
-setup: |
-  import Layout from '../../layouts/Recipe.astro'
+layout: '../../layouts/Recipe.astro'
 title: Gluten-Free Fried Chicken Strips
 publishDate: 20 Jan 2021
 tags:
@@ -19,7 +18,7 @@ ingredients:
 - "1 teaspoon baking powder"
 - "&frac12; teaspoon ground black pepper (freshly)"
 - "vegetable oil"
-description: ''
+description: 'Buttermilk-brined chicken strips dredged in a rice flour and cornstarch blend, then fried in a cast iron skillet until golden. Crispy, gluten-free, and worth the wait.'
 ---
 
 1. In a large bowl, whisk together 2 cups buttermilk, kosher salt, and Tabasco unti the salt is dissolved. Add chicken pieces. Cover bowl and refrigerate for at least 30 minutes.
