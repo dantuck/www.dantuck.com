@@ -3,7 +3,7 @@ export interface Props {
   post: any;
 }
 const { post } = Astro.props;
-const { publishDate, title, description } = post.frontmatter
+const { publishDate, title, description } = post.frontmatter;
 ---
 
 <article class="post-preview">
@@ -11,3 +11,38 @@ const { publishDate, title, description } = post.frontmatter
   <time datetime={publishDate}>{publishDate}</time>
   <p>{description}</p>
 </article>
+
+<style>
+  .post-preview {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.15);
+  }
+
+  .post-preview h2 {
+    margin: 0 0 0.2rem;
+    font-size: 1.1rem;
+  }
+
+  .post-preview h2 a {
+    color: rgb(241, 241, 241);
+    text-decoration: none;
+  }
+
+  .post-preview h2 a:hover {
+    color: rgb(255, 140, 0);
+  }
+
+  .post-preview time {
+    display: block;
+    color: rgb(170, 170, 170);
+    font-size: 0.8em;
+    margin-bottom: 0.5rem;
+  }
+
+  .post-preview p {
+    color: rgb(170, 170, 170);
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>

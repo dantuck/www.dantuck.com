@@ -1,14 +1,16 @@
 ---
 export interface Props {
-	tags: any;
+  tags: string[];
 }
-
 const { tags } = Astro.props;
 ---
 
-<ul>
-	{tags?.map((i) => {
-		const href = "/tags/" + i;
-		return (<li><a {href}>#{i}</a></li>)
-	})}
+<ul class="flex flex-wrap gap-3 list-none p-0 mt-3">
+  {tags?.map((tag) => (
+    <li>
+      <a href={`/tags/${tag}`} class="text-sm text-site-text/60 no-underline hover:text-orange">
+        #{tag}
+      </a>
+    </li>
+  ))}
 </ul>
