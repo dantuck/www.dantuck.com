@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 import svelte from "@astrojs/svelte";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
+import UnoCSS from '@unocss/astro';
 
-// https://astro.build/config
 export default defineConfig({
   site: "https://www.dantuck.com/",
   markdown: {
@@ -11,14 +11,5 @@ export default defineConfig({
       theme: 'dracula',
     },
   },
-  integrations: [svelte(), sitemap(), mdx()],
-  vite: {
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-        },
-      },
-    },
-  },
+  integrations: [svelte(), sitemap(), mdx(), UnoCSS({ injectReset: false })],
 });
