@@ -25,7 +25,9 @@ for (const project of projects) {
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1280, height: 800 });
   try {
-    await page.goto(project.url, { waitUntil: 'networkidle', timeout: 30000 });
+    await page.goto(project.url, { waitUntil: 'load', timeout: 30000 });
+    // Brief pause for JS-rendered content to paint
+    await page.waitForTimeout(1500);
     const outPath = path.join(outputDir, project.filename);
     await page.screenshot({ path: outPath, type: 'jpeg', quality: 90 });
     console.log(`  → saved ${project.filename}`);

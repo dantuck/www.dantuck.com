@@ -14,11 +14,13 @@ export interface Props {
 }
 
 const { project, index } = Astro.props;
-const wide = index % 2 === 0;
+// Odd-indexed cards are wide (col-span-2, row-span-2): narrow, WIDE, narrow, WIDE, narrow
+// gives the cleanest bento layout with minimal empty cells for 5 items in a 3-col grid
+const wide = index % 2 === 1;
 ---
 
 <div
-  class:list={['portfolio-card', wide ? 'col-span-2' : 'col-span-1']}
+  class:list={['portfolio-card', wide ? ['col-span-2', 'row-span-2'] : ['col-span-1', 'row-span-1']]}
   data-project={JSON.stringify(project)}
   role="button"
   tabindex="0"
@@ -57,7 +59,6 @@ const wide = index % 2 === 0;
     border: 1px solid rgba(255, 255, 255, 0.06);
     cursor: pointer;
     background: #1a2230;
-    aspect-ratio: 16 / 9;
     transition: border-color 0.15s ease;
   }
 
