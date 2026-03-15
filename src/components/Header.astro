@@ -1,31 +1,69 @@
 ---
-import RecipeHeader from './Recipe/Header.astro';
-
 const { title, prepTime, cookTime } = Astro.props;
-
-let tagline = 'bytes of thought by Daniel Tucker';
-let description = 'bytes of thought by Daniel Tucker.';
-let permalink = 'https://www.dantuck.com.com/';
 ---
 
 <header>
-	<nav>
-		<div id="nav">
-			<p class="nav-tagline"><a href="/">bytes of thought by Daniel Tucker</a></p>
-			<div class="nav-links">
-				<a href="/recipe">Recipes</a>
-				<a href="/article">Articles</a>
-				<a href="/resume">Resume</a>
-				<a href="/about">About</a>
-			</div>
-		</div>
-	</nav>
-	{title && (
-		<h1>{title}</h1>
-	)}
+  <nav>
+    <div id="nav" class="max-content flex flex-col items-center gap-[0.4rem] py-[0.6rem] px-4">
+      <p class="m-0">
+        <a href="/" class="nav-tagline">bytes of thought by Daniel Tucker</a>
+      </p>
+      <div class="flex gap-6 flex-wrap justify-center">
+        <a href="/recipe" class="nav-link">Recipes</a>
+        <a href="/article" class="nav-link">Articles</a>
+        <a href="/resume" class="nav-link">Resume</a>
+        <a href="/about" class="nav-link">About</a>
+      </div>
+    </div>
+  </nav>
 
-	{(prepTime || cookTime) && (
-		<RecipeHeader prepTime={prepTime} cookTime={cookTime} />
-	)}
-	<dialog id="message"></dialog>
+  {title && <h1 class="max-content text-center pb-4 text-primary">{title}</h1>}
+
+  {(prepTime || cookTime) && (
+    <aside class="max-content text-left">
+      {prepTime && <span class="block px-2 text-orange">Prep: {prepTime}</span>}
+      {cookTime && <span class="block px-2 text-orange">Cook: {cookTime}</span>}
+    </aside>
+  )}
 </header>
+
+<style>
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: rgba(45, 54, 66, 0.95);
+    border-bottom: 1px solid rgba(255, 140, 0, 0.4);
+    z-index: 10;
+  }
+
+  header {
+    padding-top: 4.5rem;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  @media (min-width: 600px) {
+    header { padding-top: 5rem; }
+
+    aside {
+      align-self: auto;
+      text-align: center;
+    }
+
+    aside span {
+      display: inline-block;
+    }
+
+    aside span:first-of-type::before { content: none; }
+
+    aside span::before {
+      content: "|";
+      position: relative;
+      left: -0.2rem;
+    }
+  }
+</style>
