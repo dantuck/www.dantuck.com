@@ -19,6 +19,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# worktrees
+.worktrees/
+
 # brainstorming sessions
 .superpowers/
 
