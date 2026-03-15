@@ -3,36 +3,64 @@ layout: '../layouts/About.astro'
 title: About
 ---
 
-Hi, I’m Daniel Tucker. I’m a software engineer living in Colorado.
+Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado.
 
 ### Now
 
-#### Staff Software Engineer at [Divvy](https://getdivvy.com/)
+#### Staff Software Engineer at [Bill](https://www.bill.com/) — January 2022 – Present
 
-#### 2020
-
-- 2020.12 - Redesigned [dantuck.com](/) using [Eleventy static site generator](https://www.11ty.dev/)
+Started on an Elixir product team building backend services and libraries interfacing with internal and external services over GraphQL and REST APIs. Transitioned to an architecture team focused on supporting engineers across the organization and improving developer experience. Designed and built internal developer tooling in Rust with a plugin architecture, aimed at productivity and onboarding across services. Currently leading a developer experience group that sponsors work and educates teams on tooling.
 
 ### Previously
 
-#### Apr 2020 - Dec 2021 at [Singularity Interactive](https://singularity-interactive.com/)
-Staff Software Engineer (Apr 2021 - Dec 2021)
+#### Apr 2020 – Dec 2021 at [Singularity Interactive](https://singularity-interactive.com/)
 
-Lead application support and special features needed to propel marketing and sales efforts. Participated in architectural design and direction for features to ensure alignment with product needs. Tasked to mentor and help strengthen other developers in both backend and frontend disciplines through code reviews and code pairing. Additionally, assigned to solve the harder problems and establish new patterns to speed up development and help other developers in new feature development.
+**Staff Software Engineer** (Apr 2021 – Dec 2021)
 
-Lead Backend Developer (Apr 2020 - Apr 2021)
+Led application support and special features for marketing and sales. Participated in architectural design, mentored developers across backend and frontend disciplines, and tackled harder problems to establish patterns for new feature development.
 
-Developer, design, implement, and maintain software projects and their individual features. Contributed as a full stack engineer utilizing NodeJS and ReactJS. Engineered reliable, tested applications deployed and orchestrated in AWS. Additionally, assisted in leading architectural design and identifying security concerns during the application lifecycle.
+**Software Developer II / Senior Engineer** (Apr 2020 – Apr 2021)
 
-#### Nov 2014 - Apr 2020 at [Exclusive Resorts](https://www.exclusiveresorts.com)
-Manager of UI Development (2018 – Apr 2020)
+Full stack engineer using NodeJS and ReactJS. Built reliable, tested applications deployed on AWS. Assisted in leading architectural design and identifying security concerns.
 
-Manage a development team mix of onsite and offsite members whose focus is on public facing website and content API R&D. I coordinate the planning and grooming of tasks and issue resolutions through a structured agile sprint cadence. Additionally, I lead design implementations and UI framework direction for member facing applications. I manage and develop the content API and CMS that provides content to all member and prospect websites and applications using C#.
+#### Nov 2014 – Apr 2020 at [Exclusive Resorts](https://www.exclusiveresorts.com)
 
-Lead Developer / Senior UI Developer (Nov 2014 – 2018)
+**Manager, UI Development** (2018 – Apr 2020)
 
-Manage the structure and implementation of UI development. Lead design implementation for our member facing application and give guidance and help setup ideas for the public facing website. Engineered a content API using C# Web API to deliver content to both the public site and member site. Implemented application development processes to use grunt to build and optimize CSS, JS, SVG, and PNGs into a deployed set to AWS using CloudFront as our CDN.
+Managed a mixed onsite/offsite development team focused on public-facing website and content API R&D. Led design implementations and UI framework direction for member-facing applications. Managed and developed the content API and CMS in C#.
 
-#### 2018
+**Lead Developer / Senior UI Developer / Offsite Team Manager** (Nov 2014 – 2018)
 
-  - Relaunched [dantuck.com](/)
+Led UI architectural direction and implementation. Engineered a content API in C# Web API. Implemented build processes using Grunt to optimize and deploy assets to AWS CloudFront.
+
+#### Jun 2014 – Nov 2014 at Schoolrunner, Denver CO
+
+**Application Engineer**
+
+Built an Ionic Framework app using AngularJS for teacher actions (attendance, behavior recording), deployed to Android and iOS.
+
+#### May 2012 – Jun 2014 at Sitrion (NewsGator), Denver CO
+
+**Software Engineer**
+
+Developed Sitrion Social Sites, a social networking plug-in for SharePoint. Designed and implemented Lookout360 as a portable ribbon connector.
+
+#### Feb 2010 – May 2012 at Denver Regional Council of Governments
+
+**Software Developer**
+
+Rebuilt mission-critical business applications into a more robust and scalable solution, integrating three systems into one.
+
+### Military
+
+**Oklahoma Air National Guard** — Aircraft Generation Specialist, April 2000 – April 2010
+
+### Education
+
+**Oklahoma State University**, 2007 — Bachelor in Information Technology Assurance & Forensics
+
+### Skills & Interests
+
+- Linux system administrator, privately for ~15 years
+- Recreational private pilot (Part 141 training)
+- Hobbyist builder of APIs in Go and Progressive Web Applications
