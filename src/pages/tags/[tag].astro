@@ -1,51 +1,38 @@
 ---
 import Header from '../../components/Header.astro';
+import BaseHead from '../../components/BaseHead.astro';
 import BlogPostPreview from '../../components/BlogPostPreview.astro';
-// import authorData from '../../data/authors.json';
-const author = 'dantuck';
+import Footer from '../../components/Footer.svelte';
 
 export async function getStaticPaths() {
-	const allArticles = Object.values(import.meta.glob('../article/*/*.md', { eager: true }));
-    const allRecipes = Object.values(import.meta.glob('../recipe/*/*.md', { eager: true }));
-	const allPosts = allArticles.concat(allRecipes).filter((post) => !post.frontmatter.draft)
-	const allTagsUnique = [...new Set(allPosts.flatMap((p) => p.frontmatter.tags))];
-    return allTagsUnique.map((tag) => ({ params: { tag }, props: { allPosts } }));
+  const allArticles = Object.values(import.meta.glob('../article/*/*.md', { eager: true }));
+  const allRecipes = Object.values(import.meta.glob('../recipe/*/*.md', { eager: true }));
+  const allPosts = allArticles.concat(allRecipes).filter((post: any) => !post.frontmatter.draft);
+  const allTagsUnique = [...new Set(allPosts.flatMap((p: any) => p.frontmatter.tags))];
+  return allTagsUnique.map((tag) => ({ params: { tag }, props: { allPosts } }));
 }
 
 const { allPosts } = Astro.props;
-const title =  `Tagged "${Astro.params.tag}"`;
-const description = "Description";
+const tag = Astro.params.tag;
+const title = `Tagged "${tag}"`;
+const description = 'bytes of thought by Daniel Tucker.';
+const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
-const articles = allPosts
-	.filter((post) => !post.frontmatter.draft && post.frontmatter.tags.includes(Astro.params.tag))
-	.sort((a, b) => new Date(b.frontmatter.date).valueOf() - new Date(a.frontmatter.date).valueOf());
+const articles = (allPosts as any[])
+  .filter((post) => !post.frontmatter.draft && post.frontmatter.tags?.includes(tag))
+  .sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
 ---
 
 <html lang="en">
-	<head>
-		<title>{title}</title>
-		<Header {title} {description} />
-	</head>
-
-	<body>
-		<main>
-			{articles.map((p) => <BlogPostPreview post={p} />)}
-		</main>
-
-		<footer>
-			<p class="all-tags">See <a href="/tags/">all tags</a>.</p>
-			<a href="/about/">about {author}</a>
-			<div id="reading-progress" aria-hidden="true"></div>
-		</footer>
-	</body>
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+  <body class="bg-site-bg text-site-text font-sans">
+    <Header {title} />
+    <main class="max-content pt-6">
+      {articles.map((p) => <BlogPostPreview post={p} />)}
+      <p class="mt-6 text-sm">See <a href="/tags/">all tags</a>.</p>
+    </main>
+    <Footer client:load />
+  </body>
 </html>
-
-<style lang="scss">
-	footer .all-tags {
-		// max-width: 100%;
-		width: 37.5em;
-		margin: 0 auto;
-		text-align: left;
-		font-size: 100%;
-	}
-</style>

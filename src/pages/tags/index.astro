@@ -1,40 +1,29 @@
 ---
 import Header from '../../components/Header.astro';
+import BaseHead from '../../components/BaseHead.astro';
 import Tags from '../../components/Tags.astro';
+import Footer from '../../components/Footer.svelte';
 
-// page
 const title = 'Tags';
 const description = 'bytes of thought by Daniel Tucker.';
-const author = 'dantuck';
+const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
-const allPosts = Object.values(import.meta.glob('../{article,recipe}/**/*.{md,mdx}', { eager: true }))
-const filteredPosts = allPosts
-	.filter((post) => post.frontmatter?.tags !== null && post.frontmatter?.tags !== undefined && !post.frontmatter.draft);
-
-const allTagsUnique = [...new Set(filteredPosts.flatMap((p) => p.frontmatter.tags))];	
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
+const allPosts = Object.values(import.meta.glob('../{article,recipe}/**/*.{md,mdx}', { eager: true }));
+const filteredPosts = allPosts.filter(
+  (post: any) => post.frontmatter?.tags != null && !post.frontmatter.draft
+);
+const allTagsUnique = [...new Set(filteredPosts.flatMap((p: any) => p.frontmatter.tags))];
 ---
 
 <html lang="en">
-	<head>
-		<title>{title}</title>
-		<Header {title} {description} {canonicalURL.toString()} />
-	</head>
-
-	<body>
-		<main>
-			<article>
-				<header>
-					<Tags tags={allTagsUnique} />
-				</header>
-			</article>
-		</main>
-
-		<footer>
-			<a href="/about/">about {author}</a>
-			<div id="reading-progress" aria-hidden="true"></div>
-		</footer>
-	</body>
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+  <body class="bg-site-bg text-site-text font-sans">
+    <Header {title} />
+    <main class="max-content pt-6">
+      <Tags tags={allTagsUnique} />
+    </main>
+    <Footer client:load />
+  </body>
 </html>
