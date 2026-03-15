@@ -15,11 +15,13 @@ const allProjects = Object.values(
 
 const projects = allProjects
   .filter((p) => !p.frontmatter.draft)
-  .sort(
-    (a, b) =>
-      new Date(b.frontmatter.publishDate).valueOf() -
-      new Date(a.frontmatter.publishDate).valueOf()
-  )
+  .sort((a, b) => {
+    // Featured cards sort first (they get the wide/tall slot)
+    if (!!b.frontmatter.featured !== !!a.frontmatter.featured) {
+      return b.frontmatter.featured ? 1 : -1;
+    }
+    return new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf();
+  })
   .map((p) => ({
     ...p.frontmatter,
     bodyHtml: p.compiledContent(),

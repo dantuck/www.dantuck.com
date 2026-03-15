@@ -8,15 +8,14 @@ export interface Props {
     techStack: string[];
     role: string;
     publishDate: string;
+    featured?: boolean;
     bodyHtml: string;
   };
   index: number;
 }
 
-const { project, index } = Astro.props;
-// Odd-indexed cards are wide (col-span-2, row-span-2): narrow, WIDE, narrow, WIDE, narrow
-// gives the cleanest bento layout with minimal empty cells for 5 items in a 3-col grid
-const wide = index % 2 === 1;
+const { project } = Astro.props;
+const wide = !!project.featured;
 ---
 
 <div
@@ -83,7 +82,7 @@ const wide = index % 2 === 1;
     left: 0;
     right: 0;
     padding: 0.75rem 0.85rem 0.6rem;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+    background: linear-gradient(transparent 30%, rgba(0, 0, 0, 0.88));
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
@@ -93,11 +92,13 @@ const wide = index % 2 === 1;
     color: rgb(255, 140, 0);
     font-size: 0.9rem;
     line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
   }
 
   .card-tagline {
-    color: rgba(200, 200, 200, 0.85);
+    color: rgba(230, 230, 230, 0.95);
     font-size: 0.75rem;
     line-height: 1.3;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   }
 </style>
