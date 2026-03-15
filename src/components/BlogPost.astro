@@ -34,15 +34,15 @@ const { title, author, publishDate, heroImage, alt } = Astro.props;
 <article>
 	<main>
 		<slot />
+		<p>
+			Since you've made it this far, <a href="" on-click="share">sharing</a> this article on your favorite social media network
+			would be highly appreciated 💖!
+		</p>
+		<p>
+			For feedback, please ping me on Mastodon
+			<a href="https://fosstodon.org/@tuck" target="_blank" rel="noopener">
+				@tuck@fosstodon.org
+			</a>.
+		</p>
 	</main>
-	<p>
-		Since you've made it this far, <a href="" on-click="share">sharing</a> this article on your favorite social media network 
-		would be highly appreciated 💖!
-	</p>
-	<p>
-		For feedback, please ping me on Mastodon
-		<a href="https://fosstodon.org/@tuck" target="_blank" rel="noopener">
-			@tuck@fosstodon.org
-		</a>.
-	</p>
 </article>
