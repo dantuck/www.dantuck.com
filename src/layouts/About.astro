@@ -1,22 +1,21 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import BlogPost from '../components/BlogPost.astro';
-
+import Footer from '../components/Footer.svelte';
 
 const { frontmatter } = Astro.props;
-const { title, description, publishDate, author, heroImage, permalink, alt } = frontmatter;
+const { title, description, permalink } = frontmatter;
 ---
 
-<html lang={frontmatter.lang || 'en'}>
-	<head>
-		<BaseHead {title} {description} {permalink} />
-	</head>
-
-	<body>
-		<Header {title} />
-		<BlogPost {title} {author} {heroImage} {publishDate} {alt}>
-			<slot />
-		</BlogPost>
-	</body>
+<html lang="en">
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+  <body class="bg-site-bg text-site-text font-sans">
+    <Header {title} />
+    <article class="max-content py-6">
+      <slot />
+    </article>
+    <Footer client:load />
+  </body>
 </html>
