@@ -2,23 +2,47 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.svelte';
-import Recipe from '../components/Recipe/Recipe.astro';
+import Tags from '../components/Tags.astro';
 
 const { frontmatter } = Astro.props;
-const { ingredients, title, description, publishDate, author, heroImage, permalink, alt, prepTime, cookTime, tags } = frontmatter;
+const { ingredients, title, description, permalink, prepTime, cookTime, tags } = frontmatter;
 ---
 
 <html lang={frontmatter.lang || 'en'}>
-	<head>
-		<BaseHead {title} {description} {permalink} />
-	</head>
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+  <body class="bg-site-bg text-site-text font-sans">
+    <Header {title} {prepTime} {cookTime} />
 
-	<body>
-		<Header {title} {prepTime} {cookTime} />
-		<Recipe {ingredients} {title} {author} {heroImage} {publishDate} {alt} {tags}>
-			<slot />
-		</Recipe>
+    <article>
+      <main class="max-content pt-6">
 
-		<Footer />
-	</body>
+        {ingredients?.length > 0 && (
+          <>
+            <h2>Ingredients</h2>
+            <ul data-ingredients>
+              {ingredients.map((i: string) => (
+                <li><Fragment set:html={i} /></li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        <h2>Methods</h2>
+        <slot />
+
+        {tags?.length > 0 && <Tags {tags} />}
+
+        <p class="mt-8 text-site-text/70 text-sm">
+          For feedback, ping me on Mastodon
+          <a href="https://fosstodon.org/@tuck" target="_blank" rel="noopener">
+            @tuck@fosstodon.org
+          </a>.
+        </p>
+      </main>
+    </article>
+
+    <Footer client:load />
+  </body>
 </html>
