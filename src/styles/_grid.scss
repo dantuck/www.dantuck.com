@@ -49,11 +49,11 @@ section {
 
 
 header {
-  padding-top: 5rem;
+  padding-top: 3.5rem;
   width: bs(25);
   margin: 0 auto;
   text-align: center;
-  
+
   max-width: var(--main-width);
 
   display: flex;
@@ -269,7 +269,11 @@ dd {
 blockquote {
   border-left: 1px solid $primary;
   padding: 0 bs(1);
-  margin: bs(1) 0 bs(1) bs(1);
+  margin: bs(1) 0;
+
+  @include for-tablet-up {
+    margin-left: bs(1);
+  }
 
   footer {
     background: none;

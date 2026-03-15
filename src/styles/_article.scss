@@ -10,7 +10,7 @@ article {
         max-width: 100%;
         display: flex;
         align-items: normal;
-        width: 100vw;
+        width: 100%;
         flex-flow: column nowrap;
         align-items: baseline;
 
@@ -62,7 +62,7 @@ article {
 
         a {
             margin: 0;
-            padding: bs(.1) bs(.5);
+            padding: bs(.3) bs(.5);
             background-color: $orange;
             color: $site-bg;
         }
