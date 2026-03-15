@@ -1,3 +1,5 @@
+// Prerequisite: run `npx playwright install chromium` once before using this script.
+// Usage: pnpm screenshots
 import { chromium } from 'playwright';
 import { mkdir } from 'fs/promises';
 import path from 'path';
