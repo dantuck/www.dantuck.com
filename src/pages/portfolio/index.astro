@@ -1,0 +1,59 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.svelte';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+import PortfolioDrawer from '../../components/PortfolioDrawer.svelte';
+
+const title = 'Portfolio — Daniel Tucker';
+const description = 'A selection of sites and apps I have designed and built.';
+const permalink = 'https://www.dantuck.com/portfolio/';
+
+const allProjects = Object.values(
+  import.meta.glob('../../data/portfolio/*.md', { eager: true }) as Record<string, any>
+);
+
+const projects = allProjects
+  .filter((p) => !p.frontmatter.draft)
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.publishDate).valueOf() -
+      new Date(a.frontmatter.publishDate).valueOf()
+  )
+  .map((p) => ({
+    ...p.frontmatter,
+    bodyHtml: p.compiledContent(),
+  }));
+---
+
+<html lang="en">
+  <head>
+    <BaseHead {title} {description} {permalink} />
+  </head>
+  <body class="bg-site-bg text-site-text font-sans">
+    <Header title="Portfolio" />
+    <main class="max-content pt-6 pb-12">
+      <div class="portfolio-grid">
+        {projects.map((project, index) => (
+          <PortfolioCard {project} {index} />
+        ))}
+      </div>
+    </main>
+    <Footer client:load />
+    <PortfolioDrawer client:only="svelte" />
+  </body>
+</html>
+
+<style>
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  @media (max-width: 599px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
