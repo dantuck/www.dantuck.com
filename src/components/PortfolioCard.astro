@@ -16,17 +16,21 @@ export interface Props {
 
 const { project } = Astro.props;
 const wide = !!project.featured;
+const { bodyHtml, ...projectMeta } = project;
 ---
 
 <div
   class:list={['portfolio-card', wide ? ['col-span-2', 'row-span-2'] : ['col-span-1', 'row-span-1']]}
-  data-project={JSON.stringify(project)}
+  data-project={JSON.stringify(projectMeta)}
   role="button"
   tabindex="0"
   aria-label={`View details for ${project.title}`}
 >
-  <img src={project.screenshot} alt={`Screenshot of ${project.title}`} loading="lazy" />
-  <div class="card-overlay">
+  <template class="card-body-html" set:html={bodyHtml}></template>
+  <div class="card-image">
+    <img src={project.screenshot} alt={`Screenshot of ${project.title}`} loading="lazy" />
+  </div>
+  <div class="card-caption">
     <strong class="card-title">{project.title}</strong>
     <span class="card-tagline">{project.tagline}</span>
   </div>
@@ -36,6 +40,8 @@ const wide = !!project.featured;
   document.querySelectorAll<HTMLElement>('.portfolio-card').forEach((card) => {
     const trigger = () => {
       const project = JSON.parse(card.dataset.project!);
+      const bodyTemplate = card.querySelector('.card-body-html') as HTMLTemplateElement | null;
+      project.bodyHtml = bodyTemplate?.innerHTML ?? '';
       document.dispatchEvent(
         new CustomEvent('open-portfolio-drawer', { detail: project })
       );
@@ -52,7 +58,8 @@ const wide = !!project.featured;
 
 <style>
   .portfolio-card {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -67,7 +74,13 @@ const wide = !!project.featured;
     outline: none;
   }
 
-  .portfolio-card img {
+  .card-image {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -76,29 +89,25 @@ const wide = !!project.featured;
     margin: 0;
   }
 
-  .card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0.75rem 0.85rem 0.6rem;
-    background: linear-gradient(transparent 30%, rgba(0, 0, 0, 0.88));
+  .card-caption {
+    flex-shrink: 0;
+    padding: 0.55rem 0.75rem 0.5rem;
+    background: #111820;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.1rem;
   }
 
   .card-title {
     color: rgb(255, 140, 0);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     line-height: 1.2;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
   }
 
   .card-tagline {
-    color: rgba(230, 230, 230, 0.95);
-    font-size: 0.75rem;
+    color: rgba(180, 190, 200, 0.9);
+    font-size: 0.7rem;
     line-height: 1.3;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
   }
 </style>
