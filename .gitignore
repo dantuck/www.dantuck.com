@@ -22,6 +22,9 @@ pnpm-debug.log*
 # brainstorming sessions
 .superpowers/
 
+# superpowers docs
+docs/superpowers/
+
 # Astro build cache
 .astro/
 
