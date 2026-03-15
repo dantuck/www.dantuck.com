@@ -39,7 +39,7 @@
       new ResizeObserver(() => {
         bottom =
           document.scrollingElement.scrollTop +
-          document.querySelector("#comments,footer").getBoundingClientRect().top;
+          document.querySelector("footer").getBoundingClientRect().top;
         winHeight = window.innerHeight;
         scroll();
       }).observe(document.body);

@@ -19,7 +19,7 @@ const description = 'bytes of thought by Daniel Tucker.';
 const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
 const articles = (allPosts as any[])
-  .filter((post) => !post.frontmatter.draft && post.frontmatter.tags?.includes(tag))
+  .filter((post) => post.frontmatter.tags?.includes(tag))
   .sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
 ---
 

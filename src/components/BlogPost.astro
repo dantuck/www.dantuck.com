@@ -1,13 +1,9 @@
 ---
+import FeedbackLink from './FeedbackLink.astro';
 // No props needed — content comes through slot
 ---
 
 <article class="max-content py-6">
   <slot />
-  <p class="mt-8 text-site-text/70 text-sm">
-    For feedback, ping me on Mastodon
-    <a href="https://fosstodon.org/@tuck" target="_blank" rel="noopener">
-      @tuck@fosstodon.org
-    </a>.
-  </p>
+  <FeedbackLink />
 </article>

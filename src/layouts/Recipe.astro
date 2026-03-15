@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.svelte';
 import Tags from '../components/Tags.astro';
+import FeedbackLink from '../components/FeedbackLink.astro';
 
 const { frontmatter } = Astro.props;
 const { ingredients, title, description, permalink, prepTime, cookTime, tags } = frontmatter;
@@ -34,12 +35,7 @@ const { ingredients, title, description, permalink, prepTime, cookTime, tags } =
 
         {tags?.length > 0 && <Tags {tags} />}
 
-        <p class="mt-8 text-site-text/70 text-sm">
-          For feedback, ping me on Mastodon
-          <a href="https://fosstodon.org/@tuck" target="_blank" rel="noopener">
-            @tuck@fosstodon.org
-          </a>.
-        </p>
+        <FeedbackLink />
       </main>
     </article>
 
