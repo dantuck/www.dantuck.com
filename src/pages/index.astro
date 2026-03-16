@@ -11,8 +11,11 @@ const permalink = 'https://www.dantuck.com/';
 
 const allArticles = Object.values(import.meta.glob('./article/**/*.{md,mdx}', { eager: true }));
 const allRecipes = Object.values(import.meta.glob('./recipe/**/*.{md,mdx}', { eager: true }));
-let all = allArticles.concat(allRecipes).filter((post: any) => !post.frontmatter.draft);
-all = all.sort((a: any, b: any) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+const all = allArticles.concat(allRecipes)
+  .filter((post: any) => !post.frontmatter.draft)
+  .sort((a: any, b: any) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+
+const [hero, ...rest] = all;
 ---
 
 <html lang="en">
@@ -21,12 +24,34 @@ all = all.sort((a: any, b: any) => new Date(b.frontmatter.publishDate).valueOf()
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header />
-    <main class="max-content pt-6">
-      {all.map((p: any) => p.url?.startsWith('/recipe/')
-        ? <RecipePreview post={p} />
-        : <BlogPostPreview post={p} />
+    <main class="max-content pt-6 pb-12">
+      {hero && (hero as any).url?.startsWith('/recipe/')
+        ? <RecipePreview post={hero} hero={true} />
+        : hero && <BlogPostPreview post={hero} hero={true} />
+      }
+      {rest.length > 0 && (
+        <div class="post-grid">
+          {rest.map((p: any) => p.url?.startsWith('/recipe/')
+            ? <RecipePreview post={p} />
+            : <BlogPostPreview post={p} />
+          )}
+        </div>
       )}
     </main>
     <Footer client:load />
   </body>
 </html>
+
+<style>
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 639px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
