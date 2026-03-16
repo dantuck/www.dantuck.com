@@ -1,4 +1,5 @@
 ---
+import Search from './Search.svelte';
 const { title } = Astro.props;
 ---
 
@@ -8,18 +9,28 @@ const { title } = Astro.props;
       <p class="m-0">
         <a href="/" class="nav-tagline">bytes of thought by Daniel Tucker</a>
       </p>
-      <div class="flex gap-6 flex-wrap justify-center">
+      <div class="flex gap-6 flex-wrap justify-center items-center">
         <a href="/recipe" class="nav-link">Recipes</a>
         <a href="/article" class="nav-link">Articles</a>
         <a href="/portfolio" class="nav-link">Portfolio</a>
         <a href="/resume" class="nav-link">Resume</a>
         <a href="/about" class="nav-link">About</a>
+        <button
+          class="search-btn"
+          onclick="document.dispatchEvent(new CustomEvent('open-search'))"
+          aria-label="Open search"
+        >
+          <span class="search-btn-icon" aria-hidden="true">⌕</span>
+          <span class="search-btn-label">Search</span>
+          <span class="search-btn-hint" aria-hidden="true">⌘K</span>
+        </button>
       </div>
     </div>
   </nav>
 
   {title && <h1 class="max-content text-center pb-4 text-primary">{title}</h1>}
 
+  <Search client:only="svelte" />
 </header>
 
 <style>
@@ -43,5 +54,45 @@ const { title } = Astro.props;
 
   @media (min-width: 600px) {
     header { padding-top: 5rem; }
+  }
+
+  .search-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.82rem;
+    font-family: inherit;
+  }
+
+  .search-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.65);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .search-btn-icon {
+    font-size: 0.9rem;
+  }
+
+  .search-btn-hint {
+    font-size: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+    padding: 0.05rem 0.3rem;
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  /* Mobile: hide label and hint, show icon only */
+  @media (max-width: 639px) {
+    .search-btn-label,
+    .search-btn-hint {
+      display: none;
+    }
   }
 </style>

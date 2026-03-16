@@ -12,4 +12,11 @@ export default defineConfig({
     },
   },
   integrations: [svelte(), sitemap(), mdx(), UnoCSS({ injectReset: false })],
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['/pagefind/pagefind.js'],
+      },
+    },
+  },
 });
