@@ -7,36 +7,39 @@ export interface Props {
 }
 const { post, hero = false } = Astro.props;
 const { publishDate, title, prepTime, cookTime, tags, description } = post.frontmatter;
+const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) : undefined;
 ---
 
 {hero ? (
-  <a href={post.url} class="hero-card">
-    <h2 class="hero-title">{title}</h2>
-    <div class="hero-meta">
-      {prepTime && <span class="time-badge">Prep: {prepTime}</span>}
-      {cookTime && <span class="time-badge">Cook: {cookTime}</span>}
-      <time datetime={publishDate} class="hero-date">{publishDate}</time>
-    </div>
-    {description && <p class="hero-description">{description}</p>}
+  <div class="hero-card">
+    <a href={post.url} class="card-link">
+      <h2 class="hero-title">{title}</h2>
+      <div class="hero-meta">
+        {prepTime && <span class="time-badge">Prep: {prepTime}</span>}
+        {cookTime && <span class="time-badge">Cook: {cookTime}</span>}
+        <time datetime={isoDate} class="hero-date">{publishDate}</time>
+      </div>
+      {description && <p class="hero-description">{description}</p>}
+    </a>
     {tags?.length > 0 && <Tags {tags} />}
-  </a>
+  </div>
 ) : (
-  <a href={post.url} class="post-card">
-    <h2 class="card-title">{title}</h2>
-    <div class="card-meta">
-      {prepTime && <span class="time-label">Prep: {prepTime}</span>}
-      {cookTime && <span class="time-label">Cook: {cookTime}</span>}
-      <time datetime={publishDate} class="card-date">{publishDate}</time>
-    </div>
-    {description && <p class="card-description">{description}</p>}
+  <div class="post-card">
+    <a href={post.url} class="card-link">
+      <h2 class="card-title">{title}</h2>
+      <div class="card-meta">
+        {prepTime && <span class="time-label">Prep: {prepTime}</span>}
+        {cookTime && <span class="time-label">Cook: {cookTime}</span>}
+        <time datetime={isoDate} class="card-date">{publishDate}</time>
+      </div>
+      {description && <p class="card-description">{description}</p>}
+    </a>
     {tags?.length > 0 && <Tags {tags} />}
-  </a>
+  </div>
 )}
 
 <style>
   .hero-card {
-    display: block;
-    text-decoration: none;
     background: #1a2230;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -48,6 +51,11 @@ const { publishDate, title, prepTime, cookTime, tags, description } = post.front
 
   .hero-card:hover {
     border-color: rgba(255, 140, 0, 0.4);
+  }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
   }
 
   .hero-title {
@@ -88,8 +96,6 @@ const { publishDate, title, prepTime, cookTime, tags, description } = post.front
   }
 
   .post-card {
-    display: block;
-    text-decoration: none;
     background: #1a2230;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.06);

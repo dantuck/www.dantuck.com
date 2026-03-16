@@ -2,6 +2,7 @@
 import Header from '../../components/Header.astro';
 import BaseHead from '../../components/BaseHead.astro';
 import BlogPostPreview from '../../components/BlogPostPreview.astro';
+import RecipePreview from '../../components/RecipePreview.astro';
 import Footer from '../../components/Footer.svelte';
 
 export async function getStaticPaths() {
@@ -30,7 +31,10 @@ const articles = (allPosts as any[])
   <body class="bg-site-bg text-site-text font-sans">
     <Header {title} />
     <main class="max-content pt-6">
-      {articles.map((p) => <BlogPostPreview post={p} />)}
+      {articles.map((p: any) => p.url?.startsWith('/recipe/')
+        ? <RecipePreview post={p} />
+        : <BlogPostPreview post={p} />
+      )}
       <p class="mt-6 text-sm">See <a href="/tags/">all tags</a>.</p>
     </main>
     <Footer client:load />

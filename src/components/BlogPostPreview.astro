@@ -7,38 +7,47 @@ export interface Props {
 }
 const { post, hero = false } = Astro.props;
 const { publishDate, title, description, tags } = post.frontmatter;
+const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) : undefined;
 ---
 
 {hero ? (
-  <a href={post.url} class="hero-card">
-    <h2 class="hero-title text-primary">{title}</h2>
-    <time datetime={publishDate} class="hero-date text-site-text/60">{publishDate}</time>
-    {description && <p class="hero-description text-site-text">{description}</p>}
+  <div class="hero-card">
+    <a href={post.url} class="card-link">
+      <h2 class="hero-title text-primary">{title}</h2>
+      <time datetime={isoDate} class="hero-date text-site-text/60">{publishDate}</time>
+      {description && <p class="hero-description text-site-text">{description}</p>}
+    </a>
     {tags?.length > 0 && <Tags {tags} />}
-  </a>
+  </div>
 ) : (
-  <a href={post.url} class="post-card">
-    <h2 class="card-title text-primary">{title}</h2>
-    <time datetime={publishDate} class="card-date text-site-text/60">{publishDate}</time>
-    {description && <p class="card-description text-site-text">{description}</p>}
+  <div class="post-card">
+    <a href={post.url} class="card-link">
+      <h2 class="card-title text-primary">{title}</h2>
+      <time datetime={isoDate} class="card-date text-site-text/60">{publishDate}</time>
+      {description && <p class="card-description text-site-text">{description}</p>}
+    </a>
     {tags?.length > 0 && <Tags {tags} />}
-  </a>
+  </div>
 )}
 
 <style>
   .hero-card {
-    display: block;
-    text-decoration: none;
     background: #1a2230;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-left: 4px solid rgb(255, 140, 0);
     padding: 1.5rem 1.75rem;
     transition: border-color 0.15s ease;
+    margin-bottom: 0.75rem;
   }
 
   .hero-card:hover {
     border-color: rgba(255, 140, 0, 0.4);
+  }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
   }
 
   .hero-title {
@@ -60,8 +69,6 @@ const { publishDate, title, description, tags } = post.frontmatter;
   }
 
   .post-card {
-    display: block;
-    text-decoration: none;
     background: #1a2230;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.06);

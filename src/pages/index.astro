@@ -22,7 +22,7 @@ all = all.sort((a: any, b: any) => new Date(b.frontmatter.publishDate).valueOf()
   <body class="bg-site-bg text-site-text font-sans">
     <Header />
     <main class="max-content pt-6">
-      {all.map((p: any) => p.frontmatter.prepTime || p.frontmatter.cookTime
+      {all.map((p: any) => p.url?.startsWith('/recipe/')
         ? <RecipePreview post={p} />
         : <BlogPostPreview post={p} />
       )}

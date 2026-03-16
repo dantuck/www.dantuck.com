@@ -7,6 +7,7 @@ import FeedbackLink from '../components/FeedbackLink.astro';
 
 const { frontmatter } = Astro.props;
 const { ingredients, title, description, permalink, prepTime, cookTime, tags, publishDate } = frontmatter;
+const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) : undefined;
 ---
 
 <html lang={frontmatter.lang || 'en'}>
@@ -22,7 +23,7 @@ const { ingredients, title, description, permalink, prepTime, cookTime, tags, pu
         <div class="recipe-meta">
           {prepTime && <span class="meta-pill">Prep: {prepTime}</span>}
           {cookTime && <span class="meta-pill">Cook: {cookTime}</span>}
-          {publishDate && <time datetime={publishDate} class="meta-date">{publishDate}</time>}
+          {publishDate && <time datetime={isoDate} class="meta-date">{publishDate}</time>}
         </div>
 
         <div class:list={['recipe-body', !ingredients?.length && 'no-ingredients']}>
