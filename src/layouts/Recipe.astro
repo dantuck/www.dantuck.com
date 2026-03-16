@@ -6,7 +6,7 @@ import Tags from '../components/Tags.astro';
 import FeedbackLink from '../components/FeedbackLink.astro';
 
 const { frontmatter } = Astro.props;
-const { ingredients, title, description, permalink, prepTime, cookTime, tags } = frontmatter;
+const { ingredients, title, description, permalink, prepTime, cookTime, tags, publishDate } = frontmatter;
 ---
 
 <html lang={frontmatter.lang || 'en'}>
@@ -14,31 +14,112 @@ const { ingredients, title, description, permalink, prepTime, cookTime, tags } =
     <BaseHead {title} {description} {permalink} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header {title} {prepTime} {cookTime} />
+    <Header {title} />
 
     <article>
-      <main class="max-content pt-6">
+      <main class="max-content pt-4 pb-12">
 
-        {ingredients?.length > 0 && (
-          <>
-            <h2>Ingredients</h2>
-            <ul data-ingredients>
-              {ingredients.map((i: string) => (
-                <li><Fragment set:html={i} /></li>
-              ))}
-            </ul>
-          </>
-        )}
+        <div class="recipe-meta">
+          {prepTime && <span class="meta-pill">Prep: {prepTime}</span>}
+          {cookTime && <span class="meta-pill">Cook: {cookTime}</span>}
+          {publishDate && <time datetime={publishDate} class="meta-date">{publishDate}</time>}
+        </div>
 
-        <h2>Methods</h2>
-        <slot />
+        <div class:list={['recipe-body', !ingredients?.length && 'no-ingredients']}>
+          {ingredients?.length > 0 && (
+            <aside class="ingredients-col">
+              <h2 class="col-label">Ingredients</h2>
+              <ul data-ingredients>
+                {ingredients.map((i: string) => (
+                  <li><Fragment set:html={i} /></li>
+                ))}
+              </ul>
+            </aside>
+          )}
+          <div class="instructions-col">
+            <h2 class="col-label">Methods</h2>
+            <slot />
+          </div>
+        </div>
 
         {tags?.length > 0 && <Tags {tags} />}
-
         <FeedbackLink />
+
       </main>
     </article>
 
     <Footer client:load />
   </body>
 </html>
+
+<style>
+  .recipe-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .meta-pill {
+    background: #1a2230;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    color: rgb(255, 140, 0);
+    font-size: 0.82rem;
+    padding: 0.2rem 0.75rem;
+    border-radius: 3px;
+  }
+
+  .meta-date {
+    color: rgba(170, 170, 170, 0.5);
+    font-size: 0.78rem;
+    margin-left: auto;
+  }
+
+  .recipe-body {
+    display: grid;
+    grid-template-columns: 38fr 62fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .recipe-body.no-ingredients {
+    grid-template-columns: 1fr;
+  }
+
+  .ingredients-col {
+    position: sticky;
+    top: 1.5rem;
+  }
+
+  .col-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: rgba(170, 170, 170, 0.5);
+    margin: 0 0 0.75rem;
+    font-weight: 400;
+  }
+
+  [data-ingredients] {
+    padding-left: 1.25rem;
+    margin: 0;
+    line-height: 1.9;
+    font-size: 0.9rem;
+  }
+
+  .instructions-col {
+    min-width: 0;
+  }
+
+  @media (max-width: 700px) {
+    .recipe-body {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .ingredients-col {
+      position: static;
+    }
+  }
+</style>
