@@ -1,5 +1,5 @@
 ---
-const { title, prepTime, cookTime } = Astro.props;
+const { title } = Astro.props;
 ---
 
 <header>
@@ -20,12 +20,6 @@ const { title, prepTime, cookTime } = Astro.props;
 
   {title && <h1 class="max-content text-center pb-4 text-primary">{title}</h1>}
 
-  {(prepTime || cookTime) && (
-    <aside class="max-content text-left">
-      {prepTime && <span class="block px-2 text-orange">Prep: {prepTime}</span>}
-      {cookTime && <span class="block px-2 text-orange">Cook: {cookTime}</span>}
-    </aside>
-  )}
 </header>
 
 <style>
@@ -49,22 +43,5 @@ const { title, prepTime, cookTime } = Astro.props;
 
   @media (min-width: 600px) {
     header { padding-top: 5rem; }
-
-    aside {
-      align-self: auto;
-      text-align: center;
-    }
-
-    aside span {
-      display: inline-block;
-    }
-
-    aside span:first-of-type::before { content: none; }
-
-    aside span::before {
-      content: "|";
-      position: relative;
-      left: -0.2rem;
-    }
   }
 </style>
