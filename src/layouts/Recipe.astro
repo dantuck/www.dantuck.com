@@ -17,7 +17,7 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
   <body class="bg-site-bg text-site-text font-sans">
     <Header {title} />
 
-    <article>
+    <article data-pagefind-body>
       <main class="max-content pt-4 pb-12">
 
         <div class="recipe-meta">
@@ -43,7 +43,11 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
           </div>
         </div>
 
-        {tags?.length > 0 && <Tags {tags} />}
+        {tags?.length > 0 && (
+          <div data-pagefind-meta="tags">
+            <Tags {tags} />
+          </div>
+        )}
         <FeedbackLink />
 
       </main>
