@@ -324,7 +324,7 @@ img[align="left"] {
 }
 
 .resume-contact {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: rgb(170, 170, 170);
   margin-top: 0.25rem;
 }
@@ -336,7 +336,7 @@ img[align="left"] {
 
 .btn-print {
   font-family: Comfortaa, sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   background: none;
   border: 1px solid rgb(255, 140, 0);
   color: rgb(255, 140, 0);
@@ -353,7 +353,7 @@ img[align="left"] {
 
 /* Section titles */
 .resume-section-title {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: rgb(255, 140, 0);
@@ -375,14 +375,14 @@ img[align="left"] {
 }
 
 .resume-company-name {
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 700;
   color: rgb(241, 241, 241);
   margin-bottom: 0.4rem;
 }
 
 .resume-company-location {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   color: rgba(170, 170, 170, 0.55);
   font-weight: 400;
   margin-left: 0.5rem;
@@ -396,7 +396,7 @@ img[align="left"] {
 }
 
 .resume-role-title {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: rgb(200, 200, 200);
   margin-bottom: 0.15rem;
@@ -404,7 +404,7 @@ img[align="left"] {
 
 .resume-role-dates {
   display: block;
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   color: rgba(170, 170, 170, 0.55);
   margin-bottom: 0.35rem;
   text-transform: uppercase;
@@ -412,7 +412,7 @@ img[align="left"] {
 }
 
 .resume-role-description {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   color: rgb(150, 150, 150);
 }
@@ -423,7 +423,7 @@ img[align="left"] {
 }
 
 .resume-lang-company {
-  font-size: 0.72rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: rgb(200, 200, 200);
   margin-bottom: 0.3rem;
@@ -438,12 +438,12 @@ img[align="left"] {
 }
 
 .resume-tech li {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: rgb(170, 170, 170);
   background: rgba(255, 140, 0, 0.08);
   border: 1px solid rgba(255, 140, 0, 0.2);
   border-radius: 2px;
-  padding: 1px 6px;
+  padding: 2px 7px;
 }
 
 /* Skills — hairline dividers */
@@ -457,35 +457,35 @@ img[align="left"] {
 }
 
 .resume-skill-title {
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: rgb(200, 200, 200);
   margin-bottom: 0.15rem;
 }
 
 .resume-skill-desc {
-  font-size: 0.72rem;
+  font-size: 0.825rem;
   color: rgb(150, 150, 150);
   line-height: 1.5;
 }
 
 /* Education */
 .resume-edu-institution {
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: rgb(200, 200, 200);
   margin-bottom: 0.15rem;
 }
 
 .resume-edu-year {
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   color: rgba(170, 170, 170, 0.55);
   font-weight: 400;
   margin-left: 0.35rem;
 }
 
 .resume-edu-degree {
-  font-size: 0.72rem;
+  font-size: 0.825rem;
   color: rgb(150, 150, 150);
   line-height: 1.5;
 }
