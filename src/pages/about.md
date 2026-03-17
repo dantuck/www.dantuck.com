@@ -1,6 +1,7 @@
 ---
 layout: '../layouts/About.astro'
 title: About
+description: "Daniel Tucker — Staff Software Engineer in Colorado. Writing about software, tools, and systems."
 ---
 
 Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado.

@@ -6,7 +6,7 @@ import Footer from '../components/Footer.svelte';
 import JsonLd from '../components/JsonLd.astro';
 
 const { frontmatter } = Astro.props;
-const { title, description, tags, publishDate, author, image } = frontmatter;
+const { title, description, tags, publishDate, image } = frontmatter;
 const permalink = frontmatter.permalink ?? Astro.url.href;
 
 const pathname = Astro.url.pathname.replace(/\/$/, '');
