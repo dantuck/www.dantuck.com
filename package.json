@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "dev:search": "astro build && pagefind --site dist && astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro",
-    "publish-preview": "astro build && wrangler pages publish dist --project-name=www-dantuck --branch=preview",
-    "publish-release": "astro build && wrangler pages publish dist --project-name=www-dantuck"
+    "publish-preview": "astro build && pagefind --site dist && wrangler pages publish dist --project-name=www-dantuck --branch=preview",
+    "publish-release": "astro build && pagefind --site dist && wrangler pages publish dist --project-name=www-dantuck",
+    "screenshots": "node scripts/capture-screenshots.mjs"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -24,8 +26,10 @@
     "@astrojs/svelte": "^8.0.0",
     "@unocss/astro": "^66.6.6",
     "astro": "^6.0.4",
+    "playwright": "^1.58.2",
     "svelte": "^5.53.11",
     "unocss": "^66.6.6",
+    "pagefind": "^1.1.0",
     "wrangler": "^4.73.0"
   }
 }

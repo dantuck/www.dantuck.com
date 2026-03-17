@@ -1,5 +1,7 @@
 ---
-const { title, prepTime, cookTime } = Astro.props;
+import Search from './Search.svelte';
+const { title } = Astro.props;
+const path = Astro.url.pathname;
 ---
 
 <header>
@@ -8,23 +10,35 @@ const { title, prepTime, cookTime } = Astro.props;
       <p class="m-0">
         <a href="/" class="nav-tagline">bytes of thought by Daniel Tucker</a>
       </p>
-      <div class="flex gap-6 flex-wrap justify-center">
-        <a href="/recipe" class="nav-link">Recipes</a>
-        <a href="/article" class="nav-link">Articles</a>
-        <a href="/resume" class="nav-link">Resume</a>
-        <a href="/about" class="nav-link">About</a>
+      <div class="flex gap-6 flex-wrap justify-center items-center">
+        {path.startsWith('/recipe')    ? <span class="nav-link" aria-current="page">Recipes</span>   : <a href="/recipe"    class="nav-link">Recipes</a>}
+        {path.startsWith('/article')   ? <span class="nav-link" aria-current="page">Articles</span>  : <a href="/article"   class="nav-link">Articles</a>}
+        {path.startsWith('/portfolio') ? <span class="nav-link" aria-current="page">Portfolio</span> : <a href="/portfolio" class="nav-link">Portfolio</a>}
+        {path.startsWith('/resume')    ? <span class="nav-link" aria-current="page">Resume</span>    : <a href="/resume"    class="nav-link">Resume</a>}
+        {path.startsWith('/about')     ? <span class="nav-link" aria-current="page">About</span>     : <a href="/about"     class="nav-link">About</a>}
+        <button
+          class="search-btn nav-link"
+          onclick="document.dispatchEvent(new CustomEvent('open-search'))"
+          aria-label="Open search"
+        >
+          <span aria-hidden="true">⌕</span>
+          <span class="search-btn-label">Search</span>
+          <span class="search-btn-hint" aria-hidden="true" id="search-kbd-hint">⌘K</span>
+        </button>
       </div>
     </div>
   </nav>
 
   {title && <h1 class="max-content text-center pb-4 text-primary">{title}</h1>}
 
-  {(prepTime || cookTime) && (
-    <aside class="max-content text-left">
-      {prepTime && <span class="block px-2 text-orange">Prep: {prepTime}</span>}
-      {cookTime && <span class="block px-2 text-orange">Cook: {cookTime}</span>}
-    </aside>
-  )}
+  <Search client:only="svelte" />
+  <script>
+    const hint = document.getElementById('search-kbd-hint');
+    if (hint) {
+      const platform = navigator.userAgentData?.platform ?? navigator.platform;
+      hint.textContent = /mac/i.test(platform) ? '⌘K' : 'Ctrl+K';
+    }
+  </script>
 </header>
 
 <style>
@@ -48,22 +62,60 @@ const { title, prepTime, cookTime } = Astro.props;
 
   @media (min-width: 600px) {
     header { padding-top: 5rem; }
+  }
 
-    aside {
-      align-self: auto;
-      text-align: center;
+  .search-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255, 140, 0, 0.07);
+    border: 1px solid rgba(255, 140, 0, 0.35);
+    border-radius: 20px;
+    padding: 0.2rem 0.75rem 0.2rem 0.6rem;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .search-btn:hover {
+    background: rgba(255, 140, 0, 0.14);
+    border-color: rgba(255, 140, 0, 0.6);
+  }
+
+  .search-btn:focus,
+  .search-btn:active {
+    outline: none;
+  }
+
+  .search-btn:focus-visible {
+    outline: 2px solid rgba(255, 140, 0, 0.6);
+    outline-offset: 2px;
+  }
+
+  /* Override nav-link underline animation — pill has its own hover */
+  .search-btn::after {
+    display: none;
+  }
+
+  .search-btn-hint {
+    font-size: 0.62rem;
+    font-weight: 400;
+    font-family: inherit;
+    color: rgba(255, 140, 0, 0.6);
+    letter-spacing: 0.02em;
+    border-left: 1px solid rgba(255, 140, 0, 0.25);
+    padding-left: 0.35rem;
+    margin-left: 0.05rem;
+  }
+
+  /* Mobile: hide label and hint, show icon only */
+  @media (max-width: 639px) {
+    .search-btn-label,
+    .search-btn-hint {
+      display: none;
     }
 
-    aside span {
-      display: inline-block;
-    }
-
-    aside span:first-of-type::before { content: none; }
-
-    aside span::before {
-      content: "|";
-      position: relative;
-      left: -0.2rem;
+    .search-btn {
+      padding: 0.2rem 0.5rem;
     }
   }
 </style>

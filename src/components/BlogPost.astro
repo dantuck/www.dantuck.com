@@ -1,9 +1,21 @@
 ---
+import Tags from './Tags.astro';
 import FeedbackLink from './FeedbackLink.astro';
-// No props needed — content comes through slot
+
+export interface Props {
+  title?: string;
+  tags?: string[];
+}
+const { title, tags } = Astro.props;
 ---
 
-<article class="max-content py-6">
+<article data-pagefind-body class="max-content py-6">
+  {title && <h1 class="text-center pb-4 text-primary">{title}</h1>}
   <slot />
+  {tags?.length > 0 && (
+    <div data-pagefind-meta="tags">
+      <Tags {tags} />
+    </div>
+  )}
   <FeedbackLink />
 </article>

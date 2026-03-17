@@ -1,0 +1,104 @@
+---
+export interface Props {
+  project: {
+    title: string;
+    tagline: string;
+    url: string;
+    screenshot: string;
+    techStack: string[];
+    role: string;
+    publishDate: string;
+    featured?: boolean;
+    layoutSide?: 'left' | 'right';
+    bodyHtml: string;
+  };
+}
+
+const { project } = Astro.props;
+const wide = !!project.featured;
+const { bodyHtml, layoutSide, ...projectMeta } = project;
+---
+
+<div
+  class:list={['portfolio-card', wide && `featured-${project.layoutSide}`]}
+  data-project={JSON.stringify(projectMeta)}
+  role="button"
+  tabindex="0"
+  aria-label={`View details for ${project.title}`}
+>
+  <template class="card-body-html" set:html={bodyHtml}></template>
+  <div class="card-image">
+    <img src={project.screenshot} alt={`Screenshot of ${project.title}`} loading="lazy" />
+  </div>
+  <div class="card-caption">
+    <strong class="card-title">{project.title}</strong>
+    <span class="card-tagline">{project.tagline}</span>
+  </div>
+</div>
+
+
+<style>
+  .portfolio-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    background: #1a2230;
+    transition: border-color 0.15s ease;
+  }
+
+  .portfolio-card.featured-left {
+    grid-column: 1 / span 2;
+    grid-row: span 2;
+  }
+
+  .portfolio-card.featured-right {
+    grid-column: 2 / span 2;
+    grid-row: span 2;
+  }
+
+  .portfolio-card:hover,
+  .portfolio-card:focus-visible {
+    border-color: rgba(255, 140, 0, 0.5);
+    outline: none;
+  }
+
+  .card-image {
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    margin: 0;
+  }
+
+  .card-caption {
+    flex-shrink: 0;
+    padding: 0.55rem 0.75rem 0.5rem;
+    background: #111820;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .card-title {
+    color: rgb(255, 140, 0);
+    font-size: 0.85rem;
+    line-height: 1.2;
+  }
+
+  .card-tagline {
+    color: rgba(180, 190, 200, 0.9);
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+</style>

@@ -3,20 +3,144 @@ import Tags from './Tags.astro';
 
 export interface Props {
   post: any;
+  hero?: boolean;
 }
-const { post } = Astro.props;
+const { post, hero = false } = Astro.props;
 const { publishDate, title, prepTime, cookTime, tags, description } = post.frontmatter;
+const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) : undefined;
 ---
 
-<article class="py-6 border-b border-site-text/15">
-  <h2 class="m-0 mb-[0.2rem] text-[1.1rem]">
-    <a href={post.url} class="text-primary no-underline hover:text-orange">{title}</a>
-  </h2>
-  <div class="flex flex-wrap gap-4 items-baseline mb-[0.35rem]">
-    {prepTime && <span class="text-[0.8em] text-orange">Prep: {prepTime}</span>}
-    {cookTime && <span class="text-[0.8em] text-orange">Cook: {cookTime}</span>}
-    <time datetime={publishDate} class="text-[0.8em] text-site-text/60 ml-auto">{publishDate}</time>
+{hero ? (
+  <div class="hero-card">
+    <a href={post.url} class="card-link">
+      <h2 class="hero-title">{title}</h2>
+      <div class="hero-meta">
+        {prepTime && <span class="time-badge">Prep: {prepTime}</span>}
+        {cookTime && <span class="time-badge">Cook: {cookTime}</span>}
+        <time datetime={isoDate} class="hero-date">{publishDate}</time>
+      </div>
+      {description && <p class="hero-description">{description}</p>}
+    </a>
+    {tags?.length > 0 && <Tags {tags} />}
   </div>
-  {description && <p class="text-site-text text-[0.9em] leading-[1.6] m-0 mb-[0.35rem]">{description}</p>}
-  {tags?.length > 0 && <Tags {tags} />}
-</article>
+) : (
+  <div class="post-card">
+    <a href={post.url} class="card-link">
+      <h2 class="card-title">{title}</h2>
+      <div class="card-meta">
+        {prepTime && <span class="time-label">Prep: {prepTime}</span>}
+        {cookTime && <span class="time-label">Cook: {cookTime}</span>}
+        <time datetime={isoDate} class="card-date">{publishDate}</time>
+      </div>
+      {description && <p class="card-description">{description}</p>}
+    </a>
+    {tags?.length > 0 && <Tags {tags} />}
+  </div>
+)}
+
+<style>
+  .hero-card {
+    background: #1a2230;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-left: 4px solid rgb(255, 140, 0);
+    padding: 2rem 2.25rem;
+    transition: border-color 0.15s ease;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-card:hover {
+    border-color: rgba(255, 140, 0, 0.4);
+  }
+
+  .card-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .hero-title {
+    color: rgb(241, 241, 241);
+    font-size: 1.8rem;
+    line-height: 1.2;
+    margin: 0 0 0.6rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .time-badge {
+    background: #1a2230;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    color: rgb(255, 140, 0);
+    font-size: 0.78rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+  }
+
+  .hero-date {
+    color: rgba(170, 170, 170, 0.6);
+    font-size: 0.78rem;
+    margin-left: auto;
+  }
+
+  .hero-description {
+    color: rgb(170, 170, 170);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0 0 0.75rem;
+  }
+
+  .post-card {
+    background: #1a2230;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1.5rem 1.75rem;
+    transition: border-color 0.15s ease;
+  }
+
+  .post-card:hover {
+    border-color: rgba(255, 140, 0, 0.5);
+  }
+
+  .card-title {
+    color: rgb(241, 241, 241);
+    font-size: 1rem;
+    line-height: 1.3;
+    margin: 0 0 0.25rem;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .time-label {
+    color: rgb(255, 140, 0);
+    font-size: 0.75rem;
+  }
+
+  .card-date {
+    color: rgba(170, 170, 170, 0.6);
+    font-size: 0.75rem;
+    margin-left: auto;
+  }
+
+  .card-description {
+    color: rgb(170, 170, 170);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0 0 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

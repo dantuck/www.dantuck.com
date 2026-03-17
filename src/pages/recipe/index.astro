@@ -8,10 +8,11 @@ const title = 'Recipes';
 const description = 'bytes of thought by Daniel Tucker.';
 const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
-let allRecipes = Object.values(import.meta.glob('./**/*.{md,mdx}', { eager: true }));
-allRecipes = allRecipes
-  .filter((post: any) => !post.frontmatter.draft)
-  .sort((a: any, b: any) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+const allRecipes = (Object.values(import.meta.glob('./**/*.{md,mdx}', { eager: true })) as any[])
+  .filter((post) => !post.frontmatter.draft)
+  .sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+
+const [hero, ...rest] = allRecipes;
 ---
 
 <html lang="en">
@@ -20,9 +21,28 @@ allRecipes = allRecipes
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header {title} />
-    <main class="max-content pt-6">
-      {allRecipes.map((p: any) => <RecipePreview post={p} />)}
+    <main class="max-content pt-6 pb-12">
+      {hero && <RecipePreview post={hero} hero={true} />}
+      {rest.length > 0 && (
+        <div class="post-grid">
+          {rest.map((p: any) => <RecipePreview post={p} />)}
+        </div>
+      )}
     </main>
     <Footer client:load />
   </body>
 </html>
+
+<style>
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 639px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -5,7 +5,7 @@ import BlogPost from '../components/BlogPost.astro';
 import Footer from '../components/Footer.svelte';
 
 const { frontmatter } = Astro.props;
-const { title, description, permalink } = frontmatter;
+const { title, description, permalink, tags } = frontmatter;
 ---
 
 <html lang={frontmatter.lang || 'en'}>
@@ -13,8 +13,8 @@ const { title, description, permalink } = frontmatter;
     <BaseHead {title} {description} {permalink} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header {title} />
-    <BlogPost>
+    <Header />
+    <BlogPost {title} {tags}>
       <slot />
     </BlogPost>
     <Footer client:load />

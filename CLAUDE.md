@@ -6,7 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 pnpm install       # Install dependencies
-pnpm dev           # Start dev server
+pnpm dev           # Start dev server (search shows "production only" message)
+pnpm dev:search    # Build + index + dev server — enables search during development
+                   # Re-run after content changes to keep the search index current
 pnpm build         # Build for production (outputs to ./dist)
 pnpm preview       # Preview production build locally
 pnpm publish-preview   # Build + deploy to Cloudflare Pages preview branch
