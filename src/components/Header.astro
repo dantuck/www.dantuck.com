@@ -1,6 +1,7 @@
 ---
 import Search from './Search.svelte';
 const { title } = Astro.props;
+const path = Astro.url.pathname;
 ---
 
 <header>
@@ -10,11 +11,11 @@ const { title } = Astro.props;
         <a href="/" class="nav-tagline">bytes of thought by Daniel Tucker</a>
       </p>
       <div class="flex gap-6 flex-wrap justify-center items-center">
-        <a href="/recipe" class="nav-link">Recipes</a>
-        <a href="/article" class="nav-link">Articles</a>
-        <a href="/portfolio" class="nav-link">Portfolio</a>
-        <a href="/resume" class="nav-link">Resume</a>
-        <a href="/about" class="nav-link">About</a>
+        {path.startsWith('/recipe')    ? <span class="nav-link" aria-current="page">Recipes</span>   : <a href="/recipe"    class="nav-link">Recipes</a>}
+        {path.startsWith('/article')   ? <span class="nav-link" aria-current="page">Articles</span>  : <a href="/article"   class="nav-link">Articles</a>}
+        {path.startsWith('/portfolio') ? <span class="nav-link" aria-current="page">Portfolio</span> : <a href="/portfolio" class="nav-link">Portfolio</a>}
+        {path.startsWith('/resume')    ? <span class="nav-link" aria-current="page">Resume</span>    : <a href="/resume"    class="nav-link">Resume</a>}
+        {path.startsWith('/about')     ? <span class="nav-link" aria-current="page">About</span>     : <a href="/about"     class="nav-link">About</a>}
         <button
           class="search-btn nav-link"
           onclick="document.dispatchEvent(new CustomEvent('open-search'))"
@@ -78,6 +79,16 @@ const { title } = Astro.props;
   .search-btn:hover {
     background: rgba(255, 140, 0, 0.14);
     border-color: rgba(255, 140, 0, 0.6);
+  }
+
+  .search-btn:focus,
+  .search-btn:active {
+    outline: none;
+  }
+
+  .search-btn:focus-visible {
+    outline: 2px solid rgba(255, 140, 0, 0.6);
+    outline-offset: 2px;
   }
 
   /* Override nav-link underline animation — pill has its own hover */

@@ -10,6 +10,7 @@ import { join, extname } from 'path';
 const pagefindDevPlugin = {
   name: 'pagefind-dev',
   configureServer(server) {
+    server.watcher.setMaxListeners(20);
     server.middlewares.use((req, res, next) => {
       if (!req.url?.startsWith('/pagefind/')) return next();
       const filePath = join(process.cwd(), 'dist', req.url.split('?')[0]);
