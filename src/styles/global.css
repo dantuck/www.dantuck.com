@@ -431,19 +431,19 @@ img[align="left"] {
 
 .resume-tech {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+  display: block;
   padding: 0;
 }
 
 .resume-tech li {
+  display: inline;
   font-size: 0.85rem;
-  color: rgb(170, 170, 170);
-  background: rgba(255, 140, 0, 0.08);
-  border: 1px solid rgba(255, 140, 0, 0.2);
-  border-radius: 2px;
-  padding: 2px 7px;
+  color: rgb(130, 130, 130);
+}
+
+.resume-tech li + li::before {
+  content: " · ";
+  color: rgba(255, 140, 0, 0.5);
 }
 
 /* Skills — hairline dividers */
@@ -519,23 +519,8 @@ img[align="left"] {
   .resume-edu-year,
   .resume-company-location { color: #333; }
 
-  .resume-tech {
-    display: block;
-  }
-
-  .resume-tech li {
-    display: inline;
-    background: none;
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    color: #333;
-  }
-
-  .resume-tech li + li::before {
-    content: " · ";
-    color: #c85000;
-  }
+  .resume-tech li { color: #333; }
+  .resume-tech li + li::before { color: #c85000; }
 
   .resume-layout {
     display: grid;
