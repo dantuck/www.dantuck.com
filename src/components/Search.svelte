@@ -163,9 +163,15 @@
       <div class="state-msg">No results for '{query}'</div>
     {:else}
       <div class="modal-body">
-        <ul class="result-list" role="listbox" aria-label="Search results">
+        <ul
+          class="result-list"
+          role="listbox"
+          aria-label="Search results"
+          aria-activedescendant={results[selectedIndex] ? `search-result-${selectedIndex}` : undefined}
+        >
           {#each results as result, i}
             <li
+              id="search-result-{i}"
               class="result-item"
               class:active={i === selectedIndex}
               role="option"

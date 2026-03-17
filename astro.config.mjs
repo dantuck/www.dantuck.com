@@ -3,7 +3,7 @@ import svelte from "@astrojs/svelte";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import UnoCSS from '@unocss/astro';
-import { existsSync, readFileSync } from 'fs';
+import { existsSync, createReadStream } from 'fs';
 import { join, extname } from 'path';
 
 /** Vite plugin: serves dist/pagefind/ during dev so search works after a build. */
@@ -19,7 +19,7 @@ const pagefindDevPlugin = {
                  : ext === '.css' ? 'text/css'
                  : 'application/octet-stream';
       res.setHeader('Content-Type', type);
-      res.end(readFileSync(filePath));
+      createReadStream(filePath).pipe(res);
     });
   },
 };
