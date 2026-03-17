@@ -23,8 +23,14 @@
 
   async function loadPagefind() {
     if (pagefindLoaded || devMode) return;
+    if (!import.meta.env.PROD) {
+      devMode = true;
+      return;
+    }
     try {
-      pagefind = await import('/pagefind/pagefind.js');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore — generated post-build, not present at compile time
+      pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
       pagefindLoaded = true;
     } catch {
       devMode = true;
@@ -130,6 +136,7 @@
     role="dialog"
     aria-modal="true"
     aria-label="Search"
+    tabindex="-1"
     on:keydown={handleModalKeydown}
   >
     <div class="modal-input-row">
@@ -167,6 +174,7 @@
               aria-selected={i === selectedIndex}
               on:mouseenter={() => (selectedIndex = i)}
               on:click={() => (window.location.href = result.url)}
+              on:keydown={(e) => { if (e.key === 'Enter') window.location.href = result.url; }}
             >
               <span class="dot {dotClass(result.url)}" aria-hidden="true"></span>
               <span class="result-title">{result.meta.title}</span>
