@@ -443,7 +443,7 @@ img[align="left"] {
 
 .resume-tech li + li::before {
   content: " · ";
-  color: rgba(255, 140, 0, 0.5);
+  color: rgb(255, 140, 0);
 }
 
 /* Skills — hairline dividers */
