@@ -1,5 +1,27 @@
 ---
 import '../styles/global.css';
+import JsonLd from './JsonLd.astro';
+
+const siteSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      url: 'https://www.dantuck.com/',
+      name: 'dantuck.com',
+    },
+    {
+      '@type': 'Person',
+      name: 'Daniel Tucker',
+      url: 'https://www.dantuck.com/',
+      sameAs: [
+        'https://github.com/dantuck/',
+        'https://www.linkedin.com/in/dantuck/',
+        'https://gitlab.com/dantuck/',
+      ],
+    },
+  ],
+};
 
 export interface Props {
   title: string;
@@ -46,3 +68,4 @@ const {
 <meta property="twitter:image" content={image} />
 
 <meta name="referrer" content="no-referrer-when-downgrade">
+<JsonLd schema={siteSchema} />
