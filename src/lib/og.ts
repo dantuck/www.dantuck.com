@@ -155,7 +155,10 @@ export async function buildOgImage(options: BuildOgImageOptions): Promise<Buffer
     : await darkBackground();
 
   const svgString = await renderCard(cardOptions);
-  const cardBuffer = await sharp(Buffer.from(svgString), { density: 150 }).png().toBuffer();
+  const cardBuffer = await sharp(Buffer.from(svgString), { density: 150 })
+    .resize(800, 418)
+    .png()
+    .toBuffer();
 
   return bg.composite([{ input: cardBuffer, top: 0, left: 0 }]).png().toBuffer();
 }
@@ -189,6 +192,9 @@ export async function buildDefaultOgImage(): Promise<Buffer> {
   );
 
   const bg = await darkBackground();
-  const cardBuffer = await sharp(Buffer.from(svgString), { density: 150 }).png().toBuffer();
+  const cardBuffer = await sharp(Buffer.from(svgString), { density: 150 })
+    .resize(800, 418)
+    .png()
+    .toBuffer();
   return bg.composite([{ input: cardBuffer, top: 0, left: 0 }]).png().toBuffer();
 }
