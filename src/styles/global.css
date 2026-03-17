@@ -293,6 +293,203 @@ img[align="left"] {
 
 #posts li { margin-bottom: 0.5em; }
 
+/* ── Resume screen styles ───────────────────────────────────────────────── */
+
+.resume-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .resume-layout {
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Header */
+.resume-header {
+  border-bottom: 2px solid rgb(255, 140, 0);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.resume-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: rgb(241, 241, 241);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.resume-contact {
+  font-size: 0.8rem;
+  color: rgb(170, 170, 170);
+  margin-top: 0.25rem;
+}
+
+/* Print button */
+.resume-actions {
+  margin: 0.75rem 0 1.5rem;
+}
+
+.btn-print {
+  font-family: Comfortaa, sans-serif;
+  font-size: 0.75rem;
+  background: none;
+  border: 1px solid rgb(255, 140, 0);
+  color: rgb(255, 140, 0);
+  padding: 5px 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-print:hover {
+  background: rgb(255, 140, 0);
+  color: rgb(45, 54, 66);
+}
+
+/* Section titles */
+.resume-section-title {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgb(255, 140, 0);
+  border-bottom: 1px solid rgba(255, 140, 0, 0.35);
+  padding-bottom: 0.3rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.resume-main > .resume-section-title:first-child,
+.resume-sidebar > .resume-section-title:first-child {
+  margin-top: 0;
+}
+
+/* Company blocks */
+.resume-company {
+  margin-bottom: 1.25rem;
+}
+
+.resume-company-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgb(241, 241, 241);
+  margin-bottom: 0.4rem;
+}
+
+.resume-company-location {
+  font-size: 0.72rem;
+  color: rgba(170, 170, 170, 0.55);
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+/* Role blocks */
+.resume-role {
+  margin-bottom: 0.75rem;
+  padding-left: 0.75rem;
+  border-left: 2px solid rgba(255, 140, 0, 0.2);
+}
+
+.resume-role-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgb(200, 200, 200);
+  margin-bottom: 0.15rem;
+}
+
+.resume-role-dates {
+  display: block;
+  font-size: 0.68rem;
+  color: rgba(170, 170, 170, 0.55);
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.resume-role-description {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: rgb(150, 150, 150);
+}
+
+/* Tech pills */
+.resume-lang-group {
+  margin-bottom: 0.9rem;
+}
+
+.resume-lang-company {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgb(200, 200, 200);
+  margin-bottom: 0.3rem;
+}
+
+.resume-tech {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0;
+}
+
+.resume-tech li {
+  font-size: 0.65rem;
+  color: rgb(170, 170, 170);
+  background: rgba(255, 140, 0, 0.08);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  border-radius: 2px;
+  padding: 1px 6px;
+}
+
+/* Skills — hairline dividers */
+.resume-skill {
+  margin-bottom: 0.5rem;
+}
+
+.resume-skill + .resume-skill {
+  border-top: 1px solid rgba(170, 170, 170, 0.08);
+  padding-top: 0.5rem;
+}
+
+.resume-skill-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgb(200, 200, 200);
+  margin-bottom: 0.15rem;
+}
+
+.resume-skill-desc {
+  font-size: 0.72rem;
+  color: rgb(150, 150, 150);
+  line-height: 1.5;
+}
+
+/* Education */
+.resume-edu-institution {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: rgb(200, 200, 200);
+  margin-bottom: 0.15rem;
+}
+
+.resume-edu-year {
+  font-size: 0.68rem;
+  color: rgba(170, 170, 170, 0.55);
+  font-weight: 400;
+  margin-left: 0.35rem;
+}
+
+.resume-edu-degree {
+  font-size: 0.72rem;
+  color: rgb(150, 150, 150);
+  line-height: 1.5;
+}
+
 /* ── Resume print styles ────────────────────────────────────────────────── */
 
 @media print {
@@ -322,8 +519,23 @@ img[align="left"] {
   .resume-edu-year,
   .resume-company-location { color: #333; }
 
-  .resume-tech li { color: #333; }
-  .resume-tech li::after { color: #c85000; }
+  .resume-tech {
+    display: block;
+  }
+
+  .resume-tech li {
+    display: inline;
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    color: #333;
+  }
+
+  .resume-tech li + li::before {
+    content: " · ";
+    color: #c85000;
+  }
 
   .resume-layout {
     display: grid;
