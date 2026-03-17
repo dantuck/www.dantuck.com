@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, tick } from 'svelte';
 
   type Project = {
     title: string;
@@ -13,15 +13,15 @@
 
   let open = false;
   let project: Project | null = null;
-  let drawerEl: HTMLElement;
+  let drawerEl: HTMLElement | undefined;
   let lastFocusedCard: HTMLElement | null = null;
 
-  function openDrawer(detail: Project, triggerEl: HTMLElement | null) {
+  async function openDrawer(detail: Project, triggerEl: HTMLElement | null) {
     project = detail;
     lastFocusedCard = triggerEl;
     open = true;
-    // Move focus into drawer after DOM update
-    setTimeout(() => drawerEl?.focus(), 50);
+    await tick();
+    drawerEl?.focus();
   }
 
   function closeDrawer() {
@@ -51,14 +51,13 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-{#if open}
-  <!-- Backdrop -->
-  <div
-    class="backdrop"
-    aria-hidden="true"
-    on:click={closeDrawer}
-  ></div>
-{/if}
+<!-- Backdrop — always in DOM, fades in/out with drawer -->
+<div
+  class="backdrop"
+  class:open
+  aria-hidden="true"
+  on:click={closeDrawer}
+></div>
 
 <!-- Drawer panel — always in DOM, translated off-screen when closed -->
 <aside
@@ -102,6 +101,7 @@
       </div>
 
       <div class="drawer-body">
+        <!-- Safe: author-controlled markdown compiled at build time by Astro -->
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html project.bodyHtml}
       </div>
@@ -115,6 +115,14 @@
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
     z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .drawer {

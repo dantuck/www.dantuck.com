@@ -8,6 +8,7 @@ role: Designer & Developer
 publishDate: 2024-01-01
 draft: false
 featured: true
+sortOrder: 2
 ---
 
 Developed a comprehensive meal planning interface for weekly meal queue management. Features include ingredient tracking, recipe integration, grocery list generation, and collaborative planning for households. Built with Svelte for responsive interactions and Cloudflare infrastructure for performance and reliability.

@@ -9,18 +9,18 @@ export interface Props {
     role: string;
     publishDate: string;
     featured?: boolean;
+    layoutSide?: 'left' | 'right';
     bodyHtml: string;
   };
-  index: number;
 }
 
 const { project } = Astro.props;
 const wide = !!project.featured;
-const { bodyHtml, ...projectMeta } = project;
+const { bodyHtml, layoutSide, ...projectMeta } = project;
 ---
 
 <div
-  class:list={['portfolio-card', wide && 'featured']}
+  class:list={['portfolio-card', wide && `featured-${project.layoutSide}`]}
   data-project={JSON.stringify(projectMeta)}
   role="button"
   tabindex="0"
@@ -36,25 +36,6 @@ const { bodyHtml, ...projectMeta } = project;
   </div>
 </div>
 
-<script>
-  document.querySelectorAll<HTMLElement>('.portfolio-card').forEach((card) => {
-    const trigger = () => {
-      const project = JSON.parse(card.dataset.project!);
-      const bodyTemplate = card.querySelector('.card-body-html') as HTMLTemplateElement | null;
-      project.bodyHtml = bodyTemplate?.innerHTML ?? '';
-      document.dispatchEvent(
-        new CustomEvent('open-portfolio-drawer', { detail: project })
-      );
-    };
-    card.addEventListener('click', trigger);
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        trigger();
-      }
-    });
-  });
-</script>
 
 <style>
   .portfolio-card {
@@ -68,8 +49,13 @@ const { bodyHtml, ...projectMeta } = project;
     transition: border-color 0.15s ease;
   }
 
-  .portfolio-card.featured {
-    grid-column: span 2;
+  .portfolio-card.featured-left {
+    grid-column: 1 / span 2;
+    grid-row: span 2;
+  }
+
+  .portfolio-card.featured-right {
+    grid-column: 2 / span 2;
     grid-row: span 2;
   }
 
