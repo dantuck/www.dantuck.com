@@ -3,14 +3,34 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import BlogPost from '../components/BlogPost.astro';
 import Footer from '../components/Footer.svelte';
+import JsonLd from '../components/JsonLd.astro';
 
 const { frontmatter } = Astro.props;
-const { title, description, permalink, tags } = frontmatter;
+const { title, description, tags, publishDate, author, image } = frontmatter;
+const permalink = frontmatter.permalink ?? Astro.url.href;
+
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+const ogImage = new URL(`/og${pathname}.png`, Astro.site).toString();
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: publishDate ? new Date(publishDate).toISOString() : undefined,
+  author: {
+    '@type': 'Person',
+    name: author,
+    url: 'https://www.dantuck.com/',
+  },
+  url: permalink,
+};
 ---
 
 <html lang={frontmatter.lang || 'en'}>
   <head>
-    <BaseHead {title} {description} {permalink} />
+    <BaseHead {title} {description} {permalink} image={ogImage} type="article" />
+    <JsonLd schema={articleSchema} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header />
