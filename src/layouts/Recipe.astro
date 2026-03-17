@@ -4,15 +4,38 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.svelte';
 import Tags from '../components/Tags.astro';
 import FeedbackLink from '../components/FeedbackLink.astro';
+import JsonLd from '../components/JsonLd.astro';
 
 const { frontmatter } = Astro.props;
-const { ingredients, title, description, permalink, prepTime, cookTime, tags, publishDate } = frontmatter;
+const { ingredients, title, description, prepTime, cookTime, tags, publishDate, image } = frontmatter;
+const permalink = frontmatter.permalink ?? Astro.url.href;
 const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) : undefined;
+
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+const ogImage = new URL(`/og${pathname}.png`, Astro.site).toString();
+
+const recipeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Recipe',
+  name: title,
+  description,
+  datePublished: publishDate ? new Date(publishDate).toISOString() : undefined,
+  prepTime: prepTime ?? undefined,
+  cookTime: cookTime ?? undefined,
+  recipeIngredient: ingredients ?? [],
+  url: permalink,
+  author: {
+    '@type': 'Person',
+    name: 'Daniel Tucker',
+    url: 'https://www.dantuck.com/',
+  },
+};
 ---
 
 <html lang={frontmatter.lang || 'en'}>
   <head>
-    <BaseHead {title} {description} {permalink} />
+    <BaseHead {title} {description} {permalink} image={ogImage} type="article" />
+    <JsonLd schema={recipeSchema} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header />
