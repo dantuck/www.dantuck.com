@@ -12,13 +12,13 @@ export interface Props {
 const {
   title,
   description = 'Professional resume of Daniel Tucker, Staff Software Engineer.',
-  permalink = 'https://www.dantuck.com/resume',
+  permalink = 'https://www.dantuck.com/resume/',
 } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead {title} {description} {permalink} />
+    <BaseHead {title} {description} {permalink} type="website" image="https://www.dantuck.com/og/default.png" />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header />
