@@ -313,7 +313,7 @@ img[align="left"] {
 .resume-header {
   border-bottom: 2px solid rgb(255, 140, 0);
   padding-bottom: 0.75rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 2rem;
 }
 
 .resume-header h1 {
@@ -499,17 +499,18 @@ img[align="left"] {
 @media print {
   @page { margin: 0.75in; }
 
-  header nav, footer, .resume-actions { display: none !important; }
+  header, footer, .resume-actions { display: none !important; }
 
-  body { font-size: 10pt; background: #fff; color: #000; }
+  html { font-size: 9.5pt; }
+  body { background: #fff; color: #000; }
 
   h1, h2, h3, h4, h5, h6 { color: #000; }
-  h2 { font-size: 12pt; }
+  h2 { font-size: 9pt; }
 
-  .resume-header h1 { font-size: 18pt; color: #000; }
+  .resume-header h1 { font-size: 11pt; color: #000; }
   .resume-header .resume-contact { color: #333; }
 
-  .resume-section-title { font-size: 8pt; color: #c85000; border-bottom-color: #c85000; }
+  .resume-section-title { font-size: 6.5pt; color: #c85000; border-bottom-color: #c85000; }
 
   .resume-company-name,
   .resume-role-title,
@@ -527,8 +528,18 @@ img[align="left"] {
   .resume-tech li + li::before { color: #c85000; }
 
   .resume-layout {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 1rem;
+    display: block;
+    overflow: hidden;
+  }
+
+  .resume-main {
+    float: left;
+    width: 64%;
+    padding-right: 1.5rem;
+  }
+
+  .resume-sidebar {
+    float: right;
+    width: 34%;
   }
 }
