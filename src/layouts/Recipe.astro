@@ -14,14 +14,24 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
 const pathname = Astro.url.pathname.replace(/\/$/, '');
 const ogImage = new URL(`/og${pathname}.png`, Astro.site).toString();
 
+// Convert "15 min" / "2 hr" style strings to ISO 8601 duration (PT15M / PT2H)
+function toIsoDuration(value: string | undefined): string | undefined {
+  if (!value) return undefined;
+  const minMatch = value.match(/^(\d+)\s*min/i);
+  if (minMatch) return `PT${minMatch[1]}M`;
+  const hrMatch = value.match(/^(\d+)\s*h/i);
+  if (hrMatch) return `PT${hrMatch[1]}H`;
+  return undefined;
+}
+
 const recipeSchema = {
   '@context': 'https://schema.org',
   '@type': 'Recipe',
   name: title,
   description,
   datePublished: publishDate ? new Date(publishDate).toISOString() : undefined,
-  prepTime: prepTime ?? undefined,
-  cookTime: cookTime ?? undefined,
+  prepTime: toIsoDuration(prepTime),
+  cookTime: toIsoDuration(cookTime),
   recipeIngredient: ingredients ?? [],
   url: permalink,
   author: {
