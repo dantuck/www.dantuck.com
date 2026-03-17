@@ -15,10 +15,12 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
     <BaseHead {title} {description} {permalink} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header {title} />
+    <Header />
 
     <article data-pagefind-body>
       <main class="max-content pt-4 pb-12">
+
+        <h1 class="text-center pb-4 text-primary">{title}</h1>
 
         <div class="recipe-meta">
           {prepTime && <span class="meta-pill">Prep: {prepTime}</span>}
