@@ -444,6 +444,9 @@ img[align="left"] {
 .resume-tech li + li::before {
   content: " · ";
   color: rgb(255, 140, 0);
+  font-size: 1.2em;
+  line-height: 0;
+  vertical-align: middle;
 }
 
 /* Skills — hairline dividers */
