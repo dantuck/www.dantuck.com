@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte';
+  import { onMount, onDestroy, tick } from 'svelte';
   import Search from './Search.svelte';
 
   export let title: string | undefined = undefined;
@@ -16,6 +16,14 @@
     if (hint) {
       const platform = navigator.userAgentData?.platform ?? navigator.platform;
       hint.textContent = /mac/i.test(platform) ? '⌘K' : 'Ctrl+K';
+    }
+  });
+
+  onDestroy(() => {
+    if (isOpen) {
+      document.body.style.overflow = '';
+      document.querySelector('main')?.removeAttribute('inert');
+      document.querySelector('footer')?.removeAttribute('inert');
     }
   });
 
@@ -143,6 +151,7 @@
   <div
     class="backdrop"
     class:open={isOpen}
+    role="presentation"
     aria-hidden="true"
     on:click={closeDrawer}
   ></div>
