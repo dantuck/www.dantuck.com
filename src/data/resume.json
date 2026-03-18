@@ -18,10 +18,16 @@
       "location": "San Jose, CA",
       "roles": [
         {
+          "title": "Senior Staff Software Engineer",
+          "startDate": "March 2025",
+          "endDate": "Present",
+          "description": "Senior Staff Software Engineer in BILL's Product, Network & AI organization, focused on developer experience and backend architecture. I design and build internal developer platforms—standardized local and cloud environments, opinionated tooling, and automation—that make it fast and reliable for engineers to spin up services, ship code, and debug production-like issues. Recently I've been integrating AI-assisted workflows into this stack so that agents can safely introspect, diagnose, and repair development environments, shifting repetitive troubleshooting from humans to automation and shortening feedback loops. Beyond hands-on engineering, I act as an architecture partner and mentor across teams, helping set standards for database migrations, CI/CD, and cloud infrastructure so our platform scales with the business."
+        },
+        {
           "title": "Staff Software Engineer",
           "startDate": "January 2022",
-          "endDate": "Present",
-          "description": "Worked as a technical lead on an Elixir product team building backend services and libraries which interface with internal and external services over GraphQL and Restful APIs. Then, transitioned to an architecture team that supports all engineers in developing solutions and focuses on developer experience enhancements. Designed and implemented internal developer tooling, written in Rustlang, that serves as a tool for internal developer productivity and enhanced onboarding into different services. This tool was built collaboratively with other engineers with a plugin architecture at its core. Lead a developer experience group which is designed to sponsor work, educate and enhance existing and new tooling."
+          "endDate": "March 2025",
+          "description": "Staff Software Engineer in BILL's Product, Network & AI organization, focused on backend architecture and developer experience. I implemented and evolved core Elixir services and shared libraries, strengthened patterns for database migrations and CI/CD, and helped teams adopt safer, more standardized ways to ship changes. I built and maintained internal tooling and local development workflows that reduced environment setup friction and production risk, and I regularly partnered with product squads as a reviewer and mentor on performance, data integrity, and cloud infrastructure decisions."
         }
       ],
       "techStack": ["Elixir", "Rustlang", "Kubernetes", "AWS", "Datadog", "Kafka", "SQS", "PostgreSQL", "GraphQL"]

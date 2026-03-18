@@ -1,16 +1,20 @@
 ---
 layout: '../layouts/About.astro'
 title: About
-description: "Daniel Tucker — Staff Software Engineer in Colorado. Writing about software, tools, and systems."
+description: "Daniel Tucker — Senior Staff Software Engineer in Colorado. Writing about software, tools, and systems."
 ---
 
 Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado.
 
 ### Now
 
-#### Staff Software Engineer at [Bill](https://www.bill.com/) — January 2022 – Present
+#### Senior Staff Software Engineer at [Bill](https://www.bill.com/) — March 2025 – Present
 
-Started on an Elixir product team building backend services and libraries interfacing with internal and external services over GraphQL and REST APIs. Transitioned to an architecture team focused on supporting engineers across the organization and improving developer experience. Designed and built internal developer tooling in Rust with a plugin architecture, aimed at productivity and onboarding across services. Currently leading a developer experience group that sponsors work and educates teams on tooling.
+Senior Staff Software Engineer at BILL focused on developer experience, internal platforms, and AI-assisted developer tooling. I build and evolve standardized environments, tooling, and automation so engineers can onboard quickly, ship safely, and recover from issues faster.
+
+**Staff Software Engineer** (January 2022 – March 2025)
+
+Staff Software Engineer focused on backend services and developer tooling. I built shared libraries, migration and CI/CD standards, and local development workflows that made it easier and safer for engineers across BILL to ship code.
 
 ### Previously
 
