@@ -48,7 +48,7 @@
 </script>
 
 <footer class="max-content py-12 text-center text-[90%]">
-  <a rel="me" href="https://fosstodon.org/@tuck">@tuck@fosstodon.org | Mastodon</a>
+  <a rel="me noopener noreferrer" href="https://fosstodon.org/@tuck" target="_blank">@tuck@fosstodon.org | Mastodon</a>
   <div id="reading-progress" aria-hidden="true"></div>
 </footer>
 
