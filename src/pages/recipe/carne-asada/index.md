@@ -3,9 +3,9 @@ layout: '../../../layouts/Recipe.astro'
 title: Carne Asada
 publishDate: 05 Oct 2019
 tags:
-- Dinner
-- On the Grill
-- Recipe
+- dinner
+- on the grill
+- recipe
 author: ''
 prepTime: 15 min
 cookTime: 16 min

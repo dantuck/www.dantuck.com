@@ -3,8 +3,8 @@ layout: '../../layouts/Recipe.astro'
 title: Gluten-Free Fried Chicken Strips
 publishDate: 20 Jan 2021
 tags:
-- Dinner
-- Recipe
+- dinner
+- recipe
 author: ''
 ingredients:
 - "1 lb boneless skinless chcken breast (cut into 2-inch strips)"

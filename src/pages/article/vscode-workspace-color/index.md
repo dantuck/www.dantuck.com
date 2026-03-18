@@ -5,8 +5,8 @@ title: "Customize workspace colors in VSCode "
 categories:
 - Tools
 tags:
-- Tools
-- VSCode
+- tools
+- vscode
 author: dantuck
 description: |
     VSCode give you a lot of flexibility to override nearly every setting they offer. This come in handing for many reasons which users are finding daily. One of those very reasons I came across today; using title bar and status bar colors to visually differentiate my open VSCode windows.

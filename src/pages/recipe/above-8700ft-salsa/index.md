@@ -5,8 +5,8 @@ publishDate: 12 Mar 2019
 categories:
 - Recipe
 tags:
-- Recipe
-- Salsa
+- recipe
+- salsa
 author: ''
 prepTime: 10 min
 cookTime: ''

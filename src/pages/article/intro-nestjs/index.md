@@ -8,9 +8,9 @@ description: |
 categories:
 - Code
 tags:
-- Code
-- NodeJS
-- Nest
+- code
+- nodejs
+- nest
 
 twitter:
     card: "summary_large_image"

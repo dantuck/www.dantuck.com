@@ -5,8 +5,8 @@ title: "How to backup a Git repository"
 categories:
 - Tools
 tags:
-- Tools
-- Backup
+- tools
+- backup
 - articles
 description: |
     Many of us use services such as Github, Gitlab and Bitbucket as our Git source code remotes. It has crossed my mind more than once that there could be a day when any one of those services goes down. We as individuals and companies would loose valuable code if that happened. So just like we do with other files and important assets we backup.

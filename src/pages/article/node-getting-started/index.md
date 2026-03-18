@@ -8,8 +8,8 @@ description: |
 categories:
 - Code
 tags:
-- Code
-- NodeJS
+- code
+- nodejs
 # twitter:
 #     card: "summary"
 #     site: "@me_dantuck"

@@ -3,9 +3,9 @@ layout: '../../layouts/Recipe.astro'
 title: Tiger Juice - A Whiskey Cocktail
 publishDate: 31 Dec 2020
 tags:
-- Whiskey
-- Cocktail
-- Recipe
+- whiskey
+- cocktail
+- recipe
 author: ''
 ingredients:
 - "&frac12; oz Lemon Juice"
