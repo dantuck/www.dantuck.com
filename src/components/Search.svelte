@@ -50,6 +50,7 @@
     selectedIndex = 0;
     triggerEl?.focus();
     triggerEl = null;
+    document.dispatchEvent(new CustomEvent('close-search'));
   }
 
   async function runSearch(q: string) {
@@ -148,7 +149,10 @@
         autocomplete="off"
         spellcheck="false"
       />
-      <button class="esc-btn" on:click={closeModal} aria-label="Close search">esc</button>
+      <button class="esc-btn" on:click={closeModal} aria-label="Close search">
+        <span class="esc-label" aria-hidden="true">esc</span>
+        <span class="close-label" aria-hidden="true">✕</span>
+      </button>
     </div>
 
     <div aria-live="polite" class="sr-only">
@@ -279,6 +283,10 @@
   }
 
   .state-msg {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 2rem 1.25rem;
     color: rgba(200, 200, 200, 0.5);
     font-size: 0.85rem;
@@ -417,15 +425,18 @@
     border: 0;
   }
 
-  /* Mobile: full-width, hide preview panel */
+  .close-label { display: none; }
+
+  /* Mobile: full-width, hide preview panel, show ✕ close button */
   @media (max-width: 639px) {
     .modal {
       top: 0;
       left: 0;
       transform: none;
       width: 100%;
-      border-radius: 0 0 10px 10px;
-      max-height: 90vh;
+      border-radius: 0;
+      height: 100dvh;
+      max-height: 100dvh;
     }
 
     .preview-panel {
@@ -435,6 +446,21 @@
     .result-list {
       width: 100%;
       border-right: none;
+    }
+
+    .esc-label { display: none; }
+    .close-label { display: inline; }
+
+    .esc-btn {
+      font-size: 1.1rem;
+      border: none;
+      padding: 0.35rem 0.5rem;
+      color: rgba(255, 255, 255, 0.5);
+      min-width: 2.25rem;
+      min-height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 </style>
