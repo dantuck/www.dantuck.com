@@ -6,9 +6,24 @@
 
   let path = '';
   let isOpen = false;
+  let isSearchMode = false;
   let hamburgerBtn: HTMLButtonElement;
   let closeBtn: HTMLButtonElement;
   let drawerEl: HTMLElement | undefined;
+
+  function handleOpenSearch() {
+    if (window.innerWidth < 640) {
+      isSearchMode = true;
+      if (!isOpen) openDrawer();
+    }
+  }
+
+  function handleCloseSearch() {
+    if (isSearchMode) {
+      isSearchMode = false;
+      if (isOpen) closeDrawer();
+    }
+  }
 
   onMount(() => {
     path = window.location.pathname;
@@ -17,6 +32,8 @@
       const platform = navigator.userAgentData?.platform ?? navigator.platform;
       hint.textContent = /mac/i.test(platform) ? '⌘K' : 'Ctrl+K';
     }
+    document.addEventListener('open-search', handleOpenSearch);
+    document.addEventListener('close-search', handleCloseSearch);
   });
 
   onDestroy(() => {
@@ -25,6 +42,8 @@
       document.querySelector('main')?.removeAttribute('inert');
       document.querySelector('footer')?.removeAttribute('inert');
     }
+    document.removeEventListener('open-search', handleOpenSearch);
+    document.removeEventListener('close-search', handleCloseSearch);
   });
 
   async function openDrawer() {
@@ -162,19 +181,22 @@
     id="mobile-drawer"
     class="drawer"
     class:open={isOpen}
+    class:search-mode={isSearchMode}
     role="dialog"
     aria-modal="true"
     aria-label="Navigation menu"
     aria-hidden={!isOpen}
   >
     <div class="drawer-inner">
-      <button
-        bind:this={closeBtn}
-        id="drawer-close"
-        class="drawer-close"
-        on:click={closeDrawer}
-        aria-label="Close menu"
-      >✕</button>
+      <div class="drawer-top">
+        <button
+          bind:this={closeBtn}
+          id="drawer-close"
+          class="drawer-close"
+          on:click={closeDrawer}
+          aria-label="Close menu"
+        >✕</button>
+      </div>
       <nav class="drawer-nav">
         {#if path.startsWith('/recipe')}
           <span class="drawer-link" aria-current="page">Recipes</span>
@@ -202,11 +224,11 @@
           <a href="/about" class="drawer-link" on:click={handleNavClick}>About</a>
         {/if}
         <button
-          class="drawer-search-btn"
-          on:click={() => { handleNavClick(); document.dispatchEvent(new CustomEvent('open-search')); }}
+          class="drawer-link drawer-link-search"
+          on:click={() => document.dispatchEvent(new CustomEvent('open-search'))}
           aria-label="Open search"
         >
-          <svg class="search-icon" aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
           Search
@@ -281,9 +303,11 @@
       transition: color 0.15s ease, background 0.15s ease;
     }
 
-    .hamburger:hover {
-      color: rgba(255, 255, 255, 0.95);
-      background: rgba(255, 255, 255, 0.08);
+    @media (hover: hover) {
+      .hamburger:hover {
+        color: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.08);
+      }
     }
 
     .hamburger:focus-visible {
@@ -369,7 +393,7 @@
     height: 100%;
     z-index: 20;
     transform: translateX(100%);
-    transition: transform 0.25s ease;
+    transition: transform 0.25s ease, width 0.2s ease;
     overflow-y: auto;
     background: rgba(30, 38, 48, 0.75);
     backdrop-filter: blur(24px) saturate(180%);
@@ -383,36 +407,57 @@
 
   .drawer.open { transform: translateX(0); }
 
+  /* Search mode: expand full-width and sit above the search backdrop (z-index 40)
+     so the frosted glass drawer is the visual context for the search modal */
+  .drawer.search-mode {
+    width: 100vw;
+    z-index: 45;
+    border-left: none;
+  }
+
+  .drawer.search-mode .drawer-top,
+  .drawer.search-mode .drawer-nav {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
   @media (max-width: 639px) {
     .drawer { display: block; }
   }
 
   /* ── Drawer contents ───────────────────────────────────────────── */
   .drawer-inner {
-    position: relative;
-    padding: 3.5rem 1rem 1.5rem;
+    padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100%;
   }
 
-  .drawer-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background: none;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
-    line-height: 1;
-    font-family: inherit;
-    transition: color 0.15s ease;
+  .drawer-top {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 1rem 0.5rem;
   }
 
-  .drawer-close:hover { color: rgba(255, 255, 255, 0.9); }
+  .drawer-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 6px;
+    line-height: 1;
+    font-family: inherit;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+
+  @media (hover: hover) {
+    .drawer-close:hover {
+      color: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.08);
+    }
+  }
 
   .drawer-close:focus-visible {
     outline: 2px solid rgba(255, 140, 0, 0.6);
@@ -422,50 +467,61 @@
   .drawer-nav {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    gap: 0.25rem;
   }
 
   .drawer-link {
     display: block;
-    padding: 0.65rem 0.5rem;
-    color: rgba(255, 255, 255, 0.75);
+    padding: 0.85rem 1rem;
+    color: rgba(255, 255, 255, 0.8);
     text-decoration: none;
-    font-size: 1rem;
-    border-radius: 6px;
-    transition: color 0.15s ease, background 0.15s ease;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: Comfortaa, sans-serif;
+    border-radius: 10px;
+    transition: background 0.15s ease, color 0.15s ease;
+    user-select: none;
   }
 
-  .drawer-link:hover {
-    color: rgba(255, 255, 255, 0.95);
-    background: rgba(255, 255, 255, 0.07);
+  @media (hover: hover) {
+    .drawer-link:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: rgba(255, 255, 255, 1);
+    }
   }
 
-  .drawer-link[aria-current="page"] { color: rgb(255, 140, 0); }
+  .drawer-link[aria-current="page"] {
+    background: rgba(255, 140, 0, 0.15);
+    color: rgb(255, 140, 0);
+    cursor: default;
+  }
 
-  .drawer-search-btn {
+  .drawer-link-search {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.65rem 0.5rem;
-    margin-top: 0.75rem;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 6px;
-    color: rgba(255, 255, 255, 0.55);
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.9rem;
+    gap: 0.6rem;
+    background: none;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 0;
     width: 100%;
     text-align: left;
-    transition: background 0.15s ease, color 0.15s ease;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.95rem;
+    margin-top: 0.25rem;
+    padding: 0.9rem 1rem;
   }
 
-  .drawer-search-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.75);
+  @media (hover: hover) {
+    .drawer-link-search:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.7);
+    }
   }
 
-  .drawer-search-btn:focus-visible {
+  .drawer-link-search:focus-visible {
     outline: 2px solid rgba(255, 140, 0, 0.6);
     outline-offset: 2px;
   }
