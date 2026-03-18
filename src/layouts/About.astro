@@ -1,6 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
+import Header from '../components/Header.svelte';
 import Footer from '../components/Footer.svelte';
 
 const { frontmatter } = Astro.props;
@@ -13,7 +13,7 @@ const permalink = frontmatter.permalink ?? Astro.url.href;
     <BaseHead {title} {description} {permalink} type="website" image="https://www.dantuck.com/og/default.png" />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header {title} />
+    <Header client:only="svelte" {title} />
     <article class="max-content py-6">
       <slot />
     </article>

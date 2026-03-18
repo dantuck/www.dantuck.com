@@ -1,6 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
+import Header from '../components/Header.svelte';
 import Footer from '../components/Footer.svelte';
 import Tags from '../components/Tags.astro';
 import FeedbackLink from '../components/FeedbackLink.astro';
@@ -48,7 +48,7 @@ const recipeSchema = {
     <JsonLd schema={recipeSchema} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header />
+    <Header client:only="svelte" />
 
     <article data-pagefind-body>
       <main class="max-content pt-4 pb-12">

@@ -1,5 +1,5 @@
 ---
-import Header from '../../components/Header.astro';
+import Header from '../../components/Header.svelte';
 import BaseHead from '../../components/BaseHead.astro';
 import Tags from '../../components/Tags.astro';
 import Footer from '../../components/Footer.svelte';
@@ -20,7 +20,7 @@ const allTagsUnique = [...new Set(filteredPosts.flatMap((p: any) => p.frontmatte
     <BaseHead {title} {description} {permalink} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header {title} />
+    <Header client:only="svelte" {title} />
     <main class="max-content pt-6">
       <Tags tags={allTagsUnique} />
     </main>
