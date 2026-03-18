@@ -213,7 +213,7 @@
   .backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.55);
+    background: rgba(0, 0, 0, 0.35);
     z-index: 40;
   }
 
@@ -223,9 +223,10 @@
     left: 50%;
     transform: translateX(-50%);
     width: min(640px, calc(100vw - 2rem));
-    background: #1a2230;
+    background: #2c3848;
     border-radius: 10px;
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
     z-index: 50;
     display: flex;
     flex-direction: column;
@@ -238,12 +239,12 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.9rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     flex-shrink: 0;
   }
 
   .search-icon {
-    color: rgba(255, 140, 0, 0.6);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 1rem;
   }
 
@@ -252,20 +253,20 @@
     background: none;
     border: none;
     outline: none;
-    color: #eee;
+    color: #fff;
     font-size: 1rem;
     font-family: inherit;
   }
 
   .modal-input-row input::placeholder {
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.35);
   }
 
   .esc-btn {
     background: none;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 4px;
-    color: rgba(255, 255, 255, 0.25);
+    color: rgba(255, 255, 255, 0.4);
     font-size: 0.65rem;
     padding: 0.1rem 0.4rem;
     cursor: pointer;
@@ -273,13 +274,13 @@
   }
 
   .esc-btn:hover {
-    color: rgba(255, 255, 255, 0.5);
-    border-color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.65);
+    border-color: rgba(255, 255, 255, 0.4);
   }
 
   .state-msg {
     padding: 2rem 1.25rem;
-    color: rgba(170, 170, 170, 0.5);
+    color: rgba(200, 200, 200, 0.5);
     font-size: 0.85rem;
     text-align: center;
   }
@@ -293,7 +294,7 @@
 
   .result-list {
     width: 45%;
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
     overflow-y: auto;
     padding: 0.4rem 0;
     margin: 0;
@@ -382,20 +383,20 @@
     display: flex;
     gap: 1rem;
     padding: 0.5rem 1.25rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     flex-shrink: 0;
   }
 
   .modal-footer span {
     font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.35);
     display: flex;
     align-items: center;
     gap: 0.3rem;
   }
 
   kbd {
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 3px;
     padding: 0.05rem 0.3rem;
     font-size: 0.6rem;
