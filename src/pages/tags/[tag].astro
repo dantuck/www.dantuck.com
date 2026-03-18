@@ -6,10 +6,10 @@ import RecipePreview from '../../components/RecipePreview.astro';
 import Footer from '../../components/Footer.svelte';
 
 export async function getStaticPaths() {
-  const allArticles = Object.values(import.meta.glob('../article/*/*.md', { eager: true }));
-  const allRecipes = Object.values(import.meta.glob('../recipe/*/*.md', { eager: true }));
+  const allArticles = Object.values(import.meta.glob('../article/**/*.{md,mdx}', { eager: true }));
+  const allRecipes = Object.values(import.meta.glob('../recipe/**/*.{md,mdx}', { eager: true }));
   const allPosts = allArticles.concat(allRecipes).filter((post: any) => !post.frontmatter.draft);
-  const allTagsUnique = [...new Set(allPosts.flatMap((p: any) => p.frontmatter.tags))];
+  const allTagsUnique = [...new Set(allPosts.flatMap((p: any) => p.frontmatter.tags ?? []))].filter(Boolean);
   return allTagsUnique.map((tag) => ({ params: { tag }, props: { allPosts } }));
 }
 
@@ -19,9 +19,15 @@ const title = `Tagged "${tag}"`;
 const description = 'bytes of thought by Daniel Tucker.';
 const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
-const articles = (allPosts as any[])
+const sorted = (allPosts as any[])
   .filter((post) => post.frontmatter.tags?.includes(tag))
   .sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+
+const isSingleFeatured = sorted.length === 1 && sorted[0].frontmatter.featured;
+const showHero = sorted.length > 1 || isSingleFeatured;
+const [first, ...rest] = sorted;
+const hero = showHero ? first : null;
+const gridPosts = showHero ? rest : sorted;
 ---
 
 <html lang="en">
@@ -30,13 +36,62 @@ const articles = (allPosts as any[])
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header {title} />
-    <main class="max-content pt-6">
-      {articles.map((p: any) => p.url?.startsWith('/recipe/')
-        ? <RecipePreview post={p} />
-        : <BlogPostPreview post={p} />
+    <main class="max-content pt-6 pb-12">
+      {hero && ((hero as any).url?.startsWith('/recipe/')
+        ? <RecipePreview post={hero} hero={true} />
+        : <BlogPostPreview post={hero} hero={true} />
       )}
+      <div class="post-grid">
+        {gridPosts.map((p: any) => p.url?.startsWith('/recipe/')
+          ? <RecipePreview post={p} />
+          : <BlogPostPreview post={p} />
+        )}
+        {(gridPosts.length === 0 || sorted.length === 1) && (
+          <div class="placeholder-card">
+            <p class="placeholder-title">More coming soon</p>
+            <p class="placeholder-body">Check back for more posts tagged "{tag}".</p>
+          </div>
+        )}
+      </div>
       <p class="mt-6 text-sm">See <a href="/tags/">all tags</a>.</p>
     </main>
     <Footer client:load />
   </body>
 </html>
+
+<style>
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 639px) {
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .placeholder-card {
+    background: #1a2230;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1.5rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .placeholder-title {
+    font-size: 1rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0 0 0.25rem;
+  }
+
+  .placeholder-body {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.25);
+    margin: 0;
+  }
+</style>
