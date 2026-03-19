@@ -435,8 +435,10 @@
       transform: none;
       width: 100%;
       border-radius: 0;
-      height: 100dvh;
-      max-height: 100dvh;
+      /* svh = small viewport height — excludes the on-screen keyboard,
+         so the modal always fits in the visible area above it */
+      height: 100svh;
+      max-height: 100svh;
     }
 
     .preview-panel {
@@ -448,6 +450,18 @@
       border-right: none;
     }
 
+    /* Keyboard hints are useless on mobile — hide them */
+    .modal-footer {
+      display: none;
+    }
+
+    /* Align empty state to top so it's near the input, not lost in the middle */
+    .state-msg {
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-top: 1.5rem;
+    }
+
     .esc-label { display: none; }
     .close-label { display: inline; }
 
@@ -456,8 +470,8 @@
       border: none;
       padding: 0.35rem 0.5rem;
       color: rgba(255, 255, 255, 0.5);
-      min-width: 2.25rem;
-      min-height: 2.25rem;
+      min-width: 2.75rem;
+      min-height: 2.75rem;
       display: flex;
       align-items: center;
       justify-content: center;

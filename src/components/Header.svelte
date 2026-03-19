@@ -101,7 +101,7 @@
   <nav>
     <div id="nav" class="max-content nav-inner py-[0.6rem] px-4">
       <p class="m-0">
-        <a href="/" class="nav-tagline">bytes of thought by Daniel Tucker</a>
+        <a href="/" class="nav-tagline">bytes of thought<span class="nav-tagline-sub"> by Daniel Tucker</span></a>
       </p>
 
       <!-- Desktop nav links (hidden on mobile via CSS) -->
@@ -223,8 +223,10 @@
         {:else}
           <a href="/about" class="drawer-link" on:click={handleNavClick}>About</a>
         {/if}
+      </nav>
+      <div class="drawer-footer">
         <button
-          class="drawer-link drawer-link-search"
+          class="drawer-link-search"
           on:click={() => document.dispatchEvent(new CustomEvent('open-search'))}
           aria-label="Open search"
         >
@@ -233,7 +235,7 @@
           </svg>
           Search
         </button>
-      </nav>
+      </div>
     </div>
   </div>
 
@@ -281,6 +283,10 @@
 
     .nav-links {
       display: none;
+    }
+
+    .nav-tagline-sub {
+      display: block;
     }
   }
 
@@ -390,11 +396,12 @@
     top: 0;
     right: 0;
     width: min(75vw, 300px);
-    height: 100%;
+    height: 100dvh;
     z-index: 20;
     transform: translateX(100%);
     transition: transform 0.25s ease, width 0.2s ease;
     overflow-y: auto;
+    overflow-x: hidden;
     background: rgba(30, 38, 48, 0.75);
     backdrop-filter: blur(24px) saturate(180%);
     border-left: 1px solid rgba(255, 255, 255, 0.12);
@@ -410,7 +417,9 @@
   /* Search mode: expand full-width and sit above the search backdrop (z-index 40)
      so the frosted glass drawer is the visual context for the search modal */
   .drawer.search-mode {
-    width: 100vw;
+    left: 0;
+    right: 0;
+    width: auto;
     z-index: 45;
     border-left: none;
   }
@@ -430,7 +439,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100%;
+    height: 100dvh;
   }
 
   .drawer-top {
@@ -467,7 +476,6 @@
   .drawer-nav {
     display: flex;
     flex-direction: column;
-    flex: 1;
     padding: 0.5rem 0.75rem;
     gap: 0.25rem;
   }
@@ -498,20 +506,27 @@
     cursor: default;
   }
 
+  .drawer-footer {
+    margin-top: auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0.5rem 0.75rem 1.5rem;
+  }
+
   .drawer-link-search {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     background: none;
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 0;
+    border-radius: 10px;
     width: 100%;
     text-align: left;
     color: rgba(255, 255, 255, 0.4);
     font-size: 0.95rem;
-    margin-top: 0.25rem;
-    padding: 0.9rem 1rem;
+    font-family: Comfortaa, sans-serif;
+    font-weight: 600;
+    padding: 0.85rem 1rem;
+    cursor: pointer;
   }
 
   @media (hover: hover) {
