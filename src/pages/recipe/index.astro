@@ -1,5 +1,5 @@
 ---
-import Header from '../../components/Header.astro';
+import Header from '../../components/Header.svelte';
 import RecipePreview from '../../components/RecipePreview.astro';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.svelte';
@@ -20,7 +20,7 @@ const [hero, ...rest] = allRecipes;
     <BaseHead {title} {description} {permalink} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header {title} />
+    <Header client:only="svelte" {title} />
     <main class="max-content pt-6 pb-12">
       {hero && <RecipePreview post={hero} hero={true} />}
       {rest.length > 0 && (

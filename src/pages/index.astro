@@ -1,5 +1,5 @@
 ---
-import Header from '../components/Header.astro';
+import Header from '../components/Header.svelte';
 import BlogPostPreview from '../components/BlogPostPreview.astro';
 import RecipePreview from '../components/RecipePreview.astro';
 import BaseHead from '../components/BaseHead.astro';
@@ -23,7 +23,7 @@ const [hero, ...rest] = all;
     <BaseHead {title} {description} {permalink} type="website" image="https://www.dantuck.com/og/default.png" />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header />
+    <Header client:only="svelte" />
     <main class="max-content pt-6 pb-12">
       {hero && (hero as any).url?.startsWith('/recipe/')
         ? <RecipePreview post={hero} hero={true} />
