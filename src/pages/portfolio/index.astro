@@ -55,24 +55,28 @@ const projects = allProjects
 </html>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.portfolio-card').forEach((card) => {
-    const project = JSON.parse(card.dataset.project!);
-    const bodyTemplate = card.querySelector('.card-body-html') as HTMLTemplateElement | null;
-    project.bodyHtml = bodyTemplate?.innerHTML ?? '';
+  function initPortfolioCards() {
+    document.querySelectorAll<HTMLElement>('.portfolio-card').forEach((card) => {
+      const project = JSON.parse(card.dataset.project!);
+      const bodyTemplate = card.querySelector('.card-body-html') as HTMLTemplateElement | null;
+      project.bodyHtml = bodyTemplate?.innerHTML ?? '';
 
-    const trigger = () => {
-      document.dispatchEvent(
-        new CustomEvent('open-portfolio-drawer', { detail: project })
-      );
-    };
-    card.addEventListener('click', trigger);
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        trigger();
-      }
+      const trigger = () => {
+        document.dispatchEvent(
+          new CustomEvent('open-portfolio-drawer', { detail: project })
+        );
+      };
+      card.addEventListener('click', trigger);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          trigger();
+        }
+      });
     });
-  });
+  }
+
+  document.addEventListener('astro:page-load', initPortfolioCards);
 </script>
 
 <style>
