@@ -48,7 +48,7 @@ const recipeSchema = {
     <JsonLd schema={recipeSchema} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header client:only="svelte" />
+    <Header client:load path={Astro.url.pathname} />
 
     <article data-pagefind-body>
       <main class="max-content pt-4 pb-12">

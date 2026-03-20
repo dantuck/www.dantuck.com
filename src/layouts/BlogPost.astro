@@ -33,7 +33,7 @@ const articleSchema = {
     <JsonLd schema={articleSchema} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header client:only="svelte" />
+    <Header client:load path={Astro.url.pathname} />
     <BlogPost {title} {tags}>
       <slot />
     </BlogPost>

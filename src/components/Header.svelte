@@ -3,8 +3,8 @@
   import Search from './Search.svelte';
 
   export let title: string | undefined = undefined;
+  export let path: string = '';
 
-  let path = '';
   let isOpen = false;
   let isSearchMode = false;
   let hamburgerBtn: HTMLButtonElement;
@@ -26,7 +26,6 @@
   }
 
   onMount(() => {
-    path = window.location.pathname;
     const hint = document.getElementById('search-kbd-hint');
     if (hint) {
       const platform = navigator.userAgentData?.platform ?? navigator.platform;

@@ -13,7 +13,7 @@ const permalink = frontmatter.permalink ?? Astro.url.href;
     <BaseHead {title} {description} {permalink} type="website" image="https://www.dantuck.com/og/default.png" />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header client:only="svelte" {title} />
+    <Header client:load path={Astro.url.pathname} {title} />
     <article class="max-content py-6">
       <slot />
     </article>

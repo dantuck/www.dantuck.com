@@ -36,7 +36,7 @@ const projects = allProjects
     <BaseHead {title} {description} {permalink} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header client:only="svelte" title="Portfolio" />
+    <Header client:load path={Astro.url.pathname} title="Portfolio" />
     <main class="max-content pt-6 pb-12">
       <div class="portfolio-grid">
         {projects.map((project) => (
