@@ -36,6 +36,7 @@
   }
 
   async function openModal(trigger: HTMLElement | null = null) {
+    if (typeof document === 'undefined') return;
     triggerEl = trigger ?? (document.activeElement as HTMLElement | null);
     open = true;
     await tick();
