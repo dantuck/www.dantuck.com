@@ -5,6 +5,7 @@
   export let title: string | undefined = undefined;
   export let path: string = '';
 
+  let mounted = false;
   let isOpen = false;
   let isSearchMode = false;
   let hamburgerBtn: HTMLButtonElement;
@@ -26,6 +27,7 @@
   }
 
   onMount(() => {
+    mounted = true;
     const hint = document.getElementById('search-kbd-hint');
     if (hint) {
       const platform = navigator.userAgentData?.platform ?? navigator.platform;
@@ -36,6 +38,7 @@
   });
 
   onDestroy(() => {
+    if (typeof document === 'undefined') return;
     if (isOpen) {
       document.body.style.overflow = '';
       document.querySelector('main')?.removeAttribute('inert');
@@ -238,7 +241,7 @@
     </div>
   </div>
 
-  <Search />
+  {#if mounted}<Search />{/if}
 </header>
 
 <style>
