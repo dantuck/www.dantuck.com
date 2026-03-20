@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import JsonLd from './JsonLd.astro';
+import { ClientRouter } from 'astro:transitions';
 
 const siteSchema = {
   '@context': 'https://schema.org',
@@ -39,6 +40,8 @@ const {
   type = 'website',
 } = Astro.props;
 ---
+
+<ClientRouter />
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
