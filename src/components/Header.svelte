@@ -38,7 +38,7 @@
   });
 
   onDestroy(() => {
-    if (typeof document === 'undefined') return;
+    if (!mounted) return; // onMount never ran in SSR; no listeners to clean up
     if (isOpen) {
       document.body.style.overflow = '';
       document.querySelector('main')?.removeAttribute('inert');

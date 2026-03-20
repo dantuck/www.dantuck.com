@@ -51,6 +51,7 @@
     selectedIndex = 0;
     triggerEl?.focus();
     triggerEl = null;
+    if (typeof document === 'undefined') return;
     document.dispatchEvent(new CustomEvent('close-search'));
   }
 
