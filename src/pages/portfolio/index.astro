@@ -76,7 +76,12 @@ const projects = allProjects
     });
   }
 
-  document.addEventListener('astro:page-load', initPortfolioCards);
+  // Guard against listener stacking: Astro re-evaluates inline module scripts
+  // on each navigation, but `window` persists, so this registers only once.
+  if (!(window as any).__portfolioListenerAdded) {
+    (window as any).__portfolioListenerAdded = true;
+    document.addEventListener('astro:page-load', initPortfolioCards);
+  }
 </script>
 
 <style>

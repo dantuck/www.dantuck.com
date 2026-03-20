@@ -123,6 +123,7 @@
   });
 
   onDestroy(() => {
+    if (typeof document === 'undefined') return;
     document.removeEventListener('keydown', handleGlobalKeydown);
     document.removeEventListener('open-search', handleOpenSearch);
   });
