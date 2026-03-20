@@ -24,6 +24,6 @@ const allTagsUnique = [...new Set(filteredPosts.flatMap((p: any) => p.frontmatte
     <main class="max-content pt-6">
       <Tags tags={allTagsUnique} />
     </main>
-    <Footer client:load />
+    <Footer client:load transition:persist />
   </body>
 </html>

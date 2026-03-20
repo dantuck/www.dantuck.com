@@ -17,6 +17,6 @@ const permalink = frontmatter.permalink ?? Astro.url.href;
     <article class="max-content py-6">
       <slot />
     </article>
-    <Footer client:load />
+    <Footer client:load transition:persist />
   </body>
 </html>

@@ -37,6 +37,6 @@ const articleSchema = {
     <BlogPost {title} {tags}>
       <slot />
     </BlogPost>
-    <Footer client:load />
+    <Footer client:load transition:persist />
   </body>
 </html>
