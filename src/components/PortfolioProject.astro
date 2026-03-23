@@ -50,7 +50,9 @@ const pageTitle = `${title} — Daniel Tucker`;
       <div class="bg-noise"></div>
     </div>
 
-    <Header client:load path={`/portfolio/${slug}/`} title="Portfolio" />
+    <Header client:load path={`/portfolio/${slug}/`} />
+
+    <a href="/portfolio/" class="back-nav">← Back</a>
 
     <section class="project-hero">
       <div class="vert-sep"></div>
@@ -106,6 +108,31 @@ const pageTitle = `${title} — Daniel Tucker`;
 </html>
 
 <style>
+  /* ── Back nav ────────────────────────────────────────────────── */
+  .back-nav {
+    position: fixed;
+    top: 1.25rem;
+    left: 1.5rem;
+    z-index: 15;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: rgba(180, 190, 200, 0.6);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .back-nav:hover {
+    color: rgba(255, 140, 0, 0.9);
+    background: rgba(255, 140, 0, 0.06);
+    border-color: rgba(255, 140, 0, 0.2);
+    text-decoration: none;
+  }
+
   /* ── Background texture ──────────────────────────────────────── */
   .portfolio-bg {
     position: fixed;
