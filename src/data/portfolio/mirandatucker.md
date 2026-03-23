@@ -3,6 +3,7 @@ title: Miranda Tucker
 tagline: Personal portfolio and music site
 url: https://www.mirandatucker.com
 screenshot: /images/portfolio/mirandatucker.jpg
+phoneScreenshot: /images/portfolio/mirandatucker-mobile.jpg
 techStack: [Astro, Cloudflare Pages]
 role: Designer & Developer
 publishDate: 2024-01-01

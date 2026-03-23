@@ -118,11 +118,7 @@
         {:else}
           <a href="/article" class="nav-link">Articles</a>
         {/if}
-        {#if path.startsWith('/portfolio')}
-          <span class="nav-link" aria-current="page">Portfolio</span>
-        {:else}
-          <a href="/portfolio" class="nav-link">Portfolio</a>
-        {/if}
+        <a href="/portfolio" class="nav-link" aria-current={path.startsWith('/portfolio') ? 'page' : undefined}>Portfolio</a>
         {#if path.startsWith('/resume')}
           <span class="nav-link" aria-current="page">Resume</span>
         {:else}
@@ -210,11 +206,7 @@
         {:else}
           <a href="/article" class="drawer-link" on:click={handleNavClick}>Articles</a>
         {/if}
-        {#if path.startsWith('/portfolio')}
-          <span class="drawer-link" aria-current="page">Portfolio</span>
-        {:else}
-          <a href="/portfolio" class="drawer-link" on:click={handleNavClick}>Portfolio</a>
-        {/if}
+        <a href="/portfolio" class="drawer-link" aria-current={path.startsWith('/portfolio') ? 'page' : undefined} on:click={handleNavClick}>Portfolio</a>
         {#if path.startsWith('/resume')}
           <span class="drawer-link" aria-current="page">Resume</span>
         {:else}
@@ -505,7 +497,6 @@
   .drawer-link[aria-current="page"] {
     background: rgba(255, 140, 0, 0.15);
     color: rgb(255, 140, 0);
-    cursor: default;
   }
 
   .drawer-footer {

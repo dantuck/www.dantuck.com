@@ -1,0 +1,481 @@
+---
+import BaseHead from './BaseHead.astro';
+import Header from './Header.svelte';
+import Footer from './Footer.svelte';
+import PortfolioBrowserFrame from './PortfolioBrowserFrame.astro';
+import PortfolioPhoneFrame from './PortfolioPhoneFrame.astro';
+
+export interface Props {
+  title: string;
+  tagline: string;
+  url: string;
+  screenshot: string;
+  phoneScreenshot: string;
+  techStack: string[];
+  role: string;
+  label: string;
+  description: string;
+  bodyHtml: string;
+  slug: string;
+}
+
+const {
+  title,
+  tagline,
+  url,
+  screenshot,
+  phoneScreenshot,
+  techStack,
+  role,
+  label,
+  description,
+  bodyHtml,
+  slug,
+} = Astro.props;
+
+const permalink = `https://www.dantuck.com/portfolio/${slug}/`;
+const pageTitle = `${title} — Daniel Tucker`;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={pageTitle} {description} {permalink} />
+  </head>
+  <body>
+    <div class="portfolio-bg">
+      <div class="bg-blob b1"></div>
+      <div class="bg-blob b2"></div>
+      <div class="bg-blob b3"></div>
+      <div class="bg-dots"></div>
+      <div class="bg-noise"></div>
+    </div>
+
+    <Header client:load path={`/portfolio/${slug}/`} />
+
+    <a href="/portfolio/" class="back-nav">← Back</a>
+
+    <section class="project-hero">
+      <div class="vert-sep"></div>
+
+      <div class="hero-left">
+        <div class="project-label">
+          <span class="label-line"></span>
+          {label.toUpperCase()}
+        </div>
+        <h1 class="project-title">{title}</h1>
+        <p class="project-tagline">{tagline}</p>
+        <div class="divider"></div>
+        <p class="project-desc">{description}</p>
+        <div class="tech-pills">
+          {techStack.map((tech) => (
+            <span class="pill">{tech}</span>
+          ))}
+        </div>
+        <a href={url} target="_blank" rel="noopener noreferrer" class="url-row">
+          <span class="url-text">{url.replace(/^https?:\/\//, '')}</span>
+          <span class="url-arrow">↗</span>
+        </a>
+      </div>
+
+      <div class="hero-right">
+        <div class="browser-wrap">
+          <PortfolioBrowserFrame {url} screenshot={screenshot} alt={title} />
+        </div>
+        <div class="phone-wrap">
+          <PortfolioPhoneFrame screenshot={phoneScreenshot} alt={title} />
+        </div>
+        <div class="responsive-badge">Responsive</div>
+      </div>
+    </section>
+
+    <section class="project-body-section">
+      <div class="prose" set:html={bodyHtml} />
+
+      <div class="detail-row">
+        <span class="detail-label">Role</span>
+        <p class="detail-value">{role}</p>
+      </div>
+
+      <a href={url} target="_blank" rel="noopener noreferrer" class="cta-btn">
+        Visit project ↗
+      </a>
+
+      <a href="/portfolio/" class="back-link">← All projects</a>
+    </section>
+
+    <Footer client:load transition:persist />
+  </body>
+</html>
+
+<style>
+  /* ── Back nav ────────────────────────────────────────────────── */
+  .back-nav {
+    position: fixed;
+    top: 1.25rem;
+    left: 1.5rem;
+    z-index: 15;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: rgba(180, 190, 200, 0.6);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: color 0.15s, background 0.15s, border-color 0.15s;
+  }
+
+  .back-nav:hover {
+    color: rgba(255, 140, 0, 0.9);
+    background: rgba(255, 140, 0, 0.06);
+    border-color: rgba(255, 140, 0, 0.2);
+    text-decoration: none;
+  }
+
+  /* ── Background texture ──────────────────────────────────────── */
+  .portfolio-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(130px);
+  }
+
+  .b1 {
+    width: 700px;
+    height: 700px;
+    background: rgba(30, 40, 60, 0.8);
+    top: -200px;
+    left: -150px;
+    opacity: 0.7;
+  }
+
+  .b2 {
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 140, 0, 0.08);
+    bottom: -100px;
+    right: 50px;
+  }
+
+  .b3 {
+    width: 250px;
+    height: 250px;
+    background: rgba(255, 140, 0, 0.05);
+    top: 40%;
+    left: 50%;
+  }
+
+  .bg-dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 140, 0, 0.1) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  .bg-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  /* ── Hero ────────────────────────────────────────────────────── */
+  .project-hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    align-items: center;
+    padding: 60px 80px 60px 90px;
+    gap: 60px;
+  }
+
+  .vert-sep {
+    position: absolute;
+    left: 40%;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    z-index: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 140, 0, 0.2) 20%,
+      rgba(255, 140, 0, 0.2) 80%,
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .hero-left {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-label {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: rgb(255, 140, 0);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+
+  .label-line {
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: rgb(255, 140, 0);
+    flex-shrink: 0;
+  }
+
+  .project-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.05;
+    color: rgb(241, 241, 241);
+    margin: 0 0 0.4rem;
+  }
+
+  .project-tagline {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    color: rgba(180, 190, 200, 0.7);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    margin: 0 0 1.75rem;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(255, 140, 0, 0.35);
+    margin-bottom: 1.75rem;
+  }
+
+  .project-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgba(180, 190, 200, 0.8);
+    max-width: 340px;
+    margin: 0 0 2.25rem;
+  }
+
+  .tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 2.5rem;
+  }
+
+  .pill {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    background: rgba(255, 140, 0, 0.08);
+    color: rgb(255, 140, 0);
+  }
+
+  .url-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 14px 20px;
+    width: fit-content;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .url-row:hover {
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  .url-text {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.8rem;
+    color: rgba(180, 190, 200, 0.7);
+  }
+
+  .url-arrow {
+    color: rgb(255, 140, 0);
+    font-size: 1rem;
+  }
+
+  /* ── Hero right panel ────────────────────────────────────────── */
+  .hero-right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .browser-wrap {
+    width: 100%;
+    max-width: 760px;
+    flex-shrink: 0;
+  }
+
+  .phone-wrap {
+    position: absolute;
+    right: -30px;
+    bottom: -30px;
+    z-index: 2;
+  }
+
+  .responsive-badge {
+    position: absolute;
+    right: 80px;
+    bottom: 20px;
+    z-index: 3;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(180, 190, 200, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .responsive-badge::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgb(255, 140, 0);
+    box-shadow: 0 0 6px rgb(255, 140, 0);
+  }
+
+  /* ── Below-hero body ─────────────────────────────────────────── */
+  .project-body-section {
+    position: relative;
+    z-index: 1;
+    max-width: var(--main-width);
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .prose {
+    color: rgba(180, 190, 200, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-bottom: 2rem;
+  }
+
+  .detail-label {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(100, 110, 120, 0.9);
+  }
+
+  .detail-value {
+    color: rgba(200, 200, 200, 0.9);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: rgb(255, 140, 0);
+    color: #111;
+    padding: 0.6rem 1.4rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    width: fit-content;
+  }
+
+  .cta-btn:hover {
+    background: rgb(230, 125, 0);
+    text-decoration: none;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: rgba(180, 190, 200, 0.6);
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin-top: 0.5rem;
+  }
+
+  .back-link:hover {
+    color: rgba(180, 190, 200, 0.9);
+    text-decoration: none;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .project-hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding: 4rem 2rem 3rem;
+      gap: 3rem;
+    }
+
+    .vert-sep {
+      display: none;
+    }
+
+    .phone-wrap {
+      right: -10px;
+      bottom: -10px;
+    }
+
+    .phone-wrap :global(.phone) {
+      width: 110px;
+    }
+
+    .responsive-badge {
+      right: 30px;
+      bottom: 10px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .project-hero {
+      padding: 3rem 1.25rem 2rem;
+    }
+
+    .phone-wrap {
+      display: none;
+    }
+
+    .responsive-badge {
+      display: none;
+    }
+  }
+</style>
