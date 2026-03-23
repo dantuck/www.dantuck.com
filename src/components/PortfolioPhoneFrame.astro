@@ -1,0 +1,55 @@
+---
+export interface Props {
+  screenshot: string;
+  alt: string;
+}
+
+const { screenshot, alt } = Astro.props;
+---
+
+<div class="phone">
+  <div class="phone-notch-row">
+    <div class="phone-notch"></div>
+  </div>
+  <div class="phone-body">
+    <img src={screenshot} alt={alt} loading="lazy" />
+  </div>
+</div>
+
+<style>
+  .phone {
+    width: 158px;
+    background: #0b1a0d;
+    border: 1.5px solid rgba(255, 255, 255, 0.14);
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.7));
+  }
+
+  .phone-notch-row {
+    height: 28px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-notch {
+    width: 50px;
+    height: 12px;
+    background: #000;
+    border-radius: 100px;
+  }
+
+  .phone-body {
+    padding: 10px 8px;
+  }
+
+  .phone-body img {
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+    margin: 0;
+  }
+</style>
