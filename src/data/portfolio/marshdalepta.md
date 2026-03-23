@@ -3,6 +3,7 @@ title: Marshdale PTA
 tagline: Community organization website
 url: https://www.marshdalepta.org
 screenshot: /images/portfolio/marshdalepta.jpg
+phoneScreenshot: /images/portfolio/marshdalepta-mobile.jpg
 techStack: [Astro, Cloudflare Pages]
 role: Designer & Developer
 publishDate: 2024-01-01
