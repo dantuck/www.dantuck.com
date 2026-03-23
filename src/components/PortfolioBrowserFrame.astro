@@ -1,0 +1,107 @@
+---
+export interface Props {
+  url: string;
+  screenshot: string;
+  alt: string;
+}
+
+const { url, screenshot, alt } = Astro.props;
+---
+
+<div class="browser">
+  <div class="browser-bar">
+    <div class="traffic">
+      <span class="dot dr"></span>
+      <span class="dot dy"></span>
+      <span class="dot dg"></span>
+    </div>
+    <div class="addr-bar">
+      <span class="addr-lock">🔒</span>
+      <span class="addr-text">{url.replace(/^https?:\/\//, '')}</span>
+    </div>
+  </div>
+  <div class="browser-screen">
+    <img src={screenshot} alt={alt} loading="lazy" />
+  </div>
+</div>
+
+<style>
+  .browser {
+    background: #131c16;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      0 40px 100px rgba(0, 0, 0, 0.55),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
+    width: 100%;
+  }
+
+  .browser-bar {
+    height: 42px;
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 10px;
+  }
+
+  .traffic {
+    display: flex;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .dr { background: #ff5f57; }
+  .dy { background: #ffbd2e; }
+  .dg { background: #28c840; }
+
+  .addr-bar {
+    flex: 1;
+    margin-left: 10px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  .addr-lock {
+    font-size: 9px;
+    color: rgb(255, 140, 0);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .addr-text {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.35);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .browser-screen {
+    height: 280px;
+    overflow: hidden;
+  }
+
+  .browser-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+    margin: 0;
+  }
+</style>
