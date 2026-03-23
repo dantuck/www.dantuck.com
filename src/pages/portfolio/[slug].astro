@@ -1,0 +1,46 @@
+---
+import PortfolioProject from '../../components/PortfolioProject.astro';
+
+function extractFirstParagraph(html: string): string {
+  const idx = html.indexOf('</p>');
+  if (idx === -1) {
+    return html.replace(/<[^>]+>/g, '').trim().slice(0, 200);
+  }
+  return html.slice(0, idx + 4).replace(/<[^>]+>/g, '').trim();
+}
+
+export async function getStaticPaths() {
+  const modules = Object.entries(
+    import.meta.glob('../../data/portfolio/*.md', { eager: true }) as Record<string, any>
+  );
+  return modules
+    .filter(([, mod]) => !mod.frontmatter.draft)
+    .map(([path, mod]) => ({
+      params: { slug: path.split('/').pop()!.replace('.md', '') },
+      props: { mod },
+    }));
+}
+
+const { slug } = Astro.params;
+const { mod } = Astro.props;
+const { frontmatter } = mod;
+
+const bodyHtml: string = await mod.compiledContent();
+const label: string = frontmatter.label ?? 'Project';
+const description: string = frontmatter.description ?? extractFirstParagraph(bodyHtml);
+const phoneScreenshot: string = frontmatter.phoneScreenshot ?? frontmatter.screenshot;
+---
+
+<PortfolioProject
+  title={frontmatter.title}
+  tagline={frontmatter.tagline}
+  url={frontmatter.url}
+  screenshot={frontmatter.screenshot}
+  {phoneScreenshot}
+  techStack={frontmatter.techStack}
+  role={frontmatter.role}
+  {label}
+  {description}
+  {bodyHtml}
+  {slug}
+/>
