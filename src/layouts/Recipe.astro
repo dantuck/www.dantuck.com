@@ -9,6 +9,11 @@ import JsonLd from '../components/JsonLd.astro';
 const { frontmatter } = Astro.props;
 const { ingredients, title, description, prepTime, cookTime, tags, publishDate, image } = frontmatter;
 const permalink = frontmatter.permalink ?? Astro.url.href;
+
+const isDraft = frontmatter.draft === true;
+const isFuture = publishDate && new Date(publishDate) > new Date();
+const showDevBanner = import.meta.env.DEV && (isDraft || isFuture);
+const devBannerLabel = isDraft ? 'DRAFT' : `SCHEDULED · publishes ${publishDate}`;
 const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) : undefined;
 
 const pathname = Astro.url.pathname.replace(/\/$/, '');
@@ -48,6 +53,9 @@ const recipeSchema = {
     <JsonLd schema={recipeSchema} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
+    {showDevBanner && (
+      <div class="dev-banner">{devBannerLabel}</div>
+    )}
     <Header client:load path={Astro.url.pathname} />
 
     <article data-pagefind-body>
@@ -162,5 +170,20 @@ const recipeSchema = {
     .ingredients-col {
       position: static;
     }
+  }
+
+  .dev-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background: #7c2d12;
+    color: #fed7aa;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 1rem;
   }
 </style>

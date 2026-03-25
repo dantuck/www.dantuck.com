@@ -12,7 +12,11 @@ const permalink = 'https://www.dantuck.com/';
 const allArticles = Object.values(import.meta.glob('./article/**/*.{md,mdx}', { eager: true }));
 const allRecipes = Object.values(import.meta.glob('./recipe/**/*.{md,mdx}', { eager: true }));
 const all = allArticles.concat(allRecipes)
-  .filter((post: any) => !post.frontmatter.draft)
+  .filter((post: any) => {
+    if (import.meta.env.DEV) return true;
+    if (post.frontmatter.draft) return false;
+    return new Date(post.frontmatter.publishDate) <= new Date();
+  })
   .sort((a: any, b: any) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
 
 const [hero, ...rest] = all;
