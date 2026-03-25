@@ -5,6 +5,9 @@
   export let title: string | undefined = undefined;
   export let path: string = '';
 
+  // Read directly from the browser URL synchronously — avoids relying on
+  // the SSR prop being correct after a View Transitions client-side navigation.
+  let currentPath = typeof window !== 'undefined' ? window.location.pathname : path;
   let mounted = false;
   let isOpen = false;
   let isSearchMode = false;
@@ -26,6 +29,10 @@
     }
   }
 
+  function updatePath() {
+    currentPath = window.location.pathname;
+  }
+
   onMount(() => {
     mounted = true;
     const hint = document.getElementById('search-kbd-hint');
@@ -35,6 +42,7 @@
     }
     document.addEventListener('open-search', handleOpenSearch);
     document.addEventListener('close-search', handleCloseSearch);
+    document.addEventListener('astro:after-swap', updatePath);
   });
 
   onDestroy(() => {
@@ -46,6 +54,7 @@
     }
     document.removeEventListener('open-search', handleOpenSearch);
     document.removeEventListener('close-search', handleCloseSearch);
+    document.removeEventListener('astro:after-swap', updatePath);
   });
 
   async function openDrawer() {
@@ -95,6 +104,18 @@
   function handleNavClick() {
     closeDrawer();
   }
+
+  const navItems = [
+    { href: '/recipe',    label: 'Recipes'   },
+    { href: '/article',   label: 'Articles'  },
+    { href: '/portfolio', label: 'Portfolio' },
+    { href: '/resume',    label: 'Resume'    },
+    { href: '/about',     label: 'About'     },
+  ];
+
+  function isActive(href: string): boolean {
+    return currentPath === href || currentPath.startsWith(href + '/');
+  }
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -108,27 +129,13 @@
 
       <!-- Desktop nav links (hidden on mobile via CSS) -->
       <div class="nav-links flex gap-6 flex-wrap justify-center items-center">
-        {#if path.startsWith('/recipe')}
-          <span class="nav-link" aria-current="page">Recipes</span>
-        {:else}
-          <a href="/recipe" class="nav-link">Recipes</a>
-        {/if}
-        {#if path.startsWith('/article')}
-          <span class="nav-link" aria-current="page">Articles</span>
-        {:else}
-          <a href="/article" class="nav-link">Articles</a>
-        {/if}
-        <a href="/portfolio" class="nav-link" aria-current={path.startsWith('/portfolio') ? 'page' : undefined}>Portfolio</a>
-        {#if path.startsWith('/resume')}
-          <span class="nav-link" aria-current="page">Resume</span>
-        {:else}
-          <a href="/resume" class="nav-link">Resume</a>
-        {/if}
-        {#if path.startsWith('/about')}
-          <span class="nav-link" aria-current="page">About</span>
-        {:else}
-          <a href="/about" class="nav-link">About</a>
-        {/if}
+        {#each navItems as item}
+          {#if isActive(item.href)}
+            <span class="nav-link" aria-current="page">{item.label}</span>
+          {:else}
+            <a href={item.href} class="nav-link">{item.label}</a>
+          {/if}
+        {/each}
         <button
           class="search-btn"
           on:click={() => document.dispatchEvent(new CustomEvent('open-search'))}
@@ -196,27 +203,13 @@
         >✕</button>
       </div>
       <nav class="drawer-nav">
-        {#if path.startsWith('/recipe')}
-          <span class="drawer-link" aria-current="page">Recipes</span>
-        {:else}
-          <a href="/recipe" class="drawer-link" on:click={handleNavClick}>Recipes</a>
-        {/if}
-        {#if path.startsWith('/article')}
-          <span class="drawer-link" aria-current="page">Articles</span>
-        {:else}
-          <a href="/article" class="drawer-link" on:click={handleNavClick}>Articles</a>
-        {/if}
-        <a href="/portfolio" class="drawer-link" aria-current={path.startsWith('/portfolio') ? 'page' : undefined} on:click={handleNavClick}>Portfolio</a>
-        {#if path.startsWith('/resume')}
-          <span class="drawer-link" aria-current="page">Resume</span>
-        {:else}
-          <a href="/resume" class="drawer-link" on:click={handleNavClick}>Resume</a>
-        {/if}
-        {#if path.startsWith('/about')}
-          <span class="drawer-link" aria-current="page">About</span>
-        {:else}
-          <a href="/about" class="drawer-link" on:click={handleNavClick}>About</a>
-        {/if}
+        {#each navItems as item}
+          {#if isActive(item.href)}
+            <span class="drawer-link" aria-current="page">{item.label}</span>
+          {:else}
+            <a href={item.href} class="drawer-link" on:click={handleNavClick}>{item.label}</a>
+          {/if}
+        {/each}
       </nav>
       <div class="drawer-footer">
         <button
@@ -497,6 +490,7 @@
   .drawer-link[aria-current="page"] {
     background: rgba(255, 140, 0, 0.15);
     color: rgb(255, 140, 0);
+    cursor: default;
   }
 
   .drawer-footer {

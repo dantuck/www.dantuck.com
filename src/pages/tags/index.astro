@@ -20,7 +20,7 @@ const allTagsUnique = [...new Set(filteredPosts.flatMap((p: any) => p.frontmatte
     <BaseHead {title} {description} {permalink} />
   </head>
   <body class="bg-site-bg text-site-text font-sans">
-    <Header client:only="svelte" {title} />
+    <Header client:load path={Astro.url.pathname} {title} />
     <main class="max-content pt-6">
       <Tags tags={allTagsUnique} />
     </main>
