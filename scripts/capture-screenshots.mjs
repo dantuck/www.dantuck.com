@@ -12,7 +12,7 @@ const projects = [
   { url: 'https://www.adamsfenceco.com', filename: 'adamsfenceco.jpg' },
   { url: 'https://www.mirandatucker.com', filename: 'mirandatucker.jpg' },
   { url: 'https://www.marshdalepta.org', filename: 'marshdalepta.jpg' },
-  { url: 'https://scratch.plantolive.app', filename: 'plantolive-scratch.jpg' },
+  { url: 'https://scratch.plantolive.app/about', filename: 'plantolive-scratch.jpg' },
   { url: 'https://mealq.plantolive.app', filename: 'plantolive-mealq.jpg' },
 ];
 
