@@ -31,8 +31,10 @@ docs/superpowers/
 # Astro build cache
 .astro/
 
-# Claude Code
-.claude/
+# Claude Code — ignore local config, allow skills and agents
+.claude/*
+!.claude/skills/
+!.claude/agents/
 
 # Local PDF files
 *.pdf
