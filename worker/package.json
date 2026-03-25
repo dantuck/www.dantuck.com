@@ -1,0 +1,12 @@
+{
+  "name": "dantuck-scheduled-publish",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0",
+    "wrangler": "^4.0.0"
+  }
+}
