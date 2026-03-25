@@ -130,10 +130,10 @@
       <!-- Desktop nav links (hidden on mobile via CSS) -->
       <div class="nav-links flex gap-6 flex-wrap justify-center items-center">
         {#each navItems as item}
-          {#if isActive(item.href)}
+          {#if currentPath === item.href}
             <span class="nav-link" aria-current="page">{item.label}</span>
           {:else}
-            <a href={item.href} class="nav-link">{item.label}</a>
+            <a href={item.href} class="nav-link" aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
           {/if}
         {/each}
         <button
@@ -204,10 +204,10 @@
       </div>
       <nav class="drawer-nav">
         {#each navItems as item}
-          {#if isActive(item.href)}
+          {#if currentPath === item.href}
             <span class="drawer-link" aria-current="page">{item.label}</span>
           {:else}
-            <a href={item.href} class="drawer-link" on:click={handleNavClick}>{item.label}</a>
+            <a href={item.href} class="drawer-link" aria-current={isActive(item.href) ? 'page' : undefined} on:click={handleNavClick}>{item.label}</a>
           {/if}
         {/each}
       </nav>
