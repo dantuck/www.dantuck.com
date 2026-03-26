@@ -90,8 +90,8 @@ Look for `writing-style.md` in the project memory directory (the same directory 
 | Article type | Output path |
 |---|---|
 | Standalone article | `src/pages/article/<slug>.md` |
-| New series, first part | `src/pages/article/<series-name>/part-1.md` |
-| Extending existing series | `src/pages/article/<existing-series-dir>/part-N.md` |
+| New series, first part | `src/pages/article/<series-name>/<seo-slug>.md` |
+| Extending existing series | `src/pages/article/<existing-series-dir>/<seo-slug>.md` |
 | Long standalone with assets | `src/pages/article/<slug>/index.md` |
 
 ### Step 3 — Determine layout path
@@ -123,13 +123,22 @@ tags:
 ---
 ```
 
-Tags: use existing tags from the writing style memory taxonomy. Lowercase, hyphenated. Only introduce a new tag if none of the existing ones fit.
+**SEO rules for frontmatter:**
 
-Body rules:
-- Weave cross-links from the research report inline where they add value
-- Do not add a "see also" or "related articles" section at the end — links belong in context
-- Follow the writing style from memory exactly
-- Match the tone, heading style, link patterns, and structural patterns observed
+- **Title**: Put the primary keyword within the first 3–4 words. Keep under 60 characters so it displays fully in search results. Avoid leading with "Part N:" or other boilerplate that delays the keyword.
+- **Description**: Target 150–160 characters. Include the primary keyword in the first sentence. Write it as a summary that makes someone click — not a teaser. Check length before writing it in.
+- **Slug (filename)**: Include the primary keyword in the filename. Prefer `claude-code-skills.md` over `skills-playbook.md` if the article targets "Claude Code skills" as a search phrase.
+
+**SEO rules for body:**
+
+- The first paragraph should include the primary keyword and clearly state what the reader will learn or be able to do. Search engines weight the opening heavily.
+- H2 headings should use natural variants of the keyword where it fits — do not stuff, but do not avoid them either.
+- Weave cross-links from the research report inline where they add value.
+- Do not add a "see also" or "related articles" section at the end — links belong in context.
+- Follow the writing style from memory exactly.
+- Match the tone, heading style, link patterns, and structural patterns observed.
+
+Tags: use existing tags from the writing style memory taxonomy. Lowercase, hyphenated. Only introduce a new tag if none of the existing ones fit.
 
 ### Step 5 — Update writing style memory
 
