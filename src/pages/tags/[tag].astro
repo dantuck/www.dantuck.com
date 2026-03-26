@@ -8,7 +8,11 @@ import Footer from '../../components/Footer.svelte';
 export async function getStaticPaths() {
   const allArticles = Object.values(import.meta.glob('../article/**/*.{md,mdx}', { eager: true }));
   const allRecipes = Object.values(import.meta.glob('../recipe/**/*.{md,mdx}', { eager: true }));
-  const allPosts = allArticles.concat(allRecipes).filter((post: any) => !post.frontmatter.draft);
+  const allPosts = allArticles.concat(allRecipes).filter((post: any) => {
+    if (import.meta.env.DEV) return true;
+    if (post.frontmatter.draft) return false;
+    return new Date(post.frontmatter.publishDate) <= new Date();
+  });
   const allTagsUnique = [...new Set(allPosts.flatMap((p: any) => p.frontmatter.tags ?? []))].filter(Boolean);
   return allTagsUnique.map((tag) => ({ params: { tag }, props: { allPosts } }));
 }
