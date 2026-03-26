@@ -1,21 +1,18 @@
 ---
 layout: '../../../layouts/BlogPost.astro'
-publishDate: 24 Mar 2026
-draft: true
+publishDate: 26 Mar 2026
 title: "Claude Code, Part 1: Give Claude a Playbook with Skills"
 author: dantuck
+series: claude-code-series
+seriesPart: 1
 description: |
-    Skills are reusable instruction files that tell Claude Code how to handle a class of task. Here is how they work, how to install them, and when to reach for one.
+    Skills are reusable instruction files that tell Claude Code how to handle a class of task — how they work, how to install them, and when to reach for one.
 tags:
 - claude-code
 - ai
 - developer-tools
 - workflow
 ---
-
-> ➜ Claude Code, Part 1: Give Claude a Playbook with Skills<br />
-> [Claude Code, Part 2: Isolated, Parallel Workers with Subagents](/article/claude-code-series/part-2)<br />
-> [Claude Code, Part 3: Skills and Subagents Working Together](/article/claude-code-series/part-3)
 
 You ask Claude Code to implement a function, write tests, and update the docs. All three come back in parallel, complete and correct. What just happened?
 
@@ -116,4 +113,4 @@ They are additive, not competing. If instructions conflict, Claude uses judgment
 
 Write one skill today. Pick something you do repeatedly — a commit workflow, a code review checklist, a deploy sequence. Put it in `~/.claude/skills/<name>/SKILL.md` with a clear description. Run it with `/name`.
 
-Once you have a feel for how they work, continue to [Part 2](/article/claude-code-series/part-2) to see how subagents extend the model — isolated workers that run in parallel while your main context stays clean.
+Once you have a feel for how they work, Part 2 covers subagents — isolated workers that run in parallel while your main context stays clean.

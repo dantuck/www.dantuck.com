@@ -1,0 +1,59 @@
+---
+interface Props {
+  series: string;
+  currentPart: number;
+}
+const { series, currentPart } = Astro.props;
+
+// Glob resolves relative to this file (src/components/), so ../pages/article/ = src/pages/article/
+const allArticles = Object.values(
+  import.meta.glob('../pages/article/**/*.{md,mdx}', { eager: true })
+) as any[];
+
+const now = new Date();
+
+const seriesParts = allArticles
+  .filter((post) => post.frontmatter.series === series && post.frontmatter.seriesPart !== undefined)
+  .sort((a, b) => a.frontmatter.seriesPart - b.frontmatter.seriesPart)
+  .map((post) => {
+    const isDraft = post.frontmatter.draft === true;
+    const isLive = import.meta.env.DEV || (!isDraft && new Date(post.frontmatter.publishDate) <= now);
+    return {
+      title: post.frontmatter.title as string,
+      url: post.url as string | undefined,
+      seriesPart: post.frontmatter.seriesPart as number,
+      isCurrent: post.frontmatter.seriesPart === currentPart,
+      isLive,
+    };
+  });
+---
+
+<div class="series-nav">
+  <p class="series-label">Part of a series</p>
+  <blockquote>
+    {seriesParts.map(({ isCurrent, isLive, url, title }) => (
+      <span>
+        {isCurrent && '→ '}
+        {isLive
+          ? <a href={url}>{title}</a>
+          : <span class="coming-soon">{title} — coming soon</span>
+        }
+        <br />
+      </span>
+    ))}
+  </blockquote>
+</div>
+
+<style>
+  .series-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.5;
+    margin-bottom: 0.25rem;
+  }
+  .coming-soon {
+    opacity: 0.45;
+    font-style: italic;
+  }
+</style>

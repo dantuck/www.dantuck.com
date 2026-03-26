@@ -4,8 +4,10 @@ publishDate: 24 Mar 2026
 draft: true
 title: "Claude Code, Part 2: Isolated, Parallel Workers with Subagents"
 author: dantuck
+series: claude-code-series
+seriesPart: 2
 description: |
-    Subagents are isolated Claude instances that do work in their own context and return a summary. Here is how they work, how they are spawned, and the advanced patterns that make parallel execution practical.
+    Claude Code subagents run in isolated contexts and return results to your session. How they work, how to spawn them, and patterns for parallel execution.
 tags:
 - claude-code
 - ai
@@ -13,11 +15,7 @@ tags:
 - workflow
 ---
 
-> [Claude Code, Part 1: Give Claude a Playbook with Skills](/article/claude-code-series/part-1)<br />
-> ➜ Claude Code, Part 2: Isolated, Parallel Workers with Subagents<br />
-> [Claude Code, Part 3: Skills and Subagents Working Together](/article/claude-code-series/part-3)
-
-[Part 1](/article/claude-code-series/part-1) covered skills — reusable instruction files that give Claude a playbook. This part covers subagents: the isolated workers that execute that playbook in parallel.
+Part 1 covered skills — reusable instruction files that give Claude a playbook. This part covers subagents: the isolated workers that execute that playbook in parallel.
 
 ---
 
@@ -119,4 +117,4 @@ No shared memory is required. The handoff document is the interface. This works 
 
 ---
 
-[Part 3](/article/claude-code-series/part-3) puts skills and subagents together: a decision framework for choosing between them, and a real end-to-end example showing a single command orchestrating three parallel specialized workers.
+Part 3 puts skills and subagents together: a decision framework for choosing between them, and a real end-to-end example showing a single command orchestrating three parallel specialized workers.

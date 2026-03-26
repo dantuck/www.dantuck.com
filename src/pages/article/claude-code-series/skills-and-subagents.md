@@ -4,8 +4,10 @@ publishDate: 24 Mar 2026
 draft: true
 title: "Claude Code, Part 3: Skills and Subagents Working Together"
 author: dantuck
+series: claude-code-series
+seriesPart: 3
 description: |
-    Skills define the approach. Subagents execute it. Here is a decision framework for choosing between them, and a real example showing both working together in a single command.
+    Skills define the approach. Subagents execute it. A framework for choosing between them, with a real example combining both in a single Claude Code command.
 tags:
 - claude-code
 - ai
@@ -13,11 +15,7 @@ tags:
 - workflow
 ---
 
-> [Claude Code, Part 1: Give Claude a Playbook with Skills](/article/claude-code-series/part-1)<br />
-> [Claude Code, Part 2: Isolated, Parallel Workers with Subagents](/article/claude-code-series/part-2)<br />
-> ➜ Claude Code, Part 3: Skills and Subagents Working Together
-
-[Part 1](/article/claude-code-series/part-1) covered skills. [Part 2](/article/claude-code-series/part-2) covered subagents. This part shows how to combine them and when to reach for each.
+Part 1 covered skills. Part 2 covered subagents. This part shows how to combine them and when to reach for each.
 
 ---
 
