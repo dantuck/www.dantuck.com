@@ -41,3 +41,6 @@ docs/superpowers/
 
 # Renamed/archived article assets (underscore-prefixed originals)
 src/pages/**/_*
+
+# Wrangler local secrets
+.dev.vars
