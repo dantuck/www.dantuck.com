@@ -23,13 +23,17 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   const dir = `src/pages/${slug}`;
   const path = `${dir}/${safeName}`;
 
-  await gh.putBinary({
-    path,
-    base64,
-    message: `image: add ${safeName} for ${slug}`,
-    branch,
-    sha: existingSha,
-  });
+  try {
+    await gh.putBinary({
+      path,
+      base64,
+      message: `image: add ${safeName} for ${slug}`,
+      branch,
+      sha: existingSha,
+    });
+  } catch (err) {
+    return json({ error: (err as Error).message }, 502);
+  }
 
   // Return the relative path to use in MDX import
   return json({ ok: true, path: `./${safeName}`, fullPath: path });
