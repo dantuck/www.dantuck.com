@@ -21,10 +21,13 @@
   $: editUrl = `/admin/edit?slug=${encodeURIComponent(article.slug)}`;
 </script>
 
-<a
-  href={editUrl}
+<div
   class="card"
   data-status={article.status}
+  on:click={() => window.location.href = editUrl}
+  on:keydown={e => { if (e.key === 'Enter' || e.key === ' ') window.location.href = editUrl; }}
+  role="link"
+  tabindex="0"
 >
   <div class="card-title">{article.title || 'Untitled'}</div>
 
@@ -46,7 +49,7 @@
       Preview ↗
     </a>
   {/if}
-</a>
+</div>
 
 <style>
   .card {
@@ -59,6 +62,7 @@
     color: var(--admin-text);
     transition: border-color 0.15s, background 0.15s;
     position: relative;
+    cursor: pointer;
   }
   .card:hover { border-color: var(--admin-orange); background: var(--admin-surface-2); }
 

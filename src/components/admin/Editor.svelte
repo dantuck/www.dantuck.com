@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount, onDestroy, tick } from 'svelte';
   import { Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx } from '@milkdown/core';
   import { commonmark } from '@milkdown/preset-commonmark';
   import { history as milkdownHistory } from '@milkdown/plugin-history';
@@ -54,6 +54,7 @@
       }
     }
     loading = false;
+    await tick();
     await initEditor();
   });
 
@@ -70,7 +71,6 @@
       })
       .use(commonmark)
       .use(milkdownHistory)
-      .use(listener)
       .use(block)
       .use(
         listener.configure(listenerCtx, {
