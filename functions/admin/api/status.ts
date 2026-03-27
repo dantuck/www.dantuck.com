@@ -1,0 +1,44 @@
+import type { PagesFunction } from '@cloudflare/workers-types';
+import { json, type Env } from './_types';
+
+interface CFDeployment {
+  id: string;
+  environment: string;
+  deployment_trigger: { metadata: { branch: string } };
+  latest_stage: { name: string; status: 'success' | 'failure' | 'active' | 'idle' };
+  url: string;
+  created_on: string;
+}
+
+export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
+  const res = await fetch(
+    `https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/pages/projects/${env.CF_PAGES_PROJECT}/deployments?per_page=5`,
+    {
+      headers: {
+        Authorization: `Bearer ${env.CF_API_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    }
+  );
+
+  if (!res.ok) {
+    return json({ error: 'Failed to fetch deployments' }, 502);
+  }
+
+  const data = await res.json() as { result: CFDeployment[] };
+  const latest = data.result?.[0];
+
+  if (!latest) return json({ status: 'unknown' });
+
+  const isBuilding =
+    latest.latest_stage.status === 'active' ||
+    latest.latest_stage.name !== 'deploy' ||
+    latest.latest_stage.status === 'idle';
+
+  return json({
+    status: latest.latest_stage.status === 'success' ? 'live' : isBuilding ? 'building' : 'failed',
+    url: latest.url,
+    branch: latest.deployment_trigger?.metadata?.branch,
+    createdOn: latest.created_on,
+  });
+};
