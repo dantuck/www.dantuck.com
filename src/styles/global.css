@@ -220,6 +220,17 @@ table { display: block; overflow-x: auto; }
 figure { margin: 1.5rem; }
 figure img { display: block; }
 
+/* ── Article hr ─────────────────────────────────────────────────────────── */
+
+article hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, transparent, rgb(255, 140, 0), transparent);
+  margin: 2rem auto;
+  width: 60%;
+  opacity: 0.5;
+}
+
 /* ── Article prose ──────────────────────────────────────────────────────── */
 
 article { max-width: 100%; }
