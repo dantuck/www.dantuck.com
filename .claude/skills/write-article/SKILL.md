@@ -6,13 +6,22 @@ disable-model-invocation: true
 allowed-tools: Read, Write, Glob, Agent
 ---
 
-You are helping write a new article for dantuck.com, an Astro-based developer blog. The topic is: $ARGUMENTS
+You are helping write a new article for dantuck.com, an Astro-based developer blog. The input is: $ARGUMENTS
+
+**First, determine the mode:**
+
+- **Content mode** — `$ARGUMENTS` contains substantial prose (a draft, pasted article, or written content to convert). Skip to Phase 4 directly. Do not dispatch the researcher or ask audience/goal questions.
+- **Topic mode** — `$ARGUMENTS` is a short topic, title, or phrase. Follow all phases in order.
+
+If unclear, treat it as topic mode.
+
+---
 
 Follow these phases in order. Do not skip phases or combine them.
 
 ---
 
-## Phase 1 — Dispatch + questions (parallel)
+## Phase 1 — Dispatch + questions (parallel, topic mode only)
 
 Do both of these at the same time:
 
@@ -32,7 +41,7 @@ Wait until both the researcher returns AND the user has answered before proceedi
 
 ---
 
-## Phase 2 — Adaptive follow-up (conditional)
+## Phase 2 — Adaptive follow-up (conditional, topic mode only)
 
 With researcher results and user answers in hand:
 
@@ -72,17 +81,11 @@ Wait for user approval before proceeding.
 
 ## Phase 4 — Draft writing
 
-### Step 1 — Read writing style memory
+### Step 1 — Read writing style
 
-Look for `writing-style.md` in the project memory directory (the same directory where `MEMORY.md` lives for this project — at `~/.claude/projects/-home-daniel-Code-DOMAINS-dantuck-com-www-dantuck-com/memory/writing-style.md`).
+Read `.claude/skills/writing-style.md` from the project root. Apply its guidance throughout the article.
 
-- If found: read it and apply its guidance throughout the article.
-- If not found (first run): use Glob to get `src/pages/article/**/*.{md,mdx}` sorted by modification time. Read the 3 most recently modified articles in full. Extract style observations:
-  - Tone (e.g., "direct, second-person, no filler phrases")
-  - Heading conventions (e.g., "sentence case, ## for main sections")
-  - Link patterns (e.g., "inline contextual links, never 'click here'")
-  - Structural patterns (e.g., "open with scenario, end with concrete next action")
-  - Tag taxonomy (list of tags seen)
+If the file is missing for some reason, fall back to reading the 3 most recently modified articles in `src/pages/article/**/*.{md,mdx}` and extracting style conventions from them.
   Then write `writing-style.md` to the memory directory with these observations. Apply the style when writing.
 
 ### Step 2 — Determine output path
@@ -138,11 +141,7 @@ tags:
 - Follow the writing style from memory exactly.
 - Match the tone, heading style, link patterns, and structural patterns observed.
 
-Tags: use existing tags from the writing style memory taxonomy. Lowercase, hyphenated. Only introduce a new tag if none of the existing ones fit.
-
-### Step 5 — Update writing style memory
-
-After writing, append any new observations to `writing-style.md`. Do not rewrite the whole file — only add or update entries that changed based on what was just written. Add any new tags used to the taxonomy list.
+Tags: use existing tags from the writing style taxonomy in `.claude/skills/writing-style.md`. Lowercase, hyphenated. Only introduce a new tag if none of the existing ones fit — and if you do, add it to the taxonomy list in `.claude/skills/writing-style.md`.
 
 ---
 
