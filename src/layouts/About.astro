@@ -3,9 +3,10 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.svelte';
 import Footer from '../components/Footer.svelte';
 
-const { frontmatter } = Astro.props;
-const { title, description } = frontmatter;
-const permalink = frontmatter.permalink ?? Astro.url.href;
+const { frontmatter = {}, ...rest } = Astro.props;
+const title = frontmatter.title ?? rest.title;
+const description = frontmatter.description ?? rest.description;
+const permalink = frontmatter.permalink ?? rest.permalink ?? Astro.url.href;
 ---
 
 <html lang="en">
