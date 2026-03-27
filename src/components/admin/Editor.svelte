@@ -8,6 +8,7 @@
   import type { ArticleDetail } from '../../lib/admin/types';
   import type { ArticleFrontmatter } from '../../lib/admin/frontmatter';
   import { toSlug } from '../../lib/admin/slug';
+  import PublishButton from './PublishButton.svelte';
 
   // Article state
   let slug: string | undefined;
@@ -195,8 +196,15 @@
         {#if previewUrl}
           <a href={previewUrl} target="_blank" rel="noopener" class="btn-ghost">Preview ↗</a>
         {/if}
-        <!-- PublishButton will be imported here in Task 12 -->
-        <button class="btn-primary" on:click={save}>Save Draft</button>
+        <PublishButton
+          {prNumber}
+          title={frontmatter.title}
+          publishDate={frontmatter.publishDate}
+          {slug}
+          path={slug ? `src/pages/${slug}/index.${mdxImports ? 'mdx' : 'md'}` : undefined}
+          {branch}
+          onSave={save}
+        />
       </div>
     </header>
 
