@@ -30,13 +30,16 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
 
   if (!latest) return json({ status: 'unknown' });
 
-  const isBuilding =
-    latest.latest_stage.status === 'active' ||
-    latest.latest_stage.name !== 'deploy' ||
-    latest.latest_stage.status === 'idle';
+  const stageName = latest.latest_stage.name;
+  const stageStatus = latest.latest_stage.status;
+
+  const deployStatus =
+    stageStatus === 'failure' ? 'failed' :
+    stageStatus === 'success' && stageName === 'deploy' ? 'live' :
+    'building';
 
   return json({
-    status: latest.latest_stage.status === 'success' ? 'live' : isBuilding ? 'building' : 'failed',
+    status: deployStatus,
     url: latest.url,
     branch: latest.deployment_trigger?.metadata?.branch,
     createdOn: latest.created_on,
