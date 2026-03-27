@@ -10,7 +10,7 @@ const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
 const allPosts = Object.values(import.meta.glob('../{article,recipe}/**/*.{md,mdx}', { eager: true }));
 const filteredPosts = allPosts.filter(
-  (post: any) => post.frontmatter?.tags != null && !post.frontmatter.draft
+  (post: any) => post.frontmatter?.tags != null && !post.frontmatter.draft && new Date(post.frontmatter.publishDate) <= new Date()
 );
 const allTagsUnique = [...new Set(filteredPosts.flatMap((p: any) => p.frontmatter.tags))];
 ---

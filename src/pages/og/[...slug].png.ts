@@ -18,7 +18,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const all = { ...articles, ...recipes };
 
   return Object.entries(all)
-    .filter(([, mod]: any) => !mod.frontmatter?.draft)
+    .filter(([, mod]: any) => !mod.frontmatter?.draft && new Date(mod.frontmatter?.publishDate) <= new Date())
     .map(([filePath, mod]: any) => ({
       params: { slug: deriveSlug(filePath) },
       props: { frontmatter: mod.frontmatter },

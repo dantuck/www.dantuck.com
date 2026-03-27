@@ -17,7 +17,7 @@ pnpm publish-release   # Build + deploy to Cloudflare Pages production
 
 ### Scheduled Publish Worker (`worker/`)
 
-A Cloudflare Worker triggers an automatic production deploy every day at **06:00 UTC** by POSTing to the Cloudflare Pages deploy hook. This is how future-dated articles go live without manual intervention.
+A Cloudflare Worker triggers an automatic production deploy **every hour** by POSTing to the Cloudflare Pages deploy hook. This is how future-dated articles go live without manual intervention — worst-case delay is ~1 hour from the scheduled publish time.
 
 ```bash
 cd worker
@@ -39,6 +39,7 @@ Content lives in `src/pages/` using Astro's file-based routing. There are three 
    - Required frontmatter: `title`, `publishDate`, `description`, `tags[]`, `author`
    - Optional: `draft: true` (excluded from listings)
    - Layout: `src/layouts/BlogPost.astro`
+   - `publishDate` supports date-only (`27 Mar 2026`) or datetime (`27 Mar 2026 14:00 UTC`) for time-based publishing — the hourly worker picks it up within ~1 hour of the specified time
    - Future `publishDate` values are excluded from listings and go live automatically via the scheduled worker
    - Use `.mdx` instead of `.md` when the article needs the Astro `<Image>` component for optimized images
    - Co-located images (in the same directory as the article) must **not** start with `_` — the `.gitignore` pattern `src/pages/**/_*` excludes underscore-prefixed files
