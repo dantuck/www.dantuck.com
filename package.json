@@ -13,12 +13,16 @@
     "publish-release": "astro build && pagefind --site dist && wrangler pages deploy dist --project-name=www-dantuck",
     "screenshots": "node scripts/capture-screenshots.mjs",
     "worker:deploy": "wrangler deploy --cwd worker",
-    "worker:tail": "wrangler tail dantuck-scheduled-publish"
+    "worker:tail": "wrangler tail dantuck-scheduled-publish",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "admin:dev": "astro build && wrangler pages dev ./dist --port 8788"
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.3",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/svelte": "^9.0.1",
+    "@cloudflare/workers-types": "^4.20260317.1",
     "@fontsource-variable/fraunces": "^5.3.0",
     "@unocss/astro": "^66.7.5",
     "astro": "^7.1.1",
@@ -28,6 +32,15 @@
     "sharp": "^0.35.3",
     "svelte": "^5.56.6",
     "unocss": "^66.7.5",
+    "vitest": "^4.1.2",
     "wrangler": "^4.112.0"
+  },
+  "dependencies": {
+    "@milkdown/core": "^7.19.2",
+    "@milkdown/plugin-block": "^7.19.2",
+    "@milkdown/plugin-history": "^7.19.2",
+    "@milkdown/plugin-listener": "^7.19.2",
+    "@milkdown/plugin-slash": "^7.19.2",
+    "@milkdown/preset-commonmark": "^7.19.2"
   }
 }
