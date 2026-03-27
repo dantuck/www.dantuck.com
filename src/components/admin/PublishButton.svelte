@@ -14,6 +14,7 @@
   let dropdownOpen = false;
   let scheduleDateInput = publishDate ?? '';
   let pollInterval: ReturnType<typeof setInterval>;
+  let scheduleError = '';
 
   async function publishNow() {
     if (!prNumber) {
@@ -38,6 +39,7 @@
   }
 
   async function schedule() {
+    scheduleError = '';
     if (!scheduleDateInput) return;
     if (!prNumber) {
       await onSave();
@@ -50,7 +52,10 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prNumber, slug, path, branch, publishDate: scheduleDateInput }),
       });
-    } catch { /* ignore */ }
+      scheduleError = '';
+    } catch (e) {
+      scheduleError = `Schedule failed: ${e}`;
+    }
   }
 
   function startPolling() {
@@ -128,6 +133,9 @@
               Set
             </button>
           </div>
+          {#if scheduleError}
+            <div class="schedule-error">{scheduleError}</div>
+          {/if}
         </div>
         <button class="dropdown-item" on:click={() => { onSave(); dropdownOpen = false; }}>
           <strong>Save Draft</strong>
@@ -202,6 +210,7 @@
   .schedule-item { cursor: default; }
   .schedule-item:hover { background: transparent; }
   .schedule-row { display: flex; gap: 6px; margin-top: 6px; align-items: center; }
+  .schedule-error { font-size: 11px; color: var(--admin-red); margin-top: 4px; }
 
   .building-indicator, .live-indicator {
     display: flex; align-items: center; gap: 8px;
