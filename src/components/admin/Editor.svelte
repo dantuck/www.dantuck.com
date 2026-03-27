@@ -178,7 +178,10 @@
     const newImport = `import ${varName} from '${relativePath}';`;
 
     if (!mdxImports.includes("import { Image } from 'astro:assets'")) {
-      mdxImports = `import { Image } from 'astro:assets';\n${newImport}`;
+      const existing = mdxImports.trim();
+      mdxImports = existing
+        ? `import { Image } from 'astro:assets';\n${existing}\n${newImport}`
+        : `import { Image } from 'astro:assets';\n${newImport}`;
     } else if (!mdxImports.includes(newImport)) {
       mdxImports = `${mdxImports}\n${newImport}`;
     }
