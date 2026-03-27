@@ -27,6 +27,19 @@ pnpm run tail      # Stream live logs from the worker
 
 The deploy hook URL is stored as a `DEPLOY_HOOK_URL` secret in the worker's Cloudflare environment — it is not in the repo. To update it, set the secret via the Cloudflare dashboard or `wrangler secret put DEPLOY_HOOK_URL`.
 
+## Git Notes
+
+### Staging files with `[...]` in their names
+
+Files like `src/pages/tags/[tag].astro` and `src/pages/og/[...slug].png.ts` have bracket characters that git treats as glob patterns. `git add <path>` will fail with "path is ignored" for these files even when they are tracked.
+
+Use `git add -u <parent-dir>` instead — it only touches already-tracked files and bypasses glob expansion entirely:
+
+```bash
+git add -u src/pages/tags/
+git add -u src/pages/og/
+```
+
 ## Architecture
 
 **Stack**: Astro 6 (SSG) + Svelte 5 (interactive components) + SCSS/Sass + Cloudflare Pages deployment.
