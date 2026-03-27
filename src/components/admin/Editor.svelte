@@ -141,6 +141,66 @@
       save();
     }
   }
+
+  async function handleImageDrop(e: DragEvent) {
+    e.preventDefault();
+    const file = e.dataTransfer?.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Image must be under 5 MB.');
+      return;
+    }
+
+    // Must be saved first to have a branch
+    if (!branch) {
+      await save();
+      if (!branch) return;
+    }
+
+    const base64 = await fileToBase64(file);
+    const effectiveSlug = slug ?? `article/${toSlug(frontmatter.title)}`;
+
+    const res = await fetch('/admin/api/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        slug: effectiveSlug,
+        branch,
+        filename: file.name,
+        base64,
+      }),
+    });
+    if (!res.ok) { alert('Image upload failed.'); return; }
+    const { path: relativePath } = await res.json();
+
+    // Convert to .mdx if needed
+    const varName = relativePath.replace('./', '').replace(/[^a-zA-Z0-9]/g, '_');
+    const newImport = `import ${varName} from '${relativePath}';`;
+
+    if (!mdxImports.includes("import { Image } from 'astro:assets'")) {
+      mdxImports = `import { Image } from 'astro:assets';\n${newImport}`;
+    } else if (!mdxImports.includes(newImport)) {
+      mdxImports = `${mdxImports}\n${newImport}`;
+    }
+
+    // Insert raw MDX block into body at end
+    body += `\n\n<Image src={${varName}} alt="" widths={[400, 800, 1300]} sizes="(max-width: 600px) 400px, (max-width: 1000px) 800px, 1300px" />`;
+
+    // Trigger a save
+    await save();
+  }
+
+  function fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result as string;
+        resolve(dataUrl.split(',')[1]); // strip "data:image/...;base64,"
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
 </script>
 
 <svelte:window on:keydown={handleKeydown} />
@@ -209,7 +269,12 @@
     </header>
 
     <!-- Milkdown editor -->
-    <div class="editor-body" bind:this={editorEl}></div>
+    <div
+      class="editor-body"
+      bind:this={editorEl}
+      on:dragover|preventDefault
+      on:drop={handleImageDrop}
+    ></div>
 
     <!-- Status bar -->
     <footer class="status-bar">
