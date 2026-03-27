@@ -11,7 +11,7 @@ describe('toSlug', () => {
   it('collapses multiple hyphens', () => {
     expect(toSlug('foo  ---  bar')).toBe('foo-bar');
   });
-  it('trims leading/trailing hyphens', () => {
+  it('trims leading/trailing whitespace', () => {
     expect(toSlug('  hello  ')).toBe('hello');
   });
   it('handles empty string', () => {
