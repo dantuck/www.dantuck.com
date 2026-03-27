@@ -1,9 +1,8 @@
 ---
-import About from '../layouts/About.astro';
+import AboutLayout from "../layouts/About.astro";
 ---
 
-<About
-  title="About"
+<AboutLayout
   description="Daniel Tucker — Senior Staff Software Engineer in Colorado. Writing about software, tools, and systems."
 >
   <p>Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado.</p>
@@ -16,14 +15,40 @@ import About from '../layouts/About.astro';
       <p class="about-company"><a href="https://www.bill.com/">Bill</a></p>
       <p class="about-location">San Jose, CA</p>
       <div class="about-role">
-        <span class="about-role-title about-role-title--current">Senior Staff Software Engineer</span>
+        <span class="about-role-title about-role-title--current"
+          >Senior Staff Software Engineer</span
+        >
         <span class="about-meta">March 2025 – Present</span>
-        <p>Senior Staff Software Engineer in BILL's Product, Network & AI organization, focused on developer experience and backend architecture. I design and build internal developer platforms—standardized local and cloud environments, opinionated tooling, and automation—that make it fast and reliable for engineers to spin up services, ship code, and debug production-like issues. Recently I've been integrating AI-assisted workflows into this stack so that agents can safely introspect, diagnose, and repair development environments, shifting repetitive troubleshooting from humans to automation and shortening feedback loops. Beyond hands-on engineering, I act as an architecture partner and mentor across teams, helping set standards for database migrations, CI/CD, and cloud infrastructure so our platform scales with the business.</p>
+        <p>
+          Senior Staff Software Engineer in BILL's Product, Network & AI
+          organization, focused on developer experience and backend
+          architecture. I design and build internal developer
+          platforms—standardized local and cloud environments, opinionated
+          tooling, and automation—that make it fast and reliable for engineers
+          to spin up services, ship code, and debug production-like issues.
+          Recently I've been integrating AI-assisted workflows into this stack
+          so that agents can safely introspect, diagnose, and repair development
+          environments, shifting repetitive troubleshooting from humans to
+          automation and shortening feedback loops. Beyond hands-on engineering,
+          I act as an architecture partner and mentor across teams, helping set
+          standards for database migrations, CI/CD, and cloud infrastructure so
+          our platform scales with the business.
+        </p>
       </div>
       <div class="about-role about-role--prev">
         <span class="about-role-title">Staff Software Engineer</span>
         <span class="about-meta">January 2022 – March 2025</span>
-        <p>Staff Software Engineer in BILL's Product, Network & AI organization, focused on backend architecture and developer experience. I implemented and evolved core Elixir services and shared libraries, strengthened patterns for database migrations and CI/CD, and helped teams adopt safer, more standardized ways to ship changes. I built and maintained internal tooling and local development workflows that reduced environment setup friction and production risk, and I regularly partnered with product squads as a reviewer and mentor on performance, data integrity, and cloud infrastructure decisions.</p>
+        <p>
+          Staff Software Engineer in BILL's Product, Network & AI organization,
+          focused on backend architecture and developer experience. I
+          implemented and evolved core Elixir services and shared libraries,
+          strengthened patterns for database migrations and CI/CD, and helped
+          teams adopt safer, more standardized ways to ship changes. I built and
+          maintained internal tooling and local development workflows that
+          reduced environment setup friction and production risk, and I
+          regularly partnered with product squads as a reviewer and mentor on
+          performance, data integrity, and cloud infrastructure decisions.
+        </p>
       </div>
     </div>
   </div>
@@ -34,34 +59,61 @@ import About from '../layouts/About.astro';
     <div class="about-entry">
       <span class="about-dot" style="background: rgba(255,140,0,0.75);"></span>
       <span class="about-meta">Apr 2020 – Dec 2021</span>
-      <p class="about-company"><a href="https://singularity-interactive.com/">Singularity Interactive</a></p>
+      <p class="about-company">
+        <a href="https://singularity-interactive.com/"
+          >Singularity Interactive</a>
+      </p>
       <p class="about-location">Boulder, CO</p>
       <div class="about-role">
         <span class="about-role-title">Staff Software Engineer</span>
         <span class="about-meta">Apr 2021 – Dec 2021</span>
-        <p>Led application support and special features for marketing and sales. Participated in architectural design, mentored developers across backend and frontend disciplines, and tackled harder problems to establish patterns for new feature development.</p>
+        <p>
+          Led application support and special features for marketing and sales.
+          Participated in architectural design, mentored developers across
+          backend and frontend disciplines, and tackled harder problems to
+          establish patterns for new feature development.
+        </p>
       </div>
       <div class="about-role about-role--prev">
-        <span class="about-role-title">Software Developer II / Senior Engineer</span>
+        <span class="about-role-title"
+          >Software Developer II / Senior Engineer</span
+        >
         <span class="about-meta">Apr 2020 – Apr 2021</span>
-        <p>Full stack engineer using NodeJS and ReactJS. Built reliable, tested applications deployed on AWS. Assisted in leading architectural design and identifying security concerns.</p>
+        <p>
+          Full stack engineer using NodeJS and ReactJS. Built reliable, tested
+          applications deployed on AWS. Assisted in leading architectural design
+          and identifying security concerns.
+        </p>
       </div>
     </div>
 
     <div class="about-entry">
       <span class="about-dot" style="background: rgba(255,140,0,0.55);"></span>
       <span class="about-meta">Nov 2014 – Apr 2020</span>
-      <p class="about-company"><a href="https://www.exclusiveresorts.com">Exclusive Resorts</a></p>
+      <p class="about-company">
+        <a href="https://www.exclusiveresorts.com">Exclusive Resorts</a>
+      </p>
       <p class="about-location">Denver, CO</p>
       <div class="about-role">
         <span class="about-role-title">Manager, UI Development</span>
         <span class="about-meta">2018 – Apr 2020</span>
-        <p>Managed a mixed onsite/offsite development team focused on public-facing website and content API R&D. Led design implementations and UI framework direction for member-facing applications. Managed and developed the content API and CMS in C#.</p>
+        <p>
+          Managed a mixed onsite/offsite development team focused on
+          public-facing website and content API R&D. Led design implementations
+          and UI framework direction for member-facing applications. Managed and
+          developed the content API and CMS in C#.
+        </p>
       </div>
       <div class="about-role about-role--prev">
-        <span class="about-role-title">Lead Developer / Senior UI Developer / Offsite Team Manager</span>
+        <span class="about-role-title"
+          >Lead Developer / Senior UI Developer / Offsite Team Manager</span
+        >
         <span class="about-meta">Nov 2014 – 2018</span>
-        <p>Led UI architectural direction and implementation. Engineered a content API in C# Web API. Implemented build processes using Grunt to optimize and deploy assets to AWS CloudFront.</p>
+        <p>
+          Led UI architectural direction and implementation. Engineered a
+          content API in C# Web API. Implemented build processes using Grunt to
+          optimize and deploy assets to AWS CloudFront.
+        </p>
       </div>
     </div>
 
@@ -72,7 +124,10 @@ import About from '../layouts/About.astro';
       <p class="about-location">Denver, CO</p>
       <div class="about-role">
         <span class="about-role-title">Application Engineer</span>
-        <p>Built an Ionic Framework app using AngularJS for teacher actions (attendance, behavior recording), deployed to Android and iOS.</p>
+        <p>
+          Built an Ionic Framework app using AngularJS for teacher actions
+          (attendance, behavior recording), deployed to Android and iOS.
+        </p>
       </div>
     </div>
 
@@ -83,7 +138,11 @@ import About from '../layouts/About.astro';
       <p class="about-location">Denver, CO</p>
       <div class="about-role">
         <span class="about-role-title">Software Engineer</span>
-        <p>Developed Sitrion Social Sites, a social networking plug-in for SharePoint. Designed and implemented Lookout360 as a portable ribbon connector.</p>
+        <p>
+          Developed Sitrion Social Sites, a social networking plug-in for
+          SharePoint. Designed and implemented Lookout360 as a portable ribbon
+          connector.
+        </p>
       </div>
     </div>
 
@@ -94,7 +153,10 @@ import About from '../layouts/About.astro';
       <p class="about-location">Denver, CO</p>
       <div class="about-role">
         <span class="about-role-title">Software Developer</span>
-        <p>Rebuilt mission-critical business applications into a more robust and scalable solution, integrating three systems into one.</p>
+        <p>
+          Rebuilt mission-critical business applications into a more robust and
+          scalable solution, integrating three systems into one.
+        </p>
       </div>
     </div>
 
@@ -105,7 +167,12 @@ import About from '../layouts/About.astro';
       <p class="about-location">Oklahoma City, OK</p>
       <div class="about-role">
         <span class="about-role-title">Programmer / Analyst</span>
-        <p>Designed, tested, and implemented software applications in C# and ASP.Net. Coordinated with business subject matter experts to incorporate business rules, mathematical models, petroleum engineering aspects, and accounting rules into software.</p>
+        <p>
+          Designed, tested, and implemented software applications in C# and
+          ASP.Net. Coordinated with business subject matter experts to
+          incorporate business rules, mathematical models, petroleum engineering
+          aspects, and accounting rules into software.
+        </p>
       </div>
     </div>
   </div>
@@ -123,7 +190,9 @@ import About from '../layouts/About.astro';
       <h3 class="about-section-title">Education</h3>
       <p class="about-company">Oklahoma State University</p>
       <div class="about-role">
-        <span class="about-role-title">Bachelor in Information Technology Assurance & Forensics</span>
+        <span class="about-role-title"
+          >Bachelor in Information Technology Assurance & Forensics</span
+        >
         <span class="about-meta">2007</span>
       </div>
     </div>
@@ -135,7 +204,7 @@ import About from '../layouts/About.astro';
     <li>Recreational private pilot (Part 141 training)</li>
     <li>Hobbyist builder of APIs in Go and Progressive Web Applications</li>
   </ul>
-</About>
+</AboutLayout>
 
 <style>
   /* ── Section titles ─────────────────────────────────────────────────────── */
