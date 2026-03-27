@@ -54,7 +54,15 @@
   }
 
   function startPolling() {
+    const started = Date.now();
+    const MAX_POLL_MS = 10 * 60 * 1000; // 10 minutes
+
     pollInterval = setInterval(async () => {
+      if (Date.now() - started > MAX_POLL_MS) {
+        status = 'error';
+        clearInterval(pollInterval);
+        return;
+      }
       try {
         const res = await fetch('/admin/api/status');
         const data = await res.json();
@@ -86,6 +94,11 @@
   <button class="btn-primary" style="background: var(--admin-red)" on:click={() => status = 'idle'}>
     Failed — Retry
   </button>
+{:else if status === 'publishing'}
+  <div class="building-indicator">
+    <span class="pulse"></span>
+    Publishing...
+  </div>
 {:else}
   <div class="split-btn-wrapper">
     <button class="split-primary" on:click={publishNow}>
