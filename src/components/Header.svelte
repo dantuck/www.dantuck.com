@@ -109,7 +109,6 @@
     { href: '/recipe',    label: 'Recipes'   },
     { href: '/article',   label: 'Articles'  },
     { href: '/portfolio', label: 'Portfolio' },
-    { href: '/resume',    label: 'Resume'    },
     { href: '/about',     label: 'About'     },
   ];
 

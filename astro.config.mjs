@@ -27,6 +27,9 @@ const pagefindDevPlugin = {
 
 export default defineConfig({
   site: "https://www.dantuck.com/",
+  redirects: {
+    '/resume': '/about',
+  },
   markdown: {
     shikiConfig: {
       theme: 'dracula',
