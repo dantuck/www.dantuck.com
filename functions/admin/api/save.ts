@@ -19,6 +19,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
   const data = await request.json() as SaveBody;
 
+  if (!data.path.startsWith('src/pages/') || data.path.includes('..')) {
+    return json({ error: 'Invalid path' }, 400);
+  }
+
   const branchName = `draft/${data.slug.replace('article/', '')}`;
   const content = assembleFile(data.frontmatter, data.imports, data.body, data.extra);
 

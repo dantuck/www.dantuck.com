@@ -28,6 +28,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   const dir = `src/pages/${slug}`;
   const path = `${dir}/${safeName}`;
 
+  if (!path.startsWith('src/pages/') || path.includes('..')) {
+    return json({ error: 'Invalid path' }, 400);
+  }
+
   try {
     await gh.putBinary({
       path,
