@@ -5,6 +5,7 @@ export interface ArticleFrontmatter {
   tags?: string[];
   author?: string;
   draft?: boolean;
+  layout?: string;
 }
 
 export interface ParsedFile {
@@ -51,7 +52,7 @@ export function parseFrontmatter(content: string): ParsedFile {
   let blockScalarKey: keyof ArticleFrontmatter | null = null;
   let blockScalarLines: string[] = [];
 
-  const knownKeys = new Set(['title', 'publishDate', 'description', 'author', 'draft', 'tags']);
+  const knownKeys = new Set(['title', 'publishDate', 'description', 'author', 'draft', 'tags', 'layout']);
 
   const fmLines = fmBlock.split('\n');
 
@@ -118,6 +119,7 @@ export function parseFrontmatter(content: string): ParsedFile {
         break;
       case 'author': frontmatter.author = unquote(val); break;
       case 'draft': frontmatter.draft = val === 'true'; break;
+      case 'layout': frontmatter.layout = unquote(val); break;
       case 'tags':
         if (val === '') { capturingTags = true; }
         else if (val.startsWith('[')) {
@@ -150,6 +152,7 @@ export function serializeFrontmatter(fm: ArticleFrontmatter): string {
   }
   if (fm.author) lines.push(`author: ${fm.author}`);
   if (fm.draft) lines.push(`draft: true`);
+  if (fm.layout) lines.push(`layout: '${fm.layout}'`);
   return lines.join('\n');
 }
 
@@ -160,7 +163,10 @@ export function assembleFile(fm: ArticleFrontmatter, imports: string, body: stri
   }
   fmLines.push('---');
   const parts: string[] = [fmLines.join('\n')];
-  if (imports) parts.push(imports);
+  if (imports) {
+    parts.push(imports);
+    parts.push(''); // blank line between imports and body (required by MDX v2)
+  }
   parts.push(body);
   return parts.join('\n') + '\n';
 }

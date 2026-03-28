@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
+  import { authHeaders } from '../../lib/admin/auth';
 
   export let prNumber: number | undefined = undefined;
   export let title = 'Untitled';
@@ -27,7 +28,7 @@
     try {
       const res = await fetch('/admin/api/publish', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
         body: JSON.stringify({ prNumber, title }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
@@ -49,7 +50,7 @@
     try {
       await fetch('/admin/api/schedule', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders() },
         body: JSON.stringify({ prNumber, slug, path, branch, publishDate: scheduleDateInput }),
       });
       scheduleError = '';
@@ -69,7 +70,7 @@
         return;
       }
       try {
-        const res = await fetch('/admin/api/status');
+        const res = await fetch('/admin/api/status', { headers: authHeaders() });
         const data = await res.json();
         if (data.status === 'live') {
           status = 'live';

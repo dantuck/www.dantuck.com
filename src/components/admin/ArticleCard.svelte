@@ -21,14 +21,7 @@
   $: editUrl = `/admin/edit?slug=${encodeURIComponent(article.slug)}`;
 </script>
 
-<div
-  class="card"
-  data-status={article.status}
-  on:click={() => window.location.href = editUrl}
-  on:keydown={e => { if (e.key === 'Enter' || e.key === ' ') window.location.href = editUrl; }}
-  role="link"
-  tabindex="0"
->
+<a href={editUrl} class="card" data-status={article.status}>
   <div class="card-title">{article.title || 'Untitled'}</div>
 
   <div class="card-meta">
@@ -39,17 +32,9 @@
   </div>
 
   {#if article.previewUrl && article.status !== 'live'}
-    <a
-      href={article.previewUrl}
-      target="_blank"
-      rel="noopener"
-      class="preview-link"
-      on:click|stopPropagation
-    >
-      Preview ↗
-    </a>
+    <span class="preview-link">Preview ↗</span>
   {/if}
-</div>
+</a>
 
 <style>
   .card {
@@ -61,7 +46,6 @@
     text-decoration: none;
     color: var(--admin-text);
     transition: border-color 0.15s, background 0.15s;
-    position: relative;
     cursor: pointer;
   }
   .card:hover { border-color: var(--admin-orange); background: var(--admin-surface-2); }
@@ -94,7 +78,5 @@
     margin-top: 8px;
     font-size: 12px;
     color: var(--admin-purple);
-    text-decoration: none;
   }
-  .preview-link:hover { text-decoration: underline; }
 </style>

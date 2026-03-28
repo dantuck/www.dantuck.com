@@ -16,7 +16,8 @@
     "worker:tail": "wrangler tail dantuck-scheduled-publish",
     "test": "vitest run",
     "test:watch": "vitest",
-    "admin:dev": "concurrently \"astro dev --port 4321\" \"wrangler pages dev --proxy 4321 --port 8788\""
+    "admin:dev": "concurrently \"astro dev --port 4321\" \"wrangler pages dev --proxy 4321 --port 8788\"",
+    "admin:dev:local": "astro dev --port 8788"
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.3",
