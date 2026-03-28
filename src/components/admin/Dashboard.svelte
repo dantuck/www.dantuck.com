@@ -2,15 +2,22 @@
   import { onMount } from 'svelte';
   import type { ArticleSummary } from '../../lib/admin/types';
   import ArticleCard from './ArticleCard.svelte';
+  import { authHeaders, setAdminToken } from '../../lib/admin/auth';
 
   let articles: ArticleSummary[] = [];
   let loading = true;
   let error = '';
   let filter: 'all' | 'live' | 'draft' | 'scheduled' = 'all';
 
-  onMount(async () => {
+  let authNeeded = false;
+  let tokenInput = '';
+
+  async function loadArticles() {
+    loading = true;
+    error = '';
     try {
-      const res = await fetch('/admin/api/articles');
+      const res = await fetch('/admin/api/articles', { headers: authHeaders() });
+      if (res.status === 401) { authNeeded = true; loading = false; return; }
       if (!res.ok) throw new Error(`${res.status}`);
       articles = await res.json();
     } catch (e) {
@@ -18,7 +25,17 @@
     } finally {
       loading = false;
     }
-  });
+  }
+
+  onMount(loadArticles);
+
+  function submitToken() {
+    if (!tokenInput) return;
+    setAdminToken(tokenInput);
+    tokenInput = '';
+    authNeeded = false;
+    loadArticles();
+  }
 
   $: filtered = filter === 'all' ? articles : articles.filter(a => a.status === filter);
   $: counts = {
@@ -29,6 +46,21 @@
   };
 </script>
 
+{#if authNeeded}
+  <div class="auth-gate">
+    <form class="auth-form" on:submit|preventDefault={submitToken}>
+      <p class="auth-label">Admin token required</p>
+      <input
+        class="auth-input"
+        type="password"
+        bind:value={tokenInput}
+        placeholder="Enter admin token"
+        autocomplete="current-password"
+      />
+      <button type="submit" class="btn-primary">Unlock</button>
+    </form>
+  </div>
+{:else}
 <div class="admin-shell">
   <!-- Top bar -->
   <header class="topbar">
@@ -71,8 +103,29 @@
     {/if}
   </main>
 </div>
+{/if}
 
 <style>
+  .auth-gate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--admin-bg);
+  }
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    border-radius: 8px;
+    padding: 32px;
+    width: 300px;
+  }
+  .auth-label { font-size: 14px; color: var(--admin-text); font-weight: 600; margin: 0; }
+  .auth-input { font-size: 14px; padding: 8px 10px; }
+
   .admin-shell { display: flex; flex-direction: column; min-height: 100vh; }
 
   .topbar {

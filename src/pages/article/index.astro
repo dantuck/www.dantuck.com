@@ -14,7 +14,11 @@ const allArticles = (Object.values(import.meta.glob('./**/*.{md,mdx}', { eager: 
     if (post.frontmatter.draft) return false;
     return new Date(post.frontmatter.publishDate) <= new Date();
   })
-  .sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+  .sort((a, b) => {
+    const ta = a.frontmatter.publishDate ? new Date(a.frontmatter.publishDate).valueOf() : 0;
+    const tb = b.frontmatter.publishDate ? new Date(b.frontmatter.publishDate).valueOf() : 0;
+    return tb - ta;
+  });
 
 const [hero, ...rest] = allArticles;
 ---

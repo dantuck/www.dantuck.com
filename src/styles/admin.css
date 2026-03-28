@@ -33,24 +33,34 @@ button {
   font-family: var(--admin-font);
   font-size: 14px;
   border: none;
+  transition: background 0.15s;
+}
+
+.btn-primary, .btn-ghost {
+  display: inline-block;
   border-radius: 5px;
   padding: 6px 14px;
-  transition: background 0.15s;
+  font-family: var(--admin-font);
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .btn-primary {
   background: var(--admin-orange);
   color: #fff;
   font-weight: 600;
+  border: none;
 }
-.btn-primary:hover { background: var(--admin-orange-hover); }
+.btn-primary:hover { background: var(--admin-orange-hover); text-decoration: none; }
 
 .btn-ghost {
   background: transparent;
   color: var(--admin-text-muted);
   border: 1px solid var(--admin-border);
 }
-.btn-ghost:hover { color: var(--admin-text); border-color: var(--admin-text-muted); }
+.btn-ghost:hover { color: var(--admin-text); border-color: var(--admin-text-muted); text-decoration: none; }
 
 input, textarea, select {
   background: var(--admin-surface-2);

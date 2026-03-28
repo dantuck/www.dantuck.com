@@ -169,4 +169,27 @@ export class GitHubClient {
       body: JSON.stringify({ merge_method: 'squash', commit_title: commitTitle }),
     });
   }
+
+  /** Delete a file from a branch (sha required by GitHub) */
+  async deleteFile(path: string, sha: string, message: string, branch: string): Promise<void> {
+    await this.req(`/repos/${this.repo}/contents/${path}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ message, sha, branch }),
+    });
+  }
+
+  /** Close a PR without merging */
+  async closePR(prNumber: number): Promise<void> {
+    await this.req(`/repos/${this.repo}/pulls/${prNumber}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ state: 'closed' }),
+    });
+  }
+
+  /** Delete a branch */
+  async deleteBranch(name: string): Promise<void> {
+    try {
+      await this.req(`/repos/${this.repo}/git/refs/heads/${name}`, { method: 'DELETE' });
+    } catch { /* branch may already be gone */ }
+  }
 }
