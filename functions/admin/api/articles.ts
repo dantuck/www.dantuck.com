@@ -1,12 +1,15 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
 import { GitHubClient } from '../../../src/lib/admin/github';
 import { parseFrontmatter } from '../../../src/lib/admin/frontmatter';
-import { json, type Env, type ArticleSummary } from './_types';
+import { json, isLocalMode, type Env, type ArticleSummary } from './_types';
+import { mockList, mockDetail } from './_mock';
 
 export const onRequestGet: PagesFunction<Env> = async ({ env, request }) => {
-  const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
   const url = new URL(request.url);
   const slugParam = url.searchParams.get('slug');
+  if (isLocalMode(env)) return slugParam ? mockDetail(slugParam) : mockList();
+
+  const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
 
   // --- Read single article ---
   if (slugParam) {

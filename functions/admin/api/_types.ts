@@ -6,6 +6,11 @@ export interface Env {
   CF_API_TOKEN: string;
   CF_ACCOUNT_ID: string;
   CF_PAGES_PROJECT: string;
+  LOCAL_MODE?: string;
+}
+
+export function isLocalMode(env: Env): boolean {
+  return env.LOCAL_MODE === 'true';
 }
 
 export function json(data: unknown, status = 200): Response {

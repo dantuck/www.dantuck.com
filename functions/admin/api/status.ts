@@ -1,5 +1,6 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
-import { json, type Env } from './_types';
+import { json, isLocalMode, type Env } from './_types';
+import { mockStatus } from './_mock';
 
 interface CFDeployment {
   id: string;
@@ -11,6 +12,7 @@ interface CFDeployment {
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
+  if (isLocalMode(env)) return mockStatus();
   const res = await fetch(
     `https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/pages/projects/${env.CF_PAGES_PROJECT}/deployments?per_page=5`,
     {

@@ -16,7 +16,7 @@
     "worker:tail": "wrangler tail dantuck-scheduled-publish",
     "test": "vitest run",
     "test:watch": "vitest",
-    "admin:dev": "astro build && wrangler pages dev ./dist --port 8788"
+    "admin:dev": "concurrently \"astro dev --port 4321\" \"wrangler pages dev --proxy 4321 --port 8788\""
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -32,6 +32,7 @@
     "@cloudflare/workers-types": "^4.20260317.1",
     "@unocss/astro": "^66.6.7",
     "astro": "^6.0.5",
+    "concurrently": "^9.2.1",
     "pagefind": "^1.4.0",
     "playwright": "^1.58.2",
     "satori": "^0.25.0",
