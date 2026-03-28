@@ -16,7 +16,7 @@
     "worker:tail": "wrangler tail dantuck-scheduled-publish",
     "test": "vitest run",
     "test:watch": "vitest",
-    "admin:dev": "astro build && wrangler pages dev ./dist --port 8788"
+    "admin:dev": "concurrently \"astro dev --port 4321\" \"wrangler pages dev --proxy 4321 --port 8788\""
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.3",
@@ -26,6 +26,7 @@
     "@fontsource-variable/fraunces": "^5.3.0",
     "@unocss/astro": "^66.7.5",
     "astro": "^7.1.1",
+    "concurrently": "^9.2.1",
     "pagefind": "^1.5.2",
     "playwright": "^1.61.1",
     "satori": "^0.28.0",

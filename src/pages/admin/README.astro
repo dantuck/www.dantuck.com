@@ -1,0 +1,135 @@
+---
+// Admin CMS setup and reference guide — accessible at /admin/README
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Setup & Reference</title>
+  <link rel="stylesheet" href="/src/styles/admin.css" />
+  <style>
+    .readme { max-width: 720px; margin: 0 auto; padding: 40px 24px; }
+    h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    h2 { font-size: 1.1rem; font-weight: 600; margin: 2rem 0 0.5rem; color: var(--admin-orange); border-bottom: 1px solid var(--admin-border); padding-bottom: 4px; }
+    h3 { font-size: 0.95rem; font-weight: 600; margin: 1.2rem 0 0.4rem; }
+    p, li { font-size: 14px; color: var(--admin-text); line-height: 1.7; }
+    ul, ol { padding-left: 1.4rem; margin: 0.5rem 0; }
+    li { margin-bottom: 4px; }
+    code { font-family: var(--admin-mono); font-size: 13px; background: var(--admin-surface-2); padding: 2px 6px; border-radius: 4px; }
+    pre { background: var(--admin-surface-2); border: 1px solid var(--admin-border); border-radius: 6px; padding: 16px; overflow-x: auto; margin: 1rem 0; }
+    pre code { background: none; padding: 0; font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 13px; }
+    th { text-align: left; padding: 6px 10px; background: var(--admin-surface-2); color: var(--admin-text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { padding: 6px 10px; border-bottom: 1px solid var(--admin-border); }
+    .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--admin-surface-2); }
+    .back { display: inline-block; margin-bottom: 24px; font-size: 13px; color: var(--admin-text-muted); }
+    .back:hover { color: var(--admin-text); }
+    .warning { background: rgba(249,115,22,0.1); border: 1px solid var(--admin-orange); border-radius: 6px; padding: 12px 16px; margin: 1rem 0; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <div class="readme">
+    <a href="/admin" class="back">← Admin</a>
+
+    <h1>CMS — Setup &amp; Reference</h1>
+    <p>Notion-style headless CMS at <code>/admin</code>. Drafts live on GitHub branches with Cloudflare Pages preview URLs. Publishing merges the PR.</p>
+
+    <h2>Local Development</h2>
+
+    <h3>1. Fill in <code>.dev.vars</code></h3>
+    <p>Create or edit <code>.dev.vars</code> in the project root (gitignored):</p>
+    <pre><code>GITHUB_TOKEN=ghp_yourtoken
+GITHUB_REPO=dantuck/www.dantuck.com
+CF_API_TOKEN=your_cf_token
+CF_ACCOUNT_ID=8c84992709d375b2c9bba48b7e8a2361
+CF_PAGES_PROJECT=www-dantuck
+LOCAL_MODE=false</code></pre>
+
+    <h3>2. Run the dev server</h3>
+    <pre><code>pnpm admin:dev</code></pre>
+    <p>This runs Astro dev (port 4321, HMR) behind Wrangler (port 8788, Functions). Visit <code>http://localhost:8788/admin</code>.</p>
+    <p><strong>Note:</strong> <code>pnpm dev</code> (Astro only) will 404 on all <code>/admin/api/*</code> routes — use <code>pnpm admin:dev</code> when working on the CMS.</p>
+
+    <h3>3. Local mode (no credentials needed)</h3>
+    <p>Set <code>LOCAL_MODE=true</code> in <code>.dev.vars</code> to use mock API responses — no GitHub token or Cloudflare token required.</p>
+    <div class="warning">In local mode, saves/publishes/schedules are no-ops. The dashboard shows 3 mock articles and the editor loads sample content. Nothing is written to GitHub.</div>
+
+    <h2>GitHub Token</h2>
+    <p>Go to <strong>GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens</strong>:</p>
+    <ul>
+      <li>Repository access: <code>dantuck/www.dantuck.com</code></li>
+      <li>Permissions: <strong>Contents</strong> read/write, <strong>Pull requests</strong> read/write, <strong>Metadata</strong> read</li>
+    </ul>
+
+    <h2>Cloudflare API Token</h2>
+    <p>Only needed for the deploy status indicator. Go to <strong>Cloudflare → My Profile → API Tokens → Create Token</strong>. Use the "Read all resources" template or custom with Pages: Read.</p>
+
+    <h2>Production Setup</h2>
+
+    <h3>Cloudflare Access (authentication)</h3>
+    <p>Go to <strong>Cloudflare Zero Trust → Access → Applications → Add application</strong>:</p>
+    <ul>
+      <li>Type: Self-hosted</li>
+      <li>Domain: <code>www.dantuck.com/admin*</code></li>
+      <li>Policy: Allow your email address</li>
+    </ul>
+
+    <h3>Pages environment variables</h3>
+    <p>Go to <strong>Pages → www-dantuck → Settings → Environment variables</strong> and add for Production:</p>
+    <table>
+      <thead><tr><th>Key</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><code>GITHUB_TOKEN</code></td><td>GitHub PAT (contents + pull_requests write)</td></tr>
+        <tr><td><code>GITHUB_REPO</code></td><td><code>dantuck/www.dantuck.com</code></td></tr>
+        <tr><td><code>CF_API_TOKEN</code></td><td>Cloudflare API token (Pages read)</td></tr>
+        <tr><td><code>CF_ACCOUNT_ID</code></td><td><code>8c84992709d375b2c9bba48b7e8a2361</code></td></tr>
+        <tr><td><code>CF_PAGES_PROJECT</code></td><td><code>www-dantuck</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Worker secrets (scheduled publishing)</h3>
+    <pre><code>cd worker
+wrangler secret put GITHUB_TOKEN
+wrangler secret put GITHUB_REPO
+pnpm run deploy</code></pre>
+
+    <h2>Architecture</h2>
+    <table>
+      <thead><tr><th>Layer</th><th>Location</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Pages</td><td><code>src/pages/admin/</code></td><td>Static HTML shells, Svelte islands</td></tr>
+        <tr><td>Components</td><td><code>src/components/admin/</code></td><td>Dashboard, Editor, PublishButton, ArticleCard</td></tr>
+        <tr><td>Functions</td><td><code>functions/admin/api/</code></td><td>Edge API — GitHub + Cloudflare calls</td></tr>
+        <tr><td>Library</td><td><code>src/lib/admin/</code></td><td>Slug, frontmatter parser, GitHub client</td></tr>
+        <tr><td>Worker</td><td><code>worker/src/index.ts</code></td><td>Hourly scheduled publish (auto-merge PRs)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Draft Lifecycle</h2>
+    <table>
+      <thead><tr><th>Status</th><th>Condition</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge status-draft">Draft</span></td><td>Open PR, no <code>publishDate</code></td></tr>
+        <tr><td><span class="badge status-scheduled">Scheduled</span></td><td>Open PR with future <code>publishDate</code></td></tr>
+        <tr><td><span class="badge status-building">Building</span></td><td>PR merged, deploy in progress</td></tr>
+        <tr><td><span class="badge status-live">Live</span></td><td>On <code>master</code>, no open PR</td></tr>
+      </tbody>
+    </table>
+
+    <h2>API Endpoints</h2>
+    <table>
+      <thead><tr><th>Endpoint</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>GET /admin/api/articles</code></td><td>List all articles with PR status</td></tr>
+        <tr><td><code>GET /admin/api/articles?slug=…</code></td><td>Read single article (frontmatter + body)</td></tr>
+        <tr><td><code>POST /admin/api/save</code></td><td>Commit to branch, create PR on first save</td></tr>
+        <tr><td><code>POST /admin/api/publish</code></td><td>Merge PR immediately</td></tr>
+        <tr><td><code>POST /admin/api/schedule</code></td><td>Set publishDate, re-label PR as scheduled</td></tr>
+        <tr><td><code>GET /admin/api/status</code></td><td>Latest Cloudflare Pages deploy state</td></tr>
+        <tr><td><code>POST /admin/api/upload</code></td><td>Commit image to draft branch</td></tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
 import { GitHubClient } from '../../../src/lib/admin/github';
-import { json, type Env } from './_types';
+import { json, isLocalMode, type Env } from './_types';
+import { mockUpload } from './_mock';
 
 interface UploadBody {
   slug: string;     // e.g. "article/my-post"
@@ -11,6 +12,10 @@ interface UploadBody {
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
+  if (isLocalMode(env)) {
+    const { filename } = await request.json() as UploadBody;
+    return mockUpload(filename);
+  }
   const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
   const { slug, branch, filename, base64, existingSha } = await request.json() as UploadBody;
 
