@@ -1,10 +1,9 @@
 <script lang="ts">
   import { onMount, onDestroy, tick } from 'svelte';
-  import { Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx } from '@milkdown/core';
-  import { commonmark } from '@milkdown/preset-commonmark';
-  import { history as milkdownHistory } from '@milkdown/plugin-history';
-  import { listener, listenerCtx } from '@milkdown/plugin-listener';
-  import { block } from '@milkdown/plugin-block';
+  import { Crepe } from '@milkdown/crepe';
+  import '@milkdown/crepe/theme/common/style.css';
+  import '@milkdown/crepe/theme/classic-dark.css';
+  import { listenerCtx } from '@milkdown/plugin-listener';
   import type { ArticleDetail } from '../../lib/admin/types';
   import type { ArticleFrontmatter } from '../../lib/admin/frontmatter';
   import { toSlug } from '../../lib/admin/slug';
@@ -30,7 +29,7 @@
 
   // Editor
   let editorEl: HTMLDivElement;
-  let editor: Editor | undefined;
+  let crepe: Crepe | undefined;
 
   onMount(async () => {
     // Read slug from query param (edit page is /admin/edit?slug=...)
@@ -61,27 +60,14 @@
 
   async function initEditor() {
     if (!editorEl) return;
-    editor = await Editor.make()
-      .config(ctx => {
-        ctx.set(rootCtx, editorEl);
-        ctx.set(defaultValueCtx, body);
-        ctx.update(editorViewOptionsCtx, prev => ({
-          ...prev,
-          attributes: { class: 'milkdown-editor', spellcheck: 'true' },
-        }));
-      })
-      .use(commonmark)
-      .use(milkdownHistory)
-      .use(block)
-      .use(
-        listener.configure(listenerCtx, {
-          markdown(getMarkdown) {
-            body = getMarkdown();
-            scheduleAutosave();
-          },
-        })
-      )
-      .create();
+    crepe = new Crepe({ root: editorEl, defaultValue: body });
+    await crepe.create();
+    crepe.editor.action(ctx => {
+      ctx.get(listenerCtx).markdownUpdated((_, md) => {
+        body = md;
+        scheduleAutosave();
+      });
+    });
   }
 
   function scheduleAutosave() {
@@ -132,7 +118,7 @@
 
   onDestroy(() => {
     clearTimeout(autosaveTimer);
-    editor?.destroy();
+    crepe?.destroy();
   });
 
   function handleKeydown(e: KeyboardEvent) {
@@ -347,23 +333,13 @@
     background: var(--admin-bg);
   }
 
-  /* Milkdown editor overrides */
-  :global(.milkdown-editor) {
-    font-family: var(--admin-font);
-    font-size: 16px;
-    color: var(--admin-text);
-    line-height: 1.7;
-    outline: none;
+  /* Crepe editor — blend into admin shell */
+  :global(.milkdown) {
     min-height: 400px;
+    background: transparent !important;
   }
-  :global(.milkdown-editor h1) { font-size: 2em; font-weight: 700; margin: 1em 0 0.5em; color: #fff; }
-  :global(.milkdown-editor h2) { font-size: 1.5em; font-weight: 600; margin: 1em 0 0.5em; color: #fff; }
-  :global(.milkdown-editor h3) { font-size: 1.25em; font-weight: 600; margin: 0.8em 0 0.4em; color: #fff; }
-  :global(.milkdown-editor p)  { margin: 0 0 1em; }
-  :global(.milkdown-editor code) { background: var(--admin-surface-2); padding: 2px 6px; border-radius: 4px; font-family: var(--admin-mono); font-size: 0.9em; }
-  :global(.milkdown-editor pre) { background: var(--admin-surface-2); border-radius: 8px; padding: 16px; overflow-x: auto; }
-  :global(.milkdown-editor blockquote) { border-left: 3px solid var(--admin-orange); padding-left: 16px; color: var(--admin-text-muted); margin: 0 0 1em; }
-  :global(.milkdown-editor a) { color: var(--admin-orange); }
+  :global(.milkdown-menu) { background: var(--admin-surface) !important; }
+  :global(.editor-frame) { background: transparent !important; }
 
   .status-bar {
     display: flex; gap: 8px;
