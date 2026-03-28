@@ -26,18 +26,19 @@ A self-contained headless CMS add-on for Astro + Cloudflare Pages projects. Drop
 All CMS code lives in isolated directories — nothing modifies existing site files except the three config changes in [Manual Install](#manual-install).
 
 ```
-functions/admin/api/          Edge API (Cloudflare Pages Functions)
-src/components/admin/         Svelte UI: Dashboard, Editor, PublishButton, ArticleCard
-src/lib/admin/                Types, frontmatter parser, GitHub client, auth helper, slug util
-src/pages/admin/              Astro page shells: index, edit, new
-src/styles/admin.css          Admin-only styles (dark theme)
-src/integrations/admin-local-api.ts  Vite dev middleware (local filesystem mode)
+functions/admin/api/          Edge API (Cloudflare Pages Functions) — platform constraint, must stay here
+src/admin/                    All other CMS code lives here
+  components/                 Svelte UI: Dashboard, Editor, PublishButton, ArticleCard
+  lib/                        Types, frontmatter parser, GitHub client, auth helper, slug util
+  pages/                      Astro page templates (served via injectRoute, not file-based routing)
+  admin.css                   Admin-only styles (dark theme)
+  integration.ts              Astro integration: registers routes + Vite dev middleware
 worker/                       Optional: Cloudflare Worker for scheduled auto-publish
 vitest.config.ts              Test runner config
 ```
 
 **Config changes required in the host project:**
-1. `astro.config.mjs` — register the Vite dev middleware plugin
+1. `astro.config.mjs` — register the Astro integration
 2. `package.json` — add 4 scripts + 10 dependencies
 3. `.dev.vars` — credentials for local dev (gitignored)
 
@@ -74,14 +75,10 @@ From the root of this repo, run:
 TARGET=/path/to/your/project
 
 cp -r functions/admin "$TARGET/functions/"
-cp -r src/components/admin "$TARGET/src/components/"
-cp -r src/lib/admin "$TARGET/src/lib/"
-cp -r src/pages/admin "$TARGET/src/pages/"
-cp src/styles/admin.css "$TARGET/src/styles/"
-cp src/integrations/admin-local-api.ts "$TARGET/src/integrations/"
+cp -r src/admin "$TARGET/src/"
 cp vitest.config.ts "$TARGET/"          # skip if you already have one
 cp -r worker "$TARGET/"                 # optional: scheduled auto-publish
-touch "$TARGET/public/_redirects"       # CMS appends redirects here on unpublish
+touch "$TARGET/public/_redirects"
 ```
 
 ### 2. Install dependencies
@@ -96,19 +93,17 @@ pnpm add @milkdown/core @milkdown/crepe @milkdown/preset-commonmark \
 pnpm add -D concurrently vitest @cloudflare/workers-types
 ```
 
-### 3. Register the Vite plugin in `astro.config.mjs`
+### 3. Register the Astro integration in `astro.config.mjs`
 
 ```js
-import { adminLocalApiPlugin } from './src/integrations/admin-local-api.ts';
+import adminCms from './src/admin/integration.ts';
 
 export default defineConfig({
   // ...
-  vite: {
-    plugins: [
-      adminLocalApiPlugin,  // ← add this
-      // ...existing plugins
-    ],
-  },
+  integrations: [
+    // ...existing integrations
+    adminCms(),
+  ],
 });
 ```
 
@@ -284,12 +279,12 @@ If `ADMIN_SECRET` is not set, the middleware is a no-op.
 
 | Layer | Location | Purpose |
 |---|---|---|
-| Pages | `src/pages/admin/` | Static HTML shells, Svelte islands |
-| Components | `src/components/admin/` | Dashboard, Editor, PublishButton, ArticleCard |
+| Pages | `src/admin/pages/` | Astro page templates (served via injectRoute) |
+| Components | `src/admin/components/` | Dashboard, Editor, PublishButton, ArticleCard |
 | Functions | `functions/admin/api/` | Edge API — GitHub + Cloudflare API calls |
 | Middleware | `functions/admin/api/_middleware.ts` | Optional bearer token auth |
-| Library | `src/lib/admin/` | Types, frontmatter parser, GitHub client, auth helper, slug util |
-| Vite plugin | `src/integrations/admin-local-api.ts` | Local filesystem API (dev only) |
+| Library | `src/admin/lib/` | Types, frontmatter parser, GitHub client, auth helper, slug util |
+| Integration | `src/admin/integration.ts` | Astro integration: registers routes + Vite dev middleware |
 | Worker | `worker/src/index.ts` | Hourly: trigger deploy + auto-merge scheduled PRs |
 
 ### Assumptions about the host project
@@ -306,9 +301,9 @@ draft: true   # optional; omit when published
 ```
 
 If your article path differs, update:
-- `ARTICLES_DIR` in `src/integrations/admin-local-api.ts`
+- `ARTICLES_DIR` in `src/admin/integration.ts`
 - The glob patterns in `functions/admin/api/articles.ts`
-- The slug ↔ path conversion in `src/lib/admin/slug.ts`
+- The slug ↔ path conversion in `src/admin/lib/slug.ts`
 
 ---
 

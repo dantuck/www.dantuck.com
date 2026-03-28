@@ -62,27 +62,13 @@ read -r -p "Install CMS into this directory? [y/N] " confirm
 # ── copy files ────────────────────────────────────────────────────────────────
 step "Copying CMS files…"
 
-mkdir -p "$TARGET/functions" "$TARGET/src/components" "$TARGET/src/lib" \
-         "$TARGET/src/pages" "$TARGET/src/styles" "$TARGET/src/integrations" \
-         "$TARGET/public"
+mkdir -p "$TARGET/functions" "$TARGET/src" "$TARGET/public"
 
 cp -r "$SOURCE_ROOT/functions/admin"  "$TARGET/functions/"
 ok "functions/admin/"
 
-cp -r "$SOURCE_ROOT/src/components/admin"  "$TARGET/src/components/"
-ok "src/components/admin/"
-
-cp -r "$SOURCE_ROOT/src/lib/admin"  "$TARGET/src/lib/"
-ok "src/lib/admin/"
-
-cp -r "$SOURCE_ROOT/src/pages/admin"  "$TARGET/src/pages/"
-ok "src/pages/admin/"
-
-cp "$SOURCE_ROOT/src/styles/admin.css"  "$TARGET/src/styles/"
-ok "src/styles/admin.css"
-
-cp "$SOURCE_ROOT/src/integrations/admin-local-api.ts"  "$TARGET/src/integrations/"
-ok "src/integrations/admin-local-api.ts"
+cp -r "$SOURCE_ROOT/src/admin" "$TARGET/src/"
+ok "src/admin/"
 
 if [[ ! -f "$TARGET/vitest.config.ts" ]]; then
   cp "$SOURCE_ROOT/vitest.config.ts" "$TARGET/"
@@ -146,14 +132,15 @@ echo -e "${BOLD}  3 manual steps remaining${RESET}"
 echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 
 echo ""
-echo -e "${BOLD}1. Register the Vite plugin in ${ASTRO_CONFIG}:${RESET}"
+echo -e "${BOLD}1. Register the Astro integration in ${ASTRO_CONFIG}:${RESET}"
 cat <<'EOF'
-   import { adminLocalApiPlugin } from './src/integrations/admin-local-api.ts';
+   import adminCms from './src/admin/integration.ts';
 
    export default defineConfig({
-     vite: {
-       plugins: [adminLocalApiPlugin, /* ...existing plugins */],
-     },
+     integrations: [
+       // ...existing integrations
+       adminCms(),
+     ],
    });
 EOF
 
