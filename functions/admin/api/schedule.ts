@@ -17,6 +17,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
   const { prNumber, path, branch, publishDate } = await request.json() as ScheduleBody;
 
+  if (!path.startsWith('src/pages/') || path.includes('..')) {
+    return json({ error: 'Invalid path' }, 400);
+  }
+
   // Read current file from draft branch
   const file = await gh.getFile(path, branch);
   if (!file) return json({ error: 'File not found on branch' }, 404);
