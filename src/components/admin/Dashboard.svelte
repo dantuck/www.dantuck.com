@@ -64,7 +64,7 @@
 <div class="admin-shell">
   <!-- Top bar -->
   <header class="topbar">
-    <span class="brand">dantuck.com / admin</span>
+    <span class="brand">{import.meta.env.PUBLIC_SITE_NAME ?? 'Admin'}</span>
     <a href="/admin/new" class="btn-primary">+ New Article</a>
   </header>
 
