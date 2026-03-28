@@ -1,6 +1,6 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
-import { GitHubClient } from '../../../src/lib/admin/github';
-import { parseFrontmatter } from '../../../src/lib/admin/frontmatter';
+import { GitHubClient } from '../../../src/admin/lib/github';
+import { parseFrontmatter } from '../../../src/admin/lib/frontmatter';
 import { json, isLocalMode, type Env, type ArticleSummary } from './_types';
 import { mockList, mockDetail } from './_mock';
 

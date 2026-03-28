@@ -1,4 +1,4 @@
-export type { ArticleSummary } from '../../../src/lib/admin/types';
+export type { ArticleSummary } from '../../../src/admin/lib/types';
 
 export interface Env {
   GITHUB_TOKEN: string;

@@ -1,6 +1,6 @@
 import { json } from './_types';
 import type { ArticleSummary } from './_types';
-import type { ArticleDetail } from '../../../src/lib/admin/types';
+import type { ArticleDetail } from '../../../src/admin/lib/types';
 
 const MOCK_ARTICLES: ArticleSummary[] = [
   {

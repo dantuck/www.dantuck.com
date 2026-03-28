@@ -1,5 +1,5 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
-import { GitHubClient } from '../../../src/lib/admin/github';
+import { GitHubClient } from '../../../src/admin/lib/github';
 import { json, isLocalMode, type Env } from './_types';
 import { mockOk } from './_mock';
 
