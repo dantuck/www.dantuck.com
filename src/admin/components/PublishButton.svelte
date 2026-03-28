@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import { authHeaders } from '../../lib/admin/auth';
+  import { authHeaders } from '../lib/auth';
 
   export let prNumber: number | undefined = undefined;
   export let title = 'Untitled';

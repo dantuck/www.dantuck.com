@@ -4,10 +4,10 @@
   import '@milkdown/crepe/theme/common/style.css';
   import '@milkdown/crepe/theme/classic-dark.css';
   import { listenerCtx } from '@milkdown/plugin-listener';
-  import type { ArticleDetail, ArticleSummary } from '../../lib/admin/types';
-  import type { ArticleFrontmatter } from '../../lib/admin/frontmatter';
-  import { toSlug } from '../../lib/admin/slug';
-  import { authHeaders, setAdminToken } from '../../lib/admin/auth';
+  import type { ArticleDetail, ArticleSummary } from '../lib/types';
+  import type { ArticleFrontmatter } from '../lib/frontmatter';
+  import { toSlug } from '../lib/slug';
+  import { authHeaders, setAdminToken } from '../lib/auth';
   import PublishButton from './PublishButton.svelte';
 
   // Article state

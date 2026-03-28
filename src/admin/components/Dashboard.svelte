@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import type { ArticleSummary } from '../../lib/admin/types';
+  import type { ArticleSummary } from '../lib/types';
   import ArticleCard from './ArticleCard.svelte';
-  import { authHeaders, setAdminToken } from '../../lib/admin/auth';
+  import { authHeaders, setAdminToken } from '../lib/auth';
 
   let articles: ArticleSummary[] = [];
   let loading = true;

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ArticleSummary } from '../../lib/admin/types';
+  import type { ArticleSummary } from '../lib/types';
 
   export let article: ArticleSummary;
 
