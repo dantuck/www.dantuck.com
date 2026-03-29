@@ -12,6 +12,10 @@
 
   // Article state
   let slug: string | undefined;
+  let customSlug = '';       // editable part after "article/" — only used for new articles
+  let slugTouched = false;   // true once user manually edits the slug field
+
+  $: if (!slugTouched && !slug && frontmatter.title !== 'Untitled') customSlug = toSlug(frontmatter.title);
   // layout path is relative to src/pages/article/{slug}/index.md (3 dirs up to layouts/)
   let frontmatter: ArticleFrontmatter = {
     title: 'Untitled',
@@ -25,6 +29,7 @@
   let prNumber: number | undefined;
   let branch: string | undefined;
   let previewUrl: string | undefined;
+  let existingPath: string | undefined; // file path of loaded article (may be a flat .md, not index.md)
   let loading = true;
   let error = '';
   let authNeeded = false;
@@ -140,6 +145,7 @@
 
   let editorEl: HTMLDivElement;
   let crepe: Crepe | undefined;
+  let editorReady = false; // gates markdownUpdated to ignore init-time normalization
 
   onMount(async () => {
     // Read slug from query param (edit page is /admin/edit?slug=...)
@@ -169,6 +175,7 @@
         fileSha = data.fileSha;
         prNumber = data.prNumber;
         branch = data.branch;
+        existingPath = data.path;
       } catch (e) {
         error = `Failed to load article: ${e}`;
       }
@@ -192,10 +199,13 @@
     await crepe.create();
     crepe.editor.action(ctx => {
       ctx.get(listenerCtx).markdownUpdated((_, md) => {
+        if (!editorReady) return; // ignore normalization fired during initialization
         body = md;
         scheduleAutosave();
       });
     });
+    await tick();
+    editorReady = true;
   }
 
   function scheduleAutosave() {
@@ -220,8 +230,8 @@
     saveStatus = 'saving';
     clearTimeout(autosaveTimer);
 
-    const effectiveSlug = slug ?? `article/${toSlug(frontmatter.title)}`;
-    const path = `src/pages/${effectiveSlug}/index.${fileExt}`;
+    const effectiveSlug = slug ?? `article/${customSlug || toSlug(frontmatter.title)}`;
+    const path = existingPath ?? `src/pages/${effectiveSlug}/index.${fileExt}`;
 
     try {
       const res = await fetch('/admin/api/save', {
@@ -361,7 +371,7 @@
     }
 
     const base64 = await fileToBase64(file);
-    const effectiveSlug = slug ?? `article/${toSlug(frontmatter.title)}`;
+    const effectiveSlug = slug ?? `article/${customSlug || toSlug(frontmatter.title)}`;
 
     const res = await fetch('/admin/api/upload', {
       method: 'POST',
@@ -436,17 +446,31 @@
     <header class="meta-strip">
       <a href="/admin" class="back-link">← Articles</a>
 
-      <input
-        class="title-input"
-        bind:value={frontmatter.title}
-        on:input={scheduleAutosave}
-        placeholder="Article title..."
-      />
+      <div class="title-group">
+        <input
+          class="title-input"
+          bind:value={frontmatter.title}
+          on:input={scheduleAutosave}
+          placeholder="Article title..."
+        />
+        <div class="slug-row">
+          <span class="slug-prefix">article/</span>
+          <input
+            class="slug-input"
+            bind:value={customSlug}
+            on:input={() => slugTouched = true}
+            placeholder={toSlug(frontmatter.title) || 'my-article'}
+            disabled={!!slug}
+            spellcheck="false"
+            autocomplete="off"
+          />
+        </div>
+      </div>
 
       <div class="meta-fields">
-        <label class="meta-label">Tags</label>
+        <label class="meta-label" for="tag-text-input">Tags</label>
         <div class="tag-field">
-          <div class="tag-input-wrap" on:click={() => tagInputEl?.focus()} role="group">
+          <div class="tag-input-wrap" role="group">
             {#each (frontmatter.tags ?? []) as tag}
               <span class="tag-chip">
                 {tag}
@@ -454,6 +478,7 @@
               </span>
             {/each}
             <input
+              id="tag-text-input"
               bind:this={tagInputEl}
               class="tag-text-input"
               bind:value={tagInput}
@@ -477,8 +502,9 @@
           {/if}
         </div>
 
-        <label class="meta-label">Date</label>
+        <label class="meta-label" for="date-input">Date</label>
         <input
+          id="date-input"
           type="date"
           class="meta-input"
           value={dateParts.dateVal}
@@ -525,6 +551,8 @@
     <div
       class="editor-body"
       bind:this={editorEl}
+      role="region"
+      aria-label="Article editor"
       on:dragover|preventDefault
       on:drop={handleImageDrop}
     ></div>
@@ -545,7 +573,7 @@
 {#if showUnpublishModal}
   <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
   <div class="modal-backdrop" on:click={() => showUnpublishModal = false}>
-    <div class="modal" on:click|stopPropagation role="dialog" aria-modal="true" aria-labelledby="unpublish-modal-title">
+    <div class="modal" on:click|stopPropagation role="dialog" aria-modal="true" aria-labelledby="unpublish-modal-title" tabindex="-1">
       <h2 id="unpublish-modal-title" class="modal-title modal-title--warn">Unpublish article</h2>
       <p class="modal-body">
         This will mark <strong>{frontmatter.title}</strong> as a draft and take it offline on the next deploy.<br /><br />
@@ -575,7 +603,7 @@
 {#if showDeleteModal}
   <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-static-element-interactions -->
   <div class="modal-backdrop" on:click={closeDeleteModal}>
-    <div class="modal" on:click|stopPropagation role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+    <div class="modal" on:click|stopPropagation role="dialog" aria-modal="true" aria-labelledby="delete-modal-title" tabindex="-1">
       <h2 id="delete-modal-title" class="modal-title">Delete article</h2>
       <p class="modal-body">
         This will permanently delete <strong>{frontmatter.title}</strong>.<br />
@@ -633,19 +661,26 @@
 
   .meta-strip {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     padding: 10px 20px;
     background: var(--admin-surface);
     border-bottom: 1px solid var(--admin-border);
     flex-wrap: wrap;
   }
-  .back-link { font-size: 13px; color: var(--admin-text-muted); white-space: nowrap; }
+  .back-link { font-size: 13px; color: var(--admin-text-muted); white-space: nowrap; padding-top: 5px; }
   .back-link:hover { color: var(--admin-text); }
 
-  .title-input {
+  .title-group {
     flex: 1;
     min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .title-input {
+    width: 100%;
     font-size: 15px;
     font-weight: 600;
     background: transparent;
@@ -656,6 +691,32 @@
     color: var(--admin-text);
   }
   .title-input:focus { border-bottom-color: var(--admin-orange); outline: none; }
+
+  .slug-row {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .slug-prefix {
+    font-size: 12px;
+    color: var(--admin-text-muted);
+    white-space: nowrap;
+    font-family: var(--admin-mono);
+  }
+  .slug-input {
+    flex: 1;
+    min-width: 120px;
+    font-size: 12px;
+    font-family: var(--admin-mono);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    border-radius: 0;
+    padding: 2px 0;
+    color: var(--admin-text);
+  }
+  .slug-input:focus { border-bottom-color: var(--admin-orange); outline: none; }
+  .slug-input:disabled { color: var(--admin-text-muted); cursor: default; }
 
   .meta-fields {
     display: flex; align-items: center; gap: 8px;
@@ -742,10 +803,7 @@
   .save-status[data-status="saved"] { color: var(--admin-green); }
   .save-status[data-status="error"] { color: var(--admin-red); }
 
-  .actions { display: flex; gap: 8px; margin-left: auto; align-items: center; }
-
-  .delete-confirm { display: flex; align-items: center; gap: 6px; }
-  .delete-confirm-label { font-size: 12px; color: var(--admin-red); white-space: nowrap; }
+  .actions { display: flex; gap: 8px; margin-left: auto; align-items: center; padding-top: 2px; }
 
   .btn-danger {
     background: transparent;
@@ -762,7 +820,7 @@
   .editor-body {
     flex: 1;
     overflow-y: auto;
-    padding: 32px max(32px, calc(50% - 400px));
+    padding: 32px max(24px, calc(50% - 500px));
     background: var(--admin-bg);
   }
 
@@ -823,9 +881,6 @@
   }
 
   .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
-
-  .delete-confirm { display: flex; align-items: center; gap: 6px; }
-  .delete-confirm-label { font-size: 12px; color: var(--admin-red); white-space: nowrap; }
 
   .btn-danger {
     background: transparent;
