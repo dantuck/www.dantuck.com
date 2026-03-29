@@ -64,7 +64,7 @@
 <div class="admin-shell">
   <!-- Top bar -->
   <header class="topbar">
-    <span class="brand">{import.meta.env.PUBLIC_SITE_NAME ?? 'Admin'}</span>
+    <span class="brand">{import.meta.env.PUBLIC_SITE_NAME ?? 'Site'} — admin</span>
     <a href="/admin/new" class="btn-primary">+ New Article</a>
   </header>
 
