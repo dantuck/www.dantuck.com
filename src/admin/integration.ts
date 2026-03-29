@@ -136,6 +136,9 @@ async function handleSave(req: IncomingMessage, res: ServerResponse) {
 async function handleSchedule(req: IncomingMessage, res: ServerResponse) {
   const raw = await readBody(req);
   const data = JSON.parse(raw) as { slug: string; path: string; publishDate: string };
+  if (!data.path.startsWith('src/pages/') || data.path.includes('..')) {
+    jsonResponse(res, { error: 'Invalid path' }, 400); return;
+  }
   const absPath = slugToPath(data.slug) ?? join(ROOT, data.path);
   if (!existsSync(absPath)) { jsonResponse(res, { error: 'Not found' }, 404); return; }
   const parsed = parseFrontmatter(readFileSync(absPath, 'utf-8'));
@@ -147,10 +150,11 @@ async function handleSchedule(req: IncomingMessage, res: ServerResponse) {
 async function handleUpload(req: IncomingMessage, res: ServerResponse) {
   const raw = await readBody(req);
   const data = JSON.parse(raw) as { slug: string; filename: string; base64: string };
-  if (data.slug.includes('..') || data.slug.startsWith('/')) {
-    jsonResponse(res, { error: 'Invalid slug' }, 400); return;
-  }
   const safeName = data.filename.toLowerCase().replace(/[^a-z0-9.\-]/g, '-').replace(/-+/g, '-');
+  const assembledPath = `src/pages/${data.slug}/${safeName}`;
+  if (!assembledPath.startsWith('src/pages/') || assembledPath.includes('..')) {
+    jsonResponse(res, { error: 'Invalid path' }, 400); return;
+  }
   const dir = join(ROOT, 'src/pages', data.slug);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, safeName), Buffer.from(data.base64, 'base64'));

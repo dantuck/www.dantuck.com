@@ -83,7 +83,7 @@ export function parseFrontmatter(content: string): ParsedFile {
       const tagMatch = line.match(/^\s*- (.+)$/);
       if (tagMatch) {
         frontmatter.tags = frontmatter.tags ?? [];
-        frontmatter.tags.push(tagMatch[1].trim());
+        frontmatter.tags.push(unquote(tagMatch[1].trim()));
         continue;
       }
       capturingTags = false;
