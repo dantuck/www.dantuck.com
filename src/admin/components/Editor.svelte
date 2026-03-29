@@ -204,7 +204,10 @@
         scheduleAutosave();
       });
     });
-    await tick();
+    // Drain the full event queue (not just Svelte microtasks) before opening
+    // the gate, so any deferred Milkdown normalization events (rAF, setTimeout)
+    // are also discarded.
+    await new Promise(resolve => setTimeout(resolve, 0));
     editorReady = true;
   }
 
@@ -259,6 +262,7 @@
         // Update URL to use query param (consistent with /admin/edit?slug=...)
         window.history.pushState({}, '', `/admin/edit?slug=${encodeURIComponent(effectiveSlug)}`);
       }
+      existingPath = path; // pin confirmed server path for subsequent operations
       saveStatus = 'saved';
       setTimeout(() => saveStatus = 'idle', 3000);
     } catch (e) {
@@ -804,18 +808,6 @@
   .save-status[data-status="error"] { color: var(--admin-red); }
 
   .actions { display: flex; gap: 8px; margin-left: auto; align-items: center; padding-top: 2px; }
-
-  .btn-danger {
-    background: transparent;
-    color: var(--admin-red);
-    border: 1px solid var(--admin-red);
-    border-radius: 5px;
-    padding: 6px 14px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-  }
-  .btn-danger:hover { background: var(--admin-red); color: #fff; }
 
   .editor-body {
     flex: 1;
