@@ -115,8 +115,7 @@
     </button>
 
     {#if dropdownOpen}
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <div class="dropdown-backdrop" on:click={() => dropdownOpen = false}></div>
+      <div class="dropdown-backdrop" role="presentation" on:click={() => dropdownOpen = false}></div>
       <div class="dropdown">
         <button class="dropdown-item" on:click={publishNow}>
           <strong>Publish Now</strong>
