@@ -273,7 +273,7 @@
   async function confirmDelete() {
     if (!slug || deleteConfirmText !== 'DELETE') return;
     deleting = true;
-    const path = `src/pages/${slug}/index.${fileExt}`;
+    const path = existingPath ?? `src/pages/${slug}/index.${fileExt}`;
     const res = await fetch('/admin/api/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
@@ -311,7 +311,7 @@
   async function confirmUnpublish() {
     if (!slug) return;
     unpublishing = true;
-    const path = `src/pages/${slug}/index.${fileExt}`;
+    const path = existingPath ?? `src/pages/${slug}/index.${fileExt}`;
     const res = await fetch('/admin/api/unpublish', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
@@ -540,7 +540,7 @@
           title={frontmatter.title}
           publishDate={frontmatter.publishDate}
           {slug}
-          path={slug ? `src/pages/${slug}/index.${fileExt}` : undefined}
+          path={existingPath ?? (slug ? `src/pages/${slug}/index.${fileExt}` : undefined)}
           {branch}
           onSave={save}
         />
