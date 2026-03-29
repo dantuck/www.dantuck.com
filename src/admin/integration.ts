@@ -15,8 +15,8 @@ import { join, relative, dirname } from 'path';
 import type { Connect } from 'vite';
 import type { IncomingMessage, ServerResponse } from 'http';
 import type { AstroIntegration } from 'astro';
-import { parseFrontmatter, assembleFile } from './lib/frontmatter.js';
-import type { ArticleSummary, ArticleDetail } from './lib/types.js';
+import { parseFrontmatter, assembleFile } from './lib/frontmatter';
+import type { ArticleSummary, ArticleDetail } from './lib/types';
 
 const ROOT = process.cwd();
 const ARTICLES_DIR = join(ROOT, 'src/pages/article');

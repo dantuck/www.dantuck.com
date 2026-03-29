@@ -1,19 +1,19 @@
 ---
-layout: '../../../layouts/BlogPost.astro'
 title: 'Nix: Configuring git'
-author: dantuck
+publishDate: 12 May 2023
+description: In this article, we configure git using Nix and Home Manager. Rather than maintaining a hand-crafted .gitconfig, we declare our git identity, aliases, global ignores, and extra settings directly in home.nix — giving us a reproducible, portable git setup managed alongside the rest of our environment.
 tags:
 - dotfiles
 - nix
 - git
 - home-manager
-publishDate: 12 May 2023
-description: |
-  In this article, we configure git using Nix and Home Manager. Rather than maintaining a hand-crafted .gitconfig, we declare our git identity, aliases, global ignores, and extra settings directly in home.nix — giving us a reproducible, portable git setup managed alongside the rest of our environment.
+author: dantuck
+layout: '../../../layouts/BlogPost.astro'
 ---
-
-> [Nix and Home Manager - Getting setup](/article/nix/setup)<br />
-> [Nix: Configuring program specific configurations - The basics](/article/nix/program-config-basics)<br />
+> [Nix and Home Manager - Getting setup](/article/nix/setup)
+> \
+> [Nix: Configuring program specific configurations - The basics](/article/nix/program-config-basics)
+> \
 > ➜ Nix: Configuring git
 
 Git is one of the first things I reach for when setting up a new machine, which makes it a natural fit for Home Manager. Instead of copying `.gitconfig` between machines or running `git config --global` commands by hand, we can declare the whole setup in `home.nix` and have it applied automatically.
@@ -183,3 +183,4 @@ You can find your key ID with `gpg --list-secret-keys --keyid-format=long`. Repl
 In conclusion, we have moved our entire git configuration into `home.nix`. Name, email, global ignores, aliases, extra settings, and optional GPG signing are all declared in one place. A fresh `home-manager switch` on any machine gives an identical git setup — no manual steps, no forgotten flags.
 
 From here the pattern extends to any other program with a Home Manager module: declare it, switch, verify.
+

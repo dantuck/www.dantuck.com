@@ -141,11 +141,20 @@ function unquote(s: string): string {
   return s.replace(/^['"]|['"]$/g, '');
 }
 
+// Wrap in single quotes if the value contains ': ' or leading special chars that
+// would cause a standards-compliant YAML parser to misinterpret the scalar.
+function yamlString(s: string): string {
+  if (s.includes(': ') || /^[:{[&*!|>'"%@`]/.test(s)) {
+    return `'${s.replace(/'/g, "''")}'`;
+  }
+  return s;
+}
+
 export function serializeFrontmatter(fm: ArticleFrontmatter): string {
   const lines: string[] = [];
-  lines.push(`title: ${fm.title}`);
+  lines.push(`title: ${yamlString(fm.title)}`);
   if (fm.publishDate) lines.push(`publishDate: ${fm.publishDate}`);
-  if (fm.description) lines.push(`description: ${fm.description}`);
+  if (fm.description) lines.push(`description: ${yamlString(fm.description)}`);
   if (fm.tags?.length) {
     lines.push('tags:');
     fm.tags.forEach(t => lines.push(`- ${t}`));
