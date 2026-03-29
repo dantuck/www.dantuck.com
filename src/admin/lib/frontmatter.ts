@@ -157,9 +157,9 @@ export function serializeFrontmatter(fm: ArticleFrontmatter): string {
   if (fm.description) lines.push(`description: ${yamlString(fm.description)}`);
   if (fm.tags?.length) {
     lines.push('tags:');
-    fm.tags.forEach(t => lines.push(`- ${t}`));
+    fm.tags.forEach(t => lines.push(`- ${yamlString(t)}`));
   }
-  if (fm.author) lines.push(`author: ${fm.author}`);
+  if (fm.author) lines.push(`author: ${yamlString(fm.author)}`);
   if (fm.draft) lines.push(`draft: true`);
   if (fm.layout) lines.push(`layout: '${fm.layout}'`);
   return lines.join('\n');

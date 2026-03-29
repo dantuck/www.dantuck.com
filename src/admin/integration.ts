@@ -45,6 +45,7 @@ function findArticleFiles(dir: string): string[] {
   const results: string[] = [];
   if (!existsSync(dir)) return results;
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name.startsWith('_')) continue;
     const full = join(dir, entry.name);
     if (entry.isDirectory()) {
       results.push(...findArticleFiles(full));
@@ -123,6 +124,9 @@ async function handleSave(req: IncomingMessage, res: ServerResponse) {
     frontmatter: import('./lib/frontmatter.js').ArticleFrontmatter;
     imports: string; body: string; extra?: string[];
   };
+  if (!data.path.startsWith('src/pages/') || data.path.includes('..')) {
+    jsonResponse(res, { error: 'Invalid path' }, 400); return;
+  }
   const absPath = join(ROOT, data.path);
   mkdirSync(join(absPath, '..'), { recursive: true });
   writeFileSync(absPath, assembleFile(data.frontmatter, data.imports, data.body, data.extra), 'utf-8');
@@ -143,6 +147,9 @@ async function handleSchedule(req: IncomingMessage, res: ServerResponse) {
 async function handleUpload(req: IncomingMessage, res: ServerResponse) {
   const raw = await readBody(req);
   const data = JSON.parse(raw) as { slug: string; filename: string; base64: string };
+  if (data.slug.includes('..') || data.slug.startsWith('/')) {
+    jsonResponse(res, { error: 'Invalid slug' }, 400); return;
+  }
   const safeName = data.filename.toLowerCase().replace(/[^a-z0-9.\-]/g, '-').replace(/-+/g, '-');
   const dir = join(ROOT, 'src/pages', data.slug);
   mkdirSync(dir, { recursive: true });
@@ -153,6 +160,9 @@ async function handleUpload(req: IncomingMessage, res: ServerResponse) {
 async function handleUnpublish(req: IncomingMessage, res: ServerResponse) {
   const raw = await readBody(req);
   const data = JSON.parse(raw) as { slug: string; path: string; redirectTo?: string };
+  if (!data.path.startsWith('src/pages/') || data.path.includes('..')) {
+    jsonResponse(res, { error: 'Invalid path' }, 400); return;
+  }
   const absPath = slugToPath(data.slug) ?? join(ROOT, data.path);
   if (!existsSync(absPath)) { jsonResponse(res, { error: 'Not found' }, 404); return; }
   const parsed = parseFrontmatter(readFileSync(absPath, 'utf-8'));
@@ -178,6 +188,9 @@ async function handleUnpublish(req: IncomingMessage, res: ServerResponse) {
 async function handleDelete(req: IncomingMessage, res: ServerResponse) {
   const raw = await readBody(req);
   const data = JSON.parse(raw) as { slug: string; path: string };
+  if (!data.path.startsWith('src/pages/') || data.path.includes('..')) {
+    jsonResponse(res, { error: 'Invalid path' }, 400); return;
+  }
   const absPath = slugToPath(data.slug) ?? join(ROOT, data.path);
   if (!existsSync(absPath)) { jsonResponse(res, { error: 'Not found' }, 404); return; }
   unlinkSync(absPath);
