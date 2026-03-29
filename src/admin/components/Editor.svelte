@@ -204,9 +204,9 @@
         scheduleAutosave();
       });
     });
-    // Drain the full event queue (not just Svelte microtasks) before opening
-    // the gate, so any deferred Milkdown normalization events (rAF, setTimeout)
-    // are also discarded.
+    // Drain pending microtasks and at least one macrotask before opening the
+    // gate, so synchronously or setTimeout-deferred Milkdown normalization
+    // events are discarded. rAF-deferred events would still slip through.
     await new Promise(resolve => setTimeout(resolve, 0));
     editorReady = true;
   }
