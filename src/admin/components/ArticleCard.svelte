@@ -48,11 +48,14 @@
     transition: border-color 0.15s, background 0.15s;
     cursor: pointer;
   }
-  .card:hover { border-color: var(--admin-orange); background: var(--admin-surface-2); }
-
   .card[data-status="draft"]     { border-left: 3px solid var(--admin-orange); }
   .card[data-status="scheduled"] { border-left: 3px solid var(--admin-purple); }
   .card[data-status="live"]      { border-left: 3px solid var(--admin-green); }
+
+  .card:hover                          { background: var(--admin-surface-2); }
+  .card[data-status="draft"]:hover     { border-color: var(--admin-orange); }
+  .card[data-status="scheduled"]:hover { border-color: var(--admin-purple); }
+  .card[data-status="live"]:hover      { border-color: var(--admin-green); }
 
   .card-title { font-weight: 600; font-size: 15px; margin-bottom: 8px; }
 
