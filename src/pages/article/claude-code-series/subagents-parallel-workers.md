@@ -1,7 +1,6 @@
 ---
 layout: '../../../layouts/BlogPost.astro'
-publishDate: 24 Mar 2026
-draft: true
+publishDate: 06 Apr 2026
 title: "Claude Code, Part 2: Isolated, Parallel Workers with Subagents"
 author: dantuck
 series: claude-code-series
@@ -35,7 +34,6 @@ When a subagent is spawned, its context contains:
 - Your CLAUDE.md files
 - Git status
 - The task prompt from the parent session
-- Any skills explicitly preloaded by name
 
 It does **not** receive your conversation history or session-invoked skills. If you want a subagent to know your style guide, you tell it explicitly.
 
@@ -63,22 +61,20 @@ Research $ARGUMENTS:
 
 The `agent` field picks the subagent type: `Explore` (read-only codebase tools), `Plan` (architect), `general-purpose` (all tools), or a custom agent you define. Omit it and you get `general-purpose`.
 
-**Via a custom agent definition:** Create `.claude/agents/<name>.md` to define a reusable subagent with specific instructions and preloaded skills:
+**Via a custom agent definition:** Create `.claude/agents/<name>.md` to define a reusable subagent with specific instructions and tool constraints:
 
 ```yaml
 ---
 name: security-auditor
 description: Specialized security review agent
-skills:
-  - security-checklist
-  - owasp-patterns
+allowed-tools: Glob, Grep, Read
 ---
 
 Review the codebase for security vulnerabilities. Focus on authentication,
 input validation, and dependency risks. Return a structured report.
 ```
 
-The `skills:` field preloads those skills fully at launch — unlike session skills where only descriptions load until invoked. The subagent starts with complete knowledge of your checklist and patterns.
+The `allowed-tools` field restricts which tools the subagent can use. The agent's instructions — the body of the file — are its complete context at launch. No tools beyond what you allow, no knowledge beyond what you write.
 
 ---
 
