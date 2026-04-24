@@ -30,4 +30,4 @@
 ## Tags taxonomy
 
 Lowercase, hyphenated. 2-4 tags per article. Existing tags:
-`reading`, `tools`, `accessibility`, `claude-code`, `ai`, `developer-tools`, `workflow`, `sci-fi`, `movies`
+`reading`, `tools`, `accessibility`, `claude-code`, `ai`, `developer-tools`, `workflow`, `sci-fi`, `movies`, `backup`
