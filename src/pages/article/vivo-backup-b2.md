@@ -35,7 +35,7 @@ Vivo depends on a few tools that must be present before first use:
 - <a href="https://restic.net" target="_blank" rel="noopener noreferrer">restic</a> — the backup engine
 - <a href="https://github.com/getsops/sops" target="_blank" rel="noopener noreferrer">sops</a> — secrets encryption
 - <a href="https://age-encryption.org" target="_blank" rel="noopener noreferrer">age</a> — encryption key management
-- <a href="https://github.com/Backblaze/B2_Command_Line_Tool" target="_blank" rel="noopener noreferrer">b2</a> — required for Backblaze B2 remotes (`pip install b2`)
+- <a href="https://www.backblaze.com/docs/cloud-storage-command-line-tools" target="_blank" rel="noopener noreferrer">b2</a> — required for Backblaze B2 remotes
 
 Once those are in place, install vivo with the one-line script for Linux and macOS:
 
