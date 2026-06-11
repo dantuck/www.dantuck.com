@@ -2,7 +2,6 @@
 name: write-article
 description: Write a new blog article for this site
 argument-hint: <topic>
-disable-model-invocation: true
 allowed-tools: Read, Write, Glob, Agent
 ---
 
