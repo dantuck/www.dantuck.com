@@ -3,6 +3,8 @@ layout: '../../../layouts/BlogPost.astro'
 publishDate: 11 Jun 2026
 title: "RustFS on Synology NAS with Tailscale Sidecar"
 author: dantuck
+series: rustfs-on-synology
+seriesPart: 1
 description: |
     Install RustFS on a Synology NAS using Container Manager with a Tailscale sidecar for private, S3-compatible object storage accessible over your tailnet.
 tags:

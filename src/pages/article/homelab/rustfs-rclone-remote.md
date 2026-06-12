@@ -3,6 +3,8 @@ layout: '../../../layouts/BlogPost.astro'
 publishDate: 12 Jun 2026
 title: "rclone S3 Remote for Self-Hosted RustFS"
 author: dantuck
+series: rustfs-on-synology
+seriesPart: 2
 description: |
     Configure rclone and vivo·keep to use a self-hosted RustFS instance as an S3-compatible remote — a private alternative to Backblaze B2 running on your NAS.
 tags:

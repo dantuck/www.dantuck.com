@@ -3,6 +3,8 @@ layout: '../../../layouts/BlogPost.astro'
 publishDate: 15 Jun 2026
 title: "Tailscale on Synology DSM with ACLs for Homelab Services"
 author: dantuck
+series: rustfs-on-synology
+seriesPart: 3
 description: |
     Set up Tailscale on a Synology NAS with MagicDNS and ACL policies to control which tailnet devices can reach self-hosted services like RustFS.
 tags:
