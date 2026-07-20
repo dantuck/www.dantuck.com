@@ -5,6 +5,7 @@ import mdx from "@astrojs/mdx";
 import UnoCSS from '@unocss/astro';
 import { existsSync, createReadStream } from 'fs';
 import { join, extname } from 'path';
+import adminCms from './src/admin/integration.ts';
 
 /** Vite plugin: serves dist/pagefind/ during dev so search works after a build. */
 const pagefindDevPlugin = {
@@ -35,7 +36,7 @@ export default defineConfig({
       theme: 'dracula',
     },
   },
-  integrations: [svelte(), sitemap(), mdx(), UnoCSS({ injectReset: false })],
+  integrations: [svelte(), sitemap(), mdx(), UnoCSS({ injectReset: false }), adminCms()],
   vite: {
     build: {
       rollupOptions: {

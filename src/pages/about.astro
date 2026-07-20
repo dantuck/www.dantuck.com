@@ -1,208 +1,84 @@
 ---
 import AboutLayout from "../layouts/About.astro";
+import aboutData from "../data/about.json";
+
+const { intro, now, previously, military, education, skills } = aboutData;
 ---
 
 <AboutLayout
   description="Daniel Tucker — Senior Staff Software Engineer in Colorado. Writing about software, tools, and systems."
 >
-  <p>Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado.</p>
+  <p>{intro}</p>
 
   <h3 class="about-section-title">Now</h3>
 
   <div class="about-timeline about-timeline--now">
-    <div class="about-entry">
-      <span class="about-dot" style="background: rgb(255,140,0);"></span>
-      <p class="about-company"><a href="https://www.bill.com/">Bill</a></p>
-      <p class="about-location">San Jose, CA</p>
-      <div class="about-role">
-        <span class="about-role-title about-role-title--current"
-          >Senior Staff Software Engineer</span
-        >
-        <span class="about-meta">March 2025 – Present</span>
-        <p>
-          Senior Staff Software Engineer in BILL's Product, Network & AI
-          organization, focused on developer experience and backend
-          architecture. I design and build internal developer
-          platforms—standardized local and cloud environments, opinionated
-          tooling, and automation—that make it fast and reliable for engineers
-          to spin up services, ship code, and debug production-like issues.
-          Recently I've been integrating AI-assisted workflows into this stack
-          so that agents can safely introspect, diagnose, and repair development
-          environments, shifting repetitive troubleshooting from humans to
-          automation and shortening feedback loops. Beyond hands-on engineering,
-          I act as an architecture partner and mentor across teams, helping set
-          standards for database migrations, CI/CD, and cloud infrastructure so
-          our platform scales with the business.
+    {now.map((entry) => (
+      <div class="about-entry">
+        <span class="about-dot" style={`background: ${entry.dotColor};`}></span>
+        <p class="about-company">
+          {entry.companyUrl ? <a href={entry.companyUrl}>{entry.company}</a> : entry.company}
         </p>
+        <p class="about-location">{entry.location}</p>
+        {entry.roles.map((role, i) => (
+          <div class={`about-role ${i > 0 ? 'about-role--prev' : ''}`}>
+            <span class={`about-role-title ${role.current ? 'about-role-title--current' : ''}`}>
+              {role.title}
+            </span>
+            {role.dates && <span class="about-meta">{role.dates}</span>}
+            <p>{role.description}</p>
+          </div>
+        ))}
       </div>
-      <div class="about-role about-role--prev">
-        <span class="about-role-title">Staff Software Engineer</span>
-        <span class="about-meta">January 2022 – March 2025</span>
-        <p>
-          Staff Software Engineer in BILL's Product, Network & AI organization,
-          focused on backend architecture and developer experience. I
-          implemented and evolved core Elixir services and shared libraries,
-          strengthened patterns for database migrations and CI/CD, and helped
-          teams adopt safer, more standardized ways to ship changes. I built and
-          maintained internal tooling and local development workflows that
-          reduced environment setup friction and production risk, and I
-          regularly partnered with product squads as a reviewer and mentor on
-          performance, data integrity, and cloud infrastructure decisions.
-        </p>
-      </div>
-    </div>
+    ))}
   </div>
 
   <h3 class="about-section-title">Previously</h3>
 
   <div class="about-timeline about-timeline--prev">
-    <div class="about-entry">
-      <span class="about-dot" style="background: rgba(255,140,0,0.75);"></span>
-      <span class="about-meta">Apr 2020 – Dec 2021</span>
-      <p class="about-company">
-        <a href="https://singularity-interactive.com/"
-          >Singularity Interactive</a>
-      </p>
-      <p class="about-location">Boulder, CO</p>
-      <div class="about-role">
-        <span class="about-role-title">Staff Software Engineer</span>
-        <span class="about-meta">Apr 2021 – Dec 2021</span>
-        <p>
-          Led application support and special features for marketing and sales.
-          Participated in architectural design, mentored developers across
-          backend and frontend disciplines, and tackled harder problems to
-          establish patterns for new feature development.
+    {previously.map((entry) => (
+      <div class="about-entry">
+        <span class="about-dot" style={`background: rgba(255, 140, 0, ${entry.dotOpacity});`}></span>
+        <span class="about-meta">{entry.dates}</span>
+        <p class="about-company">
+          {entry.companyUrl ? <a href={entry.companyUrl}>{entry.company}</a> : entry.company}
         </p>
+        <p class="about-location">{entry.location}</p>
+        {entry.roles.map((role, i) => (
+          <div class={`about-role ${i > 0 ? 'about-role--prev' : ''}`}>
+            <span class="about-role-title">{role.title}</span>
+            {role.dates && <span class="about-meta">{role.dates}</span>}
+            <p>{role.description}</p>
+          </div>
+        ))}
       </div>
-      <div class="about-role about-role--prev">
-        <span class="about-role-title"
-          >Software Developer II / Senior Engineer</span
-        >
-        <span class="about-meta">Apr 2020 – Apr 2021</span>
-        <p>
-          Full stack engineer using NodeJS and ReactJS. Built reliable, tested
-          applications deployed on AWS. Assisted in leading architectural design
-          and identifying security concerns.
-        </p>
-      </div>
-    </div>
-
-    <div class="about-entry">
-      <span class="about-dot" style="background: rgba(255,140,0,0.55);"></span>
-      <span class="about-meta">Nov 2014 – Apr 2020</span>
-      <p class="about-company">
-        <a href="https://www.exclusiveresorts.com">Exclusive Resorts</a>
-      </p>
-      <p class="about-location">Denver, CO</p>
-      <div class="about-role">
-        <span class="about-role-title">Manager, UI Development</span>
-        <span class="about-meta">2018 – Apr 2020</span>
-        <p>
-          Managed a mixed onsite/offsite development team focused on
-          public-facing website and content API R&D. Led design implementations
-          and UI framework direction for member-facing applications. Managed and
-          developed the content API and CMS in C#.
-        </p>
-      </div>
-      <div class="about-role about-role--prev">
-        <span class="about-role-title"
-          >Lead Developer / Senior UI Developer / Offsite Team Manager</span
-        >
-        <span class="about-meta">Nov 2014 – 2018</span>
-        <p>
-          Led UI architectural direction and implementation. Engineered a
-          content API in C# Web API. Implemented build processes using Grunt to
-          optimize and deploy assets to AWS CloudFront.
-        </p>
-      </div>
-    </div>
-
-    <div class="about-entry">
-      <span class="about-dot" style="background: rgba(255,140,0,0.4);"></span>
-      <span class="about-meta">Jun 2014 – Nov 2014</span>
-      <p class="about-company">Schoolrunner</p>
-      <p class="about-location">Denver, CO</p>
-      <div class="about-role">
-        <span class="about-role-title">Application Engineer</span>
-        <p>
-          Built an Ionic Framework app using AngularJS for teacher actions
-          (attendance, behavior recording), deployed to Android and iOS.
-        </p>
-      </div>
-    </div>
-
-    <div class="about-entry">
-      <span class="about-dot" style="background: rgba(255,140,0,0.3);"></span>
-      <span class="about-meta">May 2012 – Jun 2014</span>
-      <p class="about-company">Sitrion (NewsGator)</p>
-      <p class="about-location">Denver, CO</p>
-      <div class="about-role">
-        <span class="about-role-title">Software Engineer</span>
-        <p>
-          Developed Sitrion Social Sites, a social networking plug-in for
-          SharePoint. Designed and implemented Lookout360 as a portable ribbon
-          connector.
-        </p>
-      </div>
-    </div>
-
-    <div class="about-entry">
-      <span class="about-dot" style="background: rgba(255,140,0,0.2);"></span>
-      <span class="about-meta">Feb 2010 – May 2012</span>
-      <p class="about-company">Denver Regional Council of Governments</p>
-      <p class="about-location">Denver, CO</p>
-      <div class="about-role">
-        <span class="about-role-title">Software Developer</span>
-        <p>
-          Rebuilt mission-critical business applications into a more robust and
-          scalable solution, integrating three systems into one.
-        </p>
-      </div>
-    </div>
-
-    <div class="about-entry">
-      <span class="about-dot" style="background: rgba(255,140,0,0.15);"></span>
-      <span class="about-meta">Jan 2008 – Feb 2010</span>
-      <p class="about-company">Wood Group ESP</p>
-      <p class="about-location">Oklahoma City, OK</p>
-      <div class="about-role">
-        <span class="about-role-title">Programmer / Analyst</span>
-        <p>
-          Designed, tested, and implemented software applications in C# and
-          ASP.Net. Coordinated with business subject matter experts to
-          incorporate business rules, mathematical models, petroleum engineering
-          aspects, and accounting rules into software.
-        </p>
-      </div>
-    </div>
+    ))}
   </div>
 
   <div class="about-footer">
     <div class="about-footer-col">
       <h3 class="about-section-title">Military</h3>
-      <p class="about-company">Oklahoma Air National Guard</p>
+      <p class="about-company">{military.organization}</p>
       <div class="about-role">
-        <span class="about-role-title">Aircraft Generation Specialist</span>
-        <span class="about-meta">April 2000 – April 2010</span>
+        <span class="about-role-title">{military.role}</span>
+        <span class="about-meta">{military.dates}</span>
       </div>
     </div>
     <div class="about-footer-col">
       <h3 class="about-section-title">Education</h3>
-      <p class="about-company">Oklahoma State University</p>
+      <p class="about-company">{education.institution}</p>
       <div class="about-role">
-        <span class="about-role-title"
-          >Bachelor in Information Technology Assurance & Forensics</span
-        >
-        <span class="about-meta">2007</span>
+        <span class="about-role-title">{education.degree}</span>
+        <span class="about-meta">{education.year}</span>
       </div>
     </div>
   </div>
 
   <h3 class="about-section-title">Skills & Interests</h3>
   <ul>
-    <li>Linux system administrator, privately for ~15 years</li>
-    <li>Recreational private pilot (Part 141 training)</li>
-    <li>Hobbyist builder of APIs in Go and Progressive Web Applications</li>
+    {skills.map((skill) => (
+      <li>{skill}</li>
+    ))}
   </ul>
 </AboutLayout>
 

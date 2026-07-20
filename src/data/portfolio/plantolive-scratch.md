@@ -2,6 +2,7 @@
 title: Plan to Live — Scratch
 tagline: Quick-capture interface for meal planning
 url: https://scratch.plantolive.app
+screenshotUrl: https://scratch.plantolive.app/about
 screenshot: plantolive-scratch.jpg
 phoneScreenshot: plantolive-scratch-mobile.jpg
 techStack: [Svelte, Cloudflare Workers, D1]

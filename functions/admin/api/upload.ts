@@ -1,0 +1,49 @@
+import type { PagesFunction } from '@cloudflare/workers-types';
+import { GitHubClient } from '../../../src/admin/lib/github';
+import { json, isAllowedPath, isLocalMode, type Env } from './_types';
+import { mockUpload } from './_mock';
+
+interface UploadBody {
+  slug: string;     // e.g. "article/my-post"
+  branch: string;   // draft branch name
+  filename: string; // e.g. "hero.webp"
+  base64: string;   // raw base64 (no data: prefix)
+  existingSha?: string;
+}
+
+export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
+  if (isLocalMode(env)) {
+    const { filename } = await request.json() as UploadBody;
+    return mockUpload(filename);
+  }
+  const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
+  const { slug, branch, filename, base64, existingSha } = await request.json() as UploadBody;
+
+  // Slugify filename
+  const safeName = filename
+    .toLowerCase()
+    .replace(/[^a-z0-9.\-]/g, '-')
+    .replace(/-+/g, '-');
+
+  const dir = `src/pages/${slug}`;
+  const path = `${dir}/${safeName}`;
+
+  if (!isAllowedPath(path)) {
+    return json({ error: 'Invalid path' }, 400);
+  }
+
+  try {
+    await gh.putBinary({
+      path,
+      base64,
+      message: `image: add ${safeName} for ${slug}`,
+      branch,
+      sha: existingSha,
+    });
+  } catch (err) {
+    return json({ error: (err as Error).message }, 502);
+  }
+
+  // Return the relative path to use in MDX import
+  return json({ ok: true, path: `./${safeName}`, fullPath: path });
+};
