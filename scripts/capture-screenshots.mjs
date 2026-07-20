@@ -1,23 +1,45 @@
 // Prerequisite: run `npx playwright install chromium` once before using this script.
 // Usage: pnpm screenshots
 import { chromium, devices } from 'playwright';
-import { mkdir } from 'fs/promises';
+import { mkdir, readdir, readFile } from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const outputDir = path.resolve(__dirname, '../public/images/portfolio');
+const portfolioDir = path.resolve(__dirname, '../src/data/portfolio');
 
-const projects = [
-  { url: 'https://www.adamsfenceco.com', filename: 'adamsfenceco.jpg' },
-  { url: 'https://www.mirandatucker.com', filename: 'mirandatucker.jpg' },
-  { url: 'https://www.marshdalepta.org', filename: 'marshdalepta.jpg' },
-  { url: 'https://scratch.plantolive.app/about', filename: 'plantolive-scratch.jpg' },
-  { url: 'https://mealq.plantolive.app', filename: 'plantolive-mealq.jpg' },
-];
+/** Minimal frontmatter field reader — just enough for the flat key: value lines portfolio entries use. */
+function readField(frontmatter, key) {
+  const match = frontmatter.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
+  return match ? match[1].trim().replace(/^['"]|['"]$/g, '') : undefined;
+}
+
+async function loadProjects() {
+  const files = (await readdir(portfolioDir)).filter(f => f.endsWith('.md'));
+  const projects = [];
+  for (const file of files) {
+    const content = await readFile(path.join(portfolioDir, file), 'utf-8');
+    const match = content.match(/^---\n([\s\S]*?)\n---/);
+    if (!match) continue;
+    const frontmatter = match[1];
+    if (readField(frontmatter, 'draft') === 'true') continue;
+    const url = readField(frontmatter, 'screenshotUrl') ?? readField(frontmatter, 'url');
+    const filename = readField(frontmatter, 'screenshot');
+    if (!url || !filename) continue;
+    projects.push({ url, filename });
+  }
+  return projects;
+}
 
 const DESKTOP = { width: 1280, height: 800 };
 const MOBILE_DEVICE = devices['iPhone 14'];  // sets viewport, UA, deviceScaleFactor, touch
+
+const projects = await loadProjects();
+if (projects.length === 0) {
+  console.log('No portfolio entries with url + screenshot found — nothing to capture.');
+  process.exit(0);
+}
 
 await mkdir(outputDir, { recursive: true });
 
