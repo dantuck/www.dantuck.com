@@ -29,6 +29,23 @@ const [hero, ...rest] = all;
   <body class="bg-site-bg text-site-text font-sans">
     <Header client:load path={Astro.url.pathname} />
     <main class="max-content pt-6 pb-12">
+      <section class="hero-intro">
+        <p class="kicker">Software / Writing / Recipes</p>
+        <h1 class="hero-headline font-serif text-primary">
+          bytes of thought<span class="text-orange">.</span>
+        </h1>
+        <p class="hero-subhead text-site-text-muted">
+          Notes on software engineering, developer platforms, and the occasional recipe
+          — written by Daniel Tucker.
+        </p>
+        <div class="hero-ctas">
+          <a href="/article" class="hero-cta hero-cta-filled">Read the articles</a>
+          <a href="/about" class="hero-cta hero-cta-ghost">About me</a>
+        </div>
+      </section>
+
+      <div class="hairline my-8" aria-hidden="true"></div>
+
       {hero && (hero as any).url?.startsWith('/recipe/')
         ? <RecipePreview post={hero} hero={true} />
         : hero && <BlogPostPreview post={hero} hero={true} />
@@ -47,6 +64,65 @@ const [hero, ...rest] = all;
 </html>
 
 <style>
+  .hero-intro {
+    padding: 1.5rem 0 0.5rem;
+  }
+
+  .hero-headline {
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 1rem 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-headline { font-size: 3.75rem; }
+  }
+
+  .hero-subhead {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 42rem;
+    margin: 0 0 1.75rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 0.65rem 1.25rem;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+
+  .hero-cta-filled {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .hero-cta-filled:hover {
+    text-decoration: none;
+    opacity: 0.85;
+  }
+
+  .hero-cta-ghost {
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .hero-cta-ghost:hover {
+    text-decoration: none;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
   .post-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
