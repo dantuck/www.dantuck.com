@@ -1,7 +1,7 @@
 ---
 import Header from '../components/Header.svelte';
-import BlogPostPreview from '../components/BlogPostPreview.astro';
-import RecipePreview from '../components/RecipePreview.astro';
+import PostPreview from '../components/PostPreview.astro';
+import PostListItem from '../components/PostListItem.astro';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.svelte';
 
@@ -14,12 +14,15 @@ const allRecipes = Object.values(import.meta.glob('./recipe/**/*.{md,mdx}', { ea
 const all = allArticles.concat(allRecipes)
   .filter((post: any) => {
     if (import.meta.env.DEV) return true;
+    if (!post.frontmatter.title) return false;
     if (post.frontmatter.draft) return false;
     return new Date(post.frontmatter.publishDate) <= new Date();
   })
   .sort((a: any, b: any) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
 
-const [hero, ...rest] = all;
+const heroIndex = all.findIndex((post: any) => post.frontmatter.featured);
+const hero = heroIndex >= 0 ? all[heroIndex] : all[0];
+const rest = all.filter((post: any) => post !== hero);
 ---
 
 <html lang="en">
@@ -46,16 +49,10 @@ const [hero, ...rest] = all;
 
       <div class="hairline my-8" aria-hidden="true"></div>
 
-      {hero && (hero as any).url?.startsWith('/recipe/')
-        ? <RecipePreview post={hero} hero={true} />
-        : hero && <BlogPostPreview post={hero} hero={true} />
-      }
+      {hero && <PostPreview post={hero} hero={true} />}
       {rest.length > 0 && (
-        <div class="post-grid">
-          {rest.map((p: any) => p.url?.startsWith('/recipe/')
-            ? <RecipePreview post={p} />
-            : <BlogPostPreview post={p} />
-          )}
+        <div class="post-list">
+          {rest.map((p: any) => <PostListItem post={p} />)}
         </div>
       )}
     </main>
@@ -65,7 +62,11 @@ const [hero, ...rest] = all;
 
 <style>
   .hero-intro {
-    padding: 1.5rem 0 0.5rem;
+    padding: 0.5rem 0 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .hero-intro { padding: 1.5rem 0 0.5rem; }
   }
 
   .hero-headline {
@@ -123,15 +124,8 @@ const [hero, ...rest] = all;
     color: var(--color-accent);
   }
 
-  .post-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 639px) {
-    .post-grid {
-      grid-template-columns: 1fr;
-    }
+  .post-list {
+    display: flex;
+    flex-direction: column;
   }
 </style>

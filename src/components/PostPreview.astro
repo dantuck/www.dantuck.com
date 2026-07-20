@@ -6,31 +6,34 @@ export interface Props {
   hero?: boolean;
 }
 const { post, hero = false } = Astro.props;
-const { publishDate, title, description, tags } = post.frontmatter;
+const { publishDate, title, description, tags, prepTime, cookTime } = post.frontmatter;
 const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) : undefined;
+const hasMeta = Boolean(prepTime || cookTime);
 ---
 
-{hero ? (
-  <div class="hero-card">
-    <a href={post.url} class="card-link">
-      <h2 class="hero-title text-primary">{title}</h2>
-      <time datetime={isoDate} class="hero-date text-site-text/60">{publishDate}</time>
-      {description && <p class="hero-description text-site-text">{description}</p>}
-    </a>
-    {tags?.length > 0 && <Tags {tags} />}
-  </div>
-) : (
-  <div class="post-card">
-    <a href={post.url} class="card-link">
-      <h2 class="card-title text-primary">{title}</h2>
-      <time datetime={isoDate} class="card-date text-site-text/60">{publishDate}</time>
-      {description && <p class="card-description text-site-text">{description}</p>}
-    </a>
-    {tags?.length > 0 && <Tags {tags} />}
-  </div>
-)}
+<div class={hero ? 'hero-card' : 'post-card'}>
+  <a href={post.url} class="card-link">
+    <h2 class={hero ? 'hero-title text-primary' : 'card-title text-primary'}>{title}</h2>
+    <div class={hero ? 'hero-meta' : 'card-meta'}>
+      {prepTime && <span class="pill time-pill">Prep: {prepTime}</span>}
+      {cookTime && <span class="pill time-pill">Cook: {cookTime}</span>}
+      <time
+        datetime={isoDate}
+        class={`${hero ? 'hero-date' : 'card-date'} text-site-text/60 ${hasMeta ? 'ml-auto' : ''}`}
+      >
+        {publishDate}
+      </time>
+    </div>
+    {description && <p class={hero ? 'hero-description text-site-text' : 'card-description text-site-text'}>{description}</p>}
+  </a>
+  {tags?.length > 0 && <Tags {tags} />}
+</div>
 
 <style>
+  .time-pill {
+    color: var(--color-accent);
+  }
+
   .hero-card {
     background: var(--color-bg-raised);
     border-radius: 6px;
@@ -58,12 +61,30 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
     margin: 0 0 0.6rem;
   }
 
-  .hero-date {
+  .hero-meta,
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-meta {
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-date,
+  .card-date {
     display: block;
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin-bottom: 0.75rem;
+  }
+
+  .card-date {
+    font-size: 0.72rem;
   }
 
   .hero-description {
@@ -88,14 +109,6 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
     font-size: 1rem;
     line-height: 1.3;
     margin: 0 0 0.25rem;
-  }
-
-  .card-date {
-    display: block;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 0.5rem;
   }
 
   .card-description {

@@ -1,8 +1,7 @@
 ---
 import Header from '../../components/Header.svelte';
 import BaseHead from '../../components/BaseHead.astro';
-import BlogPostPreview from '../../components/BlogPostPreview.astro';
-import RecipePreview from '../../components/RecipePreview.astro';
+import PostPreview from '../../components/PostPreview.astro';
 import Footer from '../../components/Footer.svelte';
 
 export async function getStaticPaths() {
@@ -10,6 +9,7 @@ export async function getStaticPaths() {
   const allRecipes = Object.values(import.meta.glob('../recipe/**/*.{md,mdx}', { eager: true }));
   const allPosts = allArticles.concat(allRecipes).filter((post: any) => {
     if (import.meta.env.DEV) return true;
+    if (!post.frontmatter.title) return false;
     if (post.frontmatter.draft) return false;
     return new Date(post.frontmatter.publishDate) <= new Date();
   });
@@ -41,16 +41,10 @@ const gridPosts = showHero ? rest : sorted;
   <body class="bg-site-bg text-site-text font-sans">
     <Header client:load path={Astro.url.pathname} {title} />
     <main class="max-content pt-6 pb-12">
-      {hero && ((hero as any).url?.startsWith('/recipe/')
-        ? <RecipePreview post={hero} hero={true} />
-        : <BlogPostPreview post={hero} hero={true} />
-      )}
+      {hero && <PostPreview post={hero} hero={true} />}
       <div class="post-grid">
-        {gridPosts.map((p: any) => p.url?.startsWith('/recipe/')
-          ? <RecipePreview post={p} />
-          : <BlogPostPreview post={p} />
-        )}
-        {(gridPosts.length === 0 || sorted.length === 1) && (
+        {gridPosts.map((p: any) => <PostPreview post={p} />)}
+        {gridPosts.length === 0 && (
           <div class="placeholder-card">
             <p class="placeholder-title">More coming soon</p>
             <p class="placeholder-body">Check back for more posts tagged "{tag}".</p>
