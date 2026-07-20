@@ -198,16 +198,21 @@ Cloudflare → My Profile → API Tokens → Create Token → "Read all resource
 
 ### Pages Environment Variables
 
-Cloudflare Pages → your project → Settings → Environment variables → Production:
+Non-secret values (`GITHUB_REPO`, `CF_ACCOUNT_ID`, `CF_PAGES_PROJECT`) live in `[vars]` in `wrangler.toml` and are committed — they're not sensitive. Only actual credentials go through Wrangler secrets or the dashboard:
 
-| Key | Value | Required |
+```bash
+npx wrangler pages secret put GITHUB_TOKEN --project-name=your-project
+npx wrangler pages secret put CF_API_TOKEN --project-name=your-project
+```
+
+| Key | Value | Where |
 |---|---|---|
-| `GITHUB_TOKEN` | Fine-grained PAT | Yes |
-| `GITHUB_REPO` | `owner/repo-name` | Yes |
-| `CF_API_TOKEN` | Cloudflare API token | Yes |
-| `CF_ACCOUNT_ID` | Your Cloudflare account ID | Yes |
-| `CF_PAGES_PROJECT` | Your Pages project name | Yes |
-| `PUBLIC_SITE_NAME` | Your site's display name | No |
+| `GITHUB_TOKEN` | Fine-grained PAT | Secret (Wrangler or dashboard) |
+| `CF_API_TOKEN` | Cloudflare API token | Secret (Wrangler or dashboard) |
+| `GITHUB_REPO` | `owner/repo-name` | `wrangler.toml` `[vars]` |
+| `CF_ACCOUNT_ID` | Your Cloudflare account ID | `wrangler.toml` `[vars]` |
+| `CF_PAGES_PROJECT` | Your Pages project name | `wrangler.toml` `[vars]` |
+| `PUBLIC_SITE_NAME` | Your site's display name (optional) | Dashboard env var, or `wrangler.toml` `[vars]` |
 
 ### Scheduled Publishing Worker (optional)
 
