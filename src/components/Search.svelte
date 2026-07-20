@@ -161,6 +161,11 @@
         type="text"
         placeholder="Search articles and recipes…"
         aria-label="Search"
+        role="combobox"
+        aria-expanded={results.length > 0}
+        aria-controls="search-result-list"
+        aria-autocomplete="list"
+        aria-activedescendant={results[selectedIndex] ? `search-result-${selectedIndex}` : undefined}
         autocomplete="off"
         spellcheck="false"
       />
@@ -196,10 +201,10 @@
     {:else}
       <div class="modal-body">
         <ul
+          id="search-result-list"
           class="result-list"
           role="listbox"
           aria-label="Search results"
-          aria-activedescendant={results[selectedIndex] ? `search-result-${selectedIndex}` : undefined}
         >
           {#each results as result, i}
             <li
