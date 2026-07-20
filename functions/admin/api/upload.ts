@@ -1,6 +1,6 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
 import { GitHubClient } from '../../../src/admin/lib/github';
-import { json, isLocalMode, type Env } from './_types';
+import { json, isAllowedPath, isLocalMode, type Env } from './_types';
 import { mockUpload } from './_mock';
 
 interface UploadBody {
@@ -28,7 +28,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   const dir = `src/pages/${slug}`;
   const path = `${dir}/${safeName}`;
 
-  if (!path.startsWith('src/pages/') || path.includes('..')) {
+  if (!isAllowedPath(path)) {
     return json({ error: 'Invalid path' }, 400);
   }
 

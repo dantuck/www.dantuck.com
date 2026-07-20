@@ -1,7 +1,7 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
 import { GitHubClient } from '../../../src/admin/lib/github';
 import { parseFrontmatter, assembleFile } from '../../../src/admin/lib/frontmatter';
-import { json, isLocalMode, type Env } from './_types';
+import { json, isAllowedPath, isLocalMode, type Env } from './_types';
 import { mockOk } from './_mock';
 
 interface ScheduleBody {
@@ -17,7 +17,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
   const { prNumber, path, branch, publishDate } = await request.json() as ScheduleBody;
 
-  if (!path.startsWith('src/pages/') || path.includes('..')) {
+  if (!isAllowedPath(path)) {
     return json({ error: 'Invalid path' }, 400);
   }
 

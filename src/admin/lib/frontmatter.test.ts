@@ -83,10 +83,10 @@ Body.
     expect(frontmatter.description).toContain("Second line");
   });
 
-  it('preserves unknown fields like layout in extra', () => {
-    const { extra } = parseFrontmatter(MDX_WITH_IMPORTS);
-    expect(extra.some(line => line.includes('layout'))).toBe(true);
-    expect(extra.some(line => line.includes("layouts/BlogPost.astro"))).toBe(true);
+  it('parses layout as a recognized field, not extra', () => {
+    const { frontmatter, extra } = parseFrontmatter(MDX_WITH_IMPORTS);
+    expect(frontmatter.layout).toBe('../../../layouts/BlogPost.astro');
+    expect(extra.some(line => line.includes('layout'))).toBe(false);
   });
 
   it('returns empty extra for files with only known fields', () => {

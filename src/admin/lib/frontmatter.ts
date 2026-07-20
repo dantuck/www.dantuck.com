@@ -1,4 +1,6 @@
-export interface ArticleFrontmatter {
+import { CONTENT_TYPES } from './content-types';
+
+export interface Frontmatter {
   title: string;
   publishDate?: string;
   description?: string;
@@ -6,10 +8,35 @@ export interface ArticleFrontmatter {
   author?: string;
   draft?: boolean;
   layout?: string;
+  // recipe
+  prepTime?: string;
+  cookTime?: string;
+  ingredients?: string[];
+  // portfolio
+  tagline?: string;
+  url?: string;
+  screenshot?: string;
+  phoneScreenshot?: string;
+  techStack?: string[];
+  role?: string;
+  sortOrder?: number;
+  featured?: boolean;
 }
 
+/** Backwards-compatible alias — this used to be article-only. */
+export type ArticleFrontmatter = Frontmatter;
+
+const BASE_KEYS = ['title', 'publishDate', 'description', 'author', 'draft', 'tags', 'layout'];
+const ALL_KNOWN_KEYS = new Set([
+  ...BASE_KEYS,
+  ...Object.values(CONTENT_TYPES).flatMap(ct => ct.extraFields),
+]);
+const ARRAY_FIELDS = new Set(['tags', ...Object.values(CONTENT_TYPES).flatMap(ct => ct.arrayFields ?? [])]);
+const NUMBER_FIELDS = new Set(['sortOrder']);
+const BOOLEAN_FIELDS = new Set(['draft', 'featured']);
+
 export interface ParsedFile {
-  frontmatter: ArticleFrontmatter;
+  frontmatter: Frontmatter;
   imports: string;
   body: string;
   extra: string[];  // unrecognized frontmatter lines preserved verbatim
@@ -45,14 +72,12 @@ export function parseFrontmatter(content: string): ParsedFile {
   const body = lines.slice(bodyStartIdx).join('\n').trimStart();
 
   // Parse YAML frontmatter (handles key: value, block scalars, and indented list arrays)
-  const frontmatter: ArticleFrontmatter = { title: 'Untitled' };
+  const frontmatter: Frontmatter = { title: 'Untitled' };
   const extra: string[] = [];
-  let capturingTags = false;
+  let capturingArrayKey: string | null = null;
   let capturingBlockScalar = false;
-  let blockScalarKey: keyof ArticleFrontmatter | null = null;
+  let blockScalarKey: keyof Frontmatter | null = null;
   let blockScalarLines: string[] = [];
-
-  const knownKeys = new Set(['title', 'publishDate', 'description', 'author', 'draft', 'tags', 'layout']);
 
   const fmLines = fmBlock.split('\n');
 
@@ -78,15 +103,17 @@ export function parseFrontmatter(content: string): ParsedFile {
       }
     }
 
-    // If capturing tags, accept lines matching /^\s*- (.+)$/
-    if (capturingTags) {
-      const tagMatch = line.match(/^\s*- (.+)$/);
-      if (tagMatch) {
-        frontmatter.tags = frontmatter.tags ?? [];
-        frontmatter.tags.push(unquote(tagMatch[1].trim()));
+    // If capturing an array field, accept lines matching /^\s*- (.+)$/
+    if (capturingArrayKey) {
+      const itemMatch = line.match(/^\s*- (.+)$/);
+      if (itemMatch) {
+        const key = capturingArrayKey as keyof Frontmatter;
+        const arr = ((frontmatter as Record<string, unknown>)[key] as string[] | undefined) ?? [];
+        arr.push(unquote(itemMatch[1].trim()));
+        (frontmatter as Record<string, unknown>)[key] = arr;
         continue;
       }
-      capturingTags = false;
+      capturingArrayKey = null;
     }
 
     const colon = line.indexOf(':');
@@ -99,34 +126,38 @@ export function parseFrontmatter(content: string): ParsedFile {
     const key = line.slice(0, colon).trim();
     const val = line.slice(colon + 1).trim();
 
-    if (!knownKeys.has(key)) {
+    if (!ALL_KNOWN_KEYS.has(key)) {
       extra.push(line);
       continue;
     }
 
-    switch (key) {
-      case 'title': frontmatter.title = unquote(val); break;
-      case 'publishDate': frontmatter.publishDate = unquote(val); break;
-      case 'description':
-        if (val === '|' || val === '>') {
-          // Block scalar — capture subsequent indented lines
-          capturingBlockScalar = true;
-          blockScalarKey = 'description';
-          blockScalarLines = [];
-        } else {
-          frontmatter.description = unquote(val);
-        }
-        break;
-      case 'author': frontmatter.author = unquote(val); break;
-      case 'draft': frontmatter.draft = val === 'true'; break;
-      case 'layout': frontmatter.layout = unquote(val); break;
-      case 'tags':
-        if (val === '') { capturingTags = true; }
-        else if (val.startsWith('[')) {
-          frontmatter.tags = val.slice(1, -1).split(',').map(t => unquote(t.trim()));
-        }
-        break;
+    if (key === 'description' && (val === '|' || val === '>')) {
+      capturingBlockScalar = true;
+      blockScalarKey = 'description';
+      blockScalarLines = [];
+      continue;
     }
+
+    if (ARRAY_FIELDS.has(key)) {
+      if (val === '') {
+        capturingArrayKey = key;
+      } else if (val.startsWith('[')) {
+        (frontmatter as Record<string, unknown>)[key] = val.slice(1, -1).split(',').map(t => unquote(t.trim()));
+      }
+      continue;
+    }
+
+    if (NUMBER_FIELDS.has(key)) {
+      (frontmatter as Record<string, unknown>)[key] = Number(val);
+      continue;
+    }
+
+    if (BOOLEAN_FIELDS.has(key)) {
+      (frontmatter as Record<string, unknown>)[key] = val === 'true';
+      continue;
+    }
+
+    (frontmatter as Record<string, unknown>)[key] = unquote(val);
   }
 
   // Flush any pending block scalar at end of frontmatter
@@ -150,22 +181,41 @@ function yamlString(s: string): string {
   return s;
 }
 
-export function serializeFrontmatter(fm: ArticleFrontmatter): string {
+const KEY_ORDER = [
+  'title', 'publishDate', 'description', 'tagline', 'url', 'prepTime', 'cookTime',
+  'tags', 'ingredients', 'techStack', 'author', 'role', 'screenshot', 'phoneScreenshot',
+  'sortOrder', 'featured', 'draft', 'layout',
+];
+
+export function serializeFrontmatter(fm: Frontmatter): string {
   const lines: string[] = [];
-  lines.push(`title: ${yamlString(fm.title)}`);
-  if (fm.publishDate) lines.push(`publishDate: ${fm.publishDate}`);
-  if (fm.description) lines.push(`description: ${yamlString(fm.description)}`);
-  if (fm.tags?.length) {
-    lines.push('tags:');
-    fm.tags.forEach(t => lines.push(`- ${yamlString(t)}`));
+  const data = fm as Record<string, unknown>;
+
+  for (const key of KEY_ORDER) {
+    if (key === 'title') { lines.push(`title: ${yamlString(fm.title)}`); continue; }
+    const val = data[key];
+    if (val === undefined || val === null || val === '') continue;
+
+    if (ARRAY_FIELDS.has(key)) {
+      const arr = val as string[];
+      if (!arr.length) continue;
+      lines.push(`${key}:`);
+      arr.forEach(t => lines.push(`- ${yamlString(t)}`));
+    } else if (NUMBER_FIELDS.has(key)) {
+      lines.push(`${key}: ${val}`);
+    } else if (BOOLEAN_FIELDS.has(key)) {
+      if (val) lines.push(`${key}: true`);
+    } else if (key === 'layout') {
+      lines.push(`layout: '${val}'`);
+    } else {
+      lines.push(`${key}: ${yamlString(String(val))}`);
+    }
   }
-  if (fm.author) lines.push(`author: ${yamlString(fm.author)}`);
-  if (fm.draft) lines.push(`draft: true`);
-  if (fm.layout) lines.push(`layout: '${fm.layout}'`);
+
   return lines.join('\n');
 }
 
-export function assembleFile(fm: ArticleFrontmatter, imports: string, body: string, extra?: string[]): string {
+export function assembleFile(fm: Frontmatter, imports: string, body: string, extra?: string[]): string {
   const fmLines = ['---', serializeFrontmatter(fm)];
   if (extra && extra.length > 0) {
     fmLines.push(...extra);
