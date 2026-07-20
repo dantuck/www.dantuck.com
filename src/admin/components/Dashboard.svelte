@@ -4,10 +4,15 @@
   import ArticleCard from './ArticleCard.svelte';
   import { authHeaders, setAdminToken } from '../lib/auth';
 
+  const TYPES = ['article', 'recipe', 'portfolio'] as const;
+  const TYPE_LABELS: Record<string, string> = { article: 'Article', recipe: 'Recipe', portfolio: 'Portfolio project' };
+
   let articles: ArticleSummary[] = [];
   let loading = true;
   let error = '';
   let filter: 'all' | 'live' | 'draft' | 'scheduled' = 'all';
+  let typeFilter: 'all' | typeof TYPES[number] = 'all';
+  let newMenuOpen = false;
 
   let authNeeded = false;
   let tokenInput = '';
@@ -16,10 +21,13 @@
     loading = true;
     error = '';
     try {
-      const res = await fetch('/admin/api/articles', { headers: authHeaders() });
-      if (res.status === 401) { authNeeded = true; loading = false; return; }
-      if (!res.ok) throw new Error(`${res.status}`);
-      articles = await res.json();
+      const responses = await Promise.all(
+        TYPES.map(t => fetch(`/admin/api/articles?type=${t}`, { headers: authHeaders() }))
+      );
+      if (responses.some(r => r.status === 401)) { authNeeded = true; loading = false; return; }
+      if (responses.some(r => !r.ok)) throw new Error(responses.find(r => !r.ok)?.status.toString());
+      const lists = await Promise.all(responses.map(r => r.json() as Promise<ArticleSummary[]>));
+      articles = lists.flat();
     } catch (e) {
       error = `Failed to load articles: ${e}`;
     } finally {
@@ -37,7 +45,9 @@
     loadArticles();
   }
 
-  $: filtered = filter === 'all' ? articles : articles.filter(a => a.status === filter);
+  $: filtered = articles
+    .filter(a => filter === 'all' || a.status === filter)
+    .filter(a => typeFilter === 'all' || a.type === typeFilter);
   $: counts = {
     all: articles.length,
     live: articles.filter(a => a.status === 'live').length,
@@ -65,7 +75,19 @@
   <!-- Top bar -->
   <header class="topbar">
     <span class="brand">{import.meta.env.PUBLIC_SITE_NAME ?? 'Site'} — admin</span>
-    <a href="/admin/new" class="btn-primary">+ New Article</a>
+    <a href="/admin/data/resume" class="btn-ghost">Resume</a>
+    <a href="/admin/data/about" class="btn-ghost">About</a>
+    <div class="new-menu-wrap">
+      <button class="btn-primary" on:click={() => newMenuOpen = !newMenuOpen}>+ New ▾</button>
+      {#if newMenuOpen}
+        <div class="dropdown-backdrop" role="presentation" on:click={() => newMenuOpen = false}></div>
+        <div class="new-dropdown">
+          {#each TYPES as t}
+            <a href={`/admin/new?type=${t}`} class="new-dropdown-item">{TYPE_LABELS[t]}</a>
+          {/each}
+        </div>
+      {/if}
+    </div>
   </header>
 
   <!-- Filter tabs -->
@@ -80,6 +102,16 @@
         <span class="count">{counts[f]}</span>
       </button>
     {/each}
+    <span class="filter-divider"></span>
+    {#each (['all', ...TYPES] as const) as t}
+      <button
+        class="filter-tab"
+        class:active={typeFilter === t}
+        on:click={() => typeFilter = t}
+      >
+        {t === 'all' ? 'All types' : TYPE_LABELS[t]}
+      </button>
+    {/each}
   </nav>
 
   <!-- Content -->
@@ -92,7 +124,7 @@
       <p class="state-msg">No articles in this view.</p>
     {:else}
       <div class="card-grid">
-        {#each filtered as article (article.slug)}
+        {#each filtered as article (article.slug + article.type)}
           <ArticleCard {article} />
         {/each}
         <a href="/admin/new" class="card card-new">
@@ -138,11 +170,43 @@
   }
   .brand { font-weight: 700; font-size: 14px; color: var(--admin-orange); flex: 1; }
 
+  .new-menu-wrap { position: relative; }
+  .dropdown-backdrop { position: fixed; inset: 0; z-index: 10; }
+  .new-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    background: var(--admin-surface-2);
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    min-width: 180px;
+    z-index: 11;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    overflow: hidden;
+  }
+  .new-dropdown-item {
+    display: block;
+    padding: 10px 14px;
+    color: var(--admin-text);
+    text-decoration: none;
+    font-size: 13px;
+    border-bottom: 1px solid var(--admin-border);
+  }
+  .new-dropdown-item:last-child { border-bottom: none; }
+  .new-dropdown-item:hover { background: var(--admin-surface); text-decoration: none; }
+
   .filters {
     display: flex;
+    align-items: center;
     gap: 4px;
     padding: 12px 24px 0;
     border-bottom: 1px solid var(--admin-border);
+  }
+  .filter-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--admin-border);
+    margin: 0 8px;
   }
   .filter-tab {
     background: transparent;

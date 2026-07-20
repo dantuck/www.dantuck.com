@@ -17,14 +17,21 @@
     } catch { return d; }
   }
 
+  const TYPE_LABELS: Record<string, string> = {
+    article: 'Article',
+    recipe: 'Recipe',
+    portfolio: 'Portfolio',
+  };
+
   // CRITICAL: use query param, not path segment
-  $: editUrl = `/admin/edit?slug=${encodeURIComponent(article.slug)}`;
+  $: editUrl = `/admin/edit?slug=${encodeURIComponent(article.slug)}&type=${article.type}`;
 </script>
 
 <a href={editUrl} class="card" data-status={article.status}>
   <div class="card-title">{article.title || 'Untitled'}</div>
 
   <div class="card-meta">
+    <span class="badge type-badge">{TYPE_LABELS[article.type] ?? article.type}</span>
     <span class="badge status-{article.status}">{STATUS_LABELS[article.status] ?? article.status}</span>
     {#if article.publishDate}
       <span class="date">{formatDate(article.publishDate)}</span>
@@ -73,6 +80,7 @@
   .status-live      { color: var(--admin-green); }
   .status-draft     { color: var(--admin-orange); }
   .status-scheduled { color: var(--admin-purple); }
+  .type-badge       { color: var(--admin-text-muted); }
 
   .date { font-size: 12px; color: var(--admin-text-muted); }
 
