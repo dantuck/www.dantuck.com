@@ -19,4 +19,14 @@ Warning! This cocktail is rather addicting.
 
 I came across this cocktail on a night recently where I was looking for something new that wasn't straight whiskey or full of sugar. To my surprise it blew my socks off with it's ease of drinking and the absence of the whiskey spicy bite.
 
-Pour the whiskey, lemon and orange juice into a cocktail shaker half-filled with ice. Shake well, strain into a cocktail glass, and serve.
+1. **Combine**
+
+   *1 minute*
+
+   Pour the whiskey, lemon juice, and orange juice into a cocktail shaker half-filled with ice.
+
+2. **Shake and strain**
+
+   *1 minute*
+
+   Shake well, strain into a cocktail glass, and serve.

@@ -21,19 +21,26 @@ ingredients:
 description: 'Buttermilk-brined chicken strips dredged in a rice flour and cornstarch blend, then fried in a cast iron skillet until golden. Crispy, gluten-free, and worth the wait.'
 ---
 
-1. In a large bowl, whisk together 2 cups buttermilk, kosher salt, and Tabasco unti the salt is dissolved. Add chicken pieces. Cover bowl and refrigerate for at least 30 minutes.
+1. **Brine the chicken**
 
-2. In a large pie plate or dish, whisk the following together:
+   *30+ minutes*
 
-  * brown rice flour
-  * sweet rice flour
-  * cornstarch
-  * seasoning salt
-  * baking powder
-  * black pepper
+   In a large bowl, whisk together 2 cups of buttermilk, the kosher salt, and Tabasco until the salt dissolves. Add the chicken pieces, cover, and refrigerate for at least 30 minutes.
 
-Add remaining buttermilk and rub together until flower mixture is damp. If flour seems dry, add an additional tablespoon of buttermilk.
+2. **Make the dredge**
 
-3. Dredge chicken in flour mixture, coating all sides with flour. Shake excess flour off each piece of chicken. Place coated chicken on a platter or wire rack. Heat &frac34; to 1 inch of oil in a 12 inch cast iron skillet to 375&#176;F. Working in batches, fry chicken. Don't crowd the pan. Cook chicken until golden brown and crip and internal temperature registers 165&#176;F on an instant read thermometer, about two minutes per side.
+   *5 minutes*
 
-4. Transfer chicken to plate lined with paper towels. Season with salt. Serve immediately.
+   In a large pie plate or dish, whisk together the brown rice flour, sweet rice flour, cornstarch, seasoning salt, baking powder, and black pepper. Add the remaining buttermilk and rub it in until the mixture is damp, adding an extra tablespoon of buttermilk if it seems dry.
+
+3. **Fry**
+
+   *10 minutes*
+
+   Dredge the chicken in the flour mixture, coating all sides, then shake off the excess. Place the coated chicken on a platter or wire rack. Heat &frac34; to 1 inch of oil in a 12-inch cast iron skillet to 375&#176;F. Working in batches without crowding the pan, fry the chicken until golden brown and crisp and the internal temperature reads 165&#176;F on an instant-read thermometer, about two minutes per side.
+
+4. **Rest and serve**
+
+   *2 minutes*
+
+   Transfer the chicken to a plate lined with paper towels, season with salt, and serve immediately.

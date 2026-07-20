@@ -24,10 +24,20 @@ description: 'A blended red salsa with whole peeled tomatoes, fire roasted green
 
 ---
 
-The prefered method of preparing the salsa is using a blender.
+The preferred method of preparing the salsa is using a blender.
 
-Start by chopping up all the ingredients and placing them in the blender. Be cautious with how much salt you use. It is always safer to add a little then taste then add more.
+1. **Prep the ingredients**
 
-Blend the salsa in pulses and occationally use a spatula to mix up any ingredients that have not been blended.
+   *5 minutes*
 
-Pour and enjoy!
+   Chop all the ingredients and place them in the blender. Go easy on the salt at first — it's always safer to add a little, taste, then add more.
+
+2. **Blend**
+
+   *2-3 minutes*
+
+   Blend the salsa in pulses, occasionally using a spatula to mix in any ingredients that haven't been blended yet.
+
+3. **Serve**
+
+   Pour and enjoy!

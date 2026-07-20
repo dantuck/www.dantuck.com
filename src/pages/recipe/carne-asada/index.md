@@ -23,10 +23,26 @@ description: "A citrus-soy marinade with garlic, cumin, jalapeño, and cilantro.
 
 ---
 
-Marinate the steak: Whisk to combine the olive oil, soy sauce, lime juice, vinegar, black pepper, and cumin in a large, non-reactive bowl or baking dish. Stir in the minced garlic, jalapeño, and cilantro.
+1. **Marinate the steak**
 
-Place the steak in a gallon size bag and then pour marinade over the steak. Give the bag a few shakes and message in the marinade for a moment. Refrigerate for 1-4 hours (if using flank steak marinate at least 3 hours).
+   *5 minutes*
 
-Grill 6-8 minutes on each side depending on the thickness of the steak and preferred temperature.
+   Whisk to combine the olive oil, soy sauce, lime juice, vinegar, black pepper, and cumin in a large, non-reactive bowl or baking dish. Stir in the minced garlic, jalapeño, and cilantro.
 
-Bonus: Do not discard the marinade but instead pour the marinade from the bag into a quart sauce pan and boil/simmer until reduced slightly. Spoon a generous portion on each serving of plated carne asada for an added AMAZING flavor.
+2. **Bag and chill**
+
+   *1-4 hours*
+
+   Place the steak in a gallon-size bag and pour the marinade over it. Give the bag a few shakes and massage the marinade in. Refrigerate for 1-4 hours (at least 3 hours if using flank steak).
+
+3. **Grill**
+
+   *12-16 minutes*
+
+   Grill 6-8 minutes on each side depending on the thickness of the steak and your preferred temperature.
+
+4. **Reduce the marinade (bonus)**
+
+   *5 minutes*
+
+   Don't discard the marinade — pour it from the bag into a small saucepan and boil/simmer until slightly reduced. Spoon a generous portion over each serving of plated carne asada for an added amazing layer of flavor.
