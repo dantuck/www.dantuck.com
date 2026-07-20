@@ -213,7 +213,7 @@ import AboutLayout from "../layouts/About.astro";
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgb(255, 140, 0);
+    color: var(--color-accent);
     border-bottom: 1px solid rgba(255, 140, 0, 0.35);
     padding-bottom: 0.3rem;
     margin-top: 2rem;
@@ -263,22 +263,22 @@ import AboutLayout from "../layouts/About.astro";
   .about-company {
     font-size: 1.05rem;
     font-weight: 700;
-    color: rgb(220, 220, 220);
+    color: var(--color-text-strong);
     margin: 0 0 0.1rem;
   }
 
   .about-company a {
-    color: rgb(220, 220, 220);
+    color: var(--color-text-strong);
   }
 
   .about-company a:hover {
-    color: rgb(255, 140, 0);
+    color: var(--color-accent);
     text-decoration: none;
   }
 
   .about-location {
     font-size: 0.8rem;
-    color: rgba(170, 170, 170, 0.6);
+    color: var(--color-text-muted);
     margin: 0 0 0.6rem;
   }
 
@@ -295,7 +295,7 @@ import AboutLayout from "../layouts/About.astro";
 
   .about-role p {
     margin: 0.25rem 0 0;
-    color: rgb(170, 170, 170);
+    color: var(--color-text);
     line-height: 1.6;
   }
 
@@ -303,11 +303,11 @@ import AboutLayout from "../layouts/About.astro";
     display: block;
     font-size: 0.95rem;
     font-weight: 700;
-    color: rgb(200, 200, 200);
+    color: var(--color-text-strong);
   }
 
   .about-role-title--current {
-    color: rgb(255, 140, 0);
+    color: var(--color-accent);
   }
 
   /* ── Meta (dates) ───────────────────────────────────────────────────────── */
@@ -315,7 +315,7 @@ import AboutLayout from "../layouts/About.astro";
   .about-meta {
     display: block;
     font-size: 0.78rem;
-    color: rgba(170, 170, 170, 0.65);
+    color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.04em;
     margin-bottom: 0.3rem;

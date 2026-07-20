@@ -29,7 +29,7 @@ const seriesParts = allArticles
 ---
 
 <div class="series-nav">
-  <p class="series-label">Part of a series</p>
+  <p class="kicker mb-2">Part of a series</p>
   <blockquote>
     {seriesParts.map(({ isCurrent, isLive, url, title }) => (
       <span>
@@ -45,13 +45,6 @@ const seriesParts = allArticles
 </div>
 
 <style>
-  .series-label {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.5;
-    margin-bottom: 0.25rem;
-  }
   .coming-soon {
     opacity: 0.45;
     font-style: italic;
