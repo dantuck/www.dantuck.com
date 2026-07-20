@@ -2,8 +2,8 @@
 title: Plan to Live — MealQ
 tagline: Weekly meal queue and planning
 url: https://mealq.plantolive.app
-screenshot: /images/portfolio/plantolive-mealq.jpg
-phoneScreenshot: /images/portfolio/plantolive-mealq-mobile.jpg
+screenshot: plantolive-mealq.jpg
+phoneScreenshot: plantolive-mealq-mobile.jpg
 techStack: [Svelte, Cloudflare Workers, D1]
 role: Designer & Developer
 publishDate: 2024-01-01

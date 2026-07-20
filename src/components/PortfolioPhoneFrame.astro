@@ -1,10 +1,14 @@
 ---
+import { Image } from 'astro:assets';
+import { getPortfolioImage } from '../lib/portfolioImages';
+
 export interface Props {
   screenshot: string;
   alt: string;
 }
 
 const { screenshot, alt } = Astro.props;
+const image = getPortfolioImage(screenshot);
 ---
 
 <div class="phone">
@@ -12,7 +16,7 @@ const { screenshot, alt } = Astro.props;
     <div class="phone-notch"></div>
   </div>
   <div class="phone-body">
-    <img src={screenshot} alt={alt} loading="lazy" />
+    <Image src={image} alt={alt} widths={[158, 316]} sizes="158px" loading="lazy" />
   </div>
 </div>
 

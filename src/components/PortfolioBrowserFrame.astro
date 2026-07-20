@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import { getPortfolioImage } from '../lib/portfolioImages';
+
 export interface Props {
   url: string;
   screenshot: string;
@@ -6,6 +9,7 @@ export interface Props {
 }
 
 const { url, screenshot, alt } = Astro.props;
+const image = getPortfolioImage(screenshot);
 ---
 
 <div class="browser">
@@ -21,7 +25,13 @@ const { url, screenshot, alt } = Astro.props;
     </div>
   </div>
   <div class="browser-screen">
-    <img src={screenshot} alt={alt} loading="lazy" />
+    <Image
+      src={image}
+      alt={alt}
+      widths={[400, 800, 1200]}
+      sizes="(max-width: 599px) 100vw, 60vw"
+      loading="lazy"
+    />
   </div>
 </div>
 
