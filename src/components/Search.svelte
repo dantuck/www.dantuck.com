@@ -21,6 +21,13 @@
   let pagefind: any;
   let pagefindLoaded = false;
 
+  const suggestions = ['tailscale', 'nix', 'homelab', 'whiskey', 'salsa', 'dinner'];
+
+  function trySuggestion(s: string) {
+    query = s;
+    inputEl?.focus();
+  }
+
   async function loadPagefind() {
     if (pagefindLoaded || devMode) return;
     try {
@@ -142,7 +149,12 @@
     on:keydown={handleModalKeydown}
   >
     <div class="modal-input-row">
-      <span class="search-icon" aria-hidden="true">⌕</span>
+      <span class="search-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <line x1="20" y1="20" x2="15.3" y2="15.3" />
+        </svg>
+      </span>
       <input
         bind:this={inputEl}
         bind:value={query}
@@ -165,9 +177,22 @@
     {#if devMode}
       <div class="state-msg">Search is only available in production builds.</div>
     {:else if !query.trim()}
-      <div class="state-msg">Search articles and recipes…</div>
+      <div class="empty-state">
+        <span class="empty-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <line x1="20" y1="20" x2="15.3" y2="15.3" />
+          </svg>
+        </span>
+        <p class="empty-title">Equal parts code and cooking.</p>
+        <div class="empty-chips">
+          {#each suggestions as s}
+            <button type="button" class="chip" on:click={() => trySuggestion(s)}>{s}</button>
+          {/each}
+        </div>
+      </div>
     {:else if results.length === 0}
-      <div class="state-msg">No results for '{query}'</div>
+      <div class="state-msg">No results for '{query}' — maybe it's not written yet.</div>
     {:else}
       <div class="modal-body">
         <ul
@@ -220,7 +245,8 @@
   .backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
     z-index: 40;
   }
 
@@ -230,7 +256,8 @@
     left: 50%;
     transform: translateX(-50%);
     width: min(640px, calc(100vw - 2rem));
-    background: var(--color-bg-raised);
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
     border-radius: 10px;
     border: 1px solid var(--color-border);
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
@@ -239,6 +266,12 @@
     flex-direction: column;
     overflow: hidden;
     max-height: 80vh;
+  }
+
+  @supports not (backdrop-filter: blur(1px)) {
+    .modal {
+      background: var(--color-bg);
+    }
   }
 
   .modal-input-row {
@@ -251,8 +284,14 @@
   }
 
   .search-icon {
+    display: flex;
     color: var(--color-text-muted);
-    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .search-icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
   }
 
   .modal-input-row input {
@@ -294,6 +333,65 @@
     color: var(--color-text-muted);
     font-size: 0.85rem;
     text-align: center;
+  }
+
+  .empty-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 2.25rem 1.5rem;
+    text-align: center;
+  }
+
+  .empty-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.9rem;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    color: var(--color-accent);
+  }
+
+  .empty-badge svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .empty-title {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .empty-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 26rem;
+  }
+
+  .chip {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-text-muted);
+    font-family: inherit;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .chip:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
   }
 
   .modal-body {
