@@ -1,28 +1,44 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { preference, initTheme, cyclePreference, type Preference } from '../lib/theme';
 
-  let theme: 'light' | 'dark' = 'light';
+  const labels: Record<Preference, string> = {
+    system: 'System',
+    light: 'Light',
+    dark: 'Dark',
+  };
 
   onMount(() => {
-    theme = (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') ?? 'light';
+    initTheme();
   });
-
-  function toggle() {
-    theme = theme === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-  }
 </script>
 
 <button
   class="theme-toggle"
-  on:click={toggle}
-  aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+  on:click={cyclePreference}
+  aria-label={`Theme: ${labels[$preference]}. Click to change.`}
+  title={`Theme: ${labels[$preference]}`}
 >
-  <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.5" />
-    <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
-  </svg>
+  {#if $preference === 'system'}
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <path d="M8 21h8M12 17v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+  {:else if $preference === 'light'}
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+      <path
+        d="M12 2.5v2.5M12 19v2.5M21.5 12H19M5 12H2.5M18.36 5.64l-1.77 1.77M7.41 16.59l-1.77 1.77M18.36 18.36l-1.77-1.77M7.41 7.41 5.64 5.64"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+    </svg>
+  {:else}
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor" />
+    </svg>
+  {/if}
 </button>
 
 <style>
