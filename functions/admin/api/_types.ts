@@ -8,7 +8,6 @@ export interface Env {
   CF_ACCOUNT_ID: string;
   CF_PAGES_PROJECT: string;
   LOCAL_MODE?: string;
-  ADMIN_SECRET?: string; // if set, all /admin/api/* requests must include Authorization: Bearer <secret>
 }
 
 /** JSON-singleton "site data" documents editable outside the collection-of-posts flow. */

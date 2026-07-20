@@ -162,7 +162,6 @@ cat <<'EOF'
    CF_ACCOUNT_ID=your_cloudflare_account_id
    CF_PAGES_PROJECT=your-pages-project-name
    PUBLIC_SITE_NAME=your-site.com
-   ADMIN_SECRET=
    LOCAL_MODE=false
 EOF
 

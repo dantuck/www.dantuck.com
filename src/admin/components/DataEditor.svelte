@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { DataDetail, DataId } from '../lib/types';
-  import { authHeaders, setAdminToken } from '../lib/auth';
   import JsonNode from './JsonNode.svelte';
 
   export let id: DataId;
@@ -13,8 +12,6 @@
   let prNumber: number | undefined;
   let loading = true;
   let error = '';
-  let authNeeded = false;
-  let tokenInput = '';
   let saveStatus: 'idle' | 'saving' | 'saved' | 'error' = 'idle';
   let publishStatus: 'idle' | 'publishing' | 'published' | 'error' = 'idle';
   let autosaveTimer: ReturnType<typeof setTimeout>;
@@ -23,8 +20,7 @@
     loading = true;
     error = '';
     try {
-      const res = await fetch(`/admin/api/data?id=${id}`, { headers: authHeaders() });
-      if (res.status === 401) { authNeeded = true; loading = false; return; }
+      const res = await fetch(`/admin/api/data?id=${id}`);
       if (!res.ok) throw new Error(`${res.status}`);
       const detail: DataDetail = await res.json();
       data = detail.data;
@@ -39,14 +35,6 @@
   }
 
   onMount(load);
-
-  function submitToken() {
-    if (!tokenInput) return;
-    setAdminToken(tokenInput);
-    tokenInput = '';
-    authNeeded = false;
-    load();
-  }
 
   function scheduleAutosave() {
     clearTimeout(autosaveTimer);
@@ -64,7 +52,7 @@
     try {
       const res = await fetch('/admin/api/data', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, fileSha, data }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
@@ -88,7 +76,7 @@
     try {
       const res = await fetch('/admin/api/publish', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prNumber, title: `update ${label}` }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
@@ -100,15 +88,6 @@
   }
 </script>
 
-{#if authNeeded}
-  <div class="auth-gate">
-    <form class="auth-form" on:submit|preventDefault={submitToken}>
-      <p class="auth-label">Admin token required</p>
-      <input class="auth-input" type="password" bind:value={tokenInput} placeholder="Enter admin token" autocomplete="current-password" />
-      <button type="submit" class="btn-primary">Unlock</button>
-    </form>
-  </div>
-{:else}
 <div class="data-editor-shell">
   <header class="meta-strip">
     <a href="/admin" class="back-link">← Dashboard</a>
@@ -137,14 +116,8 @@
     {/if}
   </main>
 </div>
-{/if}
 
 <style>
-  .auth-gate { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: var(--admin-bg); }
-  .auth-form { display: flex; flex-direction: column; gap: 12px; background: var(--admin-surface); border: 1px solid var(--admin-border); border-radius: 8px; padding: 32px; width: 300px; }
-  .auth-label { font-size: 14px; color: var(--admin-text); font-weight: 600; margin: 0; }
-  .auth-input { font-size: 14px; padding: 8px 10px; }
-
   .data-editor-shell { display: flex; flex-direction: column; min-height: 100vh; }
 
   .meta-strip {

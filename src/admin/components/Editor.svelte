@@ -7,7 +7,6 @@
   import type { ArticleDetail, ArticleSummary } from '../lib/types';
   import type { Frontmatter } from '../lib/frontmatter';
   import { toSlug } from '../lib/slug';
-  import { authHeaders, setAdminToken } from '../lib/auth';
   import { contentTypeOf, type ContentTypeId } from '../lib/content-types';
   import PublishButton from './PublishButton.svelte';
   import StringListEditor from './StringListEditor.svelte';
@@ -40,8 +39,6 @@
   let existingPath: string | undefined; // file path of loaded article (may be a flat .md, not index.md)
   let loading = true;
   let error = '';
-  let authNeeded = false;
-  let tokenInput = '';
 
   const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const HOURS = Array.from({length: 24}, (_, i) => i);
@@ -162,15 +159,9 @@
     }
 
     const [articleRes, allArticlesRes] = await Promise.all([
-      slug ? fetch(`/admin/api/articles?slug=${encodeURIComponent(slug)}&type=${type}`, { headers: authHeaders() }) : Promise.resolve(null),
-      fetch(`/admin/api/articles?type=${type}`, { headers: authHeaders() }),
+      slug ? fetch(`/admin/api/articles?slug=${encodeURIComponent(slug)}&type=${type}`) : Promise.resolve(null),
+      fetch(`/admin/api/articles?type=${type}`),
     ]);
-
-    if (articleRes?.status === 401 || allArticlesRes.status === 401) {
-      authNeeded = true;
-      loading = false;
-      return;
-    }
 
     if (articleRes) {
       try {
@@ -255,7 +246,7 @@
     try {
       const res = await fetch('/admin/api/save', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', ...authHeaders() },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           type,
           slug: effectiveSlug,
@@ -297,7 +288,7 @@
     const path = existingPath ?? buildPath(slug);
     const res = await fetch('/admin/api/delete', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ slug, path, fileSha, branch: branch ?? 'master', prNumber }),
     });
     if (res.ok) {
@@ -335,7 +326,7 @@
     const path = existingPath ?? buildPath(slug);
     const res = await fetch('/admin/api/unpublish', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         slug,
         path,
@@ -352,15 +343,6 @@
       unpublishing = false;
       saveStatus = 'error';
     }
-  }
-
-  function submitToken() {
-    if (!tokenInput) return;
-    setAdminToken(tokenInput);
-    tokenInput = '';
-    authNeeded = false;
-    // reload page to re-run onMount with new token
-    window.location.reload();
   }
 
   onDestroy(() => {
@@ -400,7 +382,7 @@
 
     const res = await fetch('/admin/api/upload', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         slug: effectiveSlug,
         branch,
@@ -446,21 +428,6 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
-{#if authNeeded}
-  <div class="auth-gate">
-    <form class="auth-form" on:submit|preventDefault={submitToken}>
-      <p class="auth-label">Admin token required</p>
-      <input
-        class="auth-input"
-        type="password"
-        bind:value={tokenInput}
-        placeholder="Enter admin token"
-        autocomplete="current-password"
-      />
-      <button type="submit" class="btn-primary">Unlock</button>
-    </form>
-  </div>
-{:else}
 <div class="editor-shell">
   {#if loading}
     <div class="state-center">Loading...</div>
@@ -708,29 +675,8 @@
     </div>
   </div>
 {/if}
-{/if}
 
 <style>
-  .auth-gate {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: var(--admin-bg);
-  }
-  .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: var(--admin-surface);
-    border: 1px solid var(--admin-border);
-    border-radius: 8px;
-    padding: 32px;
-    width: 300px;
-  }
-  .auth-label { font-size: 14px; color: var(--admin-text); font-weight: 600; margin: 0; }
-  .auth-input { font-size: 14px; padding: 8px 10px; }
-
   .editor-shell { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
   .state-center {

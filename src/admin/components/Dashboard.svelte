@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import type { ArticleSummary } from '../lib/types';
   import ArticleCard from './ArticleCard.svelte';
-  import { authHeaders, setAdminToken } from '../lib/auth';
 
   const TYPES = ['article', 'recipe', 'portfolio'] as const;
   const TYPE_LABELS: Record<string, string> = { article: 'Article', recipe: 'Recipe', portfolio: 'Portfolio project' };
@@ -14,17 +13,11 @@
   let typeFilter: 'all' | typeof TYPES[number] = 'all';
   let newMenuOpen = false;
 
-  let authNeeded = false;
-  let tokenInput = '';
-
   async function loadArticles() {
     loading = true;
     error = '';
     try {
-      const responses = await Promise.all(
-        TYPES.map(t => fetch(`/admin/api/articles?type=${t}`, { headers: authHeaders() }))
-      );
-      if (responses.some(r => r.status === 401)) { authNeeded = true; loading = false; return; }
+      const responses = await Promise.all(TYPES.map(t => fetch(`/admin/api/articles?type=${t}`)));
       if (responses.some(r => !r.ok)) throw new Error(responses.find(r => !r.ok)?.status.toString());
       const lists = await Promise.all(responses.map(r => r.json() as Promise<ArticleSummary[]>));
       articles = lists.flat();
@@ -37,14 +30,6 @@
 
   onMount(loadArticles);
 
-  function submitToken() {
-    if (!tokenInput) return;
-    setAdminToken(tokenInput);
-    tokenInput = '';
-    authNeeded = false;
-    loadArticles();
-  }
-
   $: filtered = articles
     .filter(a => filter === 'all' || a.status === filter)
     .filter(a => typeFilter === 'all' || a.type === typeFilter);
@@ -56,21 +41,6 @@
   };
 </script>
 
-{#if authNeeded}
-  <div class="auth-gate">
-    <form class="auth-form" on:submit|preventDefault={submitToken}>
-      <p class="auth-label">Admin token required</p>
-      <input
-        class="auth-input"
-        type="password"
-        bind:value={tokenInput}
-        placeholder="Enter admin token"
-        autocomplete="current-password"
-      />
-      <button type="submit" class="btn-primary">Unlock</button>
-    </form>
-  </div>
-{:else}
 <div class="admin-shell">
   <!-- Top bar -->
   <header class="topbar">
@@ -135,29 +105,8 @@
     {/if}
   </main>
 </div>
-{/if}
 
 <style>
-  .auth-gate {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: var(--admin-bg);
-  }
-  .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    background: var(--admin-surface);
-    border: 1px solid var(--admin-border);
-    border-radius: 8px;
-    padding: 32px;
-    width: 300px;
-  }
-  .auth-label { font-size: 14px; color: var(--admin-text); font-weight: 600; margin: 0; }
-  .auth-input { font-size: 14px; padding: 8px 10px; }
-
   .admin-shell { display: flex; flex-direction: column; min-height: 100vh; }
 
   .topbar {

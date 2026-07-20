@@ -29,7 +29,7 @@ All CMS code lives in isolated directories — nothing modifies existing site fi
 functions/admin/api/          Edge API (Cloudflare Pages Functions) — platform constraint, must stay here
 src/admin/                    All other CMS code lives here
   components/                 Svelte UI: Dashboard, Editor, PublishButton, ArticleCard
-  lib/                        Types, frontmatter parser, GitHub client, auth helper, slug util
+  lib/                        Types, frontmatter parser, GitHub client, slug util
   pages/                      Astro page templates (served via injectRoute, not file-based routing)
   admin.css                   Admin-only styles (dark theme)
   integration.ts              Astro integration: registers routes + Vite dev middleware
@@ -164,9 +164,6 @@ CF_ACCOUNT_ID=your_cloudflare_account_id
 CF_PAGES_PROJECT=your-pages-project-name
 PUBLIC_SITE_NAME=your-site.com
 
-# Optional bearer token auth (see Authentication)
-ADMIN_SECRET=
-
 # Set to "true" to use mock data instead of real credentials
 LOCAL_MODE=false
 ```
@@ -211,7 +208,6 @@ Cloudflare Pages → your project → Settings → Environment variables → Pro
 | `CF_ACCOUNT_ID` | Your Cloudflare account ID | Yes |
 | `CF_PAGES_PROJECT` | Your Pages project name | Yes |
 | `PUBLIC_SITE_NAME` | Your site's display name | No |
-| `ADMIN_SECRET` | `openssl rand -hex 32` | Recommended |
 
 ### Scheduled Publishing Worker (optional)
 
@@ -233,11 +229,7 @@ pnpm run deploy
 
 ## Authentication
 
-Two independent layers — use one or both.
-
-### Cloudflare Access (recommended)
-
-Blocks unauthenticated requests at the network edge before any Function runs.
+Guarded by Cloudflare Access, which blocks unauthenticated requests at the network edge before any Function runs — the admin UI itself has no login of its own.
 
 Cloudflare Zero Trust → Access → Applications → Add application:
 
@@ -245,21 +237,7 @@ Cloudflare Zero Trust → Access → Applications → Add application:
 - Domain: `your-domain.com/admin*`
 - Policy: Allow your email address
 
-### ADMIN_SECRET (bearer token)
-
-Enforced by `functions/admin/api/_middleware.ts`. When `ADMIN_SECRET` is set in Pages env vars, every `/admin/api/*` request must send:
-
-```
-Authorization: Bearer <your-secret>
-```
-
-The admin UI handles this automatically — it prompts for the token on first visit, stores it in `sessionStorage`, and re-prompts on 401.
-
-Generate a token: `openssl rand -hex 32`
-
-If `ADMIN_SECRET` is not set, the middleware is a no-op.
-
-**Best setup:** both layers together. Cloudflare Access blocks browsers; `ADMIN_SECRET` blocks direct API calls that bypass the browser.
+This covers both the `/admin*` pages and `/admin/api/*` under one policy.
 
 ---
 
@@ -282,8 +260,7 @@ If `ADMIN_SECRET` is not set, the middleware is a no-op.
 | Pages | `src/admin/pages/` | Astro page templates (served via injectRoute) |
 | Components | `src/admin/components/` | Dashboard, Editor, PublishButton, ArticleCard |
 | Functions | `functions/admin/api/` | Edge API — GitHub + Cloudflare API calls |
-| Middleware | `functions/admin/api/_middleware.ts` | Optional bearer token auth |
-| Library | `src/admin/lib/` | Types, frontmatter parser, GitHub client, auth helper, slug util |
+| Library | `src/admin/lib/` | Types, frontmatter parser, GitHub client, slug util |
 | Integration | `src/admin/integration.ts` | Astro integration: registers routes + Vite dev middleware |
 | Worker | `worker/src/index.ts` | Hourly: trigger deploy + auto-merge scheduled PRs |
 
@@ -320,7 +297,7 @@ If your article path differs, update:
 
 ## API Reference
 
-All endpoints require `Authorization: Bearer <ADMIN_SECRET>` if `ADMIN_SECRET` is set. All POST bodies are JSON. Paths with `..` are rejected with 400.
+All routes are gated by Cloudflare Access (see [Authentication](#authentication)). All POST bodies are JSON. Paths with `..` are rejected with 400.
 
 ### `GET /admin/api/articles`
 
