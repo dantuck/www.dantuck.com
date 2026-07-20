@@ -230,10 +230,10 @@
     left: 50%;
     transform: translateX(-50%);
     width: min(640px, calc(100vw - 2rem));
-    background: #2c3848;
+    background: var(--color-bg-raised);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
     z-index: 50;
     display: flex;
     flex-direction: column;
@@ -246,12 +246,12 @@
     align-items: center;
     gap: 0.75rem;
     padding: 0.9rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--color-border);
     flex-shrink: 0;
   }
 
   .search-icon {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--color-text-muted);
     font-size: 1rem;
   }
 
@@ -260,20 +260,20 @@
     background: none;
     border: none;
     outline: none;
-    color: #fff;
+    color: var(--color-heading);
     font-size: 1rem;
     font-family: inherit;
   }
 
   .modal-input-row input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--color-text-muted);
   }
 
   .esc-btn {
     background: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--color-text-muted);
     font-size: 0.65rem;
     padding: 0.1rem 0.4rem;
     cursor: pointer;
@@ -281,8 +281,8 @@
   }
 
   .esc-btn:hover {
-    color: rgba(255, 255, 255, 0.65);
-    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--color-text);
+    border-color: var(--color-accent);
   }
 
   .state-msg {
@@ -291,7 +291,7 @@
     align-items: center;
     justify-content: center;
     padding: 2rem 1.25rem;
-    color: rgba(200, 200, 200, 0.5);
+    color: var(--color-text-muted);
     font-size: 0.85rem;
     text-align: center;
   }
@@ -305,7 +305,7 @@
 
   .result-list {
     width: 45%;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--color-border);
     overflow-y: auto;
     padding: 0.4rem 0;
     margin: 0;
@@ -333,7 +333,7 @@
   }
 
   .dot-article {
-    background: rgb(255, 140, 0);
+    background: var(--color-accent);
   }
 
   .dot-recipe {
@@ -342,7 +342,7 @@
 
   .result-title {
     font-size: 0.8rem;
-    color: rgb(220, 220, 220);
+    color: var(--color-text-strong);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -358,13 +358,13 @@
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: rgb(255, 140, 0);
+    color: var(--color-accent);
     margin-bottom: 0.4rem;
   }
 
   .preview-title {
     font-size: 0.95rem;
-    color: rgb(241, 241, 241);
+    color: var(--color-heading);
     margin-bottom: 0.6rem;
     line-height: 1.3;
     font-weight: 600;
@@ -372,7 +372,7 @@
 
   .preview-excerpt {
     font-size: 0.78rem;
-    color: rgba(170, 170, 170, 0.8);
+    color: var(--color-text);
     line-height: 1.6;
   }
 
@@ -387,27 +387,27 @@
   .preview-tags {
     margin-top: 0.75rem;
     font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--color-text-muted);
   }
 
   .modal-footer {
     display: flex;
     gap: 1rem;
     padding: 0.5rem 1.25rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--color-border);
     flex-shrink: 0;
   }
 
   .modal-footer span {
     font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--color-text-muted);
     display: flex;
     align-items: center;
     gap: 0.3rem;
   }
 
   kbd {
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid var(--color-border);
     border-radius: 3px;
     padding: 0.05rem 0.3rem;
     font-size: 0.6rem;
@@ -472,7 +472,7 @@
       font-size: 1.1rem;
       border: none;
       padding: 0.35rem 0.5rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--color-text-muted);
       min-width: 2.75rem;
       min-height: 2.75rem;
       display: flex;

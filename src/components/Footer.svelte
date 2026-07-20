@@ -47,7 +47,7 @@
   };
 </script>
 
-<footer class="max-content py-12 text-center text-[90%]">
+<footer class="max-content hairline py-10 mt-8 text-center text-[85%] text-site-text-muted">
   <a rel="me noopener noreferrer" href="https://fosstodon.org/@tuck" target="_blank">@tuck@fosstodon.org | Mastodon</a>
   <div id="reading-progress" aria-hidden="true"></div>
 </footer>
@@ -55,9 +55,9 @@
 <style>
   #reading-progress {
     z-index: 1;
-    background-color: rgb(255, 140, 0);
+    background-color: var(--color-accent);
     width: 100vw;
-    height: 0.5rem;
+    height: 0.25rem;
     position: fixed;
     left: 0;
     bottom: 0;

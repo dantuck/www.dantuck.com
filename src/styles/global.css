@@ -25,23 +25,60 @@
   border: 0;
 }
 
-/* ── Base ───────────────────────────────────────────────────────────────── */
+/* ── Theme tokens ───────────────────────────────────────────────────────── */
 
 :root {
   --main-width: min(800px, calc(100vw - 3rem));
+
+  --color-bg: #f5f2ee;
+  --color-bg-raised: #ffffff;
+  --color-text: #3a3a3a;
+  --color-text-muted: rgba(58, 58, 58, 0.6);
+  --color-text-strong: #333333;
+  --color-heading: #1c1c1c;
+  --color-border: rgba(0, 0, 0, 0.12);
+  --color-accent: rgb(255, 140, 0);
+  --color-code-bg: #282a36;
+  --color-code-text: rgb(244, 191, 117);
 }
+
+:root[data-theme="dark"] {
+  --color-bg: rgb(45, 54, 66);
+  --color-bg-raised: #1a2230;
+  --color-text: rgb(170, 170, 170);
+  --color-text-muted: rgba(170, 170, 170, 0.6);
+  --color-text-strong: rgb(200, 200, 200);
+  --color-heading: rgb(241, 241, 241);
+  --color-border: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: rgb(45, 54, 66);
+    --color-bg-raised: #1a2230;
+    --color-text: rgb(170, 170, 170);
+    --color-text-muted: rgba(170, 170, 170, 0.6);
+    --color-text-strong: rgb(200, 200, 200);
+    --color-heading: rgb(241, 241, 241);
+    --color-border: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
 
 html {
   font-family: Comfortaa, sans-serif;
   font-size: 18px;
+  color-scheme: light dark;
 }
 
 body {
   margin: 0;
-  background: rgb(45, 54, 66);
-  color: rgb(170, 170, 170);
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: Comfortaa, sans-serif;
   line-height: 1.5;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 img {
@@ -53,7 +90,7 @@ img {
 /* ── Links / typography ─────────────────────────────────────────────────── */
 
 a {
-  color: rgb(255, 140, 0);
+  color: var(--color-accent);
   text-decoration: none;
 }
 
@@ -66,30 +103,35 @@ a:hover {
 }
 
 small {
-  color: #ccc;
+  color: var(--color-text-muted);
 }
 
 hr {
-  border-bottom: 1px solid rgb(170, 170, 170);
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* ── Scrollbar ──────────────────────────────────────────────────────────── */
 
 ::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-thumb { background: #ccc; }
-::-webkit-scrollbar-thumb:hover { background: rgb(241, 241, 241); }
+::-webkit-scrollbar-thumb { background: var(--color-border); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
 
 /* ── Headings ───────────────────────────────────────────────────────────── */
 
 h1, h2, h3, h4, h5, h6 {
   font-family: Comfortaa, sans-serif;
+  color: var(--color-heading);
   line-height: 1.2;
   letter-spacing: -0.01em;
 }
 
+h1, h2, h3 {
+  font-family: "Fraunces Variable", Georgia, Cambria, "Times New Roman", serif;
+  font-weight: 700;
+}
+
 h1 { letter-spacing: -0.02em; }
 h2 { letter-spacing: -0.015em; }
-h3 { font-weight: 600; }
 
 /* ── Nav link hover animation ───────────────────────────────────────────── */
 
@@ -97,37 +139,36 @@ h3 { font-weight: 600; }
   font-weight: 700;
   font-family: Comfortaa, sans-serif;
   font-size: 0.85rem;
-  color: rgb(255, 140, 0);
+  color: var(--color-text);
   text-decoration: none;
   transition: color 0.15s ease;
   user-select: none;
 }
 
 .nav-link:hover {
-  color: rgb(255, 255, 255);
+  color: var(--color-heading);
 }
 
 .nav-link[aria-current="page"],
 .nav-link[aria-current="page"]:hover {
-  color: rgb(255, 255, 255);
+  color: var(--color-heading);
 }
 
 .nav-link[aria-current="page"]::after {
   content: "";
   display: block;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: rgb(255, 140, 0);
-  margin: 3px auto 0;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--color-accent);
+  margin-top: 4px;
 }
 
 /* ── Code / pre (Shiki overrides) ───────────────────────────────────────── */
 
 code {
-  background: #282A36;
+  background: var(--color-code-bg);
   border-radius: 3px;
-  color: rgb(244, 191, 117);
+  color: var(--color-code-text);
   font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   font-size: 90%;
   padding: 2px 6px;
@@ -138,7 +179,7 @@ pre {
   padding: 0.8em;
   margin: 0.2em 0;
   overflow: auto;
-  background: #282A36;
+  background: var(--color-code-bg);
 }
 
 pre code {
@@ -152,14 +193,14 @@ pre code {
   word-break: normal;
   tab-size: 2;
   hyphens: none;
-  background: #282A36;
-  color: rgb(244, 191, 117);
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
 }
 
 /* ── Blockquote ─────────────────────────────────────────────────────────── */
 
 blockquote {
-  border-left: 1px solid rgb(241, 241, 241);
+  border-left: 1px solid var(--color-border);
   padding: 0 1.5rem;
   margin: 1.5rem 0;
 }
@@ -171,7 +212,7 @@ blockquote {
 blockquote footer {
   background: none;
   display: block;
-  color: #ccc;
+  color: var(--color-text-muted);
   padding: 0.75rem 0;
   font-size: 90%;
   text-align: start;
@@ -197,21 +238,21 @@ dd {
   margin-left: 2.25rem;
 }
 
-dd + dt { border-top: 1px solid rgb(241, 241, 241); }
+dd + dt { border-top: 1px solid var(--color-border); }
 
 /* ── Tables ─────────────────────────────────────────────────────────────── */
 
 th { font-weight: 600; }
 
 td, th {
-  border-bottom: 1px solid #595959;
+  border-bottom: 1px solid var(--color-border);
   overflow: auto;
   padding: 0.5rem;
   text-align: left;
   vertical-align: top;
 }
 
-thead th { border-bottom: 1px solid rgb(241, 241, 241); }
+thead th { border-bottom: 1px solid var(--color-heading); }
 
 table { display: block; overflow-x: auto; }
 
@@ -225,7 +266,7 @@ figure img { display: block; }
 article hr {
   border: none;
   height: 2px;
-  background: linear-gradient(to right, transparent, rgb(255, 140, 0), transparent);
+  background: linear-gradient(to right, transparent, var(--color-accent), transparent);
   margin: 2rem auto;
   width: 60%;
   opacity: 0.5;
@@ -234,35 +275,6 @@ article hr {
 /* ── Article prose ──────────────────────────────────────────────────────── */
 
 article { max-width: 100%; }
-
-article header {
-  position: relative;
-  padding-bottom: 0.4rem;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-}
-
-article header h2 {
-  font-size: 1.3rem;
-  line-height: 1.8rem;
-  margin-bottom: 0;
-}
-
-article header h2 + time {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-}
-
-article header ul {
-  list-style: none;
-  padding: 0;
-  font-size: 1rem;
-  display: inline-flex;
-  flex-wrap: wrap;
-  margin: 0.75rem 0;
-  gap: 10px;
-}
 
 article ul[data-ingredients] {
   padding-left: 1.5rem;
@@ -277,8 +289,8 @@ article footer {
 
 article footer a {
   padding: 0.45rem 0.75rem;
-  background-color: rgb(255, 140, 0);
-  color: rgb(45, 54, 66);
+  background-color: var(--color-accent);
+  color: var(--color-bg);
 }
 
 /* ── _override.scss live rules ──────────────────────────────────────────── */
@@ -322,7 +334,7 @@ img[align="left"] {
 
 /* Header */
 .resume-header {
-  border-bottom: 2px solid rgb(255, 140, 0);
+  border-bottom: 2px solid var(--color-accent);
   padding-bottom: 0.75rem;
   margin-bottom: 2rem;
 }
@@ -330,14 +342,14 @@ img[align="left"] {
 .resume-header h1 {
   font-size: 1.8rem;
   font-weight: 700;
-  color: rgb(241, 241, 241);
+  color: var(--color-heading);
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
 .resume-contact {
   font-size: 1rem;
-  color: rgb(170, 170, 170);
+  color: var(--color-text);
   margin-top: 0.25rem;
 }
 
@@ -350,8 +362,8 @@ img[align="left"] {
   font-family: Comfortaa, sans-serif;
   font-size: 1rem;
   background: none;
-  border: 1px solid rgb(255, 140, 0);
-  color: rgb(255, 140, 0);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
   padding: 5px 14px;
   cursor: pointer;
   border-radius: 2px;
@@ -359,8 +371,8 @@ img[align="left"] {
 }
 
 .btn-print:hover {
-  background: rgb(255, 140, 0);
-  color: rgb(45, 54, 66);
+  background: var(--color-accent);
+  color: var(--color-bg);
 }
 
 /* Section titles */
@@ -368,7 +380,7 @@ img[align="left"] {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: rgb(255, 140, 0);
+  color: var(--color-accent);
   border-bottom: 1px solid rgba(255, 140, 0, 0.35);
   padding-bottom: 0.3rem;
   margin-top: 1.5rem;
@@ -389,13 +401,13 @@ img[align="left"] {
 .resume-company-name {
   font-size: 1.1rem;
   font-weight: 700;
-  color: rgb(241, 241, 241);
+  color: var(--color-heading);
   margin-bottom: 0.4rem;
 }
 
 .resume-company-location {
   font-size: 0.95rem;
-  color: rgba(170, 170, 170, 0.75);
+  color: var(--color-text-muted);
   font-weight: 400;
   margin-left: 0.5rem;
 }
@@ -410,14 +422,14 @@ img[align="left"] {
 .resume-role-title {
   font-size: 1rem;
   font-weight: 700;
-  color: rgb(200, 200, 200);
+  color: var(--color-text-strong);
   margin-bottom: 0.15rem;
 }
 
 .resume-role-dates {
   display: block;
   font-size: 0.875rem;
-  color: rgba(170, 170, 170, 0.75);
+  color: var(--color-text-muted);
   margin-bottom: 0.35rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -426,7 +438,7 @@ img[align="left"] {
 .resume-role-description {
   font-size: 1rem;
   line-height: 1.6;
-  color: rgb(170, 170, 170);
+  color: var(--color-text);
 }
 
 /* Tech pills */
@@ -437,7 +449,7 @@ img[align="left"] {
 .resume-lang-company {
   font-size: 0.95rem;
   font-weight: 700;
-  color: rgb(200, 200, 200);
+  color: var(--color-text-strong);
   margin-bottom: 0.3rem;
 }
 
@@ -450,12 +462,12 @@ img[align="left"] {
 .resume-tech li {
   display: inline;
   font-size: 0.85rem;
-  color: rgb(170, 170, 170);
+  color: var(--color-text);
 }
 
 .resume-tech li + li::before {
   content: " · ";
-  color: rgb(255, 140, 0);
+  color: var(--color-accent);
   font-size: 1.2em;
   line-height: 0;
   vertical-align: middle;
@@ -467,20 +479,20 @@ img[align="left"] {
 }
 
 .resume-skill + .resume-skill {
-  border-top: 1px solid rgba(170, 170, 170, 0.08);
+  border-top: 1px solid var(--color-border);
   padding-top: 0.5rem;
 }
 
 .resume-skill-title {
   font-size: 1rem;
   font-weight: 700;
-  color: rgb(200, 200, 200);
+  color: var(--color-text-strong);
   margin-bottom: 0.15rem;
 }
 
 .resume-skill-desc {
   font-size: 0.95rem;
-  color: rgb(170, 170, 170);
+  color: var(--color-text);
   line-height: 1.5;
 }
 
@@ -488,20 +500,20 @@ img[align="left"] {
 .resume-edu-institution {
   font-size: 1rem;
   font-weight: 700;
-  color: rgb(200, 200, 200);
+  color: var(--color-text-strong);
   margin-bottom: 0.15rem;
 }
 
 .resume-edu-year {
   font-size: 0.875rem;
-  color: rgba(170, 170, 170, 0.75);
+  color: var(--color-text-muted);
   font-weight: 400;
   margin-left: 0.35rem;
 }
 
 .resume-edu-degree {
   font-size: 0.95rem;
-  color: rgb(170, 170, 170);
+  color: var(--color-text);
   line-height: 1.5;
 }
 
