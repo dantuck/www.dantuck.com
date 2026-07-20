@@ -3,14 +3,12 @@ import Tags from './Tags.astro';
 import FeedbackLink from './FeedbackLink.astro';
 
 export interface Props {
-  title?: string;
   tags?: string[];
 }
-const { title, tags } = Astro.props;
+const { tags } = Astro.props;
 ---
 
-<article data-pagefind-body class="max-content py-6">
-  {title && <h1 class="text-center pb-4 text-primary">{title}</h1>}
+<div class="prose">
   <slot />
   {tags?.length > 0 && (
     <div data-pagefind-meta="tags">
@@ -18,4 +16,4 @@ const { title, tags } = Astro.props;
     </div>
   )}
   <FeedbackLink />
-</article>
+</div>

@@ -21,6 +21,13 @@
   let pagefind: any;
   let pagefindLoaded = false;
 
+  const suggestions = ['tailscale', 'nix', 'homelab', 'whiskey', 'salsa', 'dinner'];
+
+  function trySuggestion(s: string) {
+    query = s;
+    inputEl?.focus();
+  }
+
   async function loadPagefind() {
     if (pagefindLoaded || devMode) return;
     try {
@@ -142,7 +149,12 @@
     on:keydown={handleModalKeydown}
   >
     <div class="modal-input-row">
-      <span class="search-icon" aria-hidden="true">⌕</span>
+      <span class="search-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="10.5" cy="10.5" r="6.5" />
+          <line x1="20" y1="20" x2="15.3" y2="15.3" />
+        </svg>
+      </span>
       <input
         bind:this={inputEl}
         bind:value={query}
@@ -165,9 +177,22 @@
     {#if devMode}
       <div class="state-msg">Search is only available in production builds.</div>
     {:else if !query.trim()}
-      <div class="state-msg">Search articles and recipes…</div>
+      <div class="empty-state">
+        <span class="empty-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <line x1="20" y1="20" x2="15.3" y2="15.3" />
+          </svg>
+        </span>
+        <p class="empty-title">Equal parts code and cooking.</p>
+        <div class="empty-chips">
+          {#each suggestions as s}
+            <button type="button" class="chip" on:click={() => trySuggestion(s)}>{s}</button>
+          {/each}
+        </div>
+      </div>
     {:else if results.length === 0}
-      <div class="state-msg">No results for '{query}'</div>
+      <div class="state-msg">No results for '{query}' — maybe it's not written yet.</div>
     {:else}
       <div class="modal-body">
         <ul
@@ -220,7 +245,8 @@
   .backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
     z-index: 40;
   }
 
@@ -230,10 +256,11 @@
     left: 50%;
     transform: translateX(-50%);
     width: min(640px, calc(100vw - 2rem));
-    background: #2c3848;
+    background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    backdrop-filter: blur(24px) saturate(180%);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--color-border);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
     z-index: 50;
     display: flex;
     flex-direction: column;
@@ -241,18 +268,30 @@
     max-height: 80vh;
   }
 
+  @supports not (backdrop-filter: blur(1px)) {
+    .modal {
+      background: var(--color-bg);
+    }
+  }
+
   .modal-input-row {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 0.9rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--color-border);
     flex-shrink: 0;
   }
 
   .search-icon {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1rem;
+    display: flex;
+    color: var(--color-text-muted);
+    flex-shrink: 0;
+  }
+
+  .search-icon svg {
+    width: 1.05rem;
+    height: 1.05rem;
   }
 
   .modal-input-row input {
@@ -260,20 +299,20 @@
     background: none;
     border: none;
     outline: none;
-    color: #fff;
+    color: var(--color-heading);
     font-size: 1rem;
     font-family: inherit;
   }
 
   .modal-input-row input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--color-text-muted);
   }
 
   .esc-btn {
     background: none;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid var(--color-border);
     border-radius: 4px;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--color-text-muted);
     font-size: 0.65rem;
     padding: 0.1rem 0.4rem;
     cursor: pointer;
@@ -281,8 +320,8 @@
   }
 
   .esc-btn:hover {
-    color: rgba(255, 255, 255, 0.65);
-    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--color-text);
+    border-color: var(--color-accent);
   }
 
   .state-msg {
@@ -291,9 +330,68 @@
     align-items: center;
     justify-content: center;
     padding: 2rem 1.25rem;
-    color: rgba(200, 200, 200, 0.5);
+    color: var(--color-text-muted);
     font-size: 0.85rem;
     text-align: center;
+  }
+
+  .empty-state {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 2.25rem 1.5rem;
+    text-align: center;
+  }
+
+  .empty-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.9rem;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    color: var(--color-accent);
+  }
+
+  .empty-badge svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .empty-title {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .empty-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 26rem;
+  }
+
+  .chip {
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-text-muted);
+    font-family: inherit;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.75rem;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .chip:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
   }
 
   .modal-body {
@@ -305,7 +403,7 @@
 
   .result-list {
     width: 45%;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid var(--color-border);
     overflow-y: auto;
     padding: 0.4rem 0;
     margin: 0;
@@ -333,7 +431,7 @@
   }
 
   .dot-article {
-    background: rgb(255, 140, 0);
+    background: var(--color-accent);
   }
 
   .dot-recipe {
@@ -342,7 +440,7 @@
 
   .result-title {
     font-size: 0.8rem;
-    color: rgb(220, 220, 220);
+    color: var(--color-text-strong);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -358,13 +456,13 @@
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: rgb(255, 140, 0);
+    color: var(--color-accent);
     margin-bottom: 0.4rem;
   }
 
   .preview-title {
     font-size: 0.95rem;
-    color: rgb(241, 241, 241);
+    color: var(--color-heading);
     margin-bottom: 0.6rem;
     line-height: 1.3;
     font-weight: 600;
@@ -372,7 +470,7 @@
 
   .preview-excerpt {
     font-size: 0.78rem;
-    color: rgba(170, 170, 170, 0.8);
+    color: var(--color-text);
     line-height: 1.6;
   }
 
@@ -387,27 +485,27 @@
   .preview-tags {
     margin-top: 0.75rem;
     font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--color-text-muted);
   }
 
   .modal-footer {
     display: flex;
     gap: 1rem;
     padding: 0.5rem 1.25rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--color-border);
     flex-shrink: 0;
   }
 
   .modal-footer span {
     font-size: 0.6rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--color-text-muted);
     display: flex;
     align-items: center;
     gap: 0.3rem;
   }
 
   kbd {
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    border: 1px solid var(--color-border);
     border-radius: 3px;
     padding: 0.05rem 0.3rem;
     font-size: 0.6rem;
@@ -472,7 +570,7 @@
       font-size: 1.1rem;
       border: none;
       padding: 0.35rem 0.5rem;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--color-text-muted);
       min-width: 2.75rem;
       min-height: 2.75rem;
       display: flex;

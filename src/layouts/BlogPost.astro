@@ -6,7 +6,7 @@ import Footer from '../components/Footer.svelte';
 import JsonLd from '../components/JsonLd.astro';
 import SeriesNav from '../components/SeriesNav.astro';
 
-const { frontmatter } = Astro.props;
+const { frontmatter, headings, rawContent } = Astro.props;
 const { title, description, tags, publishDate, image } = frontmatter;
 const permalink = frontmatter.permalink ?? Astro.url.href;
 
@@ -17,6 +17,10 @@ const devBannerLabel = isDraft ? 'DRAFT' : `SCHEDULED · publishes ${publishDate
 
 const pathname = Astro.url.pathname.replace(/\/$/, '');
 const ogImage = new URL(`/og${pathname}.png`, Astro.site).toString();
+
+const wordCount = rawContent ? rawContent().trim().split(/\s+/).filter(Boolean).length : 0;
+const readMinutes = Math.max(1, Math.round(wordCount / 200));
+const tocHeadings = (headings ?? []).filter((h: { depth: number }) => h.depth === 2);
 
 const articleSchema = {
   '@context': 'https://schema.org',
@@ -43,15 +47,119 @@ const articleSchema = {
       <div class="dev-banner">{devBannerLabel}</div>
     )}
     <Header client:load path={Astro.url.pathname} />
-    <BlogPost {title} {tags}>
-      {frontmatter.series && <SeriesNav series={frontmatter.series} currentPart={frontmatter.seriesPart} />}
-      <slot />
-    </BlogPost>
+    <article data-pagefind-body class="article-content py-6">
+      <header class="article-head">
+        <a href="/article" class="kicker mb-6">← Article</a>
+        <h1 class="font-serif article-title">{title}</h1>
+        {description && <p class="article-lead">{description}</p>}
+        <div class="entry-meta">
+          {publishDate && <time datetime={new Date(publishDate).toISOString().slice(0, 10)}>{publishDate}</time>}
+          <span>{readMinutes} min read</span>
+          {tags?.length > 0 && <span>{tags.join(' / ')}</span>}
+        </div>
+      </header>
+
+      <div class="hairline my-8" aria-hidden="true"></div>
+
+      <div class="article-layout" class:list={{ 'no-toc': tocHeadings.length < 2 }}>
+        {tocHeadings.length >= 2 && (
+          <aside class="article-toc" aria-label="Table of contents">
+            <p class="kicker mb-4">Contents</p>
+            <nav>
+              {tocHeadings.map((h: { slug: string; text: string }) => (
+                <a href={`#${h.slug}`}>{h.text}</a>
+              ))}
+            </nav>
+          </aside>
+        )}
+        <BlogPost {tags}>
+          {frontmatter.series && <SeriesNav series={frontmatter.series} currentPart={frontmatter.seriesPart} />}
+          <slot />
+        </BlogPost>
+      </div>
+    </article>
     <Footer client:load transition:persist />
   </body>
 </html>
 
 <style>
+  .article-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .article-title { font-size: 3.25rem; }
+  }
+
+  .article-lead {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 42rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .entry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 1.25rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .article-layout {
+    display: block;
+  }
+
+  .article-toc {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .article-layout {
+      display: grid;
+      grid-template-columns: 15rem 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .article-layout.no-toc {
+      grid-template-columns: 1fr;
+      max-width: 50rem;
+    }
+
+    .article-toc {
+      display: block;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .article-toc nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .article-toc nav a {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: var(--color-text-muted);
+    }
+
+    .article-toc nav a:hover {
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+  }
+
   .dev-banner {
     position: fixed;
     top: 0;

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, onDestroy, tick } from 'svelte';
   import Search from './Search.svelte';
+  import ThemeToggle from './ThemeToggle.svelte';
 
   export let title: string | undefined = undefined;
   export let path: string = '';
@@ -122,8 +123,8 @@
 <header>
   <nav>
     <div id="nav" class="max-content nav-inner py-[0.6rem] px-4">
-      <p class="m-0">
-        <a href="/" class="nav-tagline">bytes of thought<span class="nav-tagline-sub"> by Daniel Tucker</span></a>
+      <p class="m-0 brand">
+        <a href="/" class="brand-link"><span class="brand-bar" aria-hidden="true"></span>bytes of thought<span class="nav-tagline-sub"> by Daniel Tucker</span></a>
       </p>
 
       <!-- Desktop nav links (hidden on mobile via CSS) -->
@@ -146,6 +147,7 @@
           <span class="search-btn-label">Quick search…</span>
           <kbd class="search-btn-hint" aria-hidden="true" id="search-kbd-hint">⌘K</kbd>
         </button>
+        <ThemeToggle />
       </div>
 
       <!-- Mobile hamburger (hidden on desktop via CSS) -->
@@ -221,6 +223,7 @@
           </svg>
           Search
         </button>
+        <div class="drawer-theme-toggle"><ThemeToggle /></div>
       </div>
     </div>
   </div>
@@ -235,9 +238,31 @@
     top: 0;
     left: 0;
     width: 100vw;
-    background: rgba(45, 54, 66, 0.95);
-    border-bottom: 1px solid rgba(255, 140, 0, 0.4);
+    background: color-mix(in srgb, var(--color-bg) 95%, transparent);
+    border-bottom: 1px solid var(--color-border);
     z-index: 10;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .brand-link:hover {
+    color: var(--color-accent);
+  }
+
+  .brand-bar {
+    display: inline-block;
+    width: 2px;
+    height: 1rem;
+    background: var(--color-accent);
   }
 
   header {
@@ -288,7 +313,7 @@
       justify-content: center;
       background: none;
       border: none;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--color-text);
       cursor: pointer;
       padding: 0.35rem;
       border-radius: 4px;
@@ -297,8 +322,8 @@
 
     @media (hover: hover) {
       .hamburger:hover {
-        color: rgba(255, 255, 255, 0.95);
-        background: rgba(255, 255, 255, 0.08);
+        color: var(--color-heading);
+        background: var(--color-border);
       }
     }
 
@@ -313,19 +338,18 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: var(--color-bg-raised);
+    border: 1px solid var(--color-border);
     border-radius: 6px;
     padding: 0.25rem 0.5rem;
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--color-text-muted);
   }
 
   .search-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.55);
+    border-color: var(--color-accent);
+    color: var(--color-text);
   }
 
   .search-btn:focus,
@@ -340,7 +364,7 @@
 
   .search-btn-label {
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--color-text-muted);
     letter-spacing: 0.01em;
   }
 
@@ -348,7 +372,7 @@
     font-size: 0.65rem;
     font-weight: 400;
     font-family: inherit;
-    color: rgba(255, 255, 255, 0.25);
+    color: var(--color-text-muted);
     letter-spacing: 0.02em;
     margin-left: 0.25rem;
   }
@@ -388,14 +412,14 @@
     transition: transform 0.25s ease, width 0.2s ease;
     overflow-y: auto;
     overflow-x: hidden;
-    background: rgba(30, 38, 48, 0.75);
+    background: color-mix(in srgb, var(--color-bg-raised) 85%, transparent);
     backdrop-filter: blur(24px) saturate(180%);
-    border-left: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.4);
+    border-left: 1px solid var(--color-border);
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.25);
   }
 
   @supports not (backdrop-filter: blur(1px)) {
-    .drawer { background: rgba(30, 38, 48, 0.97); }
+    .drawer { background: var(--color-bg-raised); }
   }
 
   .drawer.open { transform: translateX(0); }
@@ -437,7 +461,7 @@
   .drawer-close {
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--color-text-muted);
     cursor: pointer;
     font-size: 1.1rem;
     padding: 0.3rem 0.5rem;
@@ -449,8 +473,8 @@
 
   @media (hover: hover) {
     .drawer-close:hover {
-      color: rgba(255, 255, 255, 0.8);
-      background: rgba(255, 255, 255, 0.08);
+      color: var(--color-heading);
+      background: var(--color-border);
     }
   }
 
@@ -469,7 +493,7 @@
   .drawer-link {
     display: block;
     padding: 0.85rem 1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-text);
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: 600;
@@ -481,8 +505,8 @@
 
   @media (hover: hover) {
     .drawer-link:hover {
-      background: rgba(255, 255, 255, 0.07);
-      color: rgba(255, 255, 255, 1);
+      background: var(--color-border);
+      color: var(--color-heading);
     }
   }
 
@@ -494,8 +518,12 @@
 
   .drawer-footer {
     margin-top: auto;
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    border-top: 1px solid var(--color-border);
     padding: 0.5rem 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
   }
 
   .drawer-link-search {
@@ -505,9 +533,9 @@
     background: none;
     border: none;
     border-radius: 10px;
-    width: 100%;
+    flex: 1;
     text-align: left;
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--color-text-muted);
     font-size: 0.95rem;
     font-family: Comfortaa, sans-serif;
     font-weight: 600;
@@ -517,8 +545,8 @@
 
   @media (hover: hover) {
     .drawer-link-search:hover {
-      background: rgba(255, 255, 255, 0.06);
-      color: rgba(255, 255, 255, 0.7);
+      background: var(--color-border);
+      color: var(--color-text);
     }
   }
 

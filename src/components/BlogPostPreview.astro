@@ -32,17 +32,17 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
 
 <style>
   .hero-card {
-    background: #1a2230;
+    background: var(--color-bg-raised);
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-left: 4px solid rgb(255, 140, 0);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent);
     padding: 2rem 2.25rem;
     transition: border-color 0.15s ease;
     margin-bottom: 1.5rem;
   }
 
   .hero-card:hover {
-    border-color: rgba(255, 140, 0, 0.4);
+    border-color: var(--color-accent);
   }
 
   .card-link {
@@ -51,6 +51,8 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
   }
 
   .hero-title {
+    font-family: "Fraunces Variable", Georgia, Cambria, "Times New Roman", serif;
+    font-weight: 700;
     font-size: 1.8rem;
     line-height: 1.2;
     margin: 0 0 0.6rem;
@@ -58,7 +60,9 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
 
   .hero-date {
     display: block;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     margin-bottom: 0.75rem;
   }
 
@@ -69,15 +73,15 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
   }
 
   .post-card {
-    background: #1a2230;
+    background: var(--color-bg-raised);
     border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--color-border);
     padding: 1.5rem 1.75rem;
     transition: border-color 0.15s ease;
   }
 
   .post-card:hover {
-    border-color: rgba(255, 140, 0, 0.5);
+    border-color: var(--color-accent);
   }
 
   .card-title {
@@ -88,7 +92,9 @@ const isoDate = publishDate ? new Date(publishDate).toISOString().slice(0, 10) :
 
   .card-date {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     margin-bottom: 0.5rem;
   }
 
