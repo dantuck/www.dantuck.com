@@ -1,0 +1,136 @@
+{
+  "intro": "Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado.",
+  "now": [
+    {
+      "company": "Bill",
+      "companyUrl": "https://www.bill.com/",
+      "location": "San Jose, CA",
+      "dotColor": "rgb(255,140,0)",
+      "roles": [
+        {
+          "title": "Senior Staff Software Engineer",
+          "current": true,
+          "dates": "March 2025 – Present",
+          "description": "Senior Staff Software Engineer in BILL's Product, Network & AI organization, focused on developer experience and backend architecture. I design and build internal developer platforms—standardized local and cloud environments, opinionated tooling, and automation—that make it fast and reliable for engineers to spin up services, ship code, and debug production-like issues. Recently I've been integrating AI-assisted workflows into this stack so that agents can safely introspect, diagnose, and repair development environments, shifting repetitive troubleshooting from humans to automation and shortening feedback loops. Beyond hands-on engineering, I act as an architecture partner and mentor across teams, helping set standards for database migrations, CI/CD, and cloud infrastructure so our platform scales with the business."
+        },
+        {
+          "title": "Staff Software Engineer",
+          "current": false,
+          "dates": "January 2022 – March 2025",
+          "description": "Staff Software Engineer in BILL's Product, Network & AI organization, focused on backend architecture and developer experience. I implemented and evolved core Elixir services and shared libraries, strengthened patterns for database migrations and CI/CD, and helped teams adopt safer, more standardized ways to ship changes. I built and maintained internal tooling and local development workflows that reduced environment setup friction and production risk, and I regularly partnered with product squads as a reviewer and mentor on performance, data integrity, and cloud infrastructure decisions."
+        }
+      ]
+    }
+  ],
+  "previously": [
+    {
+      "dates": "Apr 2020 – Dec 2021",
+      "company": "Singularity Interactive",
+      "companyUrl": "https://singularity-interactive.com/",
+      "location": "Boulder, CO",
+      "dotOpacity": 0.75,
+      "roles": [
+        {
+          "title": "Staff Software Engineer",
+          "dates": "Apr 2021 – Dec 2021",
+          "description": "Led application support and special features for marketing and sales. Participated in architectural design, mentored developers across backend and frontend disciplines, and tackled harder problems to establish patterns for new feature development."
+        },
+        {
+          "title": "Software Developer II / Senior Engineer",
+          "dates": "Apr 2020 – Apr 2021",
+          "description": "Full stack engineer using NodeJS and ReactJS. Built reliable, tested applications deployed on AWS. Assisted in leading architectural design and identifying security concerns."
+        }
+      ]
+    },
+    {
+      "dates": "Nov 2014 – Apr 2020",
+      "company": "Exclusive Resorts",
+      "companyUrl": "https://www.exclusiveresorts.com",
+      "location": "Denver, CO",
+      "dotOpacity": 0.55,
+      "roles": [
+        {
+          "title": "Manager, UI Development",
+          "dates": "2018 – Apr 2020",
+          "description": "Managed a mixed onsite/offsite development team focused on public-facing website and content API R&D. Led design implementations and UI framework direction for member-facing applications. Managed and developed the content API and CMS in C#."
+        },
+        {
+          "title": "Lead Developer / Senior UI Developer / Offsite Team Manager",
+          "dates": "Nov 2014 – 2018",
+          "description": "Led UI architectural direction and implementation. Engineered a content API in C# Web API. Implemented build processes using Grunt to optimize and deploy assets to AWS CloudFront."
+        }
+      ]
+    },
+    {
+      "dates": "Jun 2014 – Nov 2014",
+      "company": "Schoolrunner",
+      "companyUrl": "",
+      "location": "Denver, CO",
+      "dotOpacity": 0.4,
+      "roles": [
+        {
+          "title": "Application Engineer",
+          "dates": "",
+          "description": "Built an Ionic Framework app using AngularJS for teacher actions (attendance, behavior recording), deployed to Android and iOS."
+        }
+      ]
+    },
+    {
+      "dates": "May 2012 – Jun 2014",
+      "company": "Sitrion (NewsGator)",
+      "companyUrl": "",
+      "location": "Denver, CO",
+      "dotOpacity": 0.3,
+      "roles": [
+        {
+          "title": "Software Engineer",
+          "dates": "",
+          "description": "Developed Sitrion Social Sites, a social networking plug-in for SharePoint. Designed and implemented Lookout360 as a portable ribbon connector."
+        }
+      ]
+    },
+    {
+      "dates": "Feb 2010 – May 2012",
+      "company": "Denver Regional Council of Governments",
+      "companyUrl": "",
+      "location": "Denver, CO",
+      "dotOpacity": 0.2,
+      "roles": [
+        {
+          "title": "Software Developer",
+          "dates": "",
+          "description": "Rebuilt mission-critical business applications into a more robust and scalable solution, integrating three systems into one."
+        }
+      ]
+    },
+    {
+      "dates": "Jan 2008 – Feb 2010",
+      "company": "Wood Group ESP",
+      "companyUrl": "",
+      "location": "Oklahoma City, OK",
+      "dotOpacity": 0.15,
+      "roles": [
+        {
+          "title": "Programmer / Analyst",
+          "dates": "",
+          "description": "Designed, tested, and implemented software applications in C# and ASP.Net. Coordinated with business subject matter experts to incorporate business rules, mathematical models, petroleum engineering aspects, and accounting rules into software."
+        }
+      ]
+    }
+  ],
+  "military": {
+    "organization": "Oklahoma Air National Guard",
+    "role": "Aircraft Generation Specialist",
+    "dates": "April 2000 – April 2010"
+  },
+  "education": {
+    "institution": "Oklahoma State University",
+    "degree": "Bachelor in Information Technology Assurance & Forensics",
+    "year": "2007"
+  },
+  "skills": [
+    "Linux system administrator, privately for ~15 years",
+    "Recreational private pilot (Part 141 training)",
+    "Hobbyist builder of APIs in Go and Progressive Web Applications"
+  ]
+}
