@@ -5,22 +5,30 @@
   import '@milkdown/crepe/theme/classic-dark.css';
   import { listenerCtx } from '@milkdown/plugin-listener';
   import type { ArticleDetail, ArticleSummary } from '../lib/types';
-  import type { ArticleFrontmatter } from '../lib/frontmatter';
+  import type { Frontmatter } from '../lib/frontmatter';
   import { toSlug } from '../lib/slug';
   import { authHeaders, setAdminToken } from '../lib/auth';
+  import { contentTypeOf, type ContentTypeId } from '../lib/content-types';
   import PublishButton from './PublishButton.svelte';
+  import StringListEditor from './StringListEditor.svelte';
+
+  // Content type — read once from the query string (?type=recipe|portfolio, defaults to article)
+  let type: ContentTypeId = 'article';
+  if (typeof window !== 'undefined') {
+    type = (new URLSearchParams(window.location.search).get('type') as ContentTypeId) ?? 'article';
+  }
+  const ct = contentTypeOf(type);
 
   // Article state
   let slug: string | undefined;
-  let customSlug = '';       // editable part after "article/" — only used for new articles
+  let customSlug = '';       // editable part after the slug prefix — only used for new items
   let slugTouched = false;   // true once user manually edits the slug field
 
   $: if (!slugTouched && !slug && frontmatter.title !== 'Untitled') customSlug = toSlug(frontmatter.title);
-  // layout path is relative to src/pages/article/{slug}/index.md (3 dirs up to layouts/)
-  let frontmatter: ArticleFrontmatter = {
+  let frontmatter: Frontmatter = {
     title: 'Untitled',
     author: 'Daniel',
-    layout: '../../../layouts/BlogPost.astro',
+    ...(ct.defaultLayout ? { layout: ct.defaultLayout } : {}),
   };
   let mdxImports = '';
   let body = '';
@@ -154,8 +162,8 @@
     }
 
     const [articleRes, allArticlesRes] = await Promise.all([
-      slug ? fetch(`/admin/api/articles?slug=${encodeURIComponent(slug)}`, { headers: authHeaders() }) : Promise.resolve(null),
-      fetch('/admin/api/articles', { headers: authHeaders() }),
+      slug ? fetch(`/admin/api/articles?slug=${encodeURIComponent(slug)}&type=${type}`, { headers: authHeaders() }) : Promise.resolve(null),
+      fetch(`/admin/api/articles?type=${type}`, { headers: authHeaders() }),
     ]);
 
     if (articleRes?.status === 401 || allArticlesRes.status === 401) {
@@ -229,18 +237,27 @@
       .replace(/\{\\?\[/g, '{[');
   }
 
+  /** Repo-relative file path for a slug under this content type. */
+  function buildPath(effectiveSlug: string): string {
+    const bare = ct.slugPrefix && effectiveSlug.startsWith(ct.slugPrefix)
+      ? effectiveSlug.slice(ct.slugPrefix.length)
+      : effectiveSlug;
+    return ct.pathStyle === 'flat' ? `${ct.dir}/${bare}.md` : `${ct.dir}/${bare}/index.${fileExt}`;
+  }
+
   export async function save() {
     saveStatus = 'saving';
     clearTimeout(autosaveTimer);
 
-    const effectiveSlug = slug ?? `article/${customSlug || toSlug(frontmatter.title)}`;
-    const path = existingPath ?? `src/pages/${effectiveSlug}/index.${fileExt}`;
+    const effectiveSlug = slug ?? `${ct.slugPrefix}${customSlug || toSlug(frontmatter.title)}`;
+    const path = existingPath ?? buildPath(effectiveSlug);
 
     try {
       const res = await fetch('/admin/api/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeaders() },
         body: JSON.stringify({
+          type,
           slug: effectiveSlug,
           path,
           fileSha,
@@ -259,8 +276,8 @@
       if (data.previewUrl) previewUrl = data.previewUrl;
       if (!slug) {
         slug = effectiveSlug;
-        // Update URL to use query param (consistent with /admin/edit?slug=...)
-        window.history.pushState({}, '', `/admin/edit?slug=${encodeURIComponent(effectiveSlug)}`);
+        // Update URL to use query param (consistent with /admin/edit?slug=...&type=...)
+        window.history.pushState({}, '', `/admin/edit?slug=${encodeURIComponent(effectiveSlug)}&type=${type}`);
       }
       existingPath = path; // pin confirmed server path for subsequent operations
       saveStatus = 'saved';
@@ -277,7 +294,7 @@
   async function confirmDelete() {
     if (!slug || deleteConfirmText !== 'DELETE') return;
     deleting = true;
-    const path = existingPath ?? `src/pages/${slug}/index.${fileExt}`;
+    const path = existingPath ?? buildPath(slug);
     const res = await fetch('/admin/api/delete', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
@@ -315,7 +332,7 @@
   async function confirmUnpublish() {
     if (!slug) return;
     unpublishing = true;
-    const path = existingPath ?? `src/pages/${slug}/index.${fileExt}`;
+    const path = existingPath ?? buildPath(slug);
     const res = await fetch('/admin/api/unpublish', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', ...authHeaders() },
@@ -361,6 +378,10 @@
 
   async function handleImageDrop(e: DragEvent) {
     e.preventDefault();
+    if (ct.id === 'portfolio') {
+      alert('Portfolio screenshots are generated via `pnpm screenshots`, not uploaded here.');
+      return;
+    }
     const file = e.dataTransfer?.files[0];
     if (!file || !file.type.startsWith('image/')) return;
     if (file.size > 5 * 1024 * 1024) {
@@ -375,11 +396,11 @@
     }
 
     const base64 = await fileToBase64(file);
-    const effectiveSlug = slug ?? `article/${customSlug || toSlug(frontmatter.title)}`;
+    const effectiveSlug = slug ?? `${ct.slugPrefix}${customSlug || toSlug(frontmatter.title)}`;
 
     const res = await fetch('/admin/api/upload', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
       body: JSON.stringify({
         slug: effectiveSlug,
         branch,
@@ -448,17 +469,17 @@
   {:else}
     <!-- Metadata strip -->
     <header class="meta-strip">
-      <a href="/admin" class="back-link">← Articles</a>
+      <a href="/admin" class="back-link">← {ct.label}s</a>
 
       <div class="title-group">
         <input
           class="title-input"
           bind:value={frontmatter.title}
           on:input={scheduleAutosave}
-          placeholder="Article title..."
+          placeholder="{ct.label} title..."
         />
         <div class="slug-row">
-          <span class="slug-prefix">article/</span>
+          <span class="slug-prefix">{ct.slugPrefix}</span>
           <input
             class="slug-input"
             bind:value={customSlug}
@@ -529,6 +550,42 @@
         </span>
       </div>
 
+      {#if ct.id === 'recipe'}
+        <div class="type-fields">
+          <label class="meta-label" for="prep-input">Prep time</label>
+          <input id="prep-input" class="meta-input" bind:value={frontmatter.prepTime} on:input={scheduleAutosave} placeholder="15 min" />
+          <label class="meta-label" for="cook-input">Cook time</label>
+          <input id="cook-input" class="meta-input" bind:value={frontmatter.cookTime} on:input={scheduleAutosave} placeholder="20 min" />
+        </div>
+      {:else if ct.id === 'portfolio'}
+        <div class="type-fields">
+          <label class="meta-label" for="tagline-input">Tagline</label>
+          <input id="tagline-input" class="meta-input" bind:value={frontmatter.tagline} on:input={scheduleAutosave} placeholder="Short tagline" />
+          <label class="meta-label" for="url-input">URL</label>
+          <input id="url-input" class="meta-input" bind:value={frontmatter.url} on:input={scheduleAutosave} placeholder="https://example.com" />
+          <label class="meta-label" for="role-input">Role</label>
+          <input id="role-input" class="meta-input" bind:value={frontmatter.role} on:input={scheduleAutosave} placeholder="Designer & Developer" />
+          <label class="meta-label" for="sort-input">Order</label>
+          <input
+            id="sort-input"
+            type="number"
+            class="meta-input sort-input"
+            value={frontmatter.sortOrder ?? ''}
+            on:input={e => { const n = Number(e.currentTarget.value); frontmatter.sortOrder = Number.isNaN(n) ? undefined : n; scheduleAutosave(); }}
+          />
+          <label class="meta-label featured-label">
+            <input type="checkbox" bind:checked={frontmatter.featured} on:change={scheduleAutosave} /> Featured
+          </label>
+          <label class="meta-label">Tech stack</label>
+          <StringListEditor
+            items={frontmatter.techStack ?? []}
+            placeholder="Astro"
+            on:change={e => { frontmatter.techStack = e.detail; scheduleAutosave(); }}
+          />
+          <p class="hint">Screenshots are generated via <code>pnpm screenshots</code>, not uploaded here.</p>
+        </div>
+      {/if}
+
       <div class="actions">
         {#if isLive}
           <button class="btn-ghost" on:click={() => showUnpublishModal = true}>Unpublish</button>
@@ -544,22 +601,41 @@
           title={frontmatter.title}
           publishDate={frontmatter.publishDate}
           {slug}
-          path={existingPath ?? (slug ? `src/pages/${slug}/index.${fileExt}` : undefined)}
+          path={existingPath ?? (slug ? buildPath(slug) : undefined)}
           {branch}
           onSave={save}
         />
       </div>
     </header>
 
-    <!-- Milkdown editor -->
-    <div
-      class="editor-body"
-      bind:this={editorEl}
-      role="region"
-      aria-label="Article editor"
-      on:dragover|preventDefault
-      on:drop={handleImageDrop}
-    ></div>
+    <!-- Content area: ingredients pane + Milkdown editor (two-pane on wide screens for recipes) -->
+    <div class="content-area" class:content-area--recipe={ct.id === 'recipe'}>
+      {#if ct.id === 'recipe'}
+        <aside class="ingredients-pane">
+          <div class="ingredients-header">
+            <label class="meta-label">Ingredients</label>
+            <span class="ingredients-count">{(frontmatter.ingredients ?? []).length}</span>
+          </div>
+          <StringListEditor
+            items={frontmatter.ingredients ?? []}
+            placeholder="1 lb chicken"
+            fullWidth
+            reorderable
+            on:change={e => { frontmatter.ingredients = e.detail; scheduleAutosave(); }}
+          />
+        </aside>
+      {/if}
+
+      <!-- Milkdown editor -->
+      <div
+        class="editor-body"
+        bind:this={editorEl}
+        role="region"
+        aria-label="Article editor"
+        on:dragover|preventDefault
+        on:drop={handleImageDrop}
+      ></div>
+    </div>
 
     <!-- Status bar -->
     <footer class="status-bar">
@@ -803,17 +879,68 @@
     color: var(--admin-orange);
   }
 
+  .type-fields {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding-top: 4px;
+  }
+  .ingredients-header { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .ingredients-count {
+    font-size: 11px;
+    color: var(--admin-text-muted);
+    background: var(--admin-surface-2);
+    border-radius: 8px;
+    padding: 0 6px;
+    line-height: 16px;
+  }
+  .sort-input { width: 60px; }
+  .featured-label { display: flex; align-items: center; gap: 4px; text-transform: none; }
+  .hint { font-size: 11px; color: var(--admin-text-muted); width: 100%; margin: 0; }
+
   .save-status { font-size: 12px; color: var(--admin-text-muted); min-width: 70px; }
   .save-status[data-status="saved"] { color: var(--admin-green); }
   .save-status[data-status="error"] { color: var(--admin-red); }
 
   .actions { display: flex; gap: 8px; margin-left: auto; align-items: center; padding-top: 2px; }
 
+  .content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .ingredients-pane {
+    overflow-y: auto;
+    padding: 16px 20px;
+    background: var(--admin-surface);
+    border-bottom: 1px solid var(--admin-border);
+  }
+
   .editor-body {
     flex: 1;
     overflow-y: auto;
     padding: 32px max(24px, calc(50% - 500px));
     background: var(--admin-bg);
+  }
+
+  /* Two-pane layout on wide screens: ingredients sidebar + directions editor side by side */
+  @media (min-width: 1024px) {
+    .content-area--recipe {
+      flex-direction: row;
+    }
+    .content-area--recipe .ingredients-pane {
+      width: 400px;
+      flex-shrink: 0;
+      border-bottom: none;
+      border-right: 1px solid var(--admin-border);
+    }
+    .content-area--recipe .editor-body {
+      padding: 32px clamp(24px, 5vw, 64px);
+    }
   }
 
   /* Crepe editor — blend into admin shell */
