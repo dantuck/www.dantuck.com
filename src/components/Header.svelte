@@ -121,7 +121,7 @@
 <svelte:window on:keydown={handleKeydown} />
 
 <header>
-  <nav>
+  <nav class="site-nav">
     <div id="nav" class="max-content nav-inner py-[0.6rem] px-4">
       <p class="m-0 brand">
         <a href="/" class="brand-link"><span class="brand-bar" aria-hidden="true"></span>bytes of thought<span class="nav-tagline-sub"> by Daniel Tucker</span></a>
@@ -149,27 +149,28 @@
         </button>
         <ThemeToggle />
       </div>
-
-      <!-- Mobile hamburger (hidden on desktop via CSS) -->
-      <button
-        bind:this={hamburgerBtn}
-        class="hamburger"
-        on:click={toggleDrawer}
-        aria-label={isOpen ? 'Close menu' : 'Open menu'}
-        aria-expanded={isOpen}
-        aria-controls="mobile-drawer"
-      >
-        <svg width="20" height="14" viewBox="0 0 20 14" fill="currentColor" aria-hidden="true">
-          <rect y="0" width="20" height="2" rx="1"/>
-          <rect y="6" width="20" height="2" rx="1"/>
-          <rect y="12" width="20" height="2" rx="1"/>
-        </svg>
-      </button>
     </div>
+
+    <!-- Mobile hamburger (hidden on desktop via CSS) — sits outside the
+         centered max-content column so it can sit flush against the edge -->
+    <button
+      bind:this={hamburgerBtn}
+      class="hamburger"
+      on:click={toggleDrawer}
+      aria-label={isOpen ? 'Close menu' : 'Open menu'}
+      aria-expanded={isOpen}
+      aria-controls="mobile-drawer"
+    >
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="currentColor" aria-hidden="true">
+        <rect y="0" width="20" height="2" rx="1"/>
+        <rect y="6" width="20" height="2" rx="1"/>
+        <rect y="12" width="20" height="2" rx="1"/>
+      </svg>
+    </button>
   </nav>
 
   {#if title}
-    <h1 class="max-content text-center pb-4 text-primary">{title}</h1>
+    <h1 class="max-content page-title m-0 text-center pb-4 text-primary">{title}</h1>
   {/if}
 
   <!-- Backdrop -->
@@ -233,7 +234,7 @@
 
 <style>
   /* ── Fixed nav bar ─────────────────────────────────────────────── */
-  nav {
+  .site-nav {
     position: fixed;
     top: 0;
     left: 0;
@@ -241,6 +242,11 @@
     background: color-mix(in srgb, var(--color-bg) 95%, transparent);
     border-bottom: 1px solid var(--color-border);
     z-index: 10;
+  }
+
+  .brand {
+    display: flex;
+    line-height: 1;
   }
 
   .brand-link {
@@ -266,7 +272,7 @@
   }
 
   header {
-    padding-top: 4.5rem;
+    padding-top: 2.75rem;
     width: 100vw;
     display: flex;
     align-items: center;
@@ -275,6 +281,13 @@
 
   @media (min-width: 600px) {
     header { padding-top: 5rem; }
+  }
+
+  @media (max-width: 639px) {
+    .page-title {
+      width: min(800px, calc(100vw - 3rem));
+      text-align: left;
+    }
   }
 
   /* ── Nav inner layout ──────────────────────────────────────────── */
@@ -288,8 +301,10 @@
   @media (max-width: 639px) {
     .nav-inner {
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
+      align-items: center;
       gap: 0;
+      padding-right: 3.25rem;
     }
 
     .nav-links {
@@ -297,7 +312,7 @@
     }
 
     .nav-tagline-sub {
-      display: block;
+      display: none;
     }
   }
 
@@ -311,6 +326,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
       background: none;
       border: none;
       color: var(--color-text);
@@ -328,7 +347,7 @@
     }
 
     .hamburger:focus-visible {
-      outline: 2px solid rgba(255, 140, 0, 0.6);
+      outline: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
       outline-offset: 2px;
     }
   }
@@ -356,7 +375,7 @@
   .search-btn:active { outline: none; }
 
   .search-btn:focus-visible {
-    outline: 2px solid rgba(255, 140, 0, 0.6);
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
     outline-offset: 2px;
   }
 
@@ -459,33 +478,39 @@
   }
 
   .drawer-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
     background: none;
-    border: none;
-    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    color: var(--color-text);
     cursor: pointer;
-    font-size: 1.1rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 6px;
+    font-size: 1rem;
     line-height: 1;
     font-family: inherit;
-    transition: color 0.15s ease, background 0.15s ease;
+    transition: color 0.15s ease, border-color 0.15s ease;
   }
 
   @media (hover: hover) {
     .drawer-close:hover {
-      color: var(--color-heading);
-      background: var(--color-border);
+      color: var(--color-accent);
+      border-color: var(--color-accent);
     }
   }
 
   .drawer-close:focus-visible {
-    outline: 2px solid rgba(255, 140, 0, 0.6);
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
     outline-offset: 2px;
   }
 
   .drawer-nav {
     display: flex;
+    flex: 1;
     flex-direction: column;
+    justify-content: center;
     padding: 0.5rem 0.75rem;
     gap: 0.25rem;
   }
@@ -511,8 +536,8 @@
   }
 
   .drawer-link[aria-current="page"] {
-    background: rgba(255, 140, 0, 0.15);
-    color: rgb(255, 140, 0);
+    background: color-mix(in srgb, var(--color-accent) 15%, transparent);
+    color: var(--color-accent);
     cursor: default;
   }
 
@@ -551,7 +576,7 @@
   }
 
   .drawer-link-search:focus-visible {
-    outline: 2px solid rgba(255, 140, 0, 0.6);
+    outline: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
     outline-offset: 2px;
   }
 </style>
