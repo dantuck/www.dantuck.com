@@ -15,25 +15,19 @@
     "worker:deploy": "wrangler deploy --cwd worker",
     "worker:tail": "wrangler tail dantuck-scheduled-publish"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp",
-      "workerd"
-    ]
-  },
   "devDependencies": {
-    "@astrojs/mdx": "^6.0.3",
+    "@astrojs/mdx": "^7.0.3",
     "@astrojs/sitemap": "^3.7.3",
-    "@astrojs/svelte": "^8.1.2",
-    "@unocss/astro": "^66.7.0",
-    "astro": "^6.4.5",
+    "@astrojs/svelte": "^9.0.1",
+    "@fontsource-variable/fraunces": "^5.3.0",
+    "@unocss/astro": "^66.7.5",
+    "astro": "^7.1.1",
     "pagefind": "^1.5.2",
-    "playwright": "^1.60.0",
-    "satori": "^0.25.0",
-    "sharp": "^0.34.5",
-    "svelte": "^5.56.3",
-    "unocss": "^66.7.0",
-    "wrangler": "^4.99.0"
+    "playwright": "^1.61.1",
+    "satori": "^0.28.0",
+    "sharp": "^0.35.3",
+    "svelte": "^5.56.6",
+    "unocss": "^66.7.5",
+    "wrangler": "^4.112.0"
   }
 }
