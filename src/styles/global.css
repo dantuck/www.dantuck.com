@@ -158,7 +158,37 @@ h1, h2, h3 {
 }
 
 h1 { letter-spacing: -0.02em; }
+
+/* ── Body copy ──────────────────────────────────────────────────────────── */
+
+/* Long-form text reads better in a font built for text sizes than in
+   Comfortaa (a geometric display face). Reuses the Fraunces variable font
+   already loaded for headings — its optical-size axis auto-tunes for text
+   sizes here rather than the display cut used at heading sizes. */
+#main-content :where(p, li, blockquote) {
+  font-family: "Fraunces Variable", Georgia, Cambria, "Times New Roman", serif;
+  font-optical-sizing: auto;
+  font-weight: 350;
+}
 h2 { letter-spacing: -0.015em; }
+
+/* ── Dyslexia-friendly font ─────────────────────────────────────────────── */
+
+/* Toggled via ReadingFontToggle.svelte (see src/lib/readingFont.ts). OpenDyslexic's
+   weighted letter bottoms and wide, distinct glyph shapes are designed to reduce
+   letter reversal/swapping. Line-height and letter-spacing are bumped per the
+   font's own usage recommendations. Its glyphs render noticeably larger than
+   Fraunces at the same font-size, so size is dialed back to compensate.
+   Scoped to reading content, not headings/nav. */
+:root[data-font="dyslexic"] #main-content :where(p, li, blockquote) {
+  font-family: "OpenDyslexic", "Comic Sans MS", sans-serif;
+  font-optical-sizing: normal;
+  font-weight: 400;
+  font-size: 0.85em;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+}
 
 /* ── Nav link hover animation ───────────────────────────────────────────── */
 

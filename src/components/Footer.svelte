@@ -1,5 +1,7 @@
 <script>
   import { onMount } from 'svelte';
+  import ThemeToggle from './ThemeToggle.svelte';
+  import ReadingFontToggle from './ReadingFontToggle.svelte';
 
   onMount(() => {
     handleObserver();
@@ -48,11 +50,24 @@
 </script>
 
 <footer class="max-content hairline py-10 mt-8 text-center text-[85%] text-site-text-muted">
+  <div class="footer-controls">
+    <ReadingFontToggle />
+    <ThemeToggle />
+  </div>
   <a rel="me noopener noreferrer" href="https://fosstodon.org/@tuck" target="_blank">@tuck@fosstodon.org | Mastodon</a>
   <div id="reading-progress" aria-hidden="true"></div>
 </footer>
 
 <style>
+  .footer-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
   #reading-progress {
     z-index: 1;
     background-color: var(--color-accent);

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy, tick } from 'svelte';
   import Search from './Search.svelte';
-  import ThemeToggle from './ThemeToggle.svelte';
 
   export let title: string | undefined = undefined;
   export let path: string = '';
@@ -149,7 +148,6 @@
           <span class="search-btn-label">Quick search…</span>
           <kbd class="search-btn-hint" aria-hidden="true" id="search-kbd-hint">⌘K</kbd>
         </button>
-        <ThemeToggle />
       </div>
     </div>
 
@@ -226,7 +224,6 @@
           </svg>
           Search
         </button>
-        <div class="drawer-theme-toggle"><ThemeToggle /></div>
       </div>
     </div>
   </div>
@@ -283,6 +280,10 @@
 
   @media (min-width: 600px) {
     header { padding-top: 5rem; }
+
+    .page-title {
+      margin-top: 1.5rem;
+    }
   }
 
   @media (max-width: 639px) {
