@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fontsource/opendyslexic':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@milkdown/core':
         specifier: ^7.19.2
         version: 7.19.2
@@ -608,6 +611,9 @@ packages:
 
   '@fontsource-variable/fraunces@5.3.0':
     resolution: {integrity: sha512-9BYGySn4AHEJdgp9Z28tQ3X+laJMEOITXkQarZXeloWQZDq5oOvXJ3kDA8c7MGIfpogIaZfjrQBqmda8POOCKA==}
+
+  '@fontsource/opendyslexic@5.3.0':
+    resolution: {integrity: sha512-BVYIW/ghc1U2iAghhYTN+GFWiZ3lnCy8Jf2KkZC23aHQHBNcMqKT718zckfqVxRx4qsXJmIMPWvczirRuhmtsg==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -3921,6 +3927,8 @@ snapshots:
   '@floating-ui/utils@0.2.11': {}
 
   '@fontsource-variable/fraunces@5.3.0': {}
+
+  '@fontsource/opendyslexic@5.3.0': {}
 
   '@iconify/types@2.0.0': {}
 
