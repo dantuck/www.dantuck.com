@@ -306,7 +306,9 @@
       justify-content: flex-start;
       align-items: center;
       gap: 0;
-      padding-right: 3.25rem;
+      padding-top: 0.9rem;
+      padding-bottom: 0.9rem;
+      padding-right: 3.5rem;
     }
 
     .nav-links {
@@ -330,13 +332,15 @@
       justify-content: center;
       position: absolute;
       top: 50%;
-      right: 1rem;
+      right: 0.75rem;
       transform: translateY(-50%);
+      width: 2.75rem;
+      height: 2.75rem;
       background: none;
       border: none;
       color: var(--color-text);
       cursor: pointer;
-      padding: 0.35rem;
+      padding: 0;
       border-radius: 4px;
       transition: color 0.15s ease, background 0.15s ease;
     }
