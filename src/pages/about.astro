@@ -16,7 +16,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
   <div class="about-timeline about-timeline--now">
     {now.map((entry) => (
       <div class="about-entry">
-        <span class="about-dot" style={`background: ${entry.dotColor};`}></span>
+        <span class="about-dot about-dot--solid" style={`background: ${entry.dotColor}; border-color: ${entry.dotColor};`}></span>
         <p class="about-company">
           {entry.companyUrl ? <a href={entry.companyUrl}>{entry.company}</a> : entry.company}
         </p>
@@ -39,7 +39,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
   <div class="about-timeline about-timeline--prev">
     {previously.map((entry) => (
       <div class="about-entry">
-        <span class="about-dot" style={`background: rgba(255, 140, 0, ${entry.dotOpacity});`}></span>
+        <span class="about-dot about-dot--hollow" style={`border-color: rgba(255, 140, 0, ${entry.dotOpacity});`}></span>
         <span class="about-meta">{entry.dates}</span>
         <p class="about-company">
           {entry.companyUrl ? <a href={entry.companyUrl}>{entry.company}</a> : entry.company}
@@ -107,11 +107,11 @@ const { intro, now, previously, military, education, skills } = aboutData;
   }
 
   .about-timeline--now {
-    border-left: 2px solid rgba(255, 140, 0, 0.5);
+    border-left: 1px solid var(--color-border);
   }
 
   .about-timeline--prev {
-    border-left: 2px solid rgba(255, 140, 0, 0.2);
+    border-left: 1px solid var(--color-border);
   }
 
   /* ── Entry ──────────────────────────────────────────────────────────────── */
@@ -127,12 +127,23 @@ const { intro, now, previously, military, education, skills } = aboutData;
 
   .about-dot {
     position: absolute;
-    left: -1.85rem;
-    top: 0.35rem;
-    width: 9px;
-    height: 9px;
+    left: calc(-1.5rem - 6.5px);
+    top: calc(0.35rem - 1.5px);
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
+    border: 2px solid transparent;
+    background: transparent;
+    box-sizing: border-box;
     flex-shrink: 0;
+  }
+
+  .about-dot--solid {
+    border-width: 0;
+  }
+
+  .about-dot--hollow {
+    background: var(--color-bg);
   }
 
   /* ── Company / location ─────────────────────────────────────────────────── */
