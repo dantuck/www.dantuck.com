@@ -1,6 +1,8 @@
 ---
+import { Image } from "astro:assets";
 import AboutLayout from "../layouts/About.astro";
 import aboutData from "../data/about.json";
+import headshot from "../images/about/headshot.webp";
 
 const { intro, now, previously, military, education, skills } = aboutData;
 ---
@@ -9,7 +11,19 @@ const { intro, now, previously, military, education, skills } = aboutData;
   title="About"
   description="Daniel Tucker — Senior Staff Software Engineer in Colorado. Writing about software, tools, and systems."
 >
-  <p>{intro}</p>
+  <div class="about-intro">
+    <Image
+      src={headshot}
+      alt="Portrait of Daniel Tucker"
+      class="about-photo"
+      widths={[200, 400]}
+      sizes="140px"
+    />
+
+    {intro.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </div>
 
   <h2 class="about-section-title">Now</h2>
 
@@ -84,6 +98,40 @@ const { intro, now, previously, military, education, skills } = aboutData;
 </AboutLayout>
 
 <style>
+  /* ── Photo ──────────────────────────────────────────────────────────────── */
+
+  .about-intro {
+    margin-bottom: 1rem;
+  }
+
+  .about-intro::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .about-photo {
+    float: left;
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin: 0 1.75rem 1rem 0;
+    shape-outside: margin-box;
+  }
+
+  .about-intro p:first-child {
+    margin-top: 0;
+  }
+
+  @media (max-width: 600px) {
+    .about-photo {
+      float: none;
+      display: block;
+      margin: 0 auto 1.25rem;
+    }
+  }
+
   /* ── Section titles ─────────────────────────────────────────────────────── */
 
   .about-section-title {
