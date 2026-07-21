@@ -21,7 +21,7 @@
           "title": "Senior Staff Software Engineer",
           "startDate": "March 2025",
           "endDate": "Present",
-          "description": "Senior Staff Software Engineer in BILL's Product, Network & AI organization, focused on developer experience and backend architecture. I design and build internal developer platforms—standardized local and cloud environments, opinionated tooling, and automation—that make it fast and reliable for engineers to spin up services, ship code, and debug production-like issues. Recently I've been integrating AI-assisted workflows into this stack so that agents can safely introspect, diagnose, and repair development environments, shifting repetitive troubleshooting from humans to automation and shortening feedback loops. Beyond hands-on engineering, I act as an architecture partner and mentor across teams, helping set standards for database migrations, CI/CD, and cloud infrastructure so our platform scales with the business."
+          "description": "Senior Staff Software Engineer focused on improving engineering effectiveness  across developer experience, AI-assisted workflows, and platform  automation at BILL. I lead and contribute to initiatives that make it  easier for engineers to onboard, develop locally, ship changes safely,  and operate services with confidence. My work spans internal developer  tooling, backend and platform architecture, CI/CD systems, environment  standardization, and workflow automation, with an emphasis on reducing  friction, improving reliability, and increasing the leverage of  engineering teams.\n\nSince stepping into this role, I have driven work to modernize and streamline  the developer experience through better local development tooling,  stronger readiness and onboarding flows, and safer automation around  builds, deployments, and infrastructure operations. I have also helped  shape AI-enabled engineering workflows by building and integrating  internal tools that support faster troubleshooting, guided onboarding,  and more effective day-to-day development. In parallel, I partner across  platform, infrastructure, and application teams to improve system  quality, strengthen operational guardrails, and raise the overall  standard for how teams build and ship software. My focus is consistently  on creating durable technical foundations, scaling good engineering  practices, and enabling other engineers to move faster with less  operational overhead."
         },
         {
           "title": "Staff Software Engineer",
@@ -30,7 +30,17 @@
           "description": "Staff Software Engineer in BILL's Product, Network & AI organization, focused on backend architecture and developer experience. I implemented and evolved core Elixir services and shared libraries, strengthened patterns for database migrations and CI/CD, and helped teams adopt safer, more standardized ways to ship changes. I built and maintained internal tooling and local development workflows that reduced environment setup friction and production risk, and I regularly partnered with product squads as a reviewer and mentor on performance, data integrity, and cloud infrastructure decisions."
         }
       ],
-      "techStack": ["Elixir", "Rustlang", "Kubernetes", "AWS", "Datadog", "Kafka", "SQS", "PostgreSQL", "GraphQL"]
+      "techStack": [
+        "Elixir",
+        "Rustlang",
+        "Kubernetes",
+        "AWS",
+        "Datadog",
+        "Kafka",
+        "SQS",
+        "PostgreSQL",
+        "GraphQL"
+      ]
     },
     {
       "company": "Singularity Interactive LLC",
@@ -49,7 +59,21 @@
           "description": "Developer, design, implement, and maintain software projects and their individual features. Contributed as a full stack engineer utilizing NodeJS and ReactJS. Engineered reliable, tested applications deployed and orchestrated in AWS. Additionally, assisted in leading architectural design and identifying security concerns during the application lifecycle."
         }
       ],
-      "techStack": ["NodeJS", "React", "TailwindCSS", "Jest", "TypeORM", "PostgreSQL", "Redis", "Redis Bull", "Nats", "Stripe", "AWS", "Kubernetes", "Datadog"]
+      "techStack": [
+        "NodeJS",
+        "React",
+        "TailwindCSS",
+        "Jest",
+        "TypeORM",
+        "PostgreSQL",
+        "Redis",
+        "Redis Bull",
+        "Nats",
+        "Stripe",
+        "AWS",
+        "Kubernetes",
+        "Datadog"
+      ]
     },
     {
       "company": "Exclusive Resorts",
@@ -68,7 +92,21 @@
           "description": "Lead UI architectural and development direction and implementation. Engineered a content API using C# Web API to deliver content to both public and member facing clients. Implemented application development processes and procedures which include using grunt to build and optimize CSS, JS, SVG, and PNGs into a deployed set to AWS using CloudFront as a CDN."
         }
       ],
-      "techStack": ["C#", "VueJS", "TSQL", "APEX", "SQL Server 2008-2016", "Grunt", "Bitbucket Pipelines", "NPM", "Jenkins", "SCSS", "PWA", "AngularJS 1.x", "jQuery"]
+      "techStack": [
+        "C#",
+        "VueJS",
+        "TSQL",
+        "APEX",
+        "SQL Server 2008-2016",
+        "Grunt",
+        "Bitbucket Pipelines",
+        "NPM",
+        "Jenkins",
+        "SCSS",
+        "PWA",
+        "AngularJS 1.x",
+        "jQuery"
+      ]
     },
     {
       "company": "Schoolrunner",
@@ -81,7 +119,11 @@
           "description": "Implemented an Ionic Framework application to facilitate teacher needed actions such as student behavior recordings and attendance. The application was implemented using AngularJS and SCSS and deployed to the Android Play store and Apple Store."
         }
       ],
-      "techStack": ["AngularJS", "Ionic Framework", "SCSS"]
+      "techStack": [
+        "AngularJS",
+        "Ionic Framework",
+        "SCSS"
+      ]
     },
     {
       "company": "Sitrion (NewsGator)",
@@ -94,7 +136,13 @@
           "description": "Worked with a team to develop Sitrion Social Sites, a social networking plug-in for SharePoint, using jQuery, CSS, JSON, SQL Server, and the SharePoint Object Model. Designed and implemented Lookout360 as a portable ribbon that can be added to any page as a connector to Sitrion Lookout."
         }
       ],
-      "techStack": ["jQuery", "CSS", "JSON", "SQL Server", "SharePoint"]
+      "techStack": [
+        "jQuery",
+        "CSS",
+        "JSON",
+        "SQL Server",
+        "SharePoint"
+      ]
     },
     {
       "company": "Denver Regional Council of Governments",
@@ -120,7 +168,11 @@
           "description": "Design, test, and implement a broad range of software applications using C#, ASP.Net, and jQuery. Coordinate with business subject matter experts to incorporate business rules, mathematical models, petroleum engineering aspects, and accounting rules into software."
         }
       ],
-      "techStack": ["C#", "ASP.Net", "jQuery"]
+      "techStack": [
+        "C#",
+        "ASP.Net",
+        "jQuery"
+      ]
     }
   ],
   "skills": [
