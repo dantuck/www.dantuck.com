@@ -459,6 +459,23 @@
         </div>
       </div>
 
+      <div class="seo-group">
+        <div class="seo-label-row">
+          <label class="meta-label" for="description-input">Description <span class="seo-hint-inline">(meta description, social previews, search results)</span></label>
+          <span class="seo-char-count" class:seo-char-count--warn={(frontmatter.description ?? '').length > 160}>
+            {(frontmatter.description ?? '').length}/160
+          </span>
+        </div>
+        <textarea
+          id="description-input"
+          class="description-input"
+          bind:value={frontmatter.description}
+          on:input={scheduleAutosave}
+          rows="2"
+          placeholder="One or two sentences summarizing this {ct.label.toLowerCase()} for search engines and social shares..."
+        ></textarea>
+      </div>
+
       <div class="meta-fields">
         <label class="meta-label" for="tag-text-input">Tags</label>
         <div class="tag-field">
@@ -743,6 +760,40 @@
   }
   .slug-input:focus { border-bottom-color: var(--admin-orange); outline: none; }
   .slug-input:disabled { color: var(--admin-text-muted); cursor: default; }
+
+  .seo-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .seo-label-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .seo-hint-inline {
+    text-transform: none;
+    font-weight: 400;
+    letter-spacing: normal;
+    color: var(--admin-text-muted);
+  }
+  .seo-char-count {
+    font-size: 11px;
+    color: var(--admin-text-muted);
+    font-family: var(--admin-mono);
+    white-space: nowrap;
+  }
+  .seo-char-count--warn { color: var(--admin-orange); }
+  .description-input {
+    width: 100%;
+    font-size: 13px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 42px;
+    padding: 6px 8px;
+  }
 
   .meta-fields {
     display: flex; align-items: center; gap: 8px;
