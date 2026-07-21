@@ -1,5 +1,9 @@
 {
-  "intro": "Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado.",
+  "intro": [
+    "Hi, I'm Daniel Tucker. I'm a software engineer living in Colorado, currently a Senior Staff Software Engineer at Bill. My focus, and honestly my favorite part of the job, is developer experience — building the platforms, tooling, and automation that let engineers spin up services, ship code, and debug production-like issues without fighting their environment to do it. I care a lot about the seconds and minutes that add up to a developer's day: how fast a local setup comes up, how clear an error message is, how quickly someone can get from \"something's broken\" to \"here's why.\" More recently that's meant building AI-assisted workflows so agents can safely introspect, diagnose, and repair development environments themselves — shifting repetitive troubleshooting off of humans entirely.",
+    "I didn't come up through a traditional CS track. I spent a decade in the Oklahoma Air National Guard as an Aircraft Generation Specialist, earning a degree in Information Technology Assurance & Forensics at Oklahoma State University while still serving. That path gave me an appreciation for process, discipline, and troubleshooting under pressure that's stuck with me through every engineering job since. Looking back, the developer-experience thread runs further back than my current title suggests — I've been the person building internal tooling, streamlining deploy pipelines, and smoothing over rough edges in the stack at every stop, from petroleum industry line-of-business apps to social plug-ins for SharePoint to member-facing platforms at Exclusive Resorts, long before \"DX\" was the name for it.",
+    "Outside of work I've run Linux as my daily driver for about fifteen years, I'm a recreational private pilot who trained under Part 141, and I used to skydive. I also like building small things for the fun of it — APIs in Rust, progressive web apps, whatever scratches the itch that week."
+  ],
   "now": [
     {
       "company": "Bill",
@@ -131,6 +135,7 @@
   "skills": [
     "Linux system administrator, privately for ~15 years",
     "Recreational private pilot (Part 141 training)",
-    "Hobbyist builder of APIs in Go and Progressive Web Applications"
+    "Former skydiver",
+    "Hobbyist builder of APIs in Rust and Progressive Web Applications"
   ]
 }
