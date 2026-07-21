@@ -36,7 +36,13 @@ export default defineConfig({
       theme: 'dracula',
     },
   },
-  integrations: [svelte(), sitemap(), mdx(), UnoCSS({ injectReset: false }), adminCms()],
+  integrations: [
+    svelte(),
+    sitemap({ filter: (page) => !page.includes('/admin/') }),
+    mdx(),
+    UnoCSS({ injectReset: false }),
+    adminCms(),
+  ],
   vite: {
     build: {
       rollupOptions: {

@@ -360,7 +360,7 @@
     margin-bottom: 0.9rem;
     border-radius: 10px;
     background: color-mix(in srgb, var(--color-accent) 12%, transparent);
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .empty-badge svg {
@@ -395,7 +395,7 @@
   }
 
   .chip:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     border-color: var(--color-accent);
   }
 
@@ -461,7 +461,7 @@
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin-bottom: 0.4rem;
   }
 

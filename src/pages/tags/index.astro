@@ -5,7 +5,7 @@ import Tags from '../../components/Tags.astro';
 import Footer from '../../components/Footer.svelte';
 
 const title = 'Tags';
-const description = 'bytes of thought by Daniel Tucker.';
+const description = 'Browse articles, recipes, and more by topic.';
 const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
 const allPosts = Object.values(import.meta.glob('../{article,recipe}/**/*.{md,mdx}', { eager: true }));
@@ -21,7 +21,7 @@ const allTagsUnique = [...new Set(filteredPosts.flatMap((p: any) => p.frontmatte
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header client:load path={Astro.url.pathname} {title} />
-    <main class="max-content pt-6">
+    <main id="main-content" class="max-content pt-6">
       <Tags tags={allTagsUnique} />
     </main>
     <Footer client:load transition:persist />

@@ -120,6 +120,8 @@
 
 <svelte:window on:keydown={handleKeydown} />
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <header>
   <nav class="site-nav">
     <div id="nav" class="max-content nav-inner py-[0.6rem] px-4">
@@ -261,7 +263,7 @@
   }
 
   .brand-link:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .brand-bar {
@@ -496,7 +498,7 @@
 
   @media (hover: hover) {
     .drawer-close:hover {
-      color: var(--color-accent);
+      color: var(--color-accent-text);
       border-color: var(--color-accent);
     }
   }
@@ -537,7 +539,7 @@
 
   .drawer-link[aria-current="page"] {
     background: color-mix(in srgb, var(--color-accent) 15%, transparent);
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     cursor: default;
   }
 

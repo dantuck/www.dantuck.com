@@ -15,7 +15,7 @@ const permalink = frontmatter.permalink ?? rest.permalink ?? Astro.url.href;
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header client:load path={Astro.url.pathname} {title} />
-    <article class="max-content py-6">
+    <article id="main-content" class="max-content py-6">
       <slot />
     </article>
     <Footer client:load transition:persist />

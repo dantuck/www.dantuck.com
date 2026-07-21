@@ -31,11 +31,11 @@ const rest = all.filter((post: any) => post !== hero);
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header client:load path={Astro.url.pathname} />
-    <main class="max-content pt-6 pb-12">
+    <main id="main-content" class="max-content pt-6 pb-12">
       <section class="hero-intro">
         <p class="kicker">Software / Writing / Recipes</p>
         <h1 class="hero-headline font-serif text-primary">
-          bytes of thought<span class="text-orange">.</span>
+          bytes of thought<span class="text-orange-text">.</span>
         </h1>
         <p class="hero-subhead text-site-text-muted">
           Notes on software engineering, developer platforms, and the occasional recipe
@@ -121,7 +121,7 @@ const rest = all.filter((post: any) => post !== hero);
   .hero-cta-ghost:hover {
     text-decoration: none;
     border-color: var(--color-accent);
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   .post-list {

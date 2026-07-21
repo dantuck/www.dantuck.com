@@ -10,7 +10,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
 >
   <p>{intro}</p>
 
-  <h3 class="about-section-title">Now</h3>
+  <h2 class="about-section-title">Now</h2>
 
   <div class="about-timeline about-timeline--now">
     {now.map((entry) => (
@@ -33,7 +33,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
     ))}
   </div>
 
-  <h3 class="about-section-title">Previously</h3>
+  <h2 class="about-section-title">Previously</h2>
 
   <div class="about-timeline about-timeline--prev">
     {previously.map((entry) => (
@@ -57,7 +57,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
 
   <div class="about-footer">
     <div class="about-footer-col">
-      <h3 class="about-section-title">Military</h3>
+      <h2 class="about-section-title">Military</h2>
       <p class="about-company">{military.organization}</p>
       <div class="about-role">
         <span class="about-role-title">{military.role}</span>
@@ -65,7 +65,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
       </div>
     </div>
     <div class="about-footer-col">
-      <h3 class="about-section-title">Education</h3>
+      <h2 class="about-section-title">Education</h2>
       <p class="about-company">{education.institution}</p>
       <div class="about-role">
         <span class="about-role-title">{education.degree}</span>
@@ -74,7 +74,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
     </div>
   </div>
 
-  <h3 class="about-section-title">Skills & Interests</h3>
+  <h2 class="about-section-title">Skills & Interests</h2>
   <ul>
     {skills.map((skill) => (
       <li>{skill}</li>
@@ -89,7 +89,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     border-bottom: 1px solid rgba(255, 140, 0, 0.35);
     padding-bottom: 0.3rem;
     margin-top: 2rem;
@@ -148,7 +148,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
   }
 
   .about-company a:hover {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     text-decoration: none;
   }
 
@@ -183,7 +183,7 @@ const { intro, now, previously, military, education, skills } = aboutData;
   }
 
   .about-role-title--current {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
   }
 
   /* ── Meta (dates) ───────────────────────────────────────────────────────── */

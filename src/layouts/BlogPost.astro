@@ -47,9 +47,9 @@ const articleSchema = {
       <div class="dev-banner">{devBannerLabel}</div>
     )}
     <Header client:load path={Astro.url.pathname} />
-    <article data-pagefind-body class="article-content py-6">
+    <article id="main-content" data-pagefind-body class="article-content py-6">
       <header class="article-head">
-        <a href="/article" class="kicker mb-6">← Article</a>
+        <a href="/article" class="kicker mb-6 before:hidden">← Article</a>
         <h1 class="font-serif article-title">{title}</h1>
         {description && <p class="article-lead">{description}</p>}
         <div class="entry-meta">
@@ -155,7 +155,7 @@ const articleSchema = {
     }
 
     .article-toc nav a:hover {
-      color: var(--color-accent);
+      color: var(--color-accent-text);
       text-decoration: none;
     }
   }

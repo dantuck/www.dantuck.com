@@ -44,7 +44,7 @@ const projects = allModules
       <div class="bg-noise"></div>
     </div>
     <Header client:load path={Astro.url.pathname} title="Portfolio" />
-    <main class="max-content pt-6 pb-12">
+    <main id="main-content" class="max-content pt-6 pb-12">
       <div class="portfolio-list">
         {projects.map((project) => (
           <PortfolioCard {project} />
@@ -157,7 +157,7 @@ const projects = allModules
 
   .contact-heading {
     font-family: "Fraunces Variable", Georgia, Cambria, "Times New Roman", serif;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-size: 1.6rem;
     line-height: 1.15;
     font-weight: 700;

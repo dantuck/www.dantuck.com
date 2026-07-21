@@ -1,4 +1,6 @@
 ---
+import { tagToSlug } from '../lib/tags';
+
 export interface Props {
   tags: string[];
 }
@@ -8,7 +10,7 @@ const { tags } = Astro.props;
 <ul class="flex flex-wrap gap-3 list-none p-0 mt-3">
   {tags?.map((tag) => (
     <li>
-      <a href={`/tags/${tag}`} class="text-sm text-site-text/60 no-underline hover:text-orange">
+      <a href={`/tags/${tagToSlug(tag)}`} class="text-sm text-site-text/60 no-underline hover:text-orange-text">
         #{tag}
       </a>
     </li>

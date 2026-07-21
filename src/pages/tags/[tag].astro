@@ -3,6 +3,7 @@ import Header from '../../components/Header.svelte';
 import BaseHead from '../../components/BaseHead.astro';
 import PostPreview from '../../components/PostPreview.astro';
 import Footer from '../../components/Footer.svelte';
+import { tagToSlug } from '../../lib/tags';
 
 export async function getStaticPaths() {
   const allArticles = Object.values(import.meta.glob('../article/**/*.{md,mdx}', { eager: true }));
@@ -14,18 +15,18 @@ export async function getStaticPaths() {
     return new Date(post.frontmatter.publishDate) <= new Date();
   });
   const allTagsUnique = [...new Set(allPosts.flatMap((p: any) => p.frontmatter.tags ?? []))].filter(Boolean);
-  return allTagsUnique.map((tag) => ({ params: { tag }, props: { allPosts } }));
+  return allTagsUnique.map((tag) => ({ params: { tag: tagToSlug(tag) }, props: { allPosts, tag } }));
 }
 
-const { allPosts } = Astro.props;
-const tag = Astro.params.tag;
+const { allPosts, tag } = Astro.props;
 const title = `Tagged "${tag}"`;
-const description = 'bytes of thought by Daniel Tucker.';
 const permalink = new URL(Astro.url.pathname, Astro.site).toString();
 
 const sorted = (allPosts as any[])
   .filter((post) => post.frontmatter.tags?.includes(tag))
   .sort((a, b) => new Date(b.frontmatter.publishDate).valueOf() - new Date(a.frontmatter.publishDate).valueOf());
+
+const description = `${sorted.length} post${sorted.length === 1 ? '' : 's'} tagged "${tag}" — bytes of thought by Daniel Tucker.`;
 
 const isSingleFeatured = sorted.length === 1 && sorted[0].frontmatter.featured;
 const showHero = sorted.length > 1 || isSingleFeatured;
@@ -40,7 +41,7 @@ const gridPosts = showHero ? rest : sorted;
   </head>
   <body class="bg-site-bg text-site-text font-sans">
     <Header client:load path={Astro.url.pathname} {title} />
-    <main class="max-content pt-6 pb-12">
+    <main id="main-content" class="max-content pt-6 pb-12">
       {hero && <PostPreview post={hero} hero={true} />}
       <div class="post-grid">
         {gridPosts.map((p: any) => <PostPreview post={p} />)}

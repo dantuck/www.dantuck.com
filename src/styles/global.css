@@ -38,6 +38,10 @@
   --color-heading: #1c1c1c;
   --color-border: rgba(0, 0, 0, 0.12);
   --color-accent: rgb(255, 140, 0);
+  /* Darker than --color-accent — meets 4.5:1 text contrast on light backgrounds,
+     where the brighter accent only reaches ~2.1:1. Use for text; keep --color-accent
+     for borders/backgrounds/large UI accents. */
+  --color-accent-text: rgb(166, 83, 0);
   --color-code-bg: #282a36;
   --color-code-text: rgb(244, 191, 117);
 }
@@ -50,6 +54,7 @@
   --color-text-strong: rgb(200, 200, 200);
   --color-heading: rgb(241, 241, 241);
   --color-border: rgba(255, 255, 255, 0.1);
+  --color-accent-text: var(--color-accent);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,6 +66,7 @@
     --color-text-strong: rgb(200, 200, 200);
     --color-heading: rgb(241, 241, 241);
     --color-border: rgba(255, 255, 255, 0.1);
+    --color-accent-text: var(--color-accent);
   }
 }
 
@@ -87,10 +93,31 @@ img {
   margin: 0 auto;
 }
 
+/* ── Skip link ──────────────────────────────────────────────────────────── */
+
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 0.75rem;
+  z-index: 100;
+  background: var(--color-bg-raised);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
 /* ── Links / typography ─────────────────────────────────────────────────── */
 
 a {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   text-decoration: none;
 }
 
@@ -363,7 +390,7 @@ img[align="left"] {
   font-size: 1rem;
   background: none;
   border: 1px solid var(--color-accent);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   padding: 5px 14px;
   cursor: pointer;
   border-radius: 2px;
@@ -380,7 +407,7 @@ img[align="left"] {
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   border-bottom: 1px solid rgba(255, 140, 0, 0.35);
   padding-bottom: 0.3rem;
   margin-top: 1.5rem;
@@ -467,7 +494,7 @@ img[align="left"] {
 
 .resume-tech li + li::before {
   content: " · ";
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   font-size: 1.2em;
   line-height: 0;
   vertical-align: middle;
