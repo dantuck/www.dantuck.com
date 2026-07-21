@@ -1,6 +1,7 @@
 ---
 import '../admin.css';
 import DataEditor from '../components/DataEditor.svelte';
+import DeployBanner from '../components/DeployBanner.svelte';
 ---
 <!doctype html>
 <html lang="en">
@@ -10,6 +11,7 @@ import DataEditor from '../components/DataEditor.svelte';
   <title>About — Admin</title>
 </head>
 <body>
+  <DeployBanner client:load />
   <DataEditor client:load id="about" label="About" />
 </body>
 </html>

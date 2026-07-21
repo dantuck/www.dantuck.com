@@ -1,6 +1,7 @@
 ---
 import '../admin.css';
 import Dashboard from '../components/Dashboard.svelte';
+import DeployBanner from '../components/DeployBanner.svelte';
 const siteName = import.meta.env.PUBLIC_SITE_NAME ?? 'Admin';
 ---
 <!doctype html>
@@ -11,6 +12,7 @@ const siteName = import.meta.env.PUBLIC_SITE_NAME ?? 'Admin';
   <title>Admin — {siteName}</title>
 </head>
 <body>
+  <DeployBanner client:load />
   <Dashboard client:load />
 </body>
 </html>

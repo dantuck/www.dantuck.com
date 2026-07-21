@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte';
+  import { setDeployRecord } from '../lib/deployStatus';
 
   export let prNumber: number | undefined = undefined;
   export let title = 'Untitled';
@@ -9,11 +9,10 @@
   export let branch: string | undefined = undefined;
   export let onSave: () => Promise<void>;
 
-  type DeployStatus = 'idle' | 'publishing' | 'building' | 'live' | 'error';
+  type DeployStatus = 'idle' | 'publishing' | 'error';
   let status: DeployStatus = 'idle';
   let dropdownOpen = false;
   let scheduleDateInput = publishDate ?? '';
-  let pollInterval: ReturnType<typeof setInterval>;
   let scheduleError = '';
 
   async function publishNow() {
@@ -31,8 +30,8 @@
         body: JSON.stringify({ prNumber, title }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
-      status = 'building';
-      startPolling();
+      setDeployRecord({ status: 'building', title, prNumber, startedAt: Date.now() });
+      status = 'idle';
     } catch {
       status = 'error';
     }
@@ -58,44 +57,9 @@
     }
   }
 
-  function startPolling() {
-    const started = Date.now();
-    const MAX_POLL_MS = 10 * 60 * 1000; // 10 minutes
-
-    pollInterval = setInterval(async () => {
-      if (Date.now() - started > MAX_POLL_MS) {
-        status = 'error';
-        clearInterval(pollInterval);
-        return;
-      }
-      try {
-        const res = await fetch('/admin/api/status');
-        const data = await res.json();
-        if (data.status === 'live') {
-          status = 'live';
-          clearInterval(pollInterval);
-        } else if (data.status === 'failed') {
-          status = 'error';
-          clearInterval(pollInterval);
-        }
-      } catch { /* keep polling */ }
-    }, 5000);
-  }
-
-  onDestroy(() => clearInterval(pollInterval));
 </script>
 
-{#if status === 'building'}
-  <div class="building-indicator">
-    <span class="pulse"></span>
-    Building on Cloudflare...
-  </div>
-{:else if status === 'live'}
-  <div class="live-indicator">
-    <span class="dot-green"></span>
-    Live ✓
-  </div>
-{:else if status === 'error'}
+{#if status === 'error'}
   <button class="btn-primary" style="background: var(--admin-red)" on:click={() => status = 'idle'}>
     Failed — Retry
   </button>
@@ -211,7 +175,7 @@
   .schedule-row { display: flex; gap: 6px; margin-top: 6px; align-items: center; }
   .schedule-error { font-size: 11px; color: var(--admin-red); margin-top: 4px; }
 
-  .building-indicator, .live-indicator {
+  .building-indicator {
     display: flex; align-items: center; gap: 8px;
     font-size: 13px; color: var(--admin-text-muted);
     padding: 6px 12px;
@@ -227,12 +191,5 @@
   @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.4; transform: scale(0.85); }
-  }
-
-  .dot-green {
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--admin-green);
   }
 </style>
