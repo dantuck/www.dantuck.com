@@ -21,9 +21,9 @@ import type { ArticleSummary, ArticleDetail, DataDetail, DataId } from './lib/ty
 import { contentTypeOf, candidatePaths, type ContentTypeConfig } from './lib/content-types';
 
 const ROOT = process.cwd();
-const DATA_PATHS: Record<DataId, string> = {
-  resume: 'src/data/resume.json',
-  about: 'src/data/about.json',
+const DATA_CONFIG: Record<DataId, { path: string; format: 'json' | 'markdown' }> = {
+  resume: { path: 'src/data/resume.json', format: 'json' },
+  about: { path: 'src/data/about.md', format: 'markdown' },
 };
 
 // ---------- helpers ----------
@@ -208,21 +208,26 @@ async function handleDelete(req: IncomingMessage, res: ServerResponse) {
 // ---------- route handlers: JSON-singleton "site data" (resume/about) ----------
 
 function handleDataGet(id: DataId, res: ServerResponse) {
-  const path = DATA_PATHS[id];
-  const absPath = join(ROOT, path);
+  const config = DATA_CONFIG[id];
+  const absPath = join(ROOT, config.path);
   if (!existsSync(absPath)) { jsonResponse(res, { error: 'Not found' }, 404); return; }
-  const data = JSON.parse(readFileSync(absPath, 'utf-8'));
-  const detail: DataDetail = { id, path, fileSha: 'local', branch: 'local', data };
+  const content = readFileSync(absPath, 'utf-8');
+  const detail: DataDetail = config.format === 'json'
+    ? { id, path: config.path, fileSha: 'local', branch: 'local', format: 'json', data: JSON.parse(content) }
+    : { id, path: config.path, fileSha: 'local', branch: 'local', format: 'markdown', ...parseFrontmatter(content) };
   jsonResponse(res, detail);
 }
 
 async function handleDataSave(req: IncomingMessage, res: ServerResponse) {
   const raw = await readBody(req);
-  const { id, data } = JSON.parse(raw) as { id: DataId; data: unknown };
-  const path = DATA_PATHS[id];
-  if (!path) { jsonResponse(res, { error: 'Unknown data id' }, 400); return; }
-  const absPath = join(ROOT, path);
-  writeFileSync(absPath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+  const body = JSON.parse(raw) as { id: DataId } & Record<string, unknown>;
+  const config = DATA_CONFIG[body.id];
+  if (!config) { jsonResponse(res, { error: 'Unknown data id' }, 400); return; }
+  const absPath = join(ROOT, config.path);
+  const content = config.format === 'json'
+    ? JSON.stringify(body.data, null, 2) + '\n'
+    : assembleFile(body.frontmatter as import('./lib/frontmatter.js').Frontmatter, '', body.body as string, []);
+  writeFileSync(absPath, content, 'utf-8');
   jsonResponse(res, { ok: true, fileSha: 'local' });
 }
 
@@ -253,7 +258,7 @@ const vitePlugin = {
         if (route === 'delete'    && method === 'POST') { await handleDelete(req, res);    return; }
         if (route === 'data'      && method === 'GET') {
           const id = qs.get('id') as DataId | null;
-          if (!id || !DATA_PATHS[id]) { jsonResponse(res, { error: 'Unknown data id' }, 400); return; }
+          if (!id || !DATA_CONFIG[id]) { jsonResponse(res, { error: 'Unknown data id' }, 400); return; }
           handleDataGet(id, res);
           return;
         }

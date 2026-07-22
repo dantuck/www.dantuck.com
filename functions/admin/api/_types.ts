@@ -10,10 +10,16 @@ export interface Env {
   LOCAL_MODE?: string;
 }
 
-/** JSON-singleton "site data" documents editable outside the collection-of-posts flow. */
+/** Singleton "site data" documents editable outside the collection-of-posts flow. */
 export const DATA_PATHS: Record<string, string> = {
   resume: 'src/data/resume.json',
-  about: 'src/data/about.json',
+  about: 'src/data/about.md',
+};
+
+/** `resume` is a JSON blob; `about` is frontmatter + markdown body, like an article. */
+export const DATA_FORMATS: Record<string, 'json' | 'markdown'> = {
+  resume: 'json',
+  about: 'markdown',
 };
 
 const ALLOWED_DIRS = [

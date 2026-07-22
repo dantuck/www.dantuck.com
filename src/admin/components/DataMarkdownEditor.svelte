@@ -1,12 +1,17 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy, tick } from 'svelte';
+  import { Crepe } from '@milkdown/crepe';
+  import '@milkdown/crepe/theme/common/style.css';
+  import '@milkdown/crepe/theme/classic-dark.css';
+  import { listenerCtx } from '@milkdown/plugin-listener';
   import type { DataDetail, DataId } from '../lib/types';
-  import JsonNode from './JsonNode.svelte';
+  import type { Frontmatter } from '../lib/frontmatter';
 
   export let id: DataId;
   export let label: string;
 
-  let data: unknown = null;
+  let frontmatter: Frontmatter = { title: label };
+  let body = '';
   let fileSha: string | undefined;
   let branch: string | undefined;
   let prNumber: number | undefined;
@@ -16,15 +21,20 @@
   let publishStatus: 'idle' | 'publishing' | 'published' | 'error' = 'idle';
   let autosaveTimer: ReturnType<typeof setTimeout>;
 
-  async function load() {
+  let editorEl: HTMLDivElement;
+  let crepe: Crepe | undefined;
+  let editorReady = false; // gates markdownUpdated to ignore init-time normalization
+
+  onMount(async () => {
     loading = true;
     error = '';
     try {
       const res = await fetch(`/admin/api/data?id=${id}`);
       if (!res.ok) throw new Error(`${res.status}`);
       const detail: DataDetail = await res.json();
-      if (detail.format !== 'json') throw new Error(`Expected json format for "${id}"`);
-      data = detail.data;
+      if (detail.format !== 'markdown') throw new Error(`Expected markdown format for "${id}"`);
+      frontmatter = detail.frontmatter;
+      body = detail.body;
       fileSha = detail.fileSha;
       branch = detail.branch;
       prNumber = detail.prNumber;
@@ -32,19 +42,29 @@
       error = `Failed to load ${label}: ${e}`;
     } finally {
       loading = false;
+      await tick();
+      await initEditor();
     }
-  }
+  });
 
-  onMount(load);
+  async function initEditor() {
+    if (!editorEl) return;
+    crepe = new Crepe({ root: editorEl, defaultValue: body });
+    await crepe.create();
+    crepe.editor.action(ctx => {
+      ctx.get(listenerCtx).markdownUpdated((_, md) => {
+        if (!editorReady) return; // ignore normalization fired during initialization
+        body = md;
+        scheduleAutosave();
+      });
+    });
+    await new Promise(resolve => setTimeout(resolve, 0));
+    editorReady = true;
+  }
 
   function scheduleAutosave() {
     clearTimeout(autosaveTimer);
     autosaveTimer = setTimeout(save, 30_000);
-  }
-
-  function onRootChange(e: CustomEvent<unknown>) {
-    data = e.detail;
-    scheduleAutosave();
   }
 
   async function save() {
@@ -54,7 +74,7 @@
       const res = await fetch('/admin/api/data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, fileSha, data }),
+        body: JSON.stringify({ id, fileSha, frontmatter, body }),
       });
       if (!res.ok) throw new Error(`${res.status}`);
       const result = await res.json();
@@ -87,6 +107,11 @@
       publishStatus = 'error';
     }
   }
+
+  onDestroy(() => {
+    clearTimeout(autosaveTimer);
+    crepe?.destroy();
+  });
 </script>
 
 <div class="data-editor-shell">
@@ -113,7 +138,30 @@
     {:else if error}
       <p class="state-msg error">{error}</p>
     {:else}
-      <JsonNode value={data} on:change={onRootChange} />
+      <div class="fields">
+        <label class="field-label" for="title-input">Title</label>
+        <input
+          id="title-input"
+          class="field-input"
+          bind:value={frontmatter.title}
+          on:input={scheduleAutosave}
+        />
+        <label class="field-label" for="description-input">Description <span class="hint">(meta description, social previews, search results)</span></label>
+        <textarea
+          id="description-input"
+          class="field-input"
+          rows="2"
+          bind:value={frontmatter.description}
+          on:input={scheduleAutosave}
+        ></textarea>
+      </div>
+
+      <div
+        class="editor-body"
+        bind:this={editorEl}
+        role="region"
+        aria-label="About page editor"
+      ></div>
     {/if}
   </main>
 </div>
@@ -139,21 +187,68 @@
 
   .data-body {
     flex: 1;
-    overflow-y: auto;
     padding: 24px max(24px, calc(50% - 400px));
     background: var(--admin-bg);
   }
 
+  .fields {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--admin-border);
+  }
+  .field-label {
+    font-size: 11px;
+    color: var(--admin-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 10px;
+  }
+  .field-label:first-child { margin-top: 0; }
+  .hint { text-transform: none; font-weight: 400; letter-spacing: normal; }
+  .field-input {
+    font-size: 14px;
+    font-family: inherit;
+    padding: 6px 8px;
+    width: 100%;
+    resize: vertical;
+  }
+
+  .editor-body { min-height: 400px; }
+
   .state-msg { color: var(--admin-text-muted); font-size: 14px; }
   .state-msg.error { color: var(--admin-red); }
 
-  .btn-danger {
+  :global(.milkdown) {
+    min-height: 400px;
+    background: transparent !important;
+  }
+  :global(.milkdown-menu) { background: var(--admin-surface) !important; }
+  :global(.editor-frame) { background: transparent !important; }
+
+  .btn-ghost {
     background: transparent;
-    color: var(--admin-red);
-    border: 1px solid var(--admin-red);
+    color: var(--admin-text);
+    border: 1px solid var(--admin-border);
     border-radius: 5px;
-    padding: 2px 8px;
+    padding: 6px 14px;
+    font-size: 14px;
     cursor: pointer;
   }
-  .btn-danger:hover { background: var(--admin-red); color: #fff; }
+  .btn-ghost:hover { background: var(--admin-surface-2); }
+
+  .btn-primary {
+    background: var(--admin-orange);
+    color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 14px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--admin-orange-hover); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 </style>

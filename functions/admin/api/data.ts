@@ -1,6 +1,7 @@
 import type { PagesFunction } from '@cloudflare/workers-types';
 import { GitHubClient } from '../../../src/admin/lib/github';
-import { json, isLocalMode, DATA_PATHS, type Env } from './_types';
+import { parseFrontmatter, assembleFile, type Frontmatter } from '../../../src/admin/lib/frontmatter';
+import { json, isLocalMode, DATA_PATHS, DATA_FORMATS, type Env } from './_types';
 import { mockDataDetail, mockSave } from './_mock';
 import type { DataDetail, DataId } from '../../../src/admin/lib/types';
 
@@ -24,32 +25,33 @@ export const onRequestGet: PagesFunction<Env> = async ({ env, request }) => {
   const file = await gh.getFile(path, ref);
   if (!file) return json({ error: 'Not found' }, 404);
 
-  const detail: DataDetail = {
-    id,
-    path,
-    fileSha: file.sha,
-    branch: ref,
-    prNumber: pr?.number,
-    data: JSON.parse(gh.decodeContent(file.content)),
-  };
+  const format = DATA_FORMATS[id];
+  const content = gh.decodeContent(file.content);
+  const detail: DataDetail = format === 'json'
+    ? { id, path, fileSha: file.sha, branch: ref, prNumber: pr?.number, format: 'json', data: JSON.parse(content) }
+    : { id, path, fileSha: file.sha, branch: ref, prNumber: pr?.number, format: 'markdown', ...parseFrontmatter(content) };
   return json(detail);
 };
 
 interface SaveDataBody {
   id: DataId;
   fileSha?: string;
-  data: unknown;
+  data?: unknown;
+  frontmatter?: Frontmatter;
+  body?: string;
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   if (isLocalMode(env)) return mockSave();
   const gh = new GitHubClient(env.GITHUB_TOKEN, env.GITHUB_REPO);
-  const { id, fileSha, data } = await request.json() as SaveDataBody;
+  const { id, fileSha, data, frontmatter, body } = await request.json() as SaveDataBody;
   const path = pathFor(id);
   if (!path) return json({ error: 'Unknown data id' }, 400);
 
   const branchName = `draft/data-${id}`;
-  const content = JSON.stringify(data, null, 2) + '\n';
+  const content = DATA_FORMATS[id] === 'json'
+    ? JSON.stringify(data, null, 2) + '\n'
+    : assembleFile(frontmatter as Frontmatter, '', body ?? '', []);
 
   const existingFile = await gh.getFile(path, branchName);
   const isFirstSave = !existingFile;

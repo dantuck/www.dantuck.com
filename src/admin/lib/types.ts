@@ -27,7 +27,7 @@ export interface ArticleDetail {
   extra: string[];
 }
 
-/** IDs for the JSON-singleton "site data" documents (not a collection of posts). */
+/** IDs for the singleton "site data" documents (not a collection of posts). */
 export type DataId = 'resume' | 'about';
 
 export interface DataSummary {
@@ -36,11 +36,10 @@ export interface DataSummary {
   path: string;
 }
 
-export interface DataDetail {
-  id: DataId;
-  path: string;
-  fileSha: string;
-  branch: string;
-  prNumber?: number;
-  data: unknown;
-}
+/** `resume` is a JSON blob; `about` is frontmatter + markdown body, like an article. */
+export type DataDetail =
+  | { id: DataId; path: string; fileSha: string; branch: string; prNumber?: number; format: 'json'; data: unknown }
+  | {
+      id: DataId; path: string; fileSha: string; branch: string; prNumber?: number; format: 'markdown';
+      frontmatter: import('./frontmatter').Frontmatter; body: string;
+    };

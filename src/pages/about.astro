@@ -1,16 +1,14 @@
 ---
 import { Image } from "astro:assets";
 import AboutLayout from "../layouts/About.astro";
-import aboutData from "../data/about.json";
+import { parseAboutContent } from "../lib/aboutContent";
+import aboutRaw from "../data/about.md?raw";
 import headshot from "../images/about/headshot.webp";
 
-const { intro, now, previously, military, education, skills } = aboutData;
+const { title, description, intro, now, previously, military, education, skills } = parseAboutContent(aboutRaw);
 ---
 
-<AboutLayout
-  title="About"
-  description="Daniel Tucker — Senior Staff Software Engineer in Colorado. Writing about software, tools, and systems."
->
+<AboutLayout title={title} description={description}>
   <div class="about-intro">
     <Image
       src={headshot}

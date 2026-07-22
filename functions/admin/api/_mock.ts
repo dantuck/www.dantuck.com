@@ -114,8 +114,10 @@ const MOCK_PORTFOLIO_DETAIL: ArticleDetail = {
 
 const MOCK_DATA: Record<DataId, unknown> = {
   resume: { contact: { name: 'Mock Person', email: 'mock@example.com' }, military: [], experience: [], skills: [], education: [] },
-  about: { experience: [], military: [], education: [], skills: [] },
 };
+
+const MOCK_ABOUT_FRONTMATTER = { title: 'About', description: 'Mock about page.' };
+const MOCK_ABOUT_BODY = 'Hi, this is a mock about page.\n\n## Skills & Interests\n\n- Mock skill\n';
 
 export function mockList(type: ContentTypeId = 'article'): Response {
   const byType: Record<ContentTypeId, ArticleSummary[]> = {
@@ -136,11 +138,23 @@ export function mockDetail(slug: string, type: ContentTypeId = 'article'): Respo
 }
 
 export function mockDataDetail(id: DataId): Response {
+  if (id === 'about') {
+    return json({
+      id,
+      path: 'src/data/about.md',
+      fileSha: 'mockabout',
+      branch: 'master',
+      format: 'markdown',
+      frontmatter: MOCK_ABOUT_FRONTMATTER,
+      body: MOCK_ABOUT_BODY,
+    } satisfies DataDetail);
+  }
   return json({
     id,
-    path: id === 'resume' ? 'src/data/resume.json' : 'src/data/about.json',
+    path: 'src/data/resume.json',
     fileSha: 'mock' + id,
     branch: 'master',
+    format: 'json',
     data: MOCK_DATA[id],
   } satisfies DataDetail);
 }
