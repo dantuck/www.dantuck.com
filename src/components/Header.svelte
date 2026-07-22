@@ -271,7 +271,7 @@
   }
 
   header {
-    padding-top: 2.75rem;
+    padding-top: 3.5rem;
     width: 100vw;
     display: flex;
     align-items: center;
