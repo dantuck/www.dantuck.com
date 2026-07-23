@@ -79,3 +79,12 @@ input:focus, textarea:focus { border-color: var(--admin-orange); }
 .status-draft   { color: var(--admin-orange); }
 .status-scheduled { color: var(--admin-purple); }
 .status-building { color: var(--admin-orange); }
+
+/* Crepe's default ProseMirror padding (60px 120px) is fixed and eats most of
+   the viewport on narrow screens — shrink it on mobile/tablet widths. */
+@media (max-width: 640px) {
+  .milkdown .ProseMirror { padding: 24px 16px !important; }
+}
+@media (min-width: 641px) and (max-width: 1023px) {
+  .milkdown .ProseMirror { padding: 40px 32px !important; }
+}
