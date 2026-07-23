@@ -150,12 +150,15 @@
     gap: 4px;
     padding: 12px 24px 0;
     border-bottom: 1px solid var(--admin-border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .filter-divider {
     width: 1px;
     height: 16px;
     background: var(--admin-border);
     margin: 0 8px;
+    flex-shrink: 0;
   }
   .filter-tab {
     background: transparent;
@@ -169,6 +172,8 @@
     gap: 6px;
     align-items: center;
     margin-bottom: -1px;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
   .filter-tab.active { color: var(--admin-orange); border-bottom-color: var(--admin-orange); }
   .filter-tab:hover { color: var(--admin-text); }
