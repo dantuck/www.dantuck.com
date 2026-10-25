@@ -45,3 +45,6 @@ src/pages/**/_*
 # Wrangler local secrets
 .dev.vars
 .wrangler/tmp/
+
+# lighthouse reports
+.lighthouse/

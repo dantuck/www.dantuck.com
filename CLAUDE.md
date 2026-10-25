@@ -7,6 +7,7 @@ pnpm dev              # Dev server (search disabled — shows "production only")
 pnpm dev:search       # Build + index + dev — enables search; re-run after content changes
 pnpm build            # Production build → ./dist
 pnpm preview          # Preview production build locally
+pnpm lighthouse       # Lighthouse audit of ./dist (run pnpm build first); --desktop, --min=90, --url=/path
 pnpm publish-preview  # Build + deploy to Cloudflare Pages preview branch
 pnpm publish-release  # Build + deploy to Cloudflare Pages production
 ```
