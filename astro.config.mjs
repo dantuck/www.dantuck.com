@@ -31,6 +31,9 @@ export default defineConfig({
   redirects: {
     '/resume': '/about',
   },
+  build: {
+    inlineStylesheets: 'always',
+  },
   markdown: {
     shikiConfig: {
       theme: 'dracula',

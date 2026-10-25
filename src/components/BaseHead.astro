@@ -3,6 +3,11 @@ import '@fontsource-variable/fraunces';
 import '../styles/global.css';
 import JsonLd from './JsonLd.astro';
 import { ClientRouter } from 'astro:transitions';
+import comfortaaRegular from '../fonts/comfortaa-v28-greek_latin-ext_vietnamese_cyrillic-ext-regular.woff2?url';
+import comfortaaBold from '../fonts/comfortaa-v28-greek_latin-ext_vietnamese_cyrillic-ext-700.woff2?url';
+import fraunces from '@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url';
+
+const preloadFonts = [comfortaaRegular, comfortaaBold, fraunces];
 
 const siteSchema = {
   '@context': 'https://schema.org',
@@ -73,6 +78,7 @@ const {
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
+{preloadFonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="icon" href="/favicon/favicon-192x192.png" type="image/png">
 <link rel="manifest" href="/site.webmanifest">
