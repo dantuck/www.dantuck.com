@@ -9,14 +9,14 @@ description: |
 
 I find myself constantly referring to different sources to setup my password manager; [Pass](https://www.passwordstore.org/ "www.passwordstore.org"). This reference is going to provide a source for reference that includes both.
 
-### Installation
+## Installation
 
 References (Archlinux)
 
 * https://wiki.archlinux.org/index.php/Pass
 * https://wiki.archlinux.org/index.php/GnuPG
 
-#### GnuGP
+### GnuGP
 
 According to the [official website](https://www.gnupg.org/ "GnuGP"):
 
@@ -74,7 +74,7 @@ In my case this was my key so I chose 5 and was presented with the following scr
 ```
 
 
-#### Pass
+### Pass
 
 [Install](https://wiki.archlinux.org/index.php/Install "Install") the [pass](https://www.archlinux.org/packages/?name=pass "pass") package.
 ```bash 
@@ -112,11 +112,11 @@ For `bash`:
 ```bash
     echo "export EDITOR=vim" >>~/.profile
 ```
-#### Conclusion
+### Conclusion
 
 This is a living document so it will change over time with added details. I will include a changelog at the bottom of this post so you know what has been going on. Thank you for reading!
 
-#### Changelog
+### Changelog
 
 > **2020-05-03**
 >

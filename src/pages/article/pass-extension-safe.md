@@ -9,11 +9,11 @@ description: |
 
 [Pass](https://www.passwordstore.org/ "www.passwordstore.org") is becoming my goto for password management. It is a very easy to use manager and has a great list of extensions as well as the ability to create your own extensions. I have found that I need to solve a very specific problem where I need a printed backup of all data that is stored in the password store.
 
-### The Problem
+## The Problem
 
 Pass is pretty cool and offers a lot of options to store passwords and more. This all works only if you have access to the store with a generated key. So what happens if you don't have this key or someone else needs access in the event the owner of the key is not available or the access is no longer possible for a number of reasons.
 
-### The Solution
+## The Solution
 
 I am a pretty strong believer these days that we need a secondary storage for backing up key data. I have decided that keeping a printed copy of some data is the best solution and then keeping that data in a safe or safety deposit box where a third party could have access in the event of an emergency.
 
@@ -25,13 +25,13 @@ Pass Safe is an extension for the [password store](https://www.passwordstore.org
 
 `pass safe` exports all content from the password store in `~/.password-store` to a file `exported_passes` in the directory the command was run.
 
-### Installation
+## Installation
 
 - Enable password-store extensions by setting ``PASSWORD_STORE_ENABLE_EXTENSIONS=true``
 - ``make install``
 - alternatively add `safe.bash` to your extension folder (by default at `~/.password-store/.extensions`)
 
-### Inspiration and Credits
+## Inspiration and Credits
 
 Bash example and most of the code comes from: [StackExchange jasonwryan](https://unix.stackexchange.com/questions/170519/export-passwords-from-the-pass-password-manager#170546).
 

@@ -193,6 +193,7 @@
     aria-modal="true"
     aria-label="Navigation menu"
     aria-hidden={!isOpen}
+    inert={!isOpen}
   >
     <div class="drawer-inner">
       <div class="drawer-top">

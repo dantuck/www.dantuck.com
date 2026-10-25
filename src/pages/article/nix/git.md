@@ -178,7 +178,7 @@ If you sign commits, Home Manager can wire up the signing key too. First make su
 
 You can find your key ID with `gpg --list-secret-keys --keyid-format=long`. Replace `YOUR_GPG_KEY_ID` with the long-form ID for the key associated with your git email.
 
-#### The wrap-up
+### The wrap-up
 
 In conclusion, we have moved our entire git configuration into `home.nix`. Name, email, global ignores, aliases, extra settings, and optional GPG signing are all declared in one place. A fresh `home-manager switch` on any machine gives an identical git setup — no manual steps, no forgotten flags.
 

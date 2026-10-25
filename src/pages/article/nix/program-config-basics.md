@@ -63,7 +63,7 @@ And you will see `bat` open and show the configuration we specified above with n
 
 This example using `bat` is definitely simple but demonstrates the ground work needed to start converting your more complex programs and configurations.
 
-#### The wrap-up
+### The wrap-up
 
 > VSCode Nix language support<br />
 > Install via VSCode [Marketplace](https://marketplace.visualstudio.com/items?itemName=bbenoist.Nix)

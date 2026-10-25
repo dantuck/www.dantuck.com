@@ -40,15 +40,15 @@ Note that the bucket name must be unique across all of B2.
 
 The number of concurrent connections to the B2 service can be set with the `-o b2.connections=10` switch. By default, at most five parallel connections are established.
 
-### Restic Backup
+## Restic Backup
 
 `restic backup path/to/folder` Creates a new backup of files and/or directories. 
 
-### Restic Check
+## Restic Check
 
 `restic check` checks for errors and verifies that all data is properly stored in the repository. I run this regularly after every backup task completes.
 
-### Restic Forget
+## Restic Forget
 
 `restic forget` is essentially a backup rotation tool. It will remove snapshots from a repository and keep it more manageable over time.
 ```bash

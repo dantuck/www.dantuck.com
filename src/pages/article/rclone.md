@@ -11,7 +11,7 @@ Rclone is a really cool command line tool that can sync files and directories to
 
 I personally use it for syncing local backups to [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html "Backblaze B2").
 
-### Installation
+## Installation
 
 There are a few ways to [install](https://rclone.org/install/ "install") but I prefer the script install:
 
@@ -19,7 +19,7 @@ To install rclone on Linux/macOS/BSD systems, run:
 ```bash
     $ curl https://rclone.org/install.sh | sudo bash
 ```
-### Configuration
+## Configuration
 
 The easiest way to configure and get up and running is by:
 ```bash
@@ -78,7 +78,7 @@ Sync /home/local/directory to the remote bucket, deleting any excess files in th
     $ rclone sync /home/local/directory remote:bucket
 ```
 
-### Disclosures
+## Disclosures
 
 Anything you sync without encryption has the potential of being publicly available and read in clear text. I recommend using encryption on any data that is synced to a publicly accessible storage.
 

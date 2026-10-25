@@ -33,7 +33,7 @@
   --color-bg: #f5f2ee;
   --color-bg-raised: #ffffff;
   --color-text: #3a3a3a;
-  --color-text-muted: rgba(58, 58, 58, 0.6);
+  --color-text-muted: rgba(58, 58, 58, 0.75);
   --color-text-strong: #333333;
   --color-heading: #1c1c1c;
   --color-border: rgba(0, 0, 0, 0.12);
@@ -50,7 +50,7 @@
   --color-bg: rgb(45, 54, 66);
   --color-bg-raised: #1a2230;
   --color-text: rgb(170, 170, 170);
-  --color-text-muted: rgba(170, 170, 170, 0.6);
+  --color-text-muted: rgba(170, 170, 170, 0.9);
   --color-text-strong: rgb(200, 200, 200);
   --color-heading: rgb(241, 241, 241);
   --color-border: rgba(255, 255, 255, 0.1);
@@ -62,7 +62,7 @@
     --color-bg: rgb(45, 54, 66);
     --color-bg-raised: #1a2230;
     --color-text: rgb(170, 170, 170);
-    --color-text-muted: rgba(170, 170, 170, 0.6);
+    --color-text-muted: rgba(170, 170, 170, 0.9);
     --color-text-strong: rgb(200, 200, 200);
     --color-heading: rgb(241, 241, 241);
     --color-border: rgba(255, 255, 255, 0.1);
@@ -622,4 +622,9 @@ img[align="left"] {
     float: right;
     width: 34%;
   }
+}
+
+/* Dracula's comment color (#6272a4) is 3.0:1 on the code background; lift it to pass AA. */
+pre.astro-code span[style*="#6272A4" i] {
+  color: #8e9fcf !important;
 }
