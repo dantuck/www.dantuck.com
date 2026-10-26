@@ -6,6 +6,9 @@ import UnoCSS from '@unocss/astro';
 import { existsSync, createReadStream } from 'fs';
 import { join, extname } from 'path';
 import adminCms from './src/admin/integration.ts';
+import hideUnpublished, { findUnpublished, isUnpublishedUrl } from './src/integrations/hide-unpublished.ts';
+
+const unpublished = findUnpublished();
 
 /** Vite plugin: serves dist/pagefind/ during dev so search works after a build. */
 const pagefindDevPlugin = {
@@ -41,10 +44,11 @@ export default defineConfig({
   },
   integrations: [
     svelte(),
-    sitemap({ filter: (page) => !page.includes('/admin/') }),
+    sitemap({ filter: (page) => !page.includes('/admin/') && !isUnpublishedUrl(page, unpublished) }),
     mdx(),
     UnoCSS({ injectReset: false }),
     adminCms(),
+    hideUnpublished(),
   ],
   vite: {
     build: {

@@ -42,6 +42,8 @@ pnpm run tail         # Stream live worker logs
 
 `worker/` is a Cloudflare Worker (`dantuck-scheduled-publish`) that POSTs to the Cloudflare Pages deploy hook **every hour**, triggering a rebuild. Future-dated articles go live automatically within ~1 hour of their `publishDate`. The `DEPLOY_HOOK_URL` is a Cloudflare secret — not in the repo.
 
+Astro builds a page for every file under `src/pages`, so listings alone cannot hide an unpublished article. `src/integrations/hide-unpublished.ts` removes the built HTML for every draft or future-dated article/recipe at the end of `astro build` (before pagefind runs) and `astro.config.mjs` filters them out of the sitemap. Until its date passes, an article has no page, no sitemap entry and no search entry. `pnpm dev` still shows them with a DRAFT/SCHEDULED banner. A `publishDate` with no time is midnight in the build machine's timezone; add a time and zone (`28 Oct 2026 14:00 UTC`) to be exact.
+
 ### Images
 
 Use `.mdx` + Astro's `<Image>` for responsive, optimized images:
