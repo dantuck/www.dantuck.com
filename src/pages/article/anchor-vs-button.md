@@ -1,61 +1,64 @@
 ---
 layout: '../../layouts/BlogPost.astro'
-publishDate: 20 Nov 2019
-draft: true
-title: "Anchors vs. Buttons"
+publishDate: 28 Oct 2026
+title: "Anchor vs Button: When to Use Each"
 author: dantuck
 description: |
-    Desc goes here
+    Anchor vs button comes down to one question: does it go somewhere or do something? How each element behaves, and what breaks when you swap them.
+tags:
+- accessibility
+- developer-tools
 ---
 
-I have recently been drawn to understand the difference between `<button>` and `<a>`.
-When and why to use each can spur up discussions and opinion that are sometimes borderline
-unfounded and don't have a backing of fact.
+A link goes somewhere. A button does something. Everything else in the anchor vs button debate is a footnote to that sentence.
 
-How are they different?
+The two elements can look identical with CSS. They are not identical. The browser, the keyboard and a screen reader all treat them differently, and a styled lookalike gets none of that for free.
 
-The `<a>` and `<button>` elements can look exactly the same
-through styling. But, if you look at them semantically
-they have different purposes.
+## What an anchor gives you
 
-An Anchor element, `<a>`, is by definition a hyperlink.
-Because it is a link it has the css pseudo-classes `:link` and
-`:visited` available to it; along with others such as `:hover`,
-`:active` and `:focus`.
+An `<a>` with an `href` is a hyperlink. That one attribute buys a lot:
 
-In addition to styling action, the action performed when clicking
-or pressing the enter key has an expected outcome of navigating
-away to another page or section on that page.
+- It is focusable and activates with Enter.
+- It has `:link` and `:visited` states.
+- It opens in a new tab with a middle click or Ctrl-click.
+- Right-click offers "copy link address".
+- The destination shows in the status bar on hover.
+- It works with JavaScript turned off.
 
-A Button element, `<button>`, does nothing. What I mean here is
-it has no default behavior. Clicking, pressing enter or space
-will render no action unless embedded in a form that has an action
-or assigning JavaScript to the button such as onclick.
+An `<a>` without an `href` is none of that. It is not focusable, and a screen reader does not announce it as a link.
 
-So what is the problem?
+## What a button gives you
 
-First lets start with a button. As you remember the button
-has no default behavior so it relys on JavaScript to
-perform some action. Because of this reliance a user requires
-JavaScript to be enabled.
+A `<button>` is a control. It is focusable and activates with both Enter and Space, which is what keyboard users expect from a control.
 
-So that takes us to the Anchor tag. In order to accomplish a
-button like experience but with a more symantic solution, the
-anchor element must be modified.
+Inside a `<form>`, a button submits the form by default. That is behavior, and it works without JavaScript. Outside a form, a button does nothing until you attach a handler, so it depends on JavaScript. Set `type="button"` when you do not want the submit behavior inside a form.
 
-1. If at all possible use href for linking and onclick for
-JavaScript actions.
-2. If using JavaScript actions then try to add a meaningful
-fallback link in the href attribute.
-3. Alter the symantics of the anchor element by adding
-role="button" to help your screen readers.
-4. Help the screen readers still use the spacebar to click
-on the link by adding JavaScript to bind to the keyup of
-event.keyCode == 32 (spacebar) and have it click the link.
+---
 
-I also like to point out some security awareness. If you have
-an anchor or button element that is using an onclick event
-that takes you to a url, you are hiding the location from the
-user until they click the button. If you change it to an href
-you will be able to provide the user peace of mind knowing
-they are going to a trusted location.
+## What breaks when you swap them
+
+**A link used as a button.** This pattern is everywhere:
+
+```html
+<a href="#" onclick="openMenu()">Menu</a>
+```
+
+The `href="#"` jumps the page to the top, adds a history entry, and gives the link a destination that means nothing. Screen readers announce a link, so the user expects navigation and gets a menu.
+
+Adding `role="button"` fixes the announcement. It does not fix the keyboard. A link still ignores Space, so you end up writing a key handler to patch the behavior a real button already has. At that point, use a button.
+
+**A button used as a link.** This one is quieter:
+
+```html
+<button onclick="location.href='/pricing'">Pricing</button>
+```
+
+It breaks middle click, copy link and the status bar. The destination is hidden until the user commits to the click. It also needs JavaScript to go anywhere. A link would have done all of that without being asked.
+
+## The rule I use
+
+If the result is a different page, or a different place on this page, use `<a href>`. If the result is a change in the current page, such as opening a menu, toggling a setting or submitting a form, use `<button>`.
+
+When it is unclear, ask what the user would expect if they middle-clicked it. If opening it in a new tab makes sense, it is a link.
+
+Style either one however you like. The MDN pages for <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a" target="_blank" rel="noopener noreferrer">the anchor element</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button" target="_blank" rel="noopener noreferrer">the button element</a> cover the full attribute lists. The semantics are the part that is hard to restyle after the fact.
