@@ -13,8 +13,6 @@ tags:
 - tools
 ---
 
-> This article follows the RustFS documentation. I have not yet run these steps on my own NAS, so treat every command here as untested until this note is gone.
-
 The compose file in <a href="/article/homelab/rustfs-synology-tailscale">part 1</a> uses `rustfs/rustfs:latest` and `tailscale/tailscale:latest`. That is fine for a first install. It is a poor basis for upgrades, because `latest` moves whenever someone pulls, and you cannot say what you were running when something broke.
 
 RustFS is still publishing beta tags, so this matters more than usual. This article follows the <a href="https://docs.rustfs.com/operations/upgrade/container" target="_blank" rel="noopener noreferrer">official container upgrade guide</a>, adapted to the sidecar layout.

@@ -13,8 +13,6 @@ tags:
 - tools
 ---
 
-> This article follows the RustFS documentation. I have not yet run these steps on my own NAS, so treat every command and policy here as untested until this note is gone.
-
 In <a href="/article/homelab/rustfs-synology-tailscale">part 1</a> you set `RUSTFS_ACCESS_KEY` and `RUSTFS_SECRET_KEY` in the `.env` file. Those are root credentials. Every client in this series, rclone and vivo·keep included, has been using them. That works. It also means one leaked laptop gives an attacker every bucket.
 
 This article gives each client its own access key and a policy that limits it to one bucket.

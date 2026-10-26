@@ -13,8 +13,6 @@ tags:
 - tools
 ---
 
-> This article follows the RustFS documentation. I have not yet run these steps on my own NAS, so treat every command here as untested until this note is gone.
-
 A self-hosted backup target has a quiet failure mode. It stops working, nothing tells you, and you find out when you need a restore. This article sets up three layers of checking for the RustFS stack from <a href="/article/homelab/rustfs-synology-tailscale">part 1</a>, from cheapest to heaviest.
 
 ## Layer one: the readiness probe
