@@ -20,7 +20,7 @@ pnpm run tail         # Stream live worker logs
 
 ## Architecture
 
-**Stack**: Astro 6 (SSG) + Svelte 5 + SCSS + Cloudflare Pages.
+**Stack**: Astro 7 (SSG) + Svelte 5 + SCSS + Cloudflare Pages.
 
 ### Content Types
 
