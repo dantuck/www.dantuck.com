@@ -16,6 +16,9 @@ description: |
 > [Part I](/article/11ty-tailwindcss-series/part-1/) : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1) - Setting up the scaffolding<br />
 > Part II : [code](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-2) - Enabling TailwindCSS
 
+> This series was written in 2021 for Eleventy 0.11 and Tailwind CSS 2. The commands install whatever version is current, and Tailwind 4 changed the setup: the `@tailwind` directives became `@import "tailwindcss"`, the PostCSS plugin moved to `@tailwindcss/postcss`, and the JavaScript config file is no longer detected automatically. To follow along as written, install `tailwindcss@2`. To use a current version, follow the <a href="https://tailwindcss.com/docs/upgrade-guide" target="_blank" rel="noopener noreferrer">Tailwind upgrade guide</a>. I have not retested the series against newer Eleventy releases.
+
+
 ## Enable tailwindcss
 
 Time to get [tailwindcss](https://tailwindcss.com/) added and compiling into our project.
@@ -124,7 +127,7 @@ Update `package.json` to use it:
 ```
 
 * `build:html` simply builds `eleventy` with no flags.
-* `build` runs `build:css` and `build:html` in sequential order. Similiar to `npm run build:css && npm run build:html`.
+* `build` runs `build:css` and `build:html` in sequential order. Similar to `npm run build:css && npm run build:html`.
 * `serve` has been updated to use `run-p` which is shorthand for `npm-run-all --parallel`. Serve uses existing npm commands and adds additional flags to set them in watch mode.
 
 ## Configure `.eleventy.js` to passthrough the css
@@ -145,8 +148,8 @@ Install more tooling:
   $ npm install autoprefixer @fullhuman/postcss-purgecss cssnano
 ```
 
-* [autoprefixer](https://www.npmjs.com/package/autoprefixer) - don't bother with writing the vender prefixes and instead let the autoprefixer do it for you.
-* [postcss-purgecss](https://www.npmjs.com/package/postcss-purgecss) - in order to keep the output css small we have the prugecss tool to only include css that is used.
+* [autoprefixer](https://www.npmjs.com/package/autoprefixer) - don't bother with writing the vendor prefixes and instead let the autoprefixer do it for you.
+* [postcss-purgecss](https://www.npmjs.com/package/postcss-purgecss) - in order to keep the output css small we have the PurgeCSS tool to only include css that is used.
 * [cssnano](https://cssnano.co/) - makes the css output nice and small.
 
 ### Add in the autoprefixer
@@ -177,7 +180,7 @@ Enable `PurgeCSS` and `cssnano` on the `dist` folder.
       require('autoprefixer'),
       purgecss({
         content: ['./**/*.html']
-      })
+      }),
       require('cssnano')({
         preset: 'default',
       }),
@@ -205,3 +208,11 @@ Now our output css file is much smaller!
 Run `npm start` and watch the output.
 
 Follow along with the source code: [11ty-tailwind-base - Part II](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-2)
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Added the missing comma after the `purgecss` plugin in `postcss.config.js`, which was a syntax error.
+> * Added a note about the Eleventy and Tailwind versions this series targets.
+> * Fixed typos.

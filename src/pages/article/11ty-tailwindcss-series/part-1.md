@@ -21,6 +21,8 @@ You can't tell it by the site source but I do use [Eleventy](https://www.11ty.de
 
 This is going to be the start of a series of articles that will show the progression of setting up a base template that will include Eleventy as the static site generator and TailwindCSS as the css framework. There will be additional tooling along the way that we will discover together. Please enjoy the journey!
 
+> This series was written in 2021 for Eleventy 0.11 and Tailwind CSS 2. The commands install whatever version is current, and Tailwind 4 changed the setup: the `@tailwind` directives became `@import "tailwindcss"`, the PostCSS plugin moved to `@tailwindcss/postcss`, and the JavaScript config file is no longer detected automatically. To follow along as written, install `tailwindcss@2`. To use a current version, follow the <a href="https://tailwindcss.com/docs/upgrade-guide" target="_blank" rel="noopener noreferrer">Tailwind upgrade guide</a>. I have not retested the series against newer Eleventy releases.
+
 ## Let's get started
 
 ### Put up the scaffolding
@@ -138,7 +140,7 @@ The first step is creating the base layout which will be used on all pages:
     </head>
     <body>
       <header>
-        <a class="/">Eleventy Base Template</a>
+        <a href="/">Eleventy Base Template</a>
       </header>
       <main>
         {{ content | safe }}
@@ -214,7 +216,7 @@ Next, update `package.json` with the scripts to serve the site:
 What we added was `start` and `serve`:
 
 * `serve` builds and serves the site using eleventy.
-* `start` right now only alls `npm run serve` for ease. All you have to type is `npm start` to get the site running.
+* `start` right now only calls `npm run serve` for ease. All you have to type is `npm start` to get the site running.
 
 ### Finally, Run IT!
 
@@ -241,3 +243,11 @@ Run `npm start` and you will get something like this:
 Now you are up and running with the bare bone 11ty site.
 
 Follow along with the source code: [11ty-tailwind-base - Part I](https://gitlab.com/dantuck/11ty-tailwind-base/-/tree/part-1)
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Fixed the sample navigation link, which used `class` where `href` belongs.
+> * Added a note about the Eleventy and Tailwind versions this series targets.
+> * Fixed a typo.
