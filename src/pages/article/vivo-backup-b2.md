@@ -110,8 +110,8 @@ This opens your SOPS-encrypted secrets file. The structure maps credential profi
 restic_password: "your-restic-repo-password"
 credentials:
   b2:
-    B2_ACCOUNT_ID: "your-account-id"
-    B2_ACCOUNT_KEY: "your-application-key"
+    B2_APPLICATION_KEY_ID: "your-application-key-id"
+    B2_APPLICATION_KEY: "your-application-key"
 ```
 
 The `b2` key under `credentials` matches the `credentials "b2"` line in your config. Vivo decrypts this at runtime and injects the key/value pairs as environment variables for the sync step. The plaintext never gets written anywhere.
@@ -158,3 +158,9 @@ Steps in order: `backup` → `check` → `forget` → `sync`. This is useful for
 I have written about <a href="/article/rclone">rclone</a> before as a tool for syncing files to B2. Vivo takes a different approach — the sync to B2 is one step in a coordinated pipeline, not a standalone operation. The order matters and vivo enforces it.
 
 The source is on <a href="https://github.com/dantuck/vivo" target="_blank" rel="noopener noreferrer">GitHub</a>. The full documentation is at <a href="https://vivo.plantolive.app/" target="_blank" rel="noopener noreferrer">vivo.plantolive.app</a>.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Updated the secrets file to use `B2_APPLICATION_KEY_ID` and `B2_APPLICATION_KEY`, the variable names the b2 CLI and the current vivo credentials flow use. Earlier versions of this article showed `B2_ACCOUNT_ID` and `B2_ACCOUNT_KEY`.
