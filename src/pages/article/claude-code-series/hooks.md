@@ -1,7 +1,6 @@
 ---
 layout: '../../../layouts/BlogPost.astro'
-publishDate: 03 Apr 2026
-draft: true
+publishDate: 26 Oct 2026
 title: "Claude Code Hooks: Automate Workflows and Guard Secrets"
 author: dantuck
 series: claude-code-series
@@ -119,14 +118,12 @@ Create `.claude/hooks/protect-files.sh`:
 INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
 
-PROTECTED_PATTERNS=(".env" ".env.local" ".env.production" "*.pem" "*.key")
-
-for pattern in "${PROTECTED_PATTERNS[@]}"; do
-  if [[ "$FILE_PATH" == *"$pattern"* ]]; then
-    echo "Blocked: $FILE_PATH matches protected pattern '$pattern'" >&2
+case "$(basename "$FILE_PATH")" in
+  .env|.env.*|*.pem|*.key)
+    echo "Blocked: $FILE_PATH is a protected file" >&2
     exit 2
-  fi
-done
+    ;;
+esac
 
 exit 0
 ```
@@ -298,4 +295,4 @@ fi
 
 Hooks are the one part of Claude Code that runs unconditionally. Skills require invocation. CLAUDE.md requires Claude to read and follow it. Hooks just run. That determinism is the point — and it is what makes them the right tool for anything you cannot afford to leave to chance.
 
-If you are new to the series, <a href="/article/claude-code-series/skills-playbook" target="_blank" rel="noopener noreferrer">Part 1 covers skills</a> — the better starting point before adding hooks on top.
+If you are new to the series, <a href="/article/claude-code-series/skills-playbook" target="_blank" rel="noopener noreferrer">Part 1 covers skills</a> — the better starting point before adding hooks on top. <a href="/article/claude-code-series/skills-and-subagents" target="_blank" rel="noopener noreferrer">Part 3</a> shows how skills and subagents combine.
