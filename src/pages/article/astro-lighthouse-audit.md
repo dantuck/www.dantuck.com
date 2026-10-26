@@ -13,7 +13,7 @@ tags:
 
 A Lighthouse score you ran once in DevTools is a mood. A score you can reproduce from one command is a measurement. This article builds that command for an Astro site, then uses it to find and fix real problems.
 
-The site is this one: Astro 6, static output, deployed to Cloudflare Pages.
+The site is this one: Astro 7, static output, deployed to Cloudflare Pages.
 
 ## Audit the build, not the dev server
 
@@ -143,3 +143,9 @@ It is ugly. It is also contained, and the `!important` is doing real work.
 ---
 
 None of this took long. The script took the longest, and it is the part that keeps the rest honest. Run `pnpm lighthouse --min=90` before you ship, and the next regression shows up as a failing exit code instead of a feeling.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Corrected the Astro version from 6 to 7.
