@@ -38,7 +38,7 @@ The events most worth knowing:
 | `ConfigChange` | When a settings file changes mid-session | Yes |
 | `FileChanged` | When a watched file changes on disk | No |
 
-`PreToolUse` is the workhorse. It intercepts every tool call — Bash commands, file edits, reads — before execution. Exit with code `2` and the tool call is cancelled. Exit with `0` and it proceeds. Claude receives your stderr message as feedback either way.
+`PreToolUse` is the workhorse. It intercepts every tool call — Bash commands, file edits, reads — before execution. Exit with `0` and it proceeds. Exit with code `2` and the tool call is cancelled, and Claude sees your stderr message as the reason, so it can adjust. Claude never sees stderr from a hook that exits `0`.
 
 `PostToolUse` cannot undo what already ran. Use it for side effects: formatting, logging, triggering test runs.
 
@@ -76,7 +76,7 @@ The structure is always the same:
 }
 ```
 
-The `matcher` is a regex on the tool name. `"Edit|Write"` matches both. `"Bash"` matches only Bash calls. Leave it empty and the hook fires on every occurrence of that event.
+The `matcher` filters on the tool name. `"Edit|Write"` matches either tool. `"Bash"` matches only Bash calls. A matcher made of plain tool names, optionally separated by `|`, is matched exactly. Anything with other characters is treated as a regular expression. Use `"*"` or leave it empty to match everything. Some events, such as `UserPromptSubmit` and `Stop`, take no matcher and always fire.
 
 Reference the project root with `$CLAUDE_PROJECT_DIR` in your command paths. This keeps scripts portable across machines.
 
@@ -263,7 +263,9 @@ When a hook does not fire or behaves unexpectedly, start here.
 
 **Check `/hooks`** — type it in Claude Code. The hooks browser shows every registered hook and its source file. If yours is missing, the JSON is invalid or the file is in the wrong location.
 
-**Toggle verbose mode** — press `Ctrl+O` during a session. Hook stdout and stderr appear inline in the transcript. This shows exactly what your hook received and returned.
+**Check the transcript** — press `Ctrl+O` to open the transcript view. It shows each hook's outcome: the block message when a hook exits `2`, or a `hook error` notice when it fails without blocking. A hook that succeeds shows nothing.
+
+**Read the debug log** — for exit codes, stdout and stderr, start Claude Code with `claude --debug-file /tmp/claude.log` and run `tail -f /tmp/claude.log` in another terminal. If you started without the flag, `/debug` turns logging on mid-session.
 
 **Test the script manually** — hooks receive JSON on stdin. Pipe a sample payload and check the exit code:
 
@@ -272,9 +274,9 @@ echo '{"tool_name":"Bash","tool_input":{"command":"echo hello"}}' | .claude/hook
 echo $?
 ```
 
-Exit `0` means allow. Exit `2` means block. Any other exit code logs to verbose mode and allows the action to continue.
+Exit `0` means allow. Exit `2` means block. Any other exit code is a non-blocking error: Claude Code shows a `hook error` notice and the action goes ahead.
 
-**Watch for shell profile noise** — Claude Code spawns a non-interactive shell to run your hook. If your `.zshrc` or `.bashrc` has unconditional `echo` statements, that output prepends to your hook's stdout and breaks JSON parsing. Wrap interactive-only output:
+**Watch for shell profile noise** — hooks run in non-interactive shells, but some setups still source your profile, such as `BASH_ENV` pointing at `~/.bashrc`. Anything the profile prints lands on stdout ahead of your hook's JSON. Claude Code then reads the output as plain text and ignores the JSON, and because the hook exited `0` you see no error. Search the debug log for `Hook output does not start with {` to confirm. Wrap interactive-only output:
 
 ```bash
 if [[ $- == *i* ]]; then
@@ -282,7 +284,7 @@ if [[ $- == *i* ]]; then
 fi
 ```
 
-**Stop hooks looping** — a `Stop` hook that always blocks causes an infinite loop. Check the `stop_hook_active` field and exit early if it is set:
+**Stop hooks looping** — a `Stop` hook that always blocks keeps Claude working. Claude Code overrides a Stop hook after it blocks eight times in a row with no tool call in between, but do not rely on that. The `stop_hook_active` field is `true` when Claude is already continuing because of a stop hook. Check it and exit early:
 
 ```bash
 INPUT=$(cat)
@@ -296,3 +298,12 @@ fi
 Hooks are the one part of Claude Code that runs unconditionally. Skills require invocation. CLAUDE.md requires Claude to read and follow it. Hooks just run. That determinism is the point — and it is what makes them the right tool for anything you cannot afford to leave to chance.
 
 If you are new to the series, <a href="/article/claude-code-series/skills-playbook" target="_blank" rel="noopener noreferrer">Part 1 covers skills</a> — the better starting point before adding hooks on top. <a href="/article/claude-code-series/skills-and-subagents" target="_blank" rel="noopener noreferrer">Part 3</a> shows how skills and subagents combine.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Corrected the exit code section: Claude sees stderr only when a hook exits `2`, not on every exit.
+> * Corrected the matcher description. Plain tool names are matched exactly, and only other patterns are regular expressions.
+> * Replaced the `Ctrl+O` advice. It shows hook outcomes in the transcript, and the full stdout and stderr are in the debug log.
+> * Clarified shell profile noise and Stop hook looping to match the Claude Code documentation.
