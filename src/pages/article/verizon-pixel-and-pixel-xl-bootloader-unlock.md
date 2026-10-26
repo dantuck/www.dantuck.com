@@ -13,7 +13,7 @@ The greatest problem with Verizon is that they prevent you from toggling the "OE
 
 Unlocking the bootloader wipes the device, so back up anything you want to keep first. Also check the LineageOS page for your device before you start. I wrote this when the Pixel and Pixel XL were supported, and official builds for older devices end at some point.
 
-Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](https://www.droid-life.com/2018/05/28/verizon-pixel-xl-bootloader-unlock/).
+Thank you to [@iamkellex](https://twitter.com/iamkellex "Kellen") of Droid Life, who [wrote up the method](https://www.droid-life.com/2018/05/28/verizon-pixel-xl-bootloader-unlock/). The post credits a long-running group effort on XDA for finding it.
 
  1. Remove Google account and any kind of screen lock from your device.
  2. Eject the Verizon sim card from your device. (You can use a slim paper clip)
@@ -32,4 +32,5 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
 > **2026-10-26**
 >
 > * Corrected the unlock step. The `fastboot` commands do not reboot the phone, so it must be in the bootloader first (`adb reboot bootloader`).
+> * Fixed the credit. The handle was misspelled, and the source credits an XDA group effort for the method.
 > * Added a warning that unlocking wipes the device and that LineageOS support for older Pixels may have ended.
