@@ -91,9 +91,9 @@ With `disable-model-invocation: true`, only you can trigger the skill. Claude wi
 
 ## Context cost
 
-Skill descriptions load at session start so Claude knows what is available. The budget is 2% of the context window (fallback: 16,000 characters). Full skill content only loads when invoked.
+Skill descriptions load at session start so Claude knows what is available. The listing has a character budget that scales with the model's context window, about 1% by default. When you have many skills, Claude Code drops descriptions from the least used first, and each entry is capped at 1,536 characters. Run `/doctor` to see the listing's cost. Full skill content only loads when invoked.
 
-Set `disable-model-invocation: true` and the skill costs zero context until you invoke it — nothing loads at session start at all. This is the right choice for any skill you trigger yourself rather than letting Claude decide.
+Set `disable-model-invocation: true` and the skill's description stays out of context until you invoke it. This is the right choice for any skill you trigger yourself rather than letting Claude decide.
 
 ---
 
@@ -103,7 +103,7 @@ CLAUDE.md loads every session, automatically. Use it for always-on rules: build 
 
 Skills load on demand. Use them for reference material Claude needs sometimes, or for repeatable workflows you trigger by name.
 
-They are additive, not competing. If instructions conflict, Claude uses judgment; more specific instructions typically win. A rule of thumb: keep CLAUDE.md under 500 lines. When it grows past that, move reference material into skills.
+They are additive, not competing. If instructions conflict, Claude uses judgment; more specific instructions typically win. A rule of thumb: keep CLAUDE.md under 200 lines. Longer files use more context and Claude follows them less reliably. When it grows past that, move reference material into skills.
 
 **Use a skill when:** you have a repeatable workflow with specific steps, or reference material (API docs, style guides, query patterns) Claude should load on demand rather than always.
 
@@ -114,3 +114,11 @@ They are additive, not competing. If instructions conflict, Claude uses judgment
 Write one skill today. Pick something you do repeatedly — a commit workflow, a code review checklist, a deploy sequence. Put it in `~/.claude/skills/<name>/SKILL.md` with a clear description. Run it with `/name`.
 
 Once you have a feel for how they work, Part 2 covers subagents — isolated workers that run in parallel while your main context stays clean.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Corrected the skill description budget. It scales at about 1% of the context window, and the 16,000 character fallback is not in the current documentation.
+> * Corrected the CLAUDE.md size guidance from 500 lines to the 200 lines the documentation recommends.
+> * Clarified that `disable-model-invocation: true` removes the description from context, not the whole skill.

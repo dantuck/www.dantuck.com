@@ -30,12 +30,12 @@ That isolation is the point. Your main conversation stays clean — you get the 
 
 When a subagent is spawned, its context contains:
 
-- The system prompt (shared with parent for cache efficiency)
-- Your CLAUDE.md files
-- Git status
+- Its own system prompt, which is the body of the agent file, plus basic environment details such as the working directory. It does not get the Claude Code system prompt
+- Your CLAUDE.md files (the built-in Explore and Plan agents skip them)
+- A git status snapshot
 - The task prompt from the parent session
 
-It does **not** receive your conversation history or session-invoked skills. If you want a subagent to know your style guide, you tell it explicitly.
+It does **not** receive your conversation history, the skills you have already invoked, or the files Claude has already read. If you want a subagent to know your style guide, you tell it explicitly.
 
 ---
 
@@ -67,14 +67,14 @@ The `agent` field picks the subagent type: `Explore` (read-only codebase tools),
 ---
 name: security-auditor
 description: Specialized security review agent
-allowed-tools: Glob, Grep, Read
+tools: Glob, Grep, Read
 ---
 
 Review the codebase for security vulnerabilities. Focus on authentication,
 input validation, and dependency risks. Return a structured report.
 ```
 
-The `allowed-tools` field restricts which tools the subagent can use. The agent's instructions — the body of the file — are its complete context at launch. No tools beyond what you allow, no knowledge beyond what you write.
+The `tools` field restricts which tools the subagent can use. Use `disallowedTools` to remove tools from the inherited set instead. The body of the file is the agent's system prompt. No tools beyond what you allow, and no knowledge beyond what you write and what it reads for itself. Claude Code ignores a frontmatter field it does not recognize, without an error, so a misspelled field fails silently.
 
 ---
 
@@ -82,15 +82,15 @@ The `allowed-tools` field restricts which tools the subagent can use. The agent'
 
 Multiple subagents run simultaneously and independently. Two bundled skills use this heavily:
 
-**`/simplify`** spawns three review agents in parallel — one for code reuse, one for quality, one for efficiency. It aggregates their findings and applies the fixes.
+**`/simplify`** runs four review agents in parallel, covering reuse of existing helpers, simplification, efficiency, and whether the change sits at the right level of abstraction. It applies the fixes. It does not look for correctness bugs. Use `/code-review` for those.
 
-**`/batch`** accepts a large task (like "migrate all components from React to Svelte"), decomposes it into 5 to 30 independent units, and spawns one agent per unit. This requires a git repository.
+**`/batch`** accepts a large task (like "migrate all components from React to Svelte"), researches the codebase, decomposes it into 5 to 30 independent units, and presents a plan. Once you approve, it spawns one background agent per unit. This requires a git repository, or a `WorktreeCreate` hook that creates the worktrees.
 
 ---
 
 ## Subagents and git worktrees
 
-When parallel agents modify files, they need isolated working copies or they will conflict. `/batch` handles this by creating one git worktree per agent. Each agent works in a separate directory, runs tests, and opens a pull request. The worktrees are cleaned up if the agent makes no changes.
+When parallel agents modify files, they need isolated working copies or they will conflict. `/batch` handles this by creating one git worktree per agent. Each agent works in a separate directory, runs tests, and publishes its change. The worktrees are cleaned up if the agent makes no changes.
 
 You can request this isolation manually: ask Claude to run parallel agents on independent tasks that modify files and it will manage worktree creation. This is what makes true parallel implementation possible — not just parallel reading.
 
@@ -114,3 +114,11 @@ No shared memory is required. The handoff document is the interface. This works 
 ---
 
 Part 3 puts skills and subagents together: a decision framework for choosing between them, and a real end-to-end example showing a single command orchestrating three parallel specialized workers.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Corrected what a subagent receives. It gets its own system prompt plus environment details, not the Claude Code system prompt.
+> * Replaced `allowed-tools` with `tools` in the custom agent example. `allowed-tools` is a skill field, and an agent file ignores it.
+> * Corrected `/simplify`, which runs four review agents, and `/batch`, which asks you to approve a plan before it starts.
