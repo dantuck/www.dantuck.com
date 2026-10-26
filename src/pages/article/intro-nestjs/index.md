@@ -30,7 +30,7 @@ First, what is Nest? It is essentially a Node.js framework for building efficien
 
 You have two pretty good options to install; [Nest CLI](https://docs.nestjs.com/cli/overview) or cloning the [starter project](https://github.com/nestjs/typescript-starter).
 
-Lets start with scaffolding a new project with the Nest CLI:
+Let us start with scaffolding a new project with the Nest CLI:
 ``` bash
     $ npm i -g @nestjs/cli
     $ nest new my-app
@@ -51,3 +51,9 @@ After all this you will be up and running and your app will be available at `htt
 ### Inspiration and Credits
 
 [NestJS Introduction](https://docs.nestjs.com/)
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Fixed a typo. The commands were checked and are unchanged.

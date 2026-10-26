@@ -4,7 +4,7 @@ publishDate: 24 Mar 2020
 title: "NestJS: VSCode debugger setup"
 author: dantuck
 description: |
-    Debugging is inevitable for all developers and when you get the point that your code is not doing what you would expect...
+    Set up the VS Code debugger for a NestJS TypeScript project with a launch.json file, then set breakpoints and start debugging with F5.
 categories:
 - Code
 tags:
@@ -21,14 +21,14 @@ tags:
 #     image: "https://www.dantuck.com/article/node-getting-started/card.png"
 ---
 
-Debugging is inevitable for all developers and when you get the point that your code is not doing what you would expect
+Debugging is inevitable for all developers and when you get the point that your code is not doing what you would expect, a debugger beats scattered `console.log` calls.
 
 [VSCode](https://code.visualstudio.com/) is definitely built for [TypeScript](https://www.typescriptlang.org/) and thus perfect for NestJS. Get started by ensuring you have VSCode installed and open your project in VSCode. For the purpose of this article install the Nest TypeScript starter scaffolding.
 ``` bash
     $ npm i -g @nestjs/cli
     $ nest new my-app
 ```
-Create a `launch.json` file:
+Create a `launch.json` file in the `.vscode` folder at the root of the project:
 
 ``` json
     {
@@ -54,4 +54,12 @@ Create a `launch.json` file:
         ]
     }
 ```
-Now you can set breakpoints and `Debug -> Start Debugging` or press `F5`.
+Now you can set breakpoints and `Run -> Start Debugging` or press `F5`.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Updated the menu path to `Run -> Start Debugging`. VS Code renamed the Debug menu to Run.
+> * Added the location of `launch.json`.
+> * Replaced the truncated description and finished the opening sentence.

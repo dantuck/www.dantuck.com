@@ -4,7 +4,7 @@ publishDate: 10 Mar 2020
 title: "Functional Programming with JavaScript"
 author: dantuck
 description: |
-    This is the first post in a series focused on NodeJS. Node is a asynchronous event-driven JavaScript runtime for building scalable network applications. Just like JavaScript, NodeJS is not actually a functional programming language but is a good place to use functional programming if you so please.
+    This is the first post in a series focused on NodeJS. Node is an asynchronous event-driven JavaScript runtime for building scalable network applications. Just like JavaScript, NodeJS is not actually a functional programming language but is a good place to use functional programming if you so please.
 categories:
 - Code
 tags:
@@ -14,13 +14,13 @@ tags:
 ---
 ## Hello!
 
-This is the first post in a series focused on [NodeJS](https://nodejs.org/en/about/ "NodeJS"). Node is a asynchronous event-driven JavaScript runtime for building scalable network applications. Just like JavaScript, NodeJS is not actually a functional programming language but is a good place to use functional programming if you so please.
+This is the first post in a series focused on [NodeJS](https://nodejs.org/en/about/ "NodeJS"). Node is an asynchronous event-driven JavaScript runtime for building scalable network applications. Just like JavaScript, NodeJS is not actually a functional programming language but is a good place to use functional programming if you so please.
 
 ## So what is functional programming?
 
-Functional programming is a programming pattern. Generally it can be used in many different language but some are specifically geared toward it such as Haskell and Lisp. It's not that you can't do it in other languages but instead it is just a design decision in most cases.
+Functional programming is a programming pattern. Generally it can be used in many different language but some are specifically geared toward it such as Haskell and Lisp. It is not that you cannot do it in other languages but instead it is just a design decision in most cases.
 
-For the purpose of this article I am focusing on some of the basics of functional programming. Functional programming does the following at it's core:
+For the purpose of this article I am focusing on some of the basics of functional programming. Functional programming does the following at its core:
 
 * Treats computations as the evaluation of mathematical functions.
 * Avoids changing state and mutable data.
@@ -43,10 +43,13 @@ A function would have a side effect if it modifies state outside its local scope
 
 When a function always returns the same output for a given input without any side effects then it would be called a **pure function**.
 ```js
-    // time 
-    const time = () => new Date().toLocaleTimeString();
+    // pure: the same input always gives the same output
+    const add = (a, b) => a + b;
 
-    time();
+    add(2, 3); // 5
+
+    // impure: the output depends on the clock, so it changes between calls
+    const time = () => new Date().toLocaleTimeString();
 ```
 ### Functions as first class citizens
 
@@ -60,24 +63,21 @@ or even be assigned as a variable.
 
 Like a first class citizen a higher order function takes one or more functions as arguments or returns a function as a result.
 ```js
-    // function f 
-    // takes an input of a
-    // and logs the value of a
-    const f = a => console.log(a);
+    // function apply
+    // takes a function f and a value a
+    // and returns the result of calling f with a
+    const apply = (f, a) => f(a);
 
-    // function f2
-    // takes an input of a
-    // a could be a value or function
-    // and returns a
-    const f2 = a => a;
+    // function greeter
+    // takes a greeting and returns a new function
+    const greeter = greeting => name => `${greeting}, ${name}`;
 
-    f('output 1') // console logs 'output 1'
-    f2('output 2') // doesn't print anything just returns the value 'output 2'
-    f2(f('output 3')) // console logs 'output 3'
+    apply(a => a * 2, 4); // 8
+    greeter('Hello')('World'); // 'Hello, World'
 ```
 ### Currying
 
-Currying is a composed function. It can be imagined as a function with nested functions that each nested function has access to the outer functions arguments. The final nested function would return the result of the function.
+Currying turns a function that takes several arguments into a chain of functions that each take one. Each nested function has access to the arguments of the functions around it. The final nested function returns the result.
 ```js
     const curry = f => a => b => f(a, b);
 
@@ -91,3 +91,12 @@ Currying is a composed function. It can be imagined as a function with nested fu
 [About NodeJS](https://nodejs.org/en/about/ "About NodeJS")
 
 [Wikipedia Functional programming](https://en.wikipedia.org/wiki/Functional_programming "Wikipedia Functional programming")
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Replaced the pure function example. The old one, `time()`, was not pure because its output changes between calls.
+> * Replaced the higher order function example with one that takes and returns a function.
+> * Corrected the description of currying. It is not the same thing as function composition.
+> * Fixed typos.

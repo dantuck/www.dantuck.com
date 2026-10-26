@@ -4,10 +4,10 @@ publishDate: 01 Nov 2019
 title: "Rclone - rsync for cloud storage"
 author: dantuck
 description: |
-  Rclone is a really cool command line tool that can sync files and directories too and from many sources. A full list of sources can be found on their Rclone.
+  Rclone is a really cool command line tool that can sync files and directories to and from many sources. A full list of sources can be found on the Rclone website.
 ---
 
-Rclone is a really cool command line tool that can sync files and directories too and from many sources. A full list of sources can be found on their [official website](https://rclone.org/ "Rclone").
+Rclone is a really cool command line tool that can sync files and directories to and from many sources. A full list of sources can be found on their [official website](https://rclone.org/ "Rclone").
 
 I personally use it for syncing local backups to [Backblaze B2](https://www.backblaze.com/b2/cloud-storage.html "Backblaze B2").
 
@@ -50,6 +50,7 @@ _(Steps extracted from Restic's site)_
     Remote config
     --------------------
     [remote]
+    type = b2
     account = 123456789abc
     key = 0123456789abcdef0123456789abcdef0123456789
     endpoint =
@@ -83,3 +84,9 @@ Sync /home/local/directory to the remote bucket, deleting any excess files in th
 Anything you sync without encryption has the potential of being publicly available and read in clear text. I recommend using encryption on any data that is synced to a publicly accessible storage.
 
 Additionally, when using B2 storage please understand their access rules so that you can keep the repository private.
+## Changelog
+
+> **2026-10-26**
+>
+> * Added the missing `type = b2` line to the sample remote configuration.
+> * Fixed typos.

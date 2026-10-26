@@ -4,7 +4,7 @@ publishDate: 17 Mar 2020
 title: "NodeJS: Getting started"
 author: dantuck
 description: |
-    Desc
+    Install Node.js with the Node Version Manager, then run a small HTTP server to check the install.
 categories:
 - Code
 tags:
@@ -35,13 +35,13 @@ Installation instructions are kept up-to-date on the NVM GitHub page so I strong
 Install using either cURL or Wget:
 
 ```bash
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 ```
 
 or
 
 ```bash
-    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 ```
 
 You can take their word for the safety of these install scripts but I always recommend to inspect a script coming from the internet before running it locally.
@@ -64,11 +64,11 @@ To install the latest Node version:
 ```
 Next use it:
 ``` bash
-    npm use --lts
+    nvm use --lts
 ```
 or
 ``` bash
-    npm use node
+    nvm use node
 ```
 ## Test it out
 
@@ -103,6 +103,14 @@ To test out your installation you are going to create a file called `app.js` and
 
 ### Inspiration and Credits
 
-[Node Getting Started](https://nodejs.org/en/docs/guides/getting-started-guide/)
+[Node Getting Started](https://nodejs.org/en/learn/getting-started/introduction-to-nodejs)
 
 [Node Version Manager](https://github.com/nvm-sh/nvm)
+## Changelog
+
+> **2026-10-26**
+>
+> * Corrected `npm use` to `nvm use`. The `use` command belongs to nvm, not npm.
+> * Updated the nvm install script from v0.35.3 to v0.40.8.
+> * Updated the Node.js Getting Started link, which now returns a 404.
+> * Replaced the placeholder description.

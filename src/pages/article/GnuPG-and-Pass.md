@@ -22,11 +22,11 @@ According to the [official website](https://www.gnupg.org/ "GnuGP"):
 
 GnuPG is a complete and free implementation of the OpenPGP standard as defined by RFC4880 (also known as PGP). GnuPG allows you to encrypt and sign your data and communications; it features a versatile key management system, along with access modules for all kinds of public key directories. GnuPG, also known as GPG, is a command line tool with features for easy integration with other applications. A wealth of frontend applications and libraries are available. GnuPG also provides support for S/MIME and Secure Shell (ssh).
 
-[Install](https://wiki.archlinux.org/index.php/Install "Install") the [gnugp](https://www.archlinux.org/packages/?name=gnupg "gnupg") package.
+[Install](https://wiki.archlinux.org/index.php/Install "Install") the [gnupg](https://www.archlinux.org/packages/?name=gnupg "gnupg") package.
 ```bash
-    $ sudo pacman -S gnugp
+    $ sudo pacman -S gnupg
 ```
-Configurations and the gnugp store will be saved at `~/.gnupg`.
+Configurations and the gnupg store will be saved at `~/.gnupg`.
 
 The configurations are stored in the following files: `~/.gnupg/gpg.conf` and `~/.gnupg/dirmngr.conf`.
 
@@ -36,7 +36,7 @@ The configurations are stored in the following files: `~/.gnupg/gpg.conf` and `~
 ```
 **Restore a key pair**
 
-In my case I have three devices and instead of each device having it's own key pair I share the key pair between all the devices. When a new devices is used or a device is reset I sync the keys to the device and restore the key pair.
+In my case I have three devices and instead of each device having its own key pair I share the key pair between all the devices. When a new devices is used or a device is reset I sync the keys to the device and restore the key pair.
 
 _Export private key_
 ```bash
@@ -50,7 +50,7 @@ __***Important!: This method is entirely done in full trust and there are better
 
 On the new machine you must trust the key:
 ```bash
-    $gpg --edit-key <gpg key>
+    $ gpg --edit-key <gpg key>
     gpg> trust
 ```
 Next step you are presented with the following:
@@ -69,8 +69,8 @@ Next step you are presented with the following:
 ```
 In my case this was my key so I chose 5 and was presented with the following screen:
 ```bash
-    Your decission? 5
-    Do you really want to set this key to ulimate trust? (y/N) y
+    Your decision? 5
+    Do you really want to set this key to ultimate trust? (y/N) y
 ```
 
 
@@ -123,3 +123,8 @@ This is a living document so it will change over time with added details. I will
 > * Updated restore a key section to include trusting the imported key.
 > * Set default `EDITOR` directions for `zsh` and `bash`.
 > * Added how to clone an existing git repo for pass usage.
+
+> **2026-10-26**
+>
+> * Corrected the Arch package name to `gnupg`.
+> * Corrected the gpg prompt text and fixed typos.

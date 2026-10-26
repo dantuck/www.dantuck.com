@@ -11,6 +11,8 @@ As all Pixel owners should know by now there is a end of support scheduled for e
 
 The greatest problem with Verizon is that they prevent you from toggling the "OEM unlocking" which would allow you to wipe the device then sideload a new OS. To get around this follow these steps and you will be golden.
 
+Unlocking the bootloader wipes the device, so back up anything you want to keep first. Also check the LineageOS page for your device before you start. I wrote this when the Pixel and Pixel XL were supported, and official builds for older devices end at some point.
+
 Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](https://www.droid-life.com/2018/05/28/verizon-pixel-xl-bootloader-unlock/).
 
  1. Remove Google account and any kind of screen lock from your device.
@@ -22,5 +24,12 @@ Thank you to [@iamhellex](https://twitter.com/iamkellex "Kellen"), [source](http
  7. Restart your device.
  8. Connect to WiFi, open a web browser, and go to any website.
  9. Go to "Developer Options" and enable OEM unlocking.
-1.  Reboot into bootloader via: <br /><br />`fastboot oem unlock`<br />or<br />`fastboot flashing unlock`<br /><br />
+1.  Reboot into the bootloader with `adb reboot bootloader`, then unlock it with: <br /><br />`fastboot oem unlock`<br />or<br />`fastboot flashing unlock`<br /><br />Confirm the prompt on the phone. This wipes the device.
 2.  Congrats, you are unlocked and can continue installing another OS.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Corrected the unlock step. The `fastboot` commands do not reboot the phone, so it must be in the bootloader first (`adb reboot bootloader`).
+> * Added a warning that unlocking wipes the device and that LineageOS support for older Pixels may have ended.

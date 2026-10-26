@@ -9,10 +9,10 @@ tags:
 - backup
 - articles
 description: |
-    Many of us use services such as Github, Gitlab and Bitbucket as our Git source code remotes. It has crossed my mind more than once that there could be a day when any one of those services goes down. We as individuals and companies would loose valuable code if that happened. So just like we do with other files and important assets we backup.
+    Many of us use services such as Github, Gitlab and Bitbucket as our Git source code remotes. It has crossed my mind more than once that there could be a day when any one of those services goes down. We as individuals and companies would lose valuable code if that happened. So just like we do with other files and important assets we backup.
 ---
 
-Many of us use services such as Github, Gitlab and Bitbucket as our Git source code remotes. It has crossed my mind more than once that there could be a day when any one of those services goes down. We as individuals and companies would loose valuable code if that happened. So just like we do with other files and important assets we backup.
+Many of us use services such as Github, Gitlab and Bitbucket as our Git source code remotes. It has crossed my mind more than once that there could be a day when any one of those services goes down. We as individuals and companies would lose valuable code if that happened. So just like we do with other files and important assets we backup.
 
 Out of the box Git does not have an obvious backup mechanism but there is. I have successfully used the Git `--mirror` flag to clone a Git repository to a local backup.
 
@@ -27,3 +27,9 @@ Since our local bare mirror is not being consistently updated by our normal work
 ``` bash
     git remote update
 ```
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Fixed a typo.
