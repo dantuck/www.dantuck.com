@@ -3,50 +3,66 @@
   import ThemeToggle from './ThemeToggle.svelte';
   import ReadingFontToggle from './ReadingFontToggle.svelte';
 
+  // The footer persists across client-side navigation, so the bar has to re-check on every
+  // page load whether the current page is an article (BlogPost marks its <main> with
+  // data-reading-progress).
   onMount(() => {
-    handleObserver();
-  });
+    const progress = document.getElementById("reading-progress");
+    let enabled = false;
+    let timeOfLastScroll = 0;
+    let requestedAniFrame = false;
+    let winHeight = 1000;
+    let bottom = 10000;
 
-  const handleObserver = () => {
-    if (document.querySelector("header nav #nav")) {
-      var progress = document.getElementById("reading-progress");
-      var timeOfLastScroll = 0;
-      var requestedAniFrame = false;
-
-      function scroll() {
-        if (!requestedAniFrame) {
-          requestAnimationFrame(updateProgress);
-          requestedAniFrame = true;
-        }
-        timeOfLastScroll = Date.now();
+    function scroll() {
+      if (!enabled) return;
+      if (!requestedAniFrame) {
+        requestAnimationFrame(updateProgress);
+        requestedAniFrame = true;
       }
-      addEventListener("scroll", scroll);
-
-      var winHeight = 1000;
-      var bottom = 10000;
-
-      function updateProgress() {
-        requestedAniFrame = false;
-        var percent = Math.min(
-          (document.scrollingElement.scrollTop / (bottom - winHeight)) * 100,
-          100
-        );
-        progress.style.transform = `translate(-${100 - percent}vw, 0)`;
-        if (Date.now() - timeOfLastScroll < 3000) {
-          requestAnimationFrame(updateProgress);
-          requestedAniFrame = true;
-        }
-      }
-
-      new ResizeObserver(() => {
-        bottom =
-          document.scrollingElement.scrollTop +
-          document.querySelector("footer").getBoundingClientRect().top;
-        winHeight = window.innerHeight;
-        scroll();
-      }).observe(document.body);
+      timeOfLastScroll = Date.now();
     }
-  };
+
+    function updateProgress() {
+      requestedAniFrame = false;
+      if (!enabled) return;
+      const percent = Math.min(
+        (document.scrollingElement.scrollTop / (bottom - winHeight)) * 100,
+        100
+      );
+      progress.style.transform = `translate(-${100 - percent}vw, 0)`;
+      if (Date.now() - timeOfLastScroll < 3000) {
+        requestAnimationFrame(updateProgress);
+        requestedAniFrame = true;
+      }
+    }
+
+    const observer = new ResizeObserver(() => {
+      bottom =
+        document.scrollingElement.scrollTop +
+        document.querySelector("footer").getBoundingClientRect().top;
+      winHeight = window.innerHeight;
+      scroll();
+    });
+
+    function sync() {
+      enabled = !!document.querySelector("[data-reading-progress]");
+      progress.hidden = !enabled;
+      progress.style.transform = "";
+      observer.disconnect();
+      if (enabled) observer.observe(document.body);
+    }
+
+    addEventListener("scroll", scroll);
+    document.addEventListener("astro:page-load", sync);
+    sync();
+
+    return () => {
+      removeEventListener("scroll", scroll);
+      document.removeEventListener("astro:page-load", sync);
+      observer.disconnect();
+    };
+  });
 </script>
 
 <footer class="max-content hairline py-10 mt-8 text-center text-[85%] text-site-text-muted">
