@@ -19,7 +19,7 @@ This article gives each client its own access key and a policy that limits it to
 
 ## Root is for bootstrapping
 
-The RustFS <a href="https://docs.rustfs.com/en/security-compliance/iam" target="_blank" rel="noopener noreferrer">IAM documentation</a> treats the root credentials as the account that creates everything else. Policies do not restrict root. Use it to sign in to the console and create users. Do not hand it to an application.
+The RustFS <a href="https://docs.rustfs.com/en/security-compliance/iam" target="_blank" rel="noopener noreferrer">IAM documentation</a> says to use root credentials only to bootstrap the deployment, then create IAM users and service accounts for day-to-day work. Root bypasses IAM identity policies, although a bucket policy can still deny its S3 requests. Use it to sign in to the console and create users. Do not hand it to an application.
 
 <a href="/article/homelab/tailscale-synology-acls">Part 3</a> controls which devices can reach RustFS. This part controls what each of them can do once they arrive. The two layers work together.
 
