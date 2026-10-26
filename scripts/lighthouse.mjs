@@ -3,6 +3,7 @@
 // Serves ./dist with a minimal static server, audits key pages, prints a score table,
 // writes HTML reports to ./.lighthouse, and exits 1 if any category is below --min.
 import lighthouse from 'lighthouse';
+import desktopConfig from 'lighthouse/core/config/desktop-config.js';
 import * as chromeLauncher from 'chrome-launcher';
 import { createServer } from 'http';
 import { mkdir, readdir, readFile, stat, writeFile } from 'fs/promises';
@@ -78,9 +79,8 @@ try {
   await mkdir(outputDir, { recursive: true });
   chrome.current = await chromeLauncher.launch({ chromeFlags: ['--headless=new', '--no-sandbox'] });
 
-  const config = desktop
-    ? { extends: 'lighthouse:default', settings: { formFactor: 'desktop', screenEmulation: { disabled: true }, throttlingMethod: 'simulate' } }
-    : undefined;
+  // Lighthouse's own desktop preset: desktop form factor *and* desktop throttling (not mobile 4G + 4x CPU).
+  const config = desktop ? desktopConfig : undefined;
 
   const rows = [];
   let failed = false;
