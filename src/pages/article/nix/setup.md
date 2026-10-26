@@ -75,8 +75,7 @@ $ which cowsay
 ### Install Home Manager
 
 ``` bash
-$ nix-channel --add https://github.com/nix-community/home-manager/archive/master.ta
-r.gz home-manager
+$ nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 $ nix-channel --update
 this derivation will be built:
   /nix/store/kw8al1c1mbqmyk0n32zpcin4552zzrry-home-manager.drv
@@ -217,3 +216,9 @@ Remove the `pkgs.ripgrep` from `home.packages` then rebuild with `home-manager s
 #### The wrap-up
 
 In this article, I shared the basic setup of Nix and Home Manager. The main reason behind this article was my desire to simplify the management process and consolidate multiple package managers like Homebrew into a single repository. In this article, I focused on the initial setup, with the intention of exploring more advanced features and customization options in future updates. I invite you to join me on this journey as I strive for streamlined dotfile management with Nix and Home Manager.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Fixed the Home Manager channel URL, which was split across two lines inside the code block.

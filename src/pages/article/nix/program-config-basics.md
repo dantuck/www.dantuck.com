@@ -19,7 +19,7 @@ In this article, we dive into the process of adding the [bat](https://github.com
 
 ## Configuring program specific configurations
 
-For programs where specific configuration is needed, the nix configuration will look at little different. In order to demonstrate, lets start with [bat](https://github.com/sharkdp/bat). We are going to use the [nix package](https://search.nixos.org/packages?channel=22.11&show=bat&from=0&size=50&sort=relevance&type=packages&query=bat) and the following configuration flags:
+For programs where specific configuration is needed, the nix configuration will look at little different. In order to demonstrate, let us start with [bat](https://github.com/sharkdp/bat). We are going to use the [nix package](https://search.nixos.org/packages?channel=22.11&show=bat&from=0&size=50&sort=relevance&type=packages&query=bat) and the following configuration flags:
 
 ``` bash
 --italic-text='always'
@@ -29,13 +29,13 @@ For programs where specific configuration is needed, the nix configuration will 
 Assuming `bat` is not installed you should get a similar output to this when running the following command:
 
 ``` bash
-$ cat ~/.config/bat/config
+$ bat ~/.config/bat/config
 [bat error]: '/home/daniel/.config/bat/config': No such file or directory (os error 2)
 ```
 
 After we run through the next steps of configuring, we will get a far different result.
 
-Lets start by updating our `home.nix` file with the following:
+Let us start by updating our `home.nix` file with the following:
 
 ``` bash
 $ vim ~/.config/home-manager/home.nix
@@ -66,6 +66,15 @@ This example using `bat` is definitely simple but demonstrates the ground work n
 ### The wrap-up
 
 > VSCode Nix language support<br />
-> Install via VSCode [Marketplace](https://marketplace.visualstudio.com/items?itemName=bbenoist.Nix)
+> Install via VSCode [Marketplace](https://marketplace.visualstudio.com/items?itemName=bbenoist.Nix)<br />
+> The `bbenoist.Nix` extension is no longer actively maintained. Search the Marketplace for a current Nix extension, such as `jnoortheen.nix-ide`.
 
 In conclusion, we have added the `bat` program and configurations via Nix and Home Manager. We have also avoided using OS specific package managers and conditional configurations for each OS. Additionally, linked above, you have the VSCode Nix language support plugin that will help in your management of your Nix based dotfiles. Start elevating your dotfile experience today and unleash your full potential as a terminal power user.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Changed the first check to run `bat` on the config path. The `[bat error]` text comes from `bat`, not from `cat`.
+> * Noted that the `bbenoist.Nix` extension is no longer maintained.
+> * Fixed typos.

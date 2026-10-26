@@ -20,7 +20,9 @@ Git is one of the first things I reach for when setting up a new machine, which 
 
 ## programs.git
 
-Home Manager has first-class support for git via `programs.git`. At minimum we need a name and email:
+Home Manager has first-class support for git via `programs.git`. At minimum we need a name and email.
+
+Current Home Manager releases put these under `settings`, which maps directly to git config sections. Older releases used `userName`, `userEmail`, `aliases` and `extraConfig`, and recent versions have removed those options. If `home-manager switch` complains that one of them does not exist, move it under `settings` as shown here. On an older release, use the old option names.
 
 ```bash
 $ vim ~/.config/home-manager/home.nix
@@ -29,8 +31,10 @@ $ vim ~/.config/home-manager/home.nix
 {
   programs.git = {
     enable = true;
-    userName = "Your Name";
-    userEmail = "you@example.com";
+    settings.user = {
+      name = "Your Name";
+      email = "you@example.com";
+    };
   };
 }
 ```
@@ -58,8 +62,10 @@ Rather than adding OS and editor noise to every repo's `.gitignore`, we can decl
 ```bash
 programs.git = {
   enable = true;
-  userName = "Daniel Tucker";
-  userEmail = "you@example.com";
+  settings.user = {
+    name = "Daniel Tucker";
+    email = "you@example.com";
+  };
 
   ignores = [
     ".DS_Store"
@@ -70,17 +76,19 @@ programs.git = {
 };
 ```
 
-Home Manager writes this to `~/.config/git/ignore` and sets `core.excludesFile` automatically. No manual `git config --global core.excludesFile` required.
+Home Manager writes this to `~/.config/git/ignore`. It does not set `core.excludesFile`. It does not need to, because git reads `$XDG_CONFIG_HOME/git/ignore` by default. No manual `git config --global core.excludesFile` required.
 
 ## Aliases
 
-Aliases go directly in the `git` block:
+Aliases live under `settings.alias`:
 
 ```bash
 programs.git = {
   enable = true;
-  userName = "Daniel Tucker";
-  userEmail = "you@example.com";
+  settings.user = {
+    name = "Daniel Tucker";
+    email = "you@example.com";
+  };
 
   ignores = [
     ".DS_Store"
@@ -89,7 +97,7 @@ programs.git = {
     ".envrc"
   ];
 
-  aliases = {
+  settings.alias = {
     st = "status";
     co = "checkout";
     lg = "log --oneline --graph --decorate --all";
@@ -106,14 +114,11 @@ $ git lg
 
 ## Extra configuration
 
-For anything not directly exposed by the `programs.git` options, `extraConfig` accepts arbitrary git config as an attribute set:
+Everything else in git config goes in the same `settings` attribute set. Each top-level name is a git config section:
 
 ```bash
 programs.git = {
   enable = true;
-  userName = "Daniel Tucker";
-  userEmail = "you@example.com";
-
   ignores = [
     ".DS_Store"
     "*.swp"
@@ -121,14 +126,19 @@ programs.git = {
     ".envrc"
   ];
 
-  aliases = {
-    st = "status";
-    co = "checkout";
-    lg = "log --oneline --graph --decorate --all";
-    undo = "reset HEAD~1 --mixed";
-  };
+  settings = {
+    user = {
+      name = "Daniel Tucker";
+      email = "you@example.com";
+    };
 
-  extraConfig = {
+    alias = {
+      st = "status";
+      co = "checkout";
+      lg = "log --oneline --graph --decorate --all";
+      undo = "reset HEAD~1 --mixed";
+    };
+
     init.defaultBranch = "main";
     pull.rebase = true;
     rebase.autoStash = true;
@@ -158,15 +168,18 @@ If you sign commits, Home Manager can wire up the signing key too. First make su
 
   programs.git = {
     enable = true;
-    userName = "Your Name";
-    userEmail = "you@example.com";
 
     signing = {
       key = "YOUR_GPG_KEY_ID";
       signByDefault = true;
     };
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Your Name";
+        email = "you@example.com";
+      };
+
       init.defaultBranch = "main";
       pull.rebase = true;
       rebase.autoStash = true;
@@ -184,3 +197,9 @@ In conclusion, we have moved our entire git configuration into `home.nix`. Name,
 
 From here the pattern extends to any other program with a Home Manager module: declare it, switch, verify.
 
+## Changelog
+
+> **2026-10-26**
+>
+> * Updated every example to `programs.git.settings`. Current Home Manager has removed `userName`, `userEmail`, `aliases` and `extraConfig`.
+> * Corrected the global ignore section. Home Manager writes `~/.config/git/ignore` but does not set `core.excludesFile`. Git reads that path by default.
