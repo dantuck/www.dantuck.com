@@ -1,7 +1,6 @@
 ---
 layout: '../../../layouts/BlogPost.astro'
-publishDate: 24 Mar 2026
-draft: true
+publishDate: 25 Oct 2026
 title: "Claude Code, Part 3: Skills and Subagents Working Together"
 author: dantuck
 series: claude-code-series
@@ -56,7 +55,7 @@ This is the practical payoff of understanding the model: a single `/audit` comma
 
 ## Getting started
 
-If you have read all three parts, you have the full picture. The practical path forward:
+If you have read the first three parts, you have the full picture. (<a href="/article/claude-code-series/hooks" target="_blank" rel="noopener noreferrer">Part 4</a> adds hooks, the deterministic layer on top.) The practical path forward:
 
 1. **Write one skill** — something you do repeatedly. A commit workflow, a review checklist, a deploy sequence. Put it in `~/.claude/skills/<name>/SKILL.md`. Run it with `/name`.
 
