@@ -74,7 +74,7 @@ ACL policies are JSON (with comments). Edit them in the admin panel under **Acce
 }
 ```
 
-`"*:*"` means any machine, any port. This is the open default.
+`"*:*"` means any machine, any port. This is the open default. Tailscale also offers a newer syntax called grants. The `acls` syntax in this article still works, and the <a href="https://tailscale.com/kb/1018/acls" target="_blank" rel="noopener noreferrer">access control documentation</a> covers both.
 
 ### Locking down RustFS with tags
 
@@ -124,10 +124,10 @@ Tag your laptops, desktops, and phones as `tag:client`.
 Once tagged, the ACL rules apply automatically. Test from a tagged client device:
 
 ```bash
-curl https://rustfs.<tailnet-name>.ts.net:9000
+curl http://rustfs.<tailnet-name>.ts.net:9000
 ```
 
-Then test from an untagged device — the connection should be refused.
+Then test from an untagged device. The connection should fail.
 
 ### SSH access to the NAS
 
@@ -166,3 +166,11 @@ tailscale ping rustfs
 ---
 
 With Tailscale installed on DSM, MagicDNS resolving your homelab services by name, and ACL policies controlling access by role, the network layer for your self-hosted infrastructure is in place. The <a href="/article/homelab/rustfs-rclone-remote">previous article</a> covered pointing rclone and vivo·keep at RustFS — that setup now sits behind a policy that limits which devices can actually reach the S3 endpoint.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Changed the test command to `http`, matching the plain HTTP S3 endpoint from part 1.
+> * Changed the untagged device test to say the connection should fail, since a blocked connection is not necessarily refused.
+> * Mentioned grants, the newer Tailscale access syntax.

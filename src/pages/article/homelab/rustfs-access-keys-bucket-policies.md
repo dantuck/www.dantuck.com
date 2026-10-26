@@ -84,7 +84,7 @@ type = s3
 provider = Other
 access_key_id = the-new-key
 secret_access_key = the-new-secret
-endpoint = https://rustfs.<tailnet-name>.ts.net
+endpoint = http://rustfs.<tailnet-name>.ts.net:9000
 ```
 
 Then try one thing that should work and one that should not:

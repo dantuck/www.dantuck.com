@@ -38,7 +38,7 @@ type = s3
 provider = Other
 access_key_id = your-access-key
 secret_access_key = your-secret-key
-endpoint = https://rustfs.<tailnet-name>.ts.net:9000
+endpoint = http://rustfs.<tailnet-name>.ts.net:9000
 ```
 
 Replace `your-access-key` and `your-secret-key` with the values from your RustFS `.env` file. Replace `<tailnet-name>` with your actual tailnet name.
@@ -58,7 +58,7 @@ env_auth> false
 access_key_id> your-access-key
 secret_access_key> your-secret-key
 region> (leave blank)
-endpoint> https://rustfs.<tailnet-name>.ts.net:9000
+endpoint> http://rustfs.<tailnet-name>.ts.net:9000
 location_constraint> (leave blank)
 acl> private
 ```
@@ -73,11 +73,11 @@ List your buckets:
 rclone lsd rustfs:
 ```
 
-You should see the bucket you created in the console. If you see an error about SSL or connection refused, confirm that:
+You should see the bucket you created in the console. If you see a connection error, confirm that:
 
 - Your device is connected to Tailscale
 - The `rustfs` machine appears in your tailnet admin panel as connected
-- The endpoint URL and port (9000) are correct
+- The endpoint URL and port (9000) are correct, and the scheme is `http`. The serve config in part 1 only terminates TLS on port 443 for the console
 
 List the contents of the bucket:
 
@@ -100,7 +100,7 @@ This is the same syntax as syncing to B2 — only the remote name and bucket pat
 The remote URL format for restic S3:
 
 ```
-s3:https://rustfs.<tailnet-name>.ts.net:9000/bucket-name
+s3:http://rustfs.<tailnet-name>.ts.net:9000/bucket-name
 ```
 
 ### Update the vivo config
@@ -127,7 +127,7 @@ tasks {
                 yearly  2
             }
 
-            remote "rustfs:https://rustfs.<tailnet-name>.ts.net:9000/backups/restic/main" {
+            remote "rustfs:http://rustfs.<tailnet-name>.ts.net:9000/backups/restic/main" {
                 credentials "rustfs"
             }
         }
@@ -186,3 +186,10 @@ Vivo will snapshot your directories, verify the local repository, apply retentio
 You can run both a B2 remote and a RustFS remote in the same vivo task — just add both `remote` blocks. Vivo syncs to all configured remotes in sequence. Local hardware for fast recovery, B2 for offsite redundancy.
 
 The next article in this series covers <a href="/article/homelab/tailscale-synology-acls">Tailscale ACLs for homelab services</a> — controlling which tailnet devices can reach RustFS and defining access policies by tag.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Changed the S3 endpoint from `https` to `http`. The serve config in part 1 only provides HTTPS on port 443, which proxies the console, so port 9000 is plain HTTP inside the tailnet.
+> * Replaced the SSL troubleshooting hint to match.

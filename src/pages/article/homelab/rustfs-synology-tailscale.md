@@ -190,6 +190,8 @@ A few things worth understanding:
 
 **`user: root`** — overrides the image default of UID 10001 so RustFS can write to the `s3data` directory created by root on the NAS. If you ran `chown -R 10001:10001 s3data` as described above, remove this line and the container will run as the intended non-root user.
 
+**`image: ...:latest`** — both images use `latest` to keep the example short. RustFS is still publishing beta tags, so `latest` can change underneath you on a restart. Replace it with an explicit tag once the stack works. A later part of this series covers upgrading with pinned tags.
+
 **`TS_AUTHKEY=${TS_AUTHKEY}`** — references the `.env` variable. The original example hardcodes the key inline; using a variable keeps the key out of the compose file itself.
 
 ## Create the project in Container Manager
@@ -243,3 +245,9 @@ http://<nas-ip>:9541
 ```
 
 The next article in this series covers <a href="/article/homelab/rustfs-rclone-remote">pointing rclone and vivo·keep at this RustFS endpoint</a> as a local S3 remote — a self-hosted alternative to Backblaze B2.
+
+## Changelog
+
+> **2026-10-26**
+>
+> * Added a note that `latest` image tags can change on a restart and should be pinned once the stack works.
