@@ -1,6 +1,6 @@
 ---
 layout: '../../layouts/BlogPost.astro'
-publishDate: 28 Oct 2026
+publishDate: 28 Oct 2026 14:00 UTC
 title: "Anchor vs Button: When to Use Each"
 author: dantuck
 description: |
